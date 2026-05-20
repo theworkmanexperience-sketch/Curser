@@ -1,0 +1,190 @@
+{
+  "_manifest_version": "4.1",
+  "_description": "Appendix B ground-truth manifest — example for Novice tier (§17 Tests 1-3)",
+  "_authority": "The Workman Experience, LLC",
+  "_manifest_sha256": "PLACEHOLDER_REPLACE_WITH_ACTUAL_SHA256_OF_THIS_FILE",
+  "_notes": [
+    "This file is the single source of truth for Tests 1-3 (§17).",
+    "Vendor output is automatically diffed against this manifest.",
+    "Test 1 (Classification): 100% match required.",
+    "Test 2 (Variants):        100% match required.",
+    "Test 3 (Multicam):        ≥95% grouping accuracy required.",
+    "Disputes must be filed within 5 business days of dataset receipt.",
+    "Dispute process: cite specific file paths + expected vs actual + supporting metadata."
+  ],
+
+  "dataset": {
+    "tier": "Novice",
+    "approximate_size_gb": 100,
+    "approximate_file_count": 2500,
+    "shooting_days": ["2024-06-15", "2024-06-16"]
+  },
+
+  "classification_ground_truth": [
+    {
+      "filename": "DJI_0001.MP4",
+      "expected_classification": "camera",
+      "expected_camera_source": "DJI"
+    },
+    {
+      "filename": "DJI_0002.MP4",
+      "expected_classification": "camera",
+      "expected_camera_source": "DJI"
+    },
+    {
+      "filename": "IMG_4321.MOV",
+      "expected_classification": "camera",
+      "expected_camera_source": "iPhone"
+    },
+    {
+      "filename": "IMG_4322.MOV",
+      "expected_classification": "camera",
+      "expected_camera_source": "iPhone"
+    },
+    {
+      "filename": "ISD_0001.insv",
+      "expected_classification": "camera",
+      "expected_camera_source": "Insta360"
+    },
+    {
+      "filename": "ZOOM0001.WAV",
+      "expected_classification": "camera_audio",
+      "expected_camera_source": "FieldRecorder"
+    },
+    {
+      "filename": "ZOOM0002.WAV",
+      "expected_classification": "camera_audio",
+      "expected_camera_source": "FieldRecorder"
+    },
+    {
+      "filename": "KITCHEN 251.jpg",
+      "expected_classification": "generic",
+      "expected_camera_source": null
+    },
+    {
+      "filename": "thumbnail_export.png",
+      "expected_classification": "generic",
+      "expected_camera_source": null
+    },
+    {
+      "filename": "interview_transcript.srt",
+      "expected_classification": "reference",
+      "expected_camera_source": null
+    },
+    {
+      "filename": "shot_list.pdf",
+      "expected_classification": "reference",
+      "expected_camera_source": null
+    },
+    {
+      "filename": "corrupt_clip.MP4",
+      "expected_classification": "camera",
+      "expected_camera_source": "Unknown_Camera",
+      "_note": "Corrupt file — must be ingested and logged; classification is best-effort"
+    }
+  ],
+
+  "variant_ground_truth": [
+    {
+      "parent_filename": "interview_wide.mp4",
+      "children": [
+        "interview_wide_v2.mp4",
+        "interview_wide_final.mp4"
+      ],
+      "detection_methods_expected": ["suffix"],
+      "parent_selection_method": "largest_file"
+    },
+    {
+      "parent_filename": "DJI_0010.MP4",
+      "children": [
+        "DJI_0010 (1).MP4",
+        "DJI_0010 (2).MP4"
+      ],
+      "detection_methods_expected": ["indexed"],
+      "parent_selection_method": "largest_file"
+    },
+    {
+      "parent_filename": "b_roll_exterior.mp4",
+      "children": [
+        "b_roll_exterior copy.mp4"
+      ],
+      "detection_methods_expected": ["duplicate_keyword"],
+      "parent_selection_method": "largest_file"
+    }
+  ],
+
+  "orphan_variants": [
+    {
+      "filename": "old_edit_final.mp4",
+      "expected_behavior": "standalone",
+      "expected_classification_note": "variant_pattern_no_base_found",
+      "_note": "§3.x Option B: no matching base stem — reclassify as standalone"
+    }
+  ],
+
+  "multicam_group_ground_truth": [
+    {
+      "expected_group_id_pattern": "MCG_*",
+      "expected_files": [
+        "DJI_0001.MP4",
+        "IMG_4321.MOV",
+        "ZOOM0001.WAV"
+      ],
+      "expected_camera_sources": ["DJI", "iPhone", "FieldRecorder"],
+      "anchor_timestamp_approx_unix": 1718460000,
+      "window_seconds": 5,
+      "_note": "ZOOM0001.WAV eligible for multicam association per §6 audio rule"
+    },
+    {
+      "expected_group_id_pattern": "MCG_*",
+      "expected_files": [
+        "DJI_0002.MP4",
+        "IMG_4322.MOV",
+        "ISD_0001.insv"
+      ],
+      "expected_camera_sources": ["DJI", "iPhone", "Insta360"],
+      "anchor_timestamp_approx_unix": 1718460600,
+      "window_seconds": 5
+    }
+  ],
+
+  "ungrouped_camera_files_expected": [
+    {
+      "filename": "DJI_0050.MP4",
+      "reason": "No other camera source within ±5s window"
+    }
+  ],
+
+  "edge_cases_expected": [
+    {
+      "filename": "corrupt_clip.MP4",
+      "expected_behavior": "logged_and_skipped",
+      "expected_log_event": "error",
+      "pipeline_must_continue": true
+    },
+    {
+      "filename": "no_metadata_clip.mp4",
+      "expected_behavior": "classified_with_fallback",
+      "expected_timestamp_fallback_level": 2,
+      "expected_timestamp_confidence": "low"
+    }
+  ],
+
+  "scoring": {
+    "test_1_classification": {
+      "method": "exact_match_per_file",
+      "pass_threshold": "100%",
+      "fields_compared": ["expected_classification", "expected_camera_source"]
+    },
+    "test_2_variants": {
+      "method": "exact_match_parent_children_links",
+      "pass_threshold": "100%",
+      "fields_compared": ["parent_filename", "children"]
+    },
+    "test_3_multicam_grouping": {
+      "method": "file_membership_accuracy",
+      "pass_threshold": "95%",
+      "metric": "percentage_of_eligible_camera_files_in_correct_group"
+    }
+  }
+}

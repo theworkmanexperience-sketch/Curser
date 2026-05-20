@@ -1,0 +1,122 @@
+# W.E. FLOW / W.E. FORGE — Pipeline Configuration v4.1 ENHANCED
+# Appendix C: Authoritative sample config
+# All locked defaults below. Override per-project as needed.
+
+pipeline:
+  run_id_prefix: "WEF"
+  file_operation: "copy"           # copy | move | symlink
+  enable_duplicate_content_detection: false  # SHA-256 comparison; default false
+
+grouping:
+  window_seconds: 5                # ±5s (§7 LOCKED default)
+  min_cameras: 2
+  camera_offsets:                  # Per-camera UTC offset correction (seconds)
+    DJI: 0
+    Insta360: 0
+    iPhone: 0
+    GoPro: 0
+    Unknown_Camera: 0
+
+variant_detection:
+  indexed_pattern: '[\(\[](\d+)[\)\]]'
+  suffix_patterns:
+    - '_v\d+'
+    - '_edit'
+    - '_final'
+    - '_export'
+    - '_rev\d*'
+  duplicate_keywords:
+    - 'copy'
+    - 'final'
+    - 'backup'
+    - 'duplicate'
+  parent_selection: "largest_file" # largest_file | lowest_index | earliest_timestamp
+
+audio_classification:
+  # Audio files matching these patterns → Camera-Audio (eligible for multicam association)
+  # Primarily detection method for dedicated field recorders (§6 LOCKED)
+  field_recorder_patterns:
+    - '^ZOOM\d*'                   # Zoom H4n, H5, H6, H8
+    - '^ZH\d'
+    - '^SD_\d+'                    # Sound Devices MixPre series
+    - '^F\d+_\d+'                  # Sound Devices field naming
+    - '^TASCAM_'
+    - '^DR\d+_'                    # Tascam DR series
+  default_classification: "generic"  # generic | reference
+
+classification:
+  camera_sources:
+    DJI:
+      patterns: ['^DJI_', '^DJI\d', 'DJI_\d{4}']
+      extensions: ['.mp4', '.mov', '.jpg', '.jpeg', '.dng']
+    Insta360:
+      patterns: ['^ISD_', '^VID_', '_00_\d+\.insv', '^PRO_VID']
+      extensions: ['.insv', '.insp', '.mp4', '.jpg']
+    iPhone:
+      patterns: ['^IMG_\d{4}', '^MOV_\d{4}', '^RPReplay', '^AAL']
+      extensions: ['.mov', '.mp4', '.heic', '.jpg', '.jpeg']
+    GoPro:
+      patterns: ['^GOPR\d+', '^GP\d{6}', '^GH\d{6}', '^GX\d{6}', '^GL\d{6}']
+      extensions: ['.mp4', '.lrv', '.thm', '.jpg']
+    Sony:
+      patterns: ['^C\d{3}S\d{4}', '^CLIP\d+', '^M2U\d+']
+      extensions: ['.mxf', '.mp4', '.mov']
+    Canon:
+      patterns: ['^MVI_\d+', '^_MG_\d+']
+      extensions: ['.mov', '.mp4', '.cr3', '.cr2']
+    Blackmagic:
+      patterns: ['^Blackmagic_', '^BMPCC']
+      extensions: ['.braw', '.mp4', '.mov', '.dng']
+    Generic_Camera:
+      patterns: ['^\d{8}_\d{6}', '^\d{4}-\d{2}-\d{2}']
+      extensions: ['.mp4', '.mov', '.mxf', '.avi', '.mkv']
+
+  reference_extensions:
+    - '.pdf'
+    - '.docx'
+    - '.xlsx'
+    - '.pptx'
+    - '.txt'
+    - '.xml'
+    - '.csv'
+    - '.srt'
+    - '.vtt'
+    - '.aaf'
+    - '.edl'
+    - '.fcpxml'
+
+  generic_video_extensions:
+    - '.mp4'
+    - '.mov'
+    - '.avi'
+    - '.mkv'
+    - '.wmv'
+    - '.flv'
+    - '.webm'
+
+  generic_image_extensions:
+    - '.png'
+    - '.tiff'
+    - '.tif'
+    - '.bmp'
+    - '.gif'
+    - '.psd'
+    - '.ai'
+    - '.eps'
+
+proxies:
+  generate_proxies: false          # Phase 1 only. Never true in Phase 0.
+  # Phase 1 spec (for planning): H.264, 720p, 1-2 Mbps, {basename}_proxy.mp4
+
+performance:
+  max_workers: 8                   # Parallel workers for ingest + classification
+  hash_chunk_size_mb: 64           # Streaming SHA-256 chunk size (handles 50GB+ files)
+
+logging:
+  log_level: "INFO"
+  log_format: "json"
+  retain_logs_days: 90
+
+output:
+  date_format: "%Y-%m-%d"
+  group_id_prefix: "MCG"
