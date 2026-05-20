@@ -1,3 +1,4 @@
+from __future__ import annotations
 """
 W.E. FLOW / W.E. FORGE — Timestamp Extraction Engine
 §5 Detection Priority (LOCKED)
