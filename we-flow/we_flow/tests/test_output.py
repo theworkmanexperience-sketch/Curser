@@ -213,8 +213,8 @@ def test_every_file_traceable_in_classification_log(tmp_path):
     run_id = summary["run_id"]
     ingest_log  = json.loads((out / "LOGS" / f"{run_id}_ingest.json").read_text())
     class_log   = json.loads((out / "LOGS" / f"{run_id}_classification.json").read_text())
-    ingested    = {Path(e["file"]).name for e in ingest_log["entries"]}
-    classified  = {Path(e["file"]).name for e in class_log["entries"]}
+    ingested    = {e["filename"] for e in ingest_log["entries"]}
+    classified  = {e["filename"] for e in class_log["entries"]}
     missing     = ingested - classified
     assert not missing, f"§12 files ingested but not in classification log: {missing}"
 

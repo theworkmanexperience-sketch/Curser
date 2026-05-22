@@ -9,6 +9,7 @@ W.E. FLOW / W.E. FORGE — Logging & Audit Engine
 5. error_log         — errors, skips, fallbacks
 """
 
+import hashlib
 import json
 import logging
 import traceback
@@ -67,7 +68,9 @@ class AuditLogger:
         entry = {
             'run_id': self.run_id, 'event': 'grouping',
             'logged_at': self._now(), 'group_id': group_id,
-            'file_count': len(files), 'files': [str(f) for f in files],
+            'file_count': len(files),
+            'filenames': [f.name for f in files],
+            'file_path_hashes': [self._path_hash(f) for f in files],
             'anchor_timestamp_unix': anchor_timestamp,
             'timestamp_deltas_seconds': timestamp_deltas,
             'conflict_resolved': conflict_resolved,
@@ -86,7 +89,10 @@ class AuditLogger:
         self._variants.append({
             'run_id': self.run_id, 'event': 'variant_link',
             'logged_at': self._now(),
-            'parent': str(parent_path), 'child': str(child_path),
+            'parent_filename': parent_path.name,
+            'parent_path_hash': self._path_hash(parent_path),
+            'child_filename': child_path.name,
+            'child_path_hash': self._path_hash(child_path),
             'detection_method': detection_method, 'match_pattern': match_pattern,
         })
 
@@ -96,7 +102,8 @@ class AuditLogger:
         entry = {
             'run_id': self.run_id, 'event': 'error',
             'logged_at': self._now(),
-            'file': str(file_path) if file_path else None,
+            'filename': file_path.name if file_path else None,
+            'file_path_hash': self._path_hash(file_path) if file_path else None,
             'error_type': error_type, 'message': message,
             'recoverable': recoverable,
             'traceback': traceback.format_exc() if exception else None,
@@ -129,6 +136,21 @@ class AuditLogger:
                 indent=2, default=str,
             ))
             written[name] = path
+
+        manifest = {
+            'run_id': self.run_id,
+            'generated_at': self._now(),
+            'log_hashes': {
+                name: {
+                    'filename': path.name,
+                    'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                }
+                for name, path in written.items()
+            },
+        }
+        manifest_path = self.log_dir / f'{self.run_id}_manifest.json'
+        manifest_path.write_text(json.dumps(manifest, indent=2))
+        written['manifest'] = manifest_path
         return written
 
     def summary(self) -> dict:
@@ -149,8 +171,16 @@ class AuditLogger:
         }
 
     def _base(self, file_path: Path) -> dict:
-        return {'run_id': self.run_id, 'logged_at': self._now(),
-                'file': str(file_path), 'filename': file_path.name}
+        return {
+            'run_id': self.run_id,
+            'logged_at': self._now(),
+            'filename': file_path.name,
+            'file_path_hash': self._path_hash(file_path),
+        }
+
+    @staticmethod
+    def _path_hash(path: Path) -> str:
+        return 'sha256:' + hashlib.sha256(str(path).encode()).hexdigest()
 
     @staticmethod
     def _now() -> str:

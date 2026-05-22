@@ -19,6 +19,8 @@ Stages (sequential, deterministic):
   - Idempotency: re-runs detect existing output files and skip (§17 Test 6)
 """
 
+import json
+import os
 import uuid
 import time
 import traceback
@@ -153,6 +155,62 @@ class Pipeline:
                 "\n\n  ✗ Pre-flight FAILED — please fix the following:\n"
                 + "\n".join(errors)
             )
+
+        # ── Operator Attestation ─────────────────────────────────────────
+        import sys
+        attestation_text = (
+            "\n  BEFORE YOU CONTINUE — please confirm all of the following:\n\n"
+            "  [ ] I am authorized to process the media files in the input folder\n"
+            "  [ ] These files comply with all applicable NDAs and client agreements\n"
+            "  [ ] I understand that W.E. FLOW will read every file in the input folder\n"
+            "  [ ] The output drive meets my organization's encryption requirements\n\n"
+            "  Type YES and press Enter to confirm, or Ctrl+C to cancel.\n"
+            "  > "
+        )
+        non_interactive = (
+            not sys.stdin.isatty()
+            or os.getenv('WEFLOW_NONINTERACTIVE') == '1'
+        )
+        attestation_hash: Optional[str] = None
+        preflight_event = 'preflight_noninteractive'
+
+        if not non_interactive:
+            print(attestation_text, end='', flush=True)
+            try:
+                response = input().strip()
+            except (EOFError, KeyboardInterrupt):
+                raise RuntimeError("\n  Run cancelled at attestation prompt.")
+            if response.upper() != 'YES':
+                raise RuntimeError(
+                    f"\n  Attestation not confirmed (received: '{response}'). "
+                    f"Type YES to proceed."
+                )
+            attestation_hash = 'sha256:' + hashlib.sha256(
+                attestation_text.encode()
+            ).hexdigest()
+            preflight_event = 'preflight_accepted'
+
+        # ── Write _preflight.json ────────────────────────────────────────
+        logs_dir = output_path / 'LOGS'
+        logs_dir.mkdir(parents=True, exist_ok=True)
+        preflight_record = {
+            'run_id': self.run_id,
+            'event': preflight_event,
+            'logged_at': datetime.now(timezone.utc).isoformat(),
+            'operator': os.getenv('USER', 'unknown'),
+            'input_path_hash': 'sha256:' + hashlib.sha256(
+                str(input_path).encode()
+            ).hexdigest(),
+            'output_drive': str(output_path),
+            'output_on_system_drive': on_system_drive,
+            'output_drive_free_gb': round(free_gb, 1),
+            'system_drive_free_gb': round(sys_free_gb, 1),
+            'eula_version_accepted': None,
+            'attestation_hash': attestation_hash,
+            'file_operation_mode': file_op,
+        }
+        preflight_path = logs_dir / f'{self.run_id}_preflight.json'
+        preflight_path.write_text(json.dumps(preflight_record, indent=2))
 
     def run(self, input_path: Path, output_path: Path) -> dict:
         self._preflight_check(input_path, output_path)
