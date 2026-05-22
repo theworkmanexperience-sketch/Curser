@@ -82,6 +82,8 @@ class TimestampExtractor:
                     continue
         return None
 
+    _ffprobe_missing_warned: bool = False
+
     def _from_ffprobe(self, file_path: Path) -> Optional[TimestampResult]:
         try:
             result = subprocess.run(
@@ -104,6 +106,13 @@ class TimestampExtractor:
                             confidence='high',
                             raw_value=raw,
                         )
+        except FileNotFoundError:
+            if not TimestampExtractor._ffprobe_missing_warned:
+                print(
+                    "\n  ⚠ ffprobe not found — multicam grouping disabled.\n"
+                    "    Install FFmpeg 6.0+ to enable: https://ffmpeg.org/download.html\n"
+                )
+                TimestampExtractor._ffprobe_missing_warned = True
         except Exception:
             pass
         return None

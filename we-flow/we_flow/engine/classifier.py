@@ -85,6 +85,10 @@ class FileClassifier:
         ]
         self._audio_default = audio_cfg.get('default_classification', 'generic')
 
+        self._generic_filename_prefixes: list[str] = cls_cfg.get(
+            'generic_filename_prefixes', []
+        )
+
         # Duplicate detection
         self._dedup_enabled: bool = config.get('pipeline', {}).get(
             'enable_duplicate_content_detection', False
@@ -94,6 +98,14 @@ class FileClassifier:
         ext = file_path.suffix.lower()
         filename = file_path.name
         size = self._safe_size(file_path)
+
+        # 0. Generic filename override — force generic regardless of extension
+        if any(filename.startswith(p) for p in self._generic_filename_prefixes):
+            return ClassifiedFile(
+                path=file_path, classification='generic',
+                camera_source=None, detection_method='generic_filename_prefix',
+                file_size=size,
+            )
 
         # 1. Camera video/image source detection
         camera_source, method = self._detect_camera(filename, ext)

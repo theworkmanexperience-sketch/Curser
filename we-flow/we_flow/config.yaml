@@ -74,6 +74,11 @@ classification:
       patterns: ['^\d{8}_\d{6}', '^\d{4}-\d{2}-\d{2}']
       extensions: ['.mp4', '.mov', '.mxf', '.avi', '.mkv']
 
+  generic_filename_prefixes:
+    - 'Screen Recording'      # macOS screen captures — not camera footage
+    - 'Screencast'
+    - 'Screenshot'
+
   reference_extensions:
     - '.pdf'
     - '.docx'
@@ -123,3 +128,6 @@ logging:
 output:
   date_format: "%Y-%m-%d"
   group_id_prefix: "MCG"
+
+compliance:
+  eula_version: "1.0-draft"    # DRAFT — attorney review required before retail

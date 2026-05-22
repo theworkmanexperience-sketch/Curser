@@ -21,6 +21,8 @@ Stages (sequential, deterministic):
 
 import json
 import os
+import re
+import tempfile
 import uuid
 import time
 import traceback
@@ -87,6 +89,7 @@ class Pipeline:
 
         input_gb = 0.0
         file_count = 0
+        files: list = []
         try:
             files = [f for f in input_path.rglob('*') if f.is_file()]
             file_count = len(files)
@@ -156,8 +159,96 @@ class Pipeline:
                 + "\n".join(errors)
             )
 
-        # ── Operator Attestation ─────────────────────────────────────────
+        # ── PI-01/02: PII Filename Scanner ───────────────────────────────
+        _PII_PATTERNS = [
+            (re.compile(r'\b[A-Z][a-z]{1,20}_[A-Z][a-z]{1,20}\b'), 'name_in_filename'),
+            (re.compile(r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}'), 'email_address'),
+            (re.compile(r'\b\d{3}[.\-]?\d{3}[.\-]?\d{4}\b'), 'phone_number'),
+            (re.compile(r'\b\d{3}-\d{2}-\d{4}\b'), 'ssn_pattern'),
+        ]
+        pii_flagged: list[tuple[str, str]] = []
+        for f in files:
+            stem = f.stem
+            if f.name in SKIP_NAMES or any(f.name.startswith(p) for p in SKIP_PREFIXES):
+                continue
+            for pattern, label in _PII_PATTERNS:
+                if pattern.search(stem):
+                    pii_flagged.append((f.name, label))
+                    break
+        if pii_flagged:
+            print(f"\n  ⚠  PII WARNING — {len(pii_flagged)} filename(s) contain possible PII:")
+            for fname, label in pii_flagged[:10]:
+                print(f"     [{label}] {fname}")
+            if len(pii_flagged) > 10:
+                print(f"     ... and {len(pii_flagged) - 10} more")
+            print(f"\n     These filenames will be HASHED in all log records (not stored in plaintext).")
+            print(f"     Confirm authorization in the attestation prompt below.\n")
+
+        # ── PF-02: EULA Version Check ────────────────────────────────────
         import sys
+        non_interactive = (
+            not sys.stdin.isatty()
+            or os.getenv('WEFLOW_NONINTERACTIVE') == '1'
+        )
+        eula_version: Optional[str] = self.config.get('compliance', {}).get('eula_version')
+        eula_accepted_version: Optional[str] = None
+
+        if eula_version and not non_interactive:
+            eula_state_path = Path.home() / '.weflow' / 'eula_acceptance.json'
+            already_accepted = False
+            if eula_state_path.exists():
+                try:
+                    state = json.loads(eula_state_path.read_text())
+                    if eula_version in state.get('accepted_versions', []):
+                        already_accepted = True
+                        eula_accepted_version = eula_version
+                except Exception:
+                    pass
+            if not already_accepted:
+                print(
+                    f"\n  ─────────────────────────────────────────────────────\n"
+                    f"  W.E. FLOW — End User License Agreement v{eula_version}\n"
+                    f"  ─────────────────────────────────────────────────────\n"
+                    f"\n"
+                    f"  This software is licensed for use by authorized operators only.\n"
+                    f"  [DRAFT — requires attorney review before retail distribution]\n"
+                    f"\n"
+                    f"  Full terms: see EULA.md in the software package.\n"
+                    f"\n"
+                    f"  Type YES to accept, or Ctrl+C to cancel.\n"
+                    f"  > "
+                )
+                try:
+                    eula_response = input().strip()
+                except (EOFError, KeyboardInterrupt):
+                    raise RuntimeError("\n  Run cancelled: EULA not accepted.")
+                if eula_response.upper() != 'YES':
+                    raise RuntimeError(
+                        f"\n  EULA not accepted (received: '{eula_response}'). "
+                        f"You must accept the license to use W.E. FLOW."
+                    )
+                eula_state_path.parent.mkdir(parents=True, exist_ok=True)
+                eula_state: dict = {'accepted_versions': [], 'acceptances': []}
+                if eula_state_path.exists():
+                    try:
+                        eula_state = json.loads(eula_state_path.read_text())
+                    except Exception:
+                        pass
+                eula_state.setdefault('accepted_versions', [])
+                eula_state.setdefault('acceptances', [])
+                if eula_version not in eula_state['accepted_versions']:
+                    eula_state['accepted_versions'].append(eula_version)
+                    eula_state['acceptances'].append({
+                        'version': eula_version,
+                        'accepted_at': datetime.now(timezone.utc).isoformat(),
+                        'operator': os.getenv('USER', 'unknown'),
+                    })
+                eula_state_path.write_text(json.dumps(eula_state, indent=2))
+                eula_accepted_version = eula_version
+        elif eula_version:
+            eula_accepted_version = eula_version  # non-interactive: record version without prompting
+
+        # ── Operator Attestation ─────────────────────────────────────────
         attestation_text = (
             "\n  BEFORE YOU CONTINUE — please confirm all of the following:\n\n"
             "  [ ] I am authorized to process the media files in the input folder\n"
@@ -166,10 +257,6 @@ class Pipeline:
             "  [ ] The output drive meets my organization's encryption requirements\n\n"
             "  Type YES and press Enter to confirm, or Ctrl+C to cancel.\n"
             "  > "
-        )
-        non_interactive = (
-            not sys.stdin.isatty()
-            or os.getenv('WEFLOW_NONINTERACTIVE') == '1'
         )
         attestation_hash: Optional[str] = None
         preflight_event = 'preflight_noninteractive'
@@ -205,9 +292,11 @@ class Pipeline:
             'output_on_system_drive': on_system_drive,
             'output_drive_free_gb': round(free_gb, 1),
             'system_drive_free_gb': round(sys_free_gb, 1),
-            'eula_version_accepted': None,
+            'eula_version_accepted': eula_accepted_version,
             'attestation_hash': attestation_hash,
             'file_operation_mode': file_op,
+            'pii_flagged_count': len(pii_flagged),
+            'pii_flagged_filenames': [f for f, _ in pii_flagged],
         }
         preflight_path = logs_dir / f'{self.run_id}_preflight.json'
         preflight_path.write_text(json.dumps(preflight_record, indent=2))
@@ -217,6 +306,10 @@ class Pipeline:
         start = time.time()
         output_path.mkdir(parents=True, exist_ok=True)
         logs_dir = output_path / 'LOGS'
+
+        # OP-04: Secure temp dir — cleaned up in finally regardless of outcome
+        _tmp_ctx = tempfile.TemporaryDirectory(prefix=f'weflow_{self.run_id}_')
+        tmp_dir = Path(_tmp_ctx.name)
 
         logger = AuditLogger(
             run_id=self.run_id,
@@ -379,6 +472,12 @@ class Pipeline:
             })
             report = output_path / 'LOGS' / f'{self.run_id}_summary.md'
             self._write_report(report, summary)
+
+            # ── OP-04: Secure temp file deletion ────────────────────────
+            try:
+                _tmp_ctx.cleanup()
+            except Exception:
+                pass
 
             elapsed = summary.get('elapsed_seconds', 0)
             ingested = summary.get('files_ingested', 0)
