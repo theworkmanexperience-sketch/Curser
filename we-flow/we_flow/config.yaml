@@ -78,6 +78,19 @@ classification:
     - 'Screen Recording'      # macOS screen captures — not camera footage
     - 'Screencast'
     - 'Screenshot'
+    - 'T_Workman_'            # PII-flagged operator name in edited production files
+    - 'grok-video-'           # AI-generated content (Grok UUID format)
+    - 'ChatGPT Image'         # AI-generated content (ChatGPT)
+
+  reference_folder_patterns:
+    - 'MEDIA KIT FILES'       # Press kit / media kit folders → reference classification
+    - 'PRESS KIT'
+    - 'MEDIA KIT'
+
+  generic_folder_patterns:
+    - 'Media File vid and pics'   # Editorial/production asset folders → generic
+    - 'Media Files'
+    - '2. Road Glide'             # Numbered production folder in Harley dataset
 
   reference_extensions:
     - '.pdf'

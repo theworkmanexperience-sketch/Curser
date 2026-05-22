@@ -89,6 +89,14 @@ class FileClassifier:
             'generic_filename_prefixes', []
         )
 
+        # Folder-based classification patterns (case-insensitive substring match on path parts)
+        self._reference_folder_patterns: list[str] = [
+            p.lower() for p in cls_cfg.get('reference_folder_patterns', [])
+        ]
+        self._generic_folder_patterns: list[str] = [
+            p.lower() for p in cls_cfg.get('generic_folder_patterns', [])
+        ]
+
         # Duplicate detection
         self._dedup_enabled: bool = config.get('pipeline', {}).get(
             'enable_duplicate_content_detection', False
@@ -104,6 +112,21 @@ class FileClassifier:
             return ClassifiedFile(
                 path=file_path, classification='generic',
                 camera_source=None, detection_method='generic_filename_prefix',
+                file_size=size,
+            )
+
+        # 0b. Folder-based classification — reference/generic by parent folder name
+        folder_class = self._match_folder(file_path)
+        if folder_class == 'reference':
+            return ClassifiedFile(
+                path=file_path, classification='reference',
+                camera_source=None, detection_method='reference_folder_pattern',
+                file_size=size,
+            )
+        if folder_class == 'generic':
+            return ClassifiedFile(
+                path=file_path, classification='generic',
+                camera_source=None, detection_method='generic_folder_pattern',
                 file_size=size,
             )
 
@@ -234,6 +257,18 @@ class FileClassifier:
             return 'Unknown_Camera', 'extension_only'
 
         return None, ''
+
+    def _match_folder(self, file_path: Path) -> Optional[str]:
+        """Return 'reference' or 'generic' if a parent folder matches a configured pattern."""
+        parts_lower = [p.lower() for p in file_path.parts[:-1]]
+        for part in parts_lower:
+            for pattern in self._reference_folder_patterns:
+                if pattern in part:
+                    return 'reference'
+            for pattern in self._generic_folder_patterns:
+                if pattern in part:
+                    return 'generic'
+        return None
 
     @staticmethod
     def _safe_size(file_path: Path) -> int:
