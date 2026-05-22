@@ -62,7 +62,31 @@ class Pipeline:
         self.grouper = MulticamGrouper(self.config)
         self.variant_detector = VariantDetector(self.config)
 
+    def _preflight_check(self, input_path: Path, output_path: Path) -> None:
+        import shutil
+        file_op = self.config.get('pipeline', {}).get('file_operation', 'copy')
+        output_path.mkdir(parents=True, exist_ok=True)
+        free_bytes = shutil.disk_usage(output_path).free
+        free_gb = free_bytes / (1024 ** 3)
+        if file_op == 'copy':
+            try:
+                input_size = sum(f.stat().st_size for f in input_path.rglob('*') if f.is_file())
+                input_gb = input_size / (1024 ** 3)
+                if free_gb < input_gb * 1.1:
+                    raise RuntimeError(
+                        f"Pre-flight FAILED: file_operation=copy needs ~{input_gb:.1f} GB free "
+                        f"on output drive, only {free_gb:.1f} GB available. "
+                        f"Use file_operation=symlink or point --output to a drive with more space."
+                    )
+            except OSError:
+                pass
+        if free_gb < 5.0:
+            raise RuntimeError(
+                f"Pre-flight FAILED: output drive has only {free_gb:.1f} GB free — minimum 5 GB required."
+            )
+
     def run(self, input_path: Path, output_path: Path) -> dict:
+        self._preflight_check(input_path, output_path)
         start = time.time()
         output_path.mkdir(parents=True, exist_ok=True)
         logs_dir = output_path / 'LOGS'

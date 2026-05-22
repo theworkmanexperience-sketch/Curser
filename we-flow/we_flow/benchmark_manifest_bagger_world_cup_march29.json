@@ -1,0 +1,190 @@
+{
+  "_manifest_version": "4.1",
+  "_description": "Appendix B ground-truth manifest — Harley-Davidson Bagger World Cup, March 29 (real-world smoke test dataset)",
+  "_authority": "The Workman Experience, LLC",
+  "_manifest_sha256": "PLACEHOLDER_REPLACE_WITH_ACTUAL_SHA256_OF_THIS_FILE",
+  "_run_id": "WEF_20260522_183359_12FEDB",
+  "_notes": [
+    "This manifest was generated from the real March 29 Bagger World Cup shoot.",
+    "49,602 files total — DJI Action 5, DJI Action 6, Insta360 X5, OM System OM-1, iPhone.",
+    "0 multicam groups formed: ffprobe not installed — all timestamps at fallback_level=2.",
+    "Multicam grouping ground truth requires ffprobe + embedded creation_time metadata.",
+    "Vendors must install FFmpeg 6.0+ (ffprobe on PATH) before running multicam benchmarks.",
+    "204 OM System files classified as Unknown_Camera in v4.1 — fixed in config v4.1.1 (OMSystem patterns added).",
+    "Disputes must be filed within 5 business days of dataset receipt."
+  ],
+
+  "dataset": {
+    "name": "Harley-Davidson Bagger World Cup — March 29",
+    "tier": "Studio",
+    "approximate_size_gb": 141,
+    "approximate_file_count": 49602,
+    "shooting_days": ["2026-03-29"],
+    "camera_sources": ["DJI", "Insta360", "iPhone", "OMSystem"],
+    "subfolders": [
+      "DJI ACTION 5",
+      "DJI Action 6",
+      "INSTA360 X5",
+      "OM-1 SYSTEM",
+      "iPhone",
+      "Crew Shots",
+      "BWC_DAY_2_MEDIA",
+      "Bagger World Cup",
+      "CapCut",
+      "Music"
+    ]
+  },
+
+  "classification_ground_truth": [
+    {
+      "filename": "DJI_20260329072226_0002_D.MP4",
+      "expected_classification": "camera",
+      "expected_camera_source": "DJI"
+    },
+    {
+      "filename": "VID_20260329_072156_00_001.mp4",
+      "expected_classification": "camera",
+      "expected_camera_source": "Insta360"
+    },
+    {
+      "filename": "VID_20260329_072156_00_001(1).mp4",
+      "expected_classification": "camera",
+      "expected_camera_source": "Insta360",
+      "_note": "Indexed duplicate — variant of VID_20260329_072156_00_001.mp4"
+    },
+    {
+      "filename": "IMG_0953.MOV",
+      "expected_classification": "camera",
+      "expected_camera_source": "iPhone"
+    },
+    {
+      "filename": "P3280001.MOV",
+      "expected_classification": "camera",
+      "expected_camera_source": "OMSystem",
+      "_note": "OM System OM-1 naming: P + MMDD + NNNN. Config v4.1.1+ required."
+    },
+    {
+      "filename": "0429 (1).WAV",
+      "expected_classification": "generic",
+      "expected_camera_source": null,
+      "_note": "WAV file not matching field recorder patterns — classified generic"
+    },
+    {
+      "filename": "ONE_LAP.mov",
+      "expected_classification": "camera",
+      "expected_camera_source": "Unknown_Camera",
+      "_note": "Non-standard filename — no matching camera source pattern"
+    }
+  ],
+
+  "variant_ground_truth": [
+    {
+      "parent_filename": "VID_20260329_072156_00_001.mp4",
+      "children": ["VID_20260329_072156_00_001(1).mp4"],
+      "detection_methods_expected": ["indexed"],
+      "parent_selection_method": "largest_file",
+      "camera_source": "Insta360"
+    },
+    {
+      "parent_filename": "VID_20260329_073142_00_002.mp4",
+      "children": ["VID_20260329_073142_00_002(1).mp4"],
+      "detection_methods_expected": ["indexed"],
+      "parent_selection_method": "largest_file",
+      "camera_source": "Insta360"
+    },
+    {
+      "parent_filename": "VID_20260329_080445_00_004(3).mp4",
+      "children": [
+        "VID_20260329_080445_00_004.mp4",
+        "VID_20260329_080445_00_004(1).mp4",
+        "VID_20260329_080445_00_004(2).mp4"
+      ],
+      "detection_methods_expected": ["indexed"],
+      "parent_selection_method": "largest_file",
+      "camera_source": "Insta360"
+    },
+    {
+      "parent_filename": "VID_20260329_081449_00_005(2).mp4",
+      "children": [
+        "VID_20260329_081449_00_005.mp4",
+        "VID_20260329_081449_00_005(1).mp4"
+      ],
+      "detection_methods_expected": ["indexed"],
+      "parent_selection_method": "largest_file",
+      "camera_source": "Insta360"
+    },
+    {
+      "parent_filename": "VID_20260329_090832_00_009(2).mp4",
+      "children": [
+        "VID_20260329_090832_00_009.mp4",
+        "VID_20260329_090832_00_009(1).mp4"
+      ],
+      "detection_methods_expected": ["indexed"],
+      "parent_selection_method": "largest_file",
+      "camera_source": "Insta360"
+    }
+  ],
+
+  "multicam_group_ground_truth": [
+    {
+      "_note": "Multicam grouping requires ffprobe + embedded creation_time metadata.",
+      "_status": "PENDING — install FFmpeg 6.0+ and re-run to populate this section.",
+      "expected_camera_sources": ["DJI", "Insta360", "iPhone", "OMSystem"],
+      "window_seconds": 5
+    }
+  ],
+
+  "ungrouped_camera_files_expected": [
+    {
+      "_note": "All 319 camera files were ungrouped in this run due to missing ffprobe.",
+      "total_ungrouped": 319,
+      "reason": "file_stat_mtime fallback (level 2) — insufficient timestamp precision for ±5s multicam window"
+    }
+  ],
+
+  "known_issues": [
+    {
+      "issue": "OM System OM-1 files classified as Unknown_Camera",
+      "affected_files": 204,
+      "pattern": "P3280001.MOV (P + MMDD + NNNN)",
+      "fix": "Add OMSystem patterns to config.yaml — resolved in config v4.1.1",
+      "impact": "Classification Test 1 will show Unknown_Camera for these files until config is updated"
+    },
+    {
+      "issue": "0 multicam groups",
+      "root_cause": "ffprobe not installed — all timestamps at fallback_level=2",
+      "fix": "Install FFmpeg 6.0+ with ffprobe on PATH",
+      "impact": "Multicam grouping (Test 3) cannot be validated without ffprobe"
+    }
+  ],
+
+  "performance_observed": {
+    "run_id": "WEF_20260522_183359_12FEDB",
+    "hardware": "Apple Mac Studio M1 Max, 32GB, 500GB NVMe",
+    "file_operation": "symlink",
+    "wall_time_seconds": 1386.5,
+    "files_per_second": 35.8,
+    "total_files": 49602,
+    "errors": 87
+  },
+
+  "scoring": {
+    "test_1_classification": {
+      "method": "exact_match_per_file",
+      "pass_threshold": "100%",
+      "fields_compared": ["expected_classification", "expected_camera_source"],
+      "_note": "OMSystem config fix required before running Test 1"
+    },
+    "test_2_variants": {
+      "method": "exact_match_parent_children_links",
+      "pass_threshold": "100%",
+      "fields_compared": ["parent_filename", "children"]
+    },
+    "test_3_multicam_grouping": {
+      "method": "file_membership_accuracy",
+      "pass_threshold": "95%",
+      "metric": "percentage_of_eligible_camera_files_in_correct_group",
+      "_note": "ffprobe required — cannot score until embedded timestamps available"
+    }
+  }
+}

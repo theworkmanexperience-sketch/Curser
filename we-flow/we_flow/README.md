@@ -4,13 +4,44 @@
 ---
 
 ## Requirements
-- Python 3.11+
-- FFmpeg 6.0+ (`ffprobe` must be on PATH)
+- Python 3.9+
+- FFmpeg 6.0+ (`ffprobe` must be on PATH) — **required for multicam grouping**
 - OS: macOS 14+ or Ubuntu 22.04 LTS
 
 ```bash
 ffprobe -version   # confirm ≥ 6.0
-python --version   # confirm ≥ 3.11
+python3 --version  # confirm ≥ 3.9
+```
+
+> **Without ffprobe:** Classification and variant detection work. Multicam grouping is disabled — all camera files fall back to `file_stat_mtime` (low confidence) and 0 groups will be formed. Install ffprobe before issuing the RFQ benchmark.
+
+---
+
+## Pre-Flight Requirements
+
+**Always point `--output` to an external drive for shoots over 10 GB.**
+
+The engine enforces a pre-flight disk check before starting:
+- `file_operation: copy` (default off) — requires ~110% of input size free on output drive
+- `file_operation: symlink` (recommended) — requires 5 GB minimum free
+- Engine aborts with a clear error if space is insufficient
+
+**Recommended storage layout:**
+
+| Role | Drive | Notes |
+|---|---|---|
+| Input media | Dedicated media drive (e.g. 10TB) | Never the system drive |
+| Output / project | Same media drive or separate external | Min 5 GB free for symlink mode |
+| System drive | macOS system only | Keep ≥ 20 GB free at all times |
+
+**Use `symlink` mode for smoke tests and QC runs.** Use `copy` or `move` only when delivering a self-contained project folder.
+
+```bash
+# Correct — output to external drive, symlink mode (config.yaml default)
+python main.py --input /Volumes/10TB/shoot --output /Volumes/10TB/WE_FLOW_OUTPUT/project
+
+# Dangerous — output to system drive with copy mode will exhaust disk
+# python main.py --input /Volumes/10TB/large_shoot --output ~/Desktop/output
 ```
 
 ---
@@ -75,7 +106,7 @@ Key parameters:
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `pipeline.file_operation` | `copy` | `copy` / `move` / `symlink` |
+| `pipeline.file_operation` | `symlink` | `copy` / `move` / `symlink` — use `symlink` for QC runs |
 | `grouping.window_seconds` | `5` | Multicam sync window (§7) |
 | `grouping.camera_offsets` | all `0` | Per-camera UTC offset (seconds) |
 | `variant_detection.parent_selection` | `largest_file` | `largest_file` / `lowest_index` / `earliest_timestamp` |

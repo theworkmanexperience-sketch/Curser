@@ -4,7 +4,7 @@
 
 pipeline:
   run_id_prefix: "WEF"
-  file_operation: "copy"           # copy | move | symlink
+  file_operation: "symlink"         # copy | move | symlink
   enable_duplicate_content_detection: false  # SHA-256 comparison; default false
 
 grouping:
@@ -67,6 +67,9 @@ classification:
     Blackmagic:
       patterns: ['^Blackmagic_', '^BMPCC']
       extensions: ['.braw', '.mp4', '.mov', '.dng']
+    OMSystem:
+      patterns: ['^P\d{7}', '^PA\d{6}']   # Olympus OM-1 / OM-5 / OM System
+      extensions: ['.mov', '.mp4', '.orf', '.jpg', '.jpeg']
     Generic_Camera:
       patterns: ['^\d{8}_\d{6}', '^\d{4}-\d{2}-\d{2}']
       extensions: ['.mp4', '.mov', '.mxf', '.avi', '.mkv']
