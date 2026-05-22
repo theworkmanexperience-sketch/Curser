@@ -160,11 +160,20 @@ class Pipeline:
             )
 
         # ── PI-01/02: PII Filename Scanner ───────────────────────────────
+        # Use segment-boundary anchors (^|_) not \b — underscore is \w so
+        # \b does not fire between underscore-separated tokens in compound names.
         _PII_PATTERNS = [
-            (re.compile(r'\b[A-Z][a-z]{1,20}_[A-Z][a-z]{1,20}\b'), 'name_in_filename'),
-            (re.compile(r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}'), 'email_address'),
-            (re.compile(r'\b\d{3}[.\-]?\d{3}[.\-]?\d{4}\b'), 'phone_number'),
-            (re.compile(r'\b\d{3}-\d{2}-\d{4}\b'), 'ssn_pattern'),
+            # Full name: Two_Word proper case separated by underscores
+            (re.compile(r'(?:^|_)([A-Z][a-z]{1,20})_([A-Z][a-z]{2,20})(?:_|$)'),
+             'name_in_filename'),
+            # Single-initial name: T_Workman, J_Smith
+            (re.compile(r'(?:^|_)[A-Z]_[A-Z][a-z]{2,20}(?:_|$)'),
+             'initial_name_in_filename'),
+            (re.compile(r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}'),
+             'email_address'),
+            (re.compile(r'(?:^|_)\d{3}[.\-]?\d{3}[.\-]?\d{4}(?:_|$)'),
+             'phone_number'),
+            (re.compile(r'\d{3}-\d{2}-\d{4}'), 'ssn_pattern'),
         ]
         pii_flagged: list[tuple[str, str]] = []
         for f in files:
