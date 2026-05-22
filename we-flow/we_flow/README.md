@@ -3,6 +3,43 @@
 
 ---
 
+## Quick Start (New Users — Read This First)
+
+**The one rule that prevents 95% of problems:**
+
+> Your media and project output must always go on an **external drive** — never on your Mac's internal drive.
+
+**How to tell the difference:**
+- Open **Finder** and look at the left sidebar under **Locations**
+- Anything listed there (like `10TB`, `Got My BackUP`, `FreeAgent`) is an external drive ✓
+- Your Mac's internal drive is called **Macintosh HD** — never use this for output ✗
+
+**The correct command looks like this:**
+```bash
+python3 main.py \
+  --input  /Volumes/YOUR_DRIVE/shoot_folder \
+  --output /Volumes/YOUR_DRIVE/WE_FLOW_OUTPUT/project_name
+```
+
+**Before every run, the engine will print a Pre-Flight Check:**
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  W.E. FLOW — Pre-Flight Check
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Input media:    /Volumes/10TB/shoot     141.0 GB · 49,602 files
+  Output folder:  /Volumes/10TB/WE_FLOW   887.0 GB free  ✓
+  File mode:      symlink mode — no files copied
+  Space needed:   5.0 GB minimum on output drive
+  System drive:   147.0 GB free  ✓
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+If you see a **⚠ WARNING**, stop and read it before pressing Enter. The engine will tell you exactly what to fix and how.
+
+**Keep your Mac's internal drive above 20 GB free at all times.** If it drops below that, move files to an external drive before running the engine.
+
+---
+
 ## Requirements
 - Python 3.9+
 - FFmpeg 6.0+ (`ffprobe` must be on PATH) — **required for multicam grouping**

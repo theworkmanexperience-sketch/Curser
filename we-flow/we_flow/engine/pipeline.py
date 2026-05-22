@@ -62,27 +62,96 @@ class Pipeline:
         self.grouper = MulticamGrouper(self.config)
         self.variant_detector = VariantDetector(self.config)
 
+    @staticmethod
+    def _is_system_drive(path: Path) -> bool:
+        import shutil
+        try:
+            sys_device = shutil.disk_usage('/').total
+            out_device = shutil.disk_usage(path).total
+            # Same total size is a strong signal they share the same volume
+            return sys_device == out_device
+        except OSError:
+            return False
+
     def _preflight_check(self, input_path: Path, output_path: Path) -> None:
         import shutil
-        file_op = self.config.get('pipeline', {}).get('file_operation', 'copy')
+        file_op = self.config.get('pipeline', {}).get('file_operation', 'symlink')
         output_path.mkdir(parents=True, exist_ok=True)
+
         free_bytes = shutil.disk_usage(output_path).free
         free_gb = free_bytes / (1024 ** 3)
-        if file_op == 'copy':
-            try:
-                input_size = sum(f.stat().st_size for f in input_path.rglob('*') if f.is_file())
-                input_gb = input_size / (1024 ** 3)
-                if free_gb < input_gb * 1.1:
-                    raise RuntimeError(
-                        f"Pre-flight FAILED: file_operation=copy needs ~{input_gb:.1f} GB free "
-                        f"on output drive, only {free_gb:.1f} GB available. "
-                        f"Use file_operation=symlink or point --output to a drive with more space."
-                    )
-            except OSError:
-                pass
-        if free_gb < 5.0:
+        sys_free_gb = shutil.disk_usage('/').free / (1024 ** 3)
+        on_system_drive = self._is_system_drive(output_path)
+
+        input_gb = 0.0
+        file_count = 0
+        try:
+            files = [f for f in input_path.rglob('*') if f.is_file()]
+            file_count = len(files)
+            input_gb = sum(f.stat().st_size for f in files) / (1024 ** 3)
+        except OSError:
+            pass
+
+        needed_gb = input_gb * 1.1 if file_op == 'copy' else 5.0
+        mode_note = (
+            f"copy mode — will duplicate {input_gb:.1f} GB onto output drive"
+            if file_op == 'copy'
+            else f"symlink mode — no files copied, only folder structure created"
+        )
+
+        print("\n" + "━" * 56)
+        print("  W.E. FLOW — Pre-Flight Check")
+        print("━" * 56)
+        print(f"  Input media:    {input_path}")
+        print(f"                  {input_gb:.1f} GB · {file_count:,} files")
+        print(f"  Output folder:  {output_path}")
+
+        if on_system_drive:
+            print(f"  ⚠  WARNING: This folder is on your Mac's internal drive!")
+            print(f"     Your internal drive only has {sys_free_gb:.1f} GB free.")
+            print(f"     Copying large video shoots here will fill up your Mac.")
+            print(f"")
+            print(f"     RECOMMENDED: Use an external drive instead.")
+            print(f"     Example:  --output /Volumes/YourDriveName/WE_FLOW_OUTPUT")
+            print(f"     To see your drives: open Finder → Locations (left sidebar)")
+        else:
+            status = "✓" if free_gb >= needed_gb else "✗"
+            print(f"                  {free_gb:.1f} GB free  {status}")
+
+        print(f"  File mode:      {mode_note}")
+        print(f"  Space needed:   {needed_gb:.1f} GB minimum on output drive")
+        print(f"  System drive:   {sys_free_gb:.1f} GB free"
+              + ("  ⚠  Keep above 20 GB" if sys_free_gb < 20 else "  ✓"))
+        print("━" * 56)
+
+        errors = []
+        if on_system_drive and file_op == 'copy' and input_gb > 10:
+            errors.append(
+                f"\n  Your output folder is on your Mac's internal drive and\n"
+                f"  file mode is set to 'copy'. This will copy {input_gb:.1f} GB\n"
+                f"  onto your Mac and may fill it up completely.\n\n"
+                f"  Fix: point --output to an external drive.\n"
+                f"  Example: --output /Volumes/YourDriveName/WE_FLOW_OUTPUT\n"
+                f"  Or change file_operation to 'symlink' in config.yaml."
+            )
+        if free_gb < needed_gb:
+            errors.append(
+                f"\n  Not enough space on the output drive.\n"
+                f"  You need {needed_gb:.1f} GB free — only {free_gb:.1f} GB available.\n\n"
+                f"  Fix: choose a drive with more free space, or\n"
+                f"  change file_operation to 'symlink' in config.yaml."
+            )
+        if sys_free_gb < 5.0:
+            errors.append(
+                f"\n  Your Mac's internal drive is almost full ({sys_free_gb:.1f} GB left).\n"
+                f"  macOS needs at least 5–10 GB free to run normally.\n\n"
+                f"  Fix: move large files to an external drive before continuing."
+            )
+
+        if errors:
             raise RuntimeError(
-                f"Pre-flight FAILED: output drive has only {free_gb:.1f} GB free — minimum 5 GB required."
+                "\n\n  ✗ Pre-flight FAILED — please fix the following:\n"
+                + "\n".join(errors)
             )
 
     def run(self, input_path: Path, output_path: Path) -> dict:
