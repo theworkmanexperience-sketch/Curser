@@ -199,7 +199,9 @@ class Pipeline:
             not sys.stdin.isatty()
             or os.getenv('WEFLOW_NONINTERACTIVE') == '1'
         )
-        eula_version: Optional[str] = self.config.get('compliance', {}).get('eula_version')
+        eula_cfg: dict = self.config.get('compliance', {}).get('eula', {})
+        eula_version: Optional[str] = eula_cfg.get('version')
+        eula_text: str = eula_cfg.get('text', '')
         eula_accepted_version: Optional[str] = None
 
         if eula_version and not non_interactive:
@@ -214,19 +216,14 @@ class Pipeline:
                 except Exception:
                     pass
             if not already_accepted:
-                print(
-                    f"\n  ─────────────────────────────────────────────────────\n"
-                    f"  W.E. FLOW — End User License Agreement v{eula_version}\n"
-                    f"  ─────────────────────────────────────────────────────\n"
-                    f"\n"
-                    f"  This software is licensed for use by authorized operators only.\n"
-                    f"  [DRAFT — requires attorney review before retail distribution]\n"
-                    f"\n"
-                    f"  Full terms: see EULA.md in the software package.\n"
-                    f"\n"
-                    f"  Type YES to accept, or Ctrl+C to cancel.\n"
-                    f"  > "
-                )
+                print(f"\n  {'─' * 56}")
+                print(f"  W.E. FLOW / W.E. FORGE — End User License Agreement v{eula_version}")
+                print(f"  {'─' * 56}\n")
+                for line in eula_text.splitlines():
+                    print(f"  {line}")
+                print(f"\n  {'─' * 56}")
+                print(f"  Type YES to accept this Agreement, or Ctrl+C to cancel.")
+                print(f"  > ", end='', flush=True)
                 try:
                     eula_response = input().strip()
                 except (EOFError, KeyboardInterrupt):
