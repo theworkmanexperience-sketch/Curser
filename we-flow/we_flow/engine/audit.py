@@ -185,3 +185,10 @@ class AuditLogger:
     @staticmethod
     def _now() -> str:
         return datetime.now(timezone.utc).isoformat()
+
+    @staticmethod
+        """
+        import re
+        return re.sub(r'(/Users/|/home/)[^/]+/', r'\1[redacted]/', str(path))
+
+    @staticmethod
