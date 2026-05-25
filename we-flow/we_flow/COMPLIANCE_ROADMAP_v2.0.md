@@ -265,3 +265,15 @@ Approved by: ________________  Date: ________
 *If a test cannot be written for a claim, the claim is removed.*  
 *Legal documents require qualified attorney review — not AI-generated.*  
 *Last updated: 2026-05-22*
+
+## Phase 0 Retail Gate — CLOSED (GREEN) — 2026-05-25
+**Commit:** 940cb62  
+**Evidence:** 
+- 49/49 tests passing
+- Live EULA v1.0 enforcement (first-run prompt + ~/.weflow/eula_acceptance.json)
+- End-to-end smoke test successful (WEF_20260525_062536_559806)
+- Archive Intelligence Engine correctly gated behind Phase 1 flag
+- All LOCKED v4.1 rules intact and verified
+
+**Status:** All engineering-controlled Phase 0 items are now PASS.
+Only PF-01/PF-02 (pre-flight wrapper) and Phase 1 items remain open.
