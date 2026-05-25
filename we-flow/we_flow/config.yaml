@@ -274,7 +274,7 @@ compliance:
 # Locked: Disabled for Phase 0 retail gate
 # ─────────────────────────────────────────────────────────────
 archive_engine:
-  enabled: false                       # Phase 1 only — do not change for retail
+  enabled: true                       # Phase 1 only — do not change for retail
   phase: "Phase1"
 
   supported_formats: [".zip", ".gz", ".tar", ".tar.gz", ".tgz"]
