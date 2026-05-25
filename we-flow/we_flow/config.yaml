@@ -268,3 +268,18 @@ compliance:
       973-803-1323
 
       By typing "YES" you acknowledge that you have read, understood, and agreed to this Agreement.
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+# ─────────────────────────────────────────────────────────────
+# Stage 0.5 — Archive Intelligence & Recovery Engine (Phase 1)
+# Locked: Disabled for Phase 0 retail gate
+# ─────────────────────────────────────────────────────────────
+archive_engine:
+  enabled: false                     # Phase 1 only — do not change for retail
+  max_archive_size_gb: 10.0
+  quarantine_folder: "QUARANTINE"
+  extracted_folder: "ARCHIVE_EXTRACTED"
+  allow_phase1_formats: false        # .7z, .rar, etc. quarantined until Phase 1
