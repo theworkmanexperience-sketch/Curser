@@ -1,0 +1,285 @@
+# W.E. FLOW / W.E. FORGE — Pipeline Configuration v4.1 ENHANCED
+# Appendix C: Authoritative sample config
+# All locked defaults below. Override per-project as needed.
+
+pipeline:
+  run_id_prefix: "WEF"
+  file_operation: "symlink"         # copy | move | symlink
+  enable_duplicate_content_detection: false  # SHA-256 comparison; default false
+
+grouping:
+  window_seconds: 5                # ±5s (§7 LOCKED default)
+  min_cameras: 2
+  camera_offsets:                  # Per-camera UTC offset correction (seconds)
+    DJI: 0
+    Insta360: 0
+    iPhone: 0
+    GoPro: 0
+    Unknown_Camera: 0
+
+variant_detection:
+  indexed_pattern: '[\(\[](\d+)[\)\]]'
+  suffix_patterns:
+    - '_v\d+'
+    - '_edit'
+    - '_final'
+    - '_export'
+    - '_rev\d*'
+  duplicate_keywords:
+    - 'copy'
+    - 'final'
+    - 'backup'
+    - 'duplicate'
+  parent_selection: "largest_file" # largest_file | lowest_index | earliest_timestamp
+
+audio_classification:
+  # Audio files matching these patterns → Camera-Audio (eligible for multicam association)
+  # Primarily detection method for dedicated field recorders (§6 LOCKED)
+  field_recorder_patterns:
+    - '^ZOOM\d*'                   # Zoom H4n, H5, H6, H8
+    - '^ZH\d'
+    - '^SD_\d+'                    # Sound Devices MixPre series
+    - '^F\d+_\d+'                  # Sound Devices field naming
+    - '^TASCAM_'
+    - '^DR\d+_'                    # Tascam DR series
+  default_classification: "generic"  # generic | reference
+
+classification:
+  camera_sources:
+    DJI:
+      patterns: ['^DJI_', '^DJI\d', 'DJI_\d{4}']
+      extensions: ['.mp4', '.mov', '.jpg', '.jpeg', '.dng']
+    Insta360:
+      patterns: ['^ISD_', '^VID_', '_00_\d+\.insv', '^PRO_VID']
+      extensions: ['.insv', '.insp', '.mp4', '.jpg']
+    iPhone:
+      patterns: ['^IMG_\d{4}', '^MOV_\d{4}', '^RPReplay', '^AAL']
+      extensions: ['.mov', '.mp4', '.heic', '.jpg', '.jpeg']
+    GoPro:
+      patterns: ['^GOPR\d+', '^GP\d{6}', '^GH\d{6}', '^GX\d{6}', '^GL\d{6}']
+      extensions: ['.mp4', '.lrv', '.thm', '.jpg']
+    Sony:
+      patterns: ['^C\d{3}S\d{4}', '^CLIP\d+', '^M2U\d+']
+      extensions: ['.mxf', '.mp4', '.mov']
+    Canon:
+      patterns: ['^MVI_\d+', '^_MG_\d+']
+      extensions: ['.mov', '.mp4', '.cr3', '.cr2']
+    Blackmagic:
+      patterns: ['^Blackmagic_', '^BMPCC']
+      extensions: ['.braw', '.mp4', '.mov', '.dng']
+    OMSystem:
+      patterns: ['^P\d{7}', '^PA\d{6}']   # Olympus OM-1 / OM-5 / OM System
+      extensions: ['.mov', '.mp4', '.orf', '.jpg', '.jpeg']
+    Generic_Camera:
+      patterns: ['^\d{8}_\d{6}', '^\d{4}-\d{2}-\d{2}']
+      extensions: ['.mp4', '.mov', '.mxf', '.avi', '.mkv']
+
+  generic_filename_prefixes:
+    - 'Screen Recording'      # macOS screen captures — not camera footage
+    - 'Screencast'
+    - 'Screenshot'
+    - 'T_Workman_'            # PII-flagged operator name in edited production files
+    - 'grok-video-'           # AI-generated content (Grok UUID format)
+    - 'ChatGPT Image'         # AI-generated content (ChatGPT)
+
+  reference_folder_patterns:
+    - 'MEDIA KIT FILES'       # Press kit / media kit folders → reference classification
+    - 'PRESS KIT'
+    - 'MEDIA KIT'
+
+  generic_folder_patterns:
+    - 'Media File vid and pics'   # Editorial/production asset folders → generic
+    - 'Media Files'
+    - '2. Road Glide'             # Numbered production folder in Harley dataset
+
+  reference_extensions:
+    - '.pdf'
+    - '.docx'
+    - '.xlsx'
+    - '.pptx'
+    - '.txt'
+    - '.xml'
+    - '.csv'
+    - '.srt'
+    - '.vtt'
+    - '.aaf'
+    - '.edl'
+    - '.fcpxml'
+
+  generic_video_extensions:
+    - '.mp4'
+    - '.mov'
+    - '.avi'
+    - '.mkv'
+    - '.wmv'
+    - '.flv'
+    - '.webm'
+
+  generic_image_extensions:
+    - '.png'
+    - '.tiff'
+    - '.tif'
+    - '.bmp'
+    - '.gif'
+    - '.psd'
+    - '.ai'
+    - '.eps'
+
+proxies:
+  generate_proxies: false          # Phase 1 only. Never true in Phase 0.
+  # Phase 1 spec (for planning): H.264, 720p, 1-2 Mbps, {basename}_proxy.mp4
+
+performance:
+  max_workers: 8                   # Parallel workers for ingest + classification
+  hash_chunk_size_mb: 64           # Streaming SHA-256 chunk size (handles 50GB+ files)
+
+logging:
+  log_level: "INFO"
+  log_format: "json"
+  retain_logs_days: 90
+
+output:
+  date_format: "%Y-%m-%d"
+  group_id_prefix: "MCG"
+
+compliance:
+  eula:
+    version: "1.0"
+    accepted: false
+    text: |
+      W.E. FLOW / W.E. FORGE END USER LICENSE AGREEMENT
+
+      Version 1.0 — Effective May 22, 2026
+
+      IMPORTANT — READ CAREFULLY:
+
+      This End User License Agreement ("Agreement") is a legal agreement between you ("User," "you," or "your") and The Workman Experience, LLC ("Company," "we," "us," or "our") governing your access to and use of the W.E. Flow and W.E. Forge software platforms, including all associated software, scripts, workflows, configurations, documentation, media-processing tools, AI-assisted workflow components, updates, and related services (collectively, the "Software").
+
+      BY TYPING "YES," INSTALLING, COPYING, ACCESSING, OR OTHERWISE USING THE SOFTWARE, YOU AGREE TO BE BOUND BY THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO THESE TERMS, DO NOT ACCESS OR USE THE SOFTWARE.
+
+      1. LICENSE GRANT
+
+      Subject to your compliance with this Agreement, Company grants you a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to access and use the Software solely for lawful internal business or personal use.
+
+      2. OWNERSHIP
+
+      The Software is licensed, not sold. Company retains all rights, title, and interest in and to the Software, including all intellectual property rights, workflows, source code, architecture, trade secrets, branding, visual elements, documentation, derivative works, and related materials.
+
+      No ownership rights are transferred to you under this Agreement.
+
+      3. RESTRICTIONS
+
+      You shall not:
+
+      - Copy, modify, distribute, sell, sublicense, lease, or commercially exploit the Software except as expressly authorized;
+      - Reverse engineer, decompile, disassemble, or attempt to derive source code or underlying logic;
+      - Remove or alter proprietary notices, branding, or copyright information;
+      - Use the Software for unlawful, infringing, abusive, or fraudulent purposes;
+      - Circumvent security controls, authentication systems, or licensing mechanisms;
+      - Use the Software to process data in violation of applicable privacy, intellectual property, export control, or cybersecurity laws.
+
+      4. USER CONTENT AND DATA
+
+      You retain ownership of content, footage, media, files, and data you upload or process using the Software ("User Content").
+
+      You grant Company a limited license to process User Content solely as necessary to operate, maintain, secure, and improve the Software.
+
+      You represent and warrant that you have all rights necessary to upload and process User Content and that such use does not violate any law or third-party rights.
+
+      5. AI-ASSISTED FEATURES
+
+      Certain Software components may include AI-assisted workflows, automation, metadata analysis, media organization, or content enhancement functionality.
+
+      AI-generated outputs may contain inaccuracies, errors, or unintended results. You are solely responsible for reviewing and validating all outputs before reliance, publication, distribution, or commercial use.
+
+      Company does not guarantee the accuracy, legality, or fitness of AI-generated outputs.
+
+      6. PRIVACY AND SECURITY
+
+      Company may collect limited operational, diagnostic, licensing, and usage information necessary to maintain, secure, and improve the Software.
+
+      You acknowledge that no system or transmission method is completely secure. You are responsible for implementing appropriate safeguards, backups, and operational controls for your environment and data.
+
+      7. UPDATES AND MODIFICATIONS
+
+      Company may release updates, patches, upgrades, or modifications to the Software at any time. Certain updates may be required for continued operation, security, compatibility, or compliance.
+
+      Company reserves the right to modify, suspend, or discontinue features or functionality without liability.
+
+      8. THIRD-PARTY SERVICES
+
+      The Software may integrate with or rely upon third-party platforms, APIs, devices, cloud providers, media systems, or services.
+
+      Company is not responsible for the availability, functionality, security, or practices of third-party systems.
+
+      Use of third-party services may be subject to separate terms and conditions.
+
+      9. DISCLAIMER OF WARRANTIES
+
+      THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE.
+
+      TO THE MAXIMUM EXTENT PERMITTED BY LAW, COMPANY DISCLAIMS ALL WARRANTIES, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, ACCURACY, AVAILABILITY, AND SECURITY.
+
+      COMPANY DOES NOT WARRANT THAT THE SOFTWARE WILL BE ERROR-FREE, UNINTERRUPTED, OR FREE OF HARMFUL COMPONENTS.
+
+      10. LIMITATION OF LIABILITY
+
+      TO THE MAXIMUM EXTENT PERMITTED BY LAW, COMPANY SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, CONSEQUENTIAL, SPECIAL, EXEMPLARY, OR PUNITIVE DAMAGES, INCLUDING LOSS OF DATA, LOSS OF PROFITS, BUSINESS INTERRUPTION, MEDIA LOSS, OR SYSTEM FAILURE, ARISING FROM OR RELATED TO THE SOFTWARE OR THIS AGREEMENT.
+
+      COMPANY'S TOTAL AGGREGATE LIABILITY UNDER THIS AGREEMENT SHALL NOT EXCEED THE AMOUNT PAID BY YOU FOR ACCESS TO THE SOFTWARE DURING THE TWELVE (12) MONTHS PRECEDING THE CLAIM.
+
+      11. INDEMNIFICATION
+
+      You agree to defend, indemnify, and hold harmless Company and its officers, members, employees, contractors, affiliates, licensors, and partners from and against any claims, liabilities, damages, losses, costs, and expenses arising out of:
+
+      - Your use or misuse of the Software;
+      - Your violation of this Agreement;
+      - Your User Content;
+      - Your violation of any law or third-party rights.
+
+      12. TERMINATION
+
+      This Agreement remains effective until terminated.
+
+      Company may suspend or terminate your access immediately if you violate this Agreement or if continued access creates legal, operational, or security risk.
+
+      Upon termination, your license rights immediately cease.
+
+      13. GOVERNING LAW
+
+      This Agreement shall be governed by and construed in accordance with the laws of the State of Texas, without regard to conflict of law principles.
+
+      Any legal action arising from this Agreement shall be brought exclusively in the state or federal courts located in Texas, and you consent to such jurisdiction and venue.
+
+      14. ENTIRE AGREEMENT
+
+      This Agreement constitutes the entire agreement between you and Company concerning the Software and supersedes all prior or contemporaneous understandings, communications, or agreements relating to the subject matter herein.
+
+      If any provision of this Agreement is determined to be unenforceable, the remaining provisions shall remain in full force and effect.
+
+      15. CONTACT INFORMATION
+
+      The Workman Experience, LLC
+
+      For legal or licensing inquiries, contact:
+
+      Valerie Workman, Esq.
+      valerieworkmanesq@gmail.com
+      973-803-1323
+
+      By typing "YES" you acknowledge that you have read, understood, and agreed to this Agreement.
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+# ─────────────────────────────────────────────────────────────
+# Stage 0.5 — Archive Intelligence & Recovery Engine (Phase 1)
+# Locked: Disabled for Phase 0 retail gate
+# ─────────────────────────────────────────────────────────────
+archive_engine:
+  enabled: false                     # Phase 1 only — do not change for retail
+  max_archive_size_gb: 10.0
+  quarantine_folder: "QUARANTINE"
+  extracted_folder: "ARCHIVE_EXTRACTED"
+  allow_phase1_formats: false        # .7z, .rar, etc. quarantined until Phase 1
