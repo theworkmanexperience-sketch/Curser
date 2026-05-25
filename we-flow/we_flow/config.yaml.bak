@@ -268,45 +268,18 @@ compliance:
       973-803-1323
 
       By typing "YES" you acknowledge that you have read, understood, and agreed to this Agreement.
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
 
 # ─────────────────────────────────────────────────────────────
 # Stage 0.5 — Archive Intelligence & Recovery Engine (Phase 1)
 # Locked: Disabled for Phase 0 retail gate
 # ─────────────────────────────────────────────────────────────
 archive_engine:
-  enabled: false                       # Phase 1 only — do not change for retail
-  phase: "Phase1"
-
-  supported_formats: [".zip", ".gz", ".tar", ".tar.gz", ".tgz"]
-
-  extraction:
-    preserve_originals: true
-    max_nesting_depth: 3
-    isolated_directories: true
-    overwrite_existing: false
-
-  size_limits:
-    max_single_file_extracted_gb: 10
-    max_total_extracted_gb: 50
-
-  partial_downloads:
-    markers: [".crdownload", ".part", ".download", ".tmp", ".partial"]
-    action: "quarantine"
-
-  encrypted_archives:
-    action: "quarantine"
-
-  recursive_container:
-    halt_on_detection: true
-    flag_as_corrupted: true
-
-  repair:
-    attempt_repair: true
-    repair_timeout_seconds: 30
-
-  quarantine:
-    quarantine_dir: "QUARANTINE"
-
-  performance:
-    max_workers: 8
-    hash_chunk_size_mb: 64
+  enabled: false                     # Phase 1 only — do not change for retail
+  max_archive_size_gb: 10.0
+  quarantine_folder: "QUARANTINE"
+  extracted_folder: "ARCHIVE_EXTRACTED"
+  allow_phase1_formats: false        # .7z, .rar, etc. quarantined until Phase 1

@@ -186,11 +186,9 @@ class AuditLogger:
     def _now() -> str:
         return datetime.now(timezone.utc).isoformat()
 
-
     @staticmethod
-    def _sanitize_path(path) -> str:
-        """Strip OS username from paths per §16 data-minimization requirement.
-        GDPR/CCPA compliance: never log full /Users/username/... paths in plaintext.
         """
         import re
         return re.sub(r'(/Users/|/home/)[^/]+/', r'\1[redacted]/', str(path))
+
+    @staticmethod
