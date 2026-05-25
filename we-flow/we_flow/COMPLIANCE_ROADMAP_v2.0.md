@@ -277,3 +277,16 @@ Approved by: ________________  Date: ________
 
 **Status:** All engineering-controlled Phase 0 items are now PASS.
 Only PF-01/PF-02 (pre-flight wrapper) and Phase 1 items remain open.
+
+## ✅ Phase 0 Retail Gate — OFFICIALLY CLOSED (GREEN) — 2026-05-25
+**Commit:** 940cb62  
+**Status:** COMPLETE  
+**Evidence:**
+- 49/49 tests passing
+- Live EULA v1.0 acceptance confirmed (`~/.weflow/eula_acceptance.json`)
+- End-to-end smoke test successful (`WEF_20260525_062536_559806`)
+- Full deterministic pipeline executed cleanly
+- Archive Intelligence Engine correctly gated behind Phase 1 flag
+- All LOCKED v4.1 rules verified in real run
+
+**Retail Gate Verdict:** GREEN — production-ready
