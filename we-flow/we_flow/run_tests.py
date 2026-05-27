@@ -42,6 +42,7 @@ SUITE_MAP = {
     "6":   ("§17 Test 6 + §3.x — Idempotency + Edge Cases", "tests/test_idempotency.py"),
     "5ts": ("§5 Timestamp Fallback Chain",           "tests/test_timestamp.py"),
     "0.5": ("Stage 0.5 — Archive & Compression Intelligence [PHASE1]", "tests/test_archive_engine.py"),
+    "P":   ("Phase 1-C — Config Profile System", "tests/test_profile.py"),
 }
 
 

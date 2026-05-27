@@ -1,0 +1,30 @@
+profile_name: google_drive
+profile_version: "1.0"
+client: ""
+description: "Google Drive browser download delivery. Enables Archive Intelligence to handle .zip, .crdownload, and partial downloads automatically."
+created: "2026-05-27"
+
+archive_engine:
+  enabled: true                     # Required: handles .crdownload and .zip deliveries
+
+pipeline:
+  file_operation: copy              # Safe default for delivered content — preserve originals
+
+archive_engine:
+  enabled: true
+  supported_formats: [".zip", ".gz", ".tar", ".tar.gz", ".tgz"]
+  extraction:
+    preserve_originals: true
+    max_nesting_depth: 3
+  size_limits:
+    max_single_file_extracted_gb: 10
+    max_total_extracted_gb: 50
+  partial_downloads:
+    markers: [".crdownload", ".part", ".download", ".tmp", ".partial"]
+    action: quarantine
+  encrypted_archives:
+    action: quarantine
+  repair:
+    attempt_repair: true
+  quarantine:
+    quarantine_dir: QUARANTINE

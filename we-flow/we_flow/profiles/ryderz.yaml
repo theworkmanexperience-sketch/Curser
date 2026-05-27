@@ -1,0 +1,42 @@
+profile_name: ryderz
+profile_version: "1.0"
+client: "O-SIX RYDERZ MC"
+description: "O-SIX RYDERZ motorcycle club community service shoots. Direct SD card delivery. DJI Action + Insta360 X5 multicam."
+created: "2026-05-27"
+
+grouping:
+  window_seconds: 15                # DJI/Insta360 sync gap confirmed ~8s on Ryderz dataset
+  camera_offsets:
+    DJI: 0
+    Insta360: 0
+
+classification:
+  camera_folder_patterns:
+    - pattern: "DJI ACTION 5"
+      camera_model: "DJI_ACTION_5"
+    - pattern: "DJI ACTION 6"
+      camera_model: "DJI_ACTION_6"
+    - pattern: "Insta360 X5"
+      camera_model: "INSTA360_X5"
+  generic_filename_prefixes:
+    - Screen Recording
+    - Screencast
+    - Screenshot
+    - _screenshot
+    - T_Workman_
+    - grok-video-
+    - ChatGPT Image
+
+audio_classification:
+  field_recorder_patterns:
+    - "^ZOOM\\d*"
+    - "^SD_\\d+"
+
+pipeline:
+  file_operation: symlink           # Large dataset — no copies
+
+performance:
+  max_workers: 8
+
+archive_engine:
+  enabled: false                    # SD card delivery — no archives expected

@@ -30,9 +30,13 @@ Examples:
   python main.py --input ./raw --output ./project --workers 16
         """
     )
-    p.add_argument('--input', '-i', type=Path, required=True,
+    p.add_argument('--profile', default=None,
+        help='Client profile name (e.g. --profile ryderz)')
+    p.add_argument('--list-profiles', action='store_true',
+        help='List all available profiles and exit')
+    p.add_argument('--input', '-i', type=Path, required=False,
                    help='Input path: single mixed folder (default mode, §4).')
-    p.add_argument('--output', '-o', type=Path, required=True,
+    p.add_argument('--output', '-o', type=Path, required=False,
                    help='Output root. Created if absent.')
     p.add_argument('--config', '-c', type=Path,
                    default=Path(__file__).parent / 'config.yaml',
@@ -45,8 +49,22 @@ Examples:
 def main():
     args = parse_args()
 
-    if not args.input.exists():
-        print(f'[ERROR] Input path does not exist: {args.input}')
+    # --list-profiles doesn't need --input or --output
+    if hasattr(args, 'list_profiles') and args.list_profiles:
+        from engine.profile import ProfileLoader
+        profiles = ProfileLoader().list_profiles()
+        if not profiles:
+            print("No profiles found in profiles/ or ~/.weflow/profiles/")
+        else:
+            print(f"\n{'Name':<20} {'Client':<25} Description")
+            print("-" * 70)
+            for p in profiles:
+                print(f"{p['name']:<20} {p['client']:<25} {p['description'][:25]}")
+            print()
+        import sys; sys.exit(0)
+
+    if args.input is None or not args.input.exists():
+        print(f'[ERROR] Input path is required and must exist')
         sys.exit(1)
     if not args.config.exists():
         print(f'[ERROR] Config file not found: {args.config}')
@@ -59,7 +77,31 @@ def main():
     print('  Deterministic Media Ingestion Engine')
     print('=' * 60)
 
-    pipeline = Pipeline(config_path=args.config)
+    # Require --input for all other operations
+    if not args.input:
+        print('[ERROR] --input is required')
+        sys.exit(1)
+    if not args.output:
+        print('[ERROR] --output is required')
+        sys.exit(1)
+
+    # Load and merge client profile if specified
+    config_path = args.config
+    if args.profile:
+        import yaml, tempfile
+        from engine.profile import ProfileLoader
+        base_config = yaml.safe_load(config_path.read_text())
+        merged = ProfileLoader().load(args.profile, base_config)
+        meta = merged.get('_active_profile', {})
+        print(f"  [PROFILE] {args.profile}"
+              + (f" — {meta['client']}" if meta.get('client') else ""))
+        tmp = tempfile.NamedTemporaryFile(
+            mode='w', suffix='.yaml', delete=False, prefix='weflow_profile_')
+        yaml.dump(merged, tmp)
+        tmp.close()
+        config_path = Path(tmp.name)
+
+    pipeline = Pipeline(config_path=config_path)
 
     # CLI --workers overrides config value
     if args.workers is not None:
