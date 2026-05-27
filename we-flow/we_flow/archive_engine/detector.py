@@ -61,9 +61,13 @@ class ArchiveDetector:
         ext = file_path.suffix.lower()
         stem_ext = self._compound_extension(file_path)
 
-        if ext in PARTIAL_DOWNLOAD_MARKERS or any(
-            str(file_path).lower().endswith(m) for m in PARTIAL_DOWNLOAD_MARKERS
-        ):
+        # Handle Chrome duplicate naming: "file.crdownload 2", "file.crdownload 3"
+        import re as _re
+        clean_ext = _re.sub(r'\s+\d+$', '', ext)
+        if (ext in PARTIAL_DOWNLOAD_MARKERS or
+                clean_ext in PARTIAL_DOWNLOAD_MARKERS or
+                any(str(file_path).lower().endswith(m)
+                    for m in PARTIAL_DOWNLOAD_MARKERS)):
             return DetectionResult(
                 path=file_path, extension_claimed=ext, detected_type=None,
                 is_archive=False, is_partial_download=True,

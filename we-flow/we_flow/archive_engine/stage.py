@@ -181,10 +181,27 @@ class ArchiveIntelligenceStage:
             extract_dir = self.staging_dir / path.stem
             extraction = self.extractor.extract(path, extract_dir, detected_type, depth=0)
             if extraction.success and extraction.extracted_files:
-                result.files_extracted.extend(extraction.extracted_files)
+                # Post-extraction scan: quarantine nested partial downloads
+                # Extracted files bypass Stage 0.5 entry — check them here
+                clean_extracted = []
+                for xf in extraction.extracted_files:
+                    try:
+                        xd = self.detector.detect(xf)
+                        if xd.is_partial_download:
+                            self.quarantine_handler.quarantine(
+                                xf,
+                                reason='PARTIAL_DOWNLOAD_EXTRACTED',
+                                status='PARTIAL_DOWNLOAD',
+                                details=f'Partial download found inside archive {path.name}')
+                            result.files_quarantined.append(xf)
+                        else:
+                            clean_extracted.append(xf)
+                    except Exception:
+                        clean_extracted.append(xf)
+                result.files_extracted.extend(clean_extracted)
                 return self._make_entry(path, detection, validation, repair_result,
                                         extraction, None, sha256, manifest,
-                                        extracted_files=extraction.extracted_files,
+                                        extracted_files=clean_extracted,
                                         extract_path=extraction.extraction_dir)
             else:
                 q = self.quarantine_handler.quarantine(
