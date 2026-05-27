@@ -80,6 +80,11 @@ class ArchiveExtractor:
                     warnings.append(f'Rejected unsafe path: {info.filename!r}')
                     failed.append(info.filename)
                     continue
+                # Filter macOS resource forks (__MACOSX/ and ._* files)
+                if (safe_name.startswith('__MACOSX/') or
+                        '/__MACOSX/' in safe_name or
+                        Path(safe_name).name.startswith('._')):
+                    continue
                 target = dest / safe_name
                 target.parent.mkdir(parents=True, exist_ok=True)
                 if info.is_dir():

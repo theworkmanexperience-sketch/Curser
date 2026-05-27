@@ -513,7 +513,8 @@ class Pipeline:
                 pass
 
             elapsed = summary.get('elapsed_seconds', 0)
-            ingested = summary.get('files_ingested', 0)
+            # Priority 4: Count final ingested files after Stage 0.5 expansion
+            ingested = len(final_files) if 'final_files' in locals() else summary.get('files_ingested', len(raw_files))
             throughput = (ingested / elapsed * 3600) if elapsed > 0 else 0
             print(f"\n✓ {self.run_id} complete in {elapsed}s")
             print(f"  Files: {ingested:,} | Groups: {summary.get('multicam_groups_formed', 0)} | "
