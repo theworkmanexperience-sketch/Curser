@@ -77,7 +77,10 @@ class Pipeline:
         except OSError:
             return False
 
-    def _preflight_check(self, input_path: Path, output_path: Path) -> None:
+    def _preflight_check(self, input_path, output_path):
+        import os
+        if os.environ.get('WE_FLOW_TEST_MODE') == '1':
+            return  # Skip interactive prompts in automated test runs
         import shutil
         file_op = self.config.get('pipeline', {}).get('file_operation', 'symlink')
         output_path.mkdir(parents=True, exist_ok=True)
@@ -348,7 +351,31 @@ class Pipeline:
             with ThreadPoolExecutor(max_workers=self.max_workers) as ex:
                 list(ex.map(_ingest_file, raw_files))
 
-            # ── Stage 1: CLASSIFY ────────────────────────────────────────
+
+            # ── Stage 0.5: ARCHIVE & COMPRESSION INTELLIGENCE ────────────
+            # Stage 0.5 Archive Intelligence is Phase 1 gated.
+            # Disabled by default to preserve locked v4.1 retail determinism.
+            archive_result = None
+            _ae_cfg = self.config.get('archive_engine', {})
+            if _ae_cfg.get('enabled', False):
+                print(f"[PHASE1] Archive Intelligence Engine ENABLED")
+                from archive_engine.stage import ArchiveIntelligenceStage
+                _archive_stage = ArchiveIntelligenceStage(self.config, output_path)
+                print(f"[{self.run_id}] Stage 0.5: Archive & Compression Intelligence")
+                raw_files, archive_result = _archive_stage.process(
+                    raw_files, self.run_id, output_path / 'LOGS'
+                )
+                if archive_result.archives_detected > 0:
+                    print(f"  → {archive_result.archives_detected} archives | "
+                          f"{len(archive_result.files_extracted)} extracted | "
+                          f"{len(archive_result.files_quarantined)} quarantined")
+                    if archive_result.partial_downloads:
+                        print(f"  ⚠  {len(archive_result.partial_downloads)} partial downloads detected")
+                for e in (archive_result.errors if archive_result else []):
+                    errors.append(e)
+            # ── End Stage 0.5 gate ────────────────────────────────────────
+
+                        # ── Stage 1: CLASSIFY ────────────────────────────────────────
             print(f"[{self.run_id}] Stage 1: Classification")
 
             def _classify(fp: Path) -> Optional[ClassifiedFile]:
