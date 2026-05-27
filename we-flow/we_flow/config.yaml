@@ -1,5 +1,5 @@
 archive_engine:
-  enabled: false
+  enabled: true
   encrypted_archives:
     action: quarantine
   extraction:
@@ -36,6 +36,7 @@ archive_engine:
   - .tar
   - .tar.gz
   - .tgz
+  enabled_comment: Now ON by default (Phase 1+). Was gated for v4.1 retail.
 audio_classification:
   default_classification: generic
   field_recorder_patterns:
