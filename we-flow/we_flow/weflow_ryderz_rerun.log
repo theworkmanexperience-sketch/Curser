@@ -1,0 +1,26 @@
+============================================================
+  W.E. FLOW / W.E. FORGE  |  v4.1 ENHANCED
+  Deterministic Media Ingestion Engine
+============================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  W.E. FLOW — Pre-Flight Check
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Input media:    /Volumes/10TB/O-SIX RYDERZ MC Community Service
+                  588.4 GB · 224 files
+  Output folder:  /Volumes/10TB/O-SIX RYDERZ MC Community Service/WE_FLOW_OUTPUT/O-SIX RYDERZ MC Community Service
+                  708.1 GB free  ✓
+  File mode:      symlink mode — no files copied, only folder structure created
+  Space needed:   5.0 GB minimum on output drive
+  System drive:   157.6 GB free  ✓
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  BEFORE YOU CONTINUE — please confirm all of the following:
+
+  [ ] I am authorized to process the media files in the input folder
+  [ ] These files comply with all applicable NDAs and client agreements
+  [ ] I understand that W.E. FLOW will read every file in the input folder
+  [ ] The output drive meets my organization's encryption requirements
+
+  Type YES and press Enter to confirm, or Ctrl+C to cancel.
+  > 

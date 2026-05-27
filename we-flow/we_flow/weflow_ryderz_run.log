@@ -1,0 +1,139 @@
+[SKIP] fallback: Timestamp: 'higher_priority' → 'file_stat_mtime': fallback_level=2
+[SKIP] fallback: Timestamp: 'higher_priority' → 'file_stat_mtime': fallback_level=2
+[SKIP] fallback: Timestamp: 'higher_priority' → 'file_stat_mtime': fallback_level=2
+[SKIP] fallback: Timestamp: 'higher_priority' → 'file_stat_mtime': fallback_level=2
+[SKIP] fallback: Timestamp: 'higher_priority' → 'file_stat_mtime': fallback_level=2
+[SKIP] fallback: Timestamp: 'higher_priority' → 'file_stat_mtime': fallback_level=2
+[SKIP] fallback: Timestamp: 'higher_priority' → 'file_stat_mtime': fallback_level=2
+[SKIP] fallback: Timestamp: 'higher_priority' → 'file_stat_mtime': fallback_level=2
+[SKIP] fallback: Timestamp: 'higher_priority' → 'file_stat_mtime': fallback_level=2
+[SKIP] low_confidence_timestamps: 9 files at fallback_level=2
+[UNGROUPED] VID_20181001_194555_00_001(1).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20181001_194555_00_001(2)-044.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20181001_194555_00_001.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20181001_194555_00_003(1).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20181001_194555_00_003(2).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20181001_194555_00_003(3).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20181001_194555_00_003.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314072347_0001_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314072617_0002_D-002.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314074554_0003_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_080326_00_004(1).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_080326_00_004.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314082553_0002_D-016.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314082553_0002_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_085633_00_005(1).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_085633_00_005(2).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_085633_00_005.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314090522_0005_D-003.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_006(1).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_006(2).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_006(3).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_006(4).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_006.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_007(1).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_007(2).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_007(3)-037.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_007.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_007_2026-03-22_14-25-17_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_007_2026-03-22_14-26-57_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_007_2026-03-22_14-30-03_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_007_2026-03-22_14-30-32_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_007_2026-03-22_14-50-53_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_093040_00_008.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314095657_0006_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314100426_0005_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314101239_0006_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314101348_0007_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314101500_0008_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314103055_0007_D-001.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_104615_00_009.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_105150_00_010.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314105640_0011_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_105800_00_011.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_105800_00_011_2026-03-22_15-20-12_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_105800_00_011_2026-03-22_15-20-25_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_105800_00_011_2026-03-22_15-21-37_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_105800_00_011_2026-03-22_15-22-56_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314111157_0008_D-007.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314113258_0012_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_113953_00_012.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314114316_0019_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314114639_0009_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314114955_0010_D-008.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_120430_00_001(1).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_120430_00_001.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314120438_0020_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_122249_00_002(1).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_122249_00_002(2).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_122249_00_002(3).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_122249_00_002(4).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_122249_00_002(5).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_122249_00_002-034.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_122249_00_002_2026-03-22_16-47-47_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_122249_00_002_2026-03-22_16-50-57_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_122249_00_003(1)-028.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_122249_00_003-030.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_122249_00_003_2026-03-22_17-33-23_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_122249_00_003_2026-03-22_17-53-48_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314122330_0021_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314122941_0014_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314124016_0011_D-004.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314125017_0015_D-004.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314130732_0022_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_132513_00_005-027.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_132513_00_005.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_132513_00_005_2026-03-22_18-18-13_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_132513_00_005_2026-03-22_18-18-40_screenshot.jpg: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_134144_00_006(1).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_134144_00_006(2).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_134144_00_006.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_134144_00_007.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314134332_0024_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314174508_0027_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_192846_00_008(1).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_192846_00_008(2).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_192846_00_008.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_192846_00_009(1).mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_192846_00_009.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314203038_0029_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314213503_0030_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] VID_20260314_220447_00_011.mp4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[UNGROUPED] DJI_20260314222246_0031_D.MP4: No valid multicam group: insufficient distinct camera sources within ±5s window
+[SKIP] orphan_variant: variant_pattern_no_base_found — reclassified as standalone
+[SKIP] orphan_variant: variant_pattern_no_base_found — reclassified as standalone
+[SKIP] orphan_variant: variant_pattern_no_base_found — reclassified as standalone
+============================================================
+  W.E. FLOW / W.E. FORGE  |  v4.1 ENHANCED
+  Deterministic Media Ingestion Engine
+============================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  W.E. FLOW — Pre-Flight Check
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Input media:    /Volumes/10TB/O-SIX RYDERZ MC Community Service
+                  294.2 GB · 105 files
+  Output folder:  /Volumes/10TB/O-SIX RYDERZ MC Community Service/WE_FLOW_OUTPUT/O-SIX RYDERZ MC Community Service
+                  708.1 GB free  ✓
+  File mode:      symlink mode — no files copied, only folder structure created
+  Space needed:   5.0 GB minimum on output drive
+  System drive:   166.9 GB free  ✓
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[WEF_20260525_092407_3D1BC6] Stage 0: Ingest — /Volumes/10TB/O-SIX RYDERZ MC Community Service
+  → 104 files discovered
+[WEF_20260525_092407_3D1BC6] Stage 1: Classification
+  → 94 camera | 9 generic | 1 reference
+[WEF_20260525_092407_3D1BC6] Stage 2: Timestamp extraction
+  ⚠  WARNING: 9 files resolved via file-system clock (timestamp_confidence=low). Multicam grouping accuracy may be degraded.
+[WEF_20260525_092407_3D1BC6] Stage 3: Multicam grouping
+  → 1 groups | 92 ungrouped camera files
+[WEF_20260525_092407_3D1BC6] Stage 4: Variant detection
+  → 11 variant groups | 3 orphan variants (standalone)
+[WEF_20260525_092407_3D1BC6] Stage 5: Writing output → /Volumes/10TB/O-SIX RYDERZ MC Community Service/WE_FLOW_OUTPUT/O-SIX RYDERZ MC Community Service
+[WEF_20260525_092407_3D1BC6] Stage 6: Flushing audit logs
+
+✓ WEF_20260525_092407_3D1BC6 complete in 1466.91s
+  Files: 104 | Groups: 1 | Variants: 23 | Errors: 4
+  Report: /Volumes/10TB/O-SIX RYDERZ MC Community Service/WE_FLOW_OUTPUT/O-SIX RYDERZ MC Community Service/LOGS/WEF_20260525_092407_3D1BC6_summary.md
+
