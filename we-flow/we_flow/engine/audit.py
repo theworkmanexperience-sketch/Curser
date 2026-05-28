@@ -129,6 +129,7 @@ class AuditLogger:
             'grouping': self._grouping,
             'variants': self._variants,
             'errors': self._errors,
+            'proxies': self._proxies,
         }
         for name, entries in streams.items():
             path = self.log_dir / f'{self.run_id}_{name}.json'
