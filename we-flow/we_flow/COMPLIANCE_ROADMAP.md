@@ -27,14 +27,14 @@ reviewed, and certified at each phase before distribution.
 | Five mandatory audit log streams | ✓ Done | — |
 | Deterministic, reproducible output | ✓ Done | — |
 | Pre-flight disk check (usability) | ✓ Done | — |
-| **Pre-flight operator attestation** | ✗ Missing | Build before retail |
-| **EULA accepted + logged at first run** | ✗ Missing | Build before retail |
-| **Privacy Policy linked at startup** | ✗ Missing | Legal review required |
-| **Audit log tamper-evidence** | ✗ Missing | SHA-256 log signing |
-| **Output drive encryption check** | ✗ Missing | Build before retail |
-| **PII filename detection + warning** | ✗ Missing | Build before retail |
-| **Secure temp file deletion** | ✗ Missing | Build before retail |
-| **Version + update mechanism** | ✗ Missing | Required for retail |
+| **Pre-flight operator attestation** | ✅ Done | Verified — `_preflight.json` written every run |
+| **EULA accepted + logged at first run** | ✅ Done | Verified — v1.0 accepted 2026-05-25; persisted to `~/.weflow/` |
+| **Privacy Policy linked at startup** | ⏸ Deferred | Internal work only — engage attorney pre-retail |
+| **Audit log tamper-evidence** | ✗ Missing | SHA-256 log signing — pre-retail |
+| **Output drive encryption check** | ⚠️ Partial | `output_drive_encrypted` field missing from preflight — pre-retail |
+| **PII filename detection + warning** | ⚠️ Partial | Wiring built; `pii_flagged_filenames` stores plaintext — fix before PII-rich dataset |
+| **Secure temp file deletion** | ✅ Done | OP-04 — `tempfile.TemporaryDirectory` cleaned in finally block |
+| **Version + update mechanism** | ⏸ Deferred | Internal work only — required pre-retail |
 | Data Governance Addendum (vendors) | ✓ Done | — |
 | Reference Hardware documented | ✓ Done | — |
 
@@ -219,4 +219,4 @@ Before releasing any phase to retail, all items must be checked:
 
 *This document must be reviewed and updated at every phase gate.*  
 *Legal documents must be reviewed by a qualified attorney before retail distribution.*  
-*Last updated: 2026-05-22*
+*Last updated: 2026-05-27 — status updated per COMPLIANCE_DELTA_v4.8.md*
