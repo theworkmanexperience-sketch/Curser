@@ -76,6 +76,27 @@ class Pipeline:
             return sys_device == out_device
         except OSError:
             return False
+    def _extract_dji_telemetry(self, file_path):
+        """Extract precise timestamp from DJI Action cameras using embedded metadata."""
+        try:
+            result = subprocess.run([
+                "ffprobe", "-v", "quiet", "-print_format", "json",
+                "-show_format", "-show_streams", str(file_path)
+            ], capture_output=True, text=True, timeout=10)
+            if result.returncode != 0:
+                return None, None
+            data = json.loads(result.stdout)
+            tags = data.get("format", {}).get("tags", {})
+            
+            creation_time = tags.get("creation_time")
+            if creation_time:
+                # Convert ISO to datetime (DJI uses Z or +00:00)
+                dt = datetime.fromisoformat(creation_time.replace("Z", "+00:00"))
+                return dt, "dji_metadata"
+        except Exception:
+            pass
+        return None, None
+
 
     def _preflight_check(self, input_path, output_path):
         import os
@@ -519,7 +540,8 @@ class Pipeline:
             print(f"\n✓ {self.run_id} complete in {elapsed}s")
             print(f"  Files: {ingested:,} | Groups: {summary.get('multicam_groups_formed', 0)} | "
                   f"Variants: {summary.get('variants_detected', 0)} | "
-                  f"Errors: {summary.get('errors', 0)}")
+                  f"Errors: {summary.get('errors', 0)} | "
+                  f"Diagnostics: {summary.get('diagnostics', 0)}")
             print(f"  Report: {report}\n")
 
         return summary
@@ -561,11 +583,16 @@ class Pipeline:
             f"| Ungrouped camera files | {s.get('ungrouped_camera_files', 0)} |",
             f"| Variant groups | {s.get('variants_detected', 0)} |",
             f"| Errors | {s.get('errors', 0)} |",
-            f"| Fallbacks | {s.get('fallbacks', 0)} |", "",
+            f"| Diagnostics | {s.get('diagnostics', 0)} |",
+            f"| Fallbacks (timestamp) | {s.get('fallbacks', 0)} |", "",
             "## Errors", "",
         ]
         errs = s.get('pipeline_errors', [])
         lines += [f"- {e}" for e in errs] if errs else ["_None._"]
+        diag_count = s.get('diagnostics', 0)
+        lines += ["", "## Diagnostics", "",
+                  f"_{diag_count} operational diagnostic(s) — low-confidence timestamps "
+                  f"and orphan variants. Not pipeline failures._"]
         lines += ["", "## Log Files", ""]
         for name, p in s.get('log_files', {}).items():
             lines.append(f"- **{name}:** `{p}`")

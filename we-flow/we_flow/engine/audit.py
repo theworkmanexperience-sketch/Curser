@@ -153,9 +153,17 @@ class AuditLogger:
         written['manifest'] = manifest_path
         return written
 
+    # Operational diagnostics — expected on real datasets, not pipeline failures
+    DIAGNOSTIC_TYPES = frozenset({'low_confidence_timestamps', 'orphan_variant'})
+
     def summary(self) -> dict:
-        real_errors = [e for e in self._errors if e.get('error_type') != 'fallback']
-        fallbacks = [e for e in self._errors if e.get('error_type') == 'fallback']
+        real_errors  = [e for e in self._errors
+                        if e.get('error_type') not in self.DIAGNOSTIC_TYPES
+                        and e.get('error_type') != 'fallback']
+        diagnostics  = [e for e in self._errors
+                        if e.get('error_type') in self.DIAGNOSTIC_TYPES]
+        fallbacks    = [e for e in self._errors
+                        if e.get('error_type') == 'fallback']
         return {
             'files_ingested': len(self._ingest),
             'files_classified': len(self._classification),
@@ -163,8 +171,9 @@ class AuditLogger:
                 [e for e in self._grouping if e.get('event') == 'grouping']
             ),
             'variants_detected': len(self._variants),
-            'errors': len(real_errors),
-            'fallbacks': len(fallbacks),
+            'errors':      len(real_errors),
+            'diagnostics': len(diagnostics),
+            'fallbacks':   len(fallbacks),
             'ungrouped_camera_files': len(
                 [e for e in self._grouping if e.get('event') == 'ungrouped_camera']
             ),
