@@ -38,6 +38,8 @@ Examples:
                    help='Input path: single mixed folder (default mode, §4).')
     p.add_argument('--output', '-o', type=Path, required=False,
                    help='Output root. Created if absent.')
+    p.add_argument('--proxy', action='store_true', default=False,
+                   help='Enable proxy generation for this run (overrides profile setting)')
     p.add_argument('--config', '-c', type=Path,
                    default=Path(__file__).parent / 'config.yaml',
                    help='Config file path (default: config.yaml in project root).')
@@ -95,6 +97,9 @@ def main():
         meta = merged.get('_active_profile', {})
         print(f"  [PROFILE] {args.profile}"
               + (f" — {meta['client']}" if meta.get('client') else ""))
+        if getattr(args, 'proxy', False):
+            merged.setdefault('proxy_generation', {})['enabled'] = True
+            print('  [PROXY] proxy generation enabled via --proxy flag')
         tmp = tempfile.NamedTemporaryFile(
             mode='w', suffix='.yaml', delete=False, prefix='weflow_profile_')
         yaml.dump(merged, tmp)

@@ -326,3 +326,13 @@ variant_detection:
   - _final
   - _export
   - _rev\d*
+
+proxy_generation:
+  enabled: false          # activate via --proxy flag or profile
+  target_files: camera_only  # camera_only | camera_and_generic | all_video
+  resolution: 720p
+  bitrate_mbps: 1.5
+  encoder: h264_videotoolbox  # h264_videotoolbox (macOS) | libx264 (cross-platform)
+  preset: fast            # libx264 only; ignored by videotoolbox
+  output_folder: PROXIES
+  skip_unchanged: true    # SHA-256 based — only retranscode if source changed

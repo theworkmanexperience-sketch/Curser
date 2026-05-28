@@ -59,3 +59,13 @@ output:
 # ── Archive engine ───────────────────────────────────────────────────────────
 archive_engine:
   enabled: false                    # Phase 1 — disabled by default
+
+proxy_generation:
+  enabled: true
+  target_files: camera_only
+  resolution: 720p
+  bitrate_mbps: 1.5
+  encoder: h264_videotoolbox
+  preset: fast
+  output_folder: PROXIES
+  skip_unchanged: true

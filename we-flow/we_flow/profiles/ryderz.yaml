@@ -40,3 +40,6 @@ performance:
 
 archive_engine:
   enabled: false                    # SD card delivery — no archives expected
+
+proxy_generation:
+  enabled: false  # SD card delivery: enable manually via --proxy when source drive stays mounted

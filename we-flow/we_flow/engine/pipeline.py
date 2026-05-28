@@ -33,6 +33,7 @@ from pathlib import Path
 from typing import Optional
 
 import yaml
+from engine.proxy import ProxyGenerator
 
 from .classifier import FileClassifier, ClassifiedFile
 from .timestamp import TimestampExtractor
@@ -350,6 +351,7 @@ class Pipeline:
         all_classified: list[ClassifiedFile] = []
         errors: list[str] = []
         written: dict = {}
+        sha_map: dict  = {}  # Stage 0 → Stage 6: source path → SHA-256
 
         try:
             # ── Stage 0: INGEST ──────────────────────────────────────────
@@ -362,6 +364,7 @@ class Pipeline:
                 try:
                     size = fp.stat().st_size
                     sha = self.classifier.compute_hash(fp, self.hash_chunk_mb)
+                    sha_map[fp] = sha
                     logger.log_ingest(fp, file_size=size, file_hash=sha)
                     return None
                 except Exception as e:
@@ -514,8 +517,34 @@ class Pipeline:
             print(f"\n[FATAL] {e}\n{traceback.format_exc()}")
 
         finally:
-            # ── Stage 6: AUDIT FLUSH (always runs) ──────────────────────
-            print(f"[{self.run_id}] Stage 6: Flushing audit logs")
+            # ── Stage 6: PROXY GENERATION ────────────────────────────────
+            proxy_result = None
+            _px_cfg = self.config.get('proxy_generation', {})
+            if _px_cfg.get('enabled', False):
+                print(f"[{self.run_id}] Stage 6: Proxy generation")
+                generator = ProxyGenerator(self.config)
+                proxy_result = generator.generate(
+                    classified_files=all_classified,
+                    output_path=output_path,
+                    tmp_dir=tmp_dir,
+                    sha_map=sha_map,
+                )
+                for r in proxy_result.get('results', []):
+                    logger.log_proxy(
+                        source_path=r.source_path,
+                        proxy_path=r.proxy_path,
+                        status=r.status,
+                        reason=r.reason,
+                        elapsed_s=r.elapsed_s,
+                        source_sha256=r.source_sha256,
+                    )
+                t = proxy_result.get('transcoded', 0)
+                s = proxy_result.get('skipped', 0)
+                f = proxy_result.get('failed', 0)
+                print(f"  → {t} transcoded | {s} skipped | {f} failed")
+
+            # ── Stage 7: AUDIT CLOSE ─────────────────────────────────────
+            print(f"[{self.run_id}] Stage 7: Flushing audit logs")
             log_paths = logger.flush()
             summary = logger.summary()
             summary.update({
@@ -538,10 +567,14 @@ class Pipeline:
             ingested = len(final_files) if 'final_files' in locals() else summary.get('files_ingested', len(raw_files))
             throughput = (ingested / elapsed * 3600) if elapsed > 0 else 0
             print(f"\n✓ {self.run_id} complete in {elapsed}s")
+            px_t = summary.get('proxies_transcoded', 0)
+            px_s = summary.get('proxies_skipped', 0)
+            px_f = summary.get('proxies_failed', 0)
+            px_str = f" | Proxies: {px_t}t/{px_s}s/{px_f}f" if summary.get('proxies_transcoded', 0) + summary.get('proxies_skipped', 0) + summary.get('proxies_failed', 0) > 0 else ""
             print(f"  Files: {ingested:,} | Groups: {summary.get('multicam_groups_formed', 0)} | "
                   f"Variants: {summary.get('variants_detected', 0)} | "
                   f"Errors: {summary.get('errors', 0)} | "
-                  f"Diagnostics: {summary.get('diagnostics', 0)}")
+                  f"Diagnostics: {summary.get('diagnostics', 0)}{px_str}")
             print(f"  Report: {report}\n")
 
         return summary

@@ -28,3 +28,13 @@ archive_engine:
     attempt_repair: true
   quarantine:
     quarantine_dir: QUARANTINE
+
+proxy_generation:
+  enabled: true
+  target_files: camera_only
+  resolution: 720p
+  bitrate_mbps: 1.5
+  encoder: h264_videotoolbox
+  preset: fast
+  output_folder: PROXIES
+  skip_unchanged: true

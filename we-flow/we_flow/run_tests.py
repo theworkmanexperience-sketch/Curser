@@ -43,6 +43,7 @@ SUITE_MAP = {
     "5ts": ("§5 Timestamp Fallback Chain",           "tests/test_timestamp.py"),
     "0.5": ("Stage 0.5 — Archive & Compression Intelligence [PHASE1]", "tests/test_archive_engine.py"),
     "P":   ("Phase 1-C — Config Profile System", "tests/test_profile.py"),
+    "E":   ("Phase 1-E — Proxy Generation", "tests/test_proxy.py"),
 }
 
 

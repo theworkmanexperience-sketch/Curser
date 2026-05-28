@@ -29,6 +29,7 @@ class AuditLogger:
         self._classification: list[dict] = []
         self._grouping: list[dict] = []
         self._variants: list[dict] = []
+        self._proxies: list[dict] = []
         self._errors: list[dict] = []
 
         self._logger = logging.getLogger(f'weflow.{run_id}')
@@ -177,7 +178,25 @@ class AuditLogger:
             'ungrouped_camera_files': len(
                 [e for e in self._grouping if e.get('event') == 'ungrouped_camera']
             ),
+            'proxies_transcoded': len([p for p in self._proxies if p.get('status') == 'transcoded']),
+            'proxies_skipped':    len([p for p in self._proxies if p.get('status', '').startswith('skipped')]),
+            'proxies_failed':     len([p for p in self._proxies if p.get('status') == 'failed']),
         }
+
+    def log_proxy(self, source_path, proxy_path, status: str,
+                 reason: str = None, elapsed_s: float = None,
+                 source_sha256: str = None) -> None:
+        """Log a proxy generation event."""
+        entry = {
+            **self._base(source_path),
+            'event': 'proxy',
+            'proxy_path': str(proxy_path) if proxy_path else None,
+            'status': status,
+            'reason': reason,
+            'elapsed_s': round(elapsed_s, 2) if elapsed_s else None,
+            'source_sha256': source_sha256,
+        }
+        self._proxies.append(entry)
 
     def _base(self, file_path: Path) -> dict:
         return {
