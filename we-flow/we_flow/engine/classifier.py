@@ -88,6 +88,9 @@ class FileClassifier:
         self._generic_filename_prefixes: list[str] = cls_cfg.get(
             'generic_filename_prefixes', []
         )
+        self._generic_filename_substrings: list[str] = cls_cfg.get(
+            'generic_filename_substrings', []
+        )
 
         # Folder-based classification patterns (case-insensitive substring match on path parts)
         self._reference_folder_patterns: list[str] = [
@@ -112,6 +115,14 @@ class FileClassifier:
             return ClassifiedFile(
                 path=file_path, classification='generic',
                 camera_source=None, detection_method='generic_filename_prefix',
+                file_size=size,
+            )
+
+        # 0a. Generic filename substring match (e.g. VID_..._screenshot.jpg)
+        if any(p in filename for p in self._generic_filename_substrings):
+            return ClassifiedFile(
+                path=file_path, classification='generic',
+                camera_source=None, detection_method='generic_filename_substring',
                 file_size=size,
             )
 

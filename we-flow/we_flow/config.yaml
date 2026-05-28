@@ -152,10 +152,11 @@ classification:
   - Screen Recording
   - Screencast
   - Screenshot
-  - _screenshot
   - T_Workman_
   - grok-video-
   - ChatGPT Image
+  generic_filename_substrings:
+  - _screenshot
   generic_folder_patterns:
   - Media File vid and pics
   - Media Files
