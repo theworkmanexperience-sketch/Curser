@@ -61,7 +61,7 @@ def main():
             for p in profiles:
                 print(f"{p['name']:<20} {p['client']:<25} {p['description'][:25]}")
             print()
-        import sys; sys.exit(0)
+        raise SystemExit(0)
 
     if args.input is None or not args.input.exists():
         print(f'[ERROR] Input path is required and must exist')
