@@ -336,3 +336,7 @@ proxy_generation:
   preset: fast            # libx264 only; ignored by videotoolbox
   output_folder: PROXIES
   skip_unchanged: true    # SHA-256 based — only retranscode if source changed
+  workers: 1              # Phase 2: parallel ffmpeg workers
+                          #   1 = USB HDD (current) — 4 workers on spinning disk adds IO contention
+                          #   4 = NVMe via TB4 (set after Samsung 990 PRO installed)
+  preflight: true         # Phase 2: ffprobe duration scan before transcoding starts
