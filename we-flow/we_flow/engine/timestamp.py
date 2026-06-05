@@ -44,6 +44,30 @@ class TimestampResult:
 
 
 class TimestampExtractor:
+    def _extract_dji_telemetry(self, file_path):
+        """Extract precise timestamp from DJI Action cameras using ffprobe metadata."""
+        try:
+            result = subprocess.run([
+                'ffprobe', '-v', 'quiet', '-print_format', 'json',
+                '-show_format', '-show_streams', str(file_path)
+            ], capture_output=True, text=True)
+            data = json.loads(result.stdout)
+            tags = data.get('format', {}).get('tags', {})
+            
+            # Primary DJI timestamp sources
+            creation_time = tags.get('creation_time')
+            if creation_time:
+                return datetime.fromisoformat(creation_time.replace('Z', '+00:00')), 'dji_metadata'
+            
+            # Fallback to QuickTime model + handler for DJI
+            model = tags.get('com.apple.quicktime.model') or tags.get('model')
+            if model and 'dji' in model.lower():
+                # DJI filename pattern is already strong, but we can add offset here later
+                pass
+        except Exception:
+            pass
+        return None, None
+
 
     def __init__(self, camera_offsets: dict | None = None):
         self.camera_offsets = camera_offsets or {}
