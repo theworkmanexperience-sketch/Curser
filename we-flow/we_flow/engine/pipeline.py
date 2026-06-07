@@ -67,6 +67,23 @@ class Pipeline:
         self.grouper = MulticamGrouper(self.config)
         self.variant_detector = VariantDetector(self.config)
 
+        # W.E. FORGE Registry — writes production history to local SQLite
+        # Wrapped in try/except: registry failures never prevent pipeline startup
+        try:
+            import sys as _sys, os as _os
+            if _os.environ.get('WE_FLOW_TEST_MODE') == '1':
+                self._registry = None  # Never write test runs to production registry
+            else:
+                _weforge_root = str(Path(__file__).resolve().parent.parent.parent)
+                if _weforge_root not in _sys.path:
+                    _sys.path.insert(0, _weforge_root)
+                from weforge.registry.writer import RegistryWriter as _RegistryWriter
+                _reg_path = Path.home() / '.weforge' / 'registry' / 'weforge.db'
+                self._registry = _RegistryWriter(db_path=_reg_path)
+        except Exception as _e:
+            self._registry = None
+            print(f"  [registry] init failed — runs will not be recorded: {_e}")
+
     @staticmethod
     def _is_system_drive(path: Path) -> bool:
         import shutil
@@ -77,27 +94,6 @@ class Pipeline:
             return sys_device == out_device
         except OSError:
             return False
-    def _extract_dji_telemetry(self, file_path):
-        """Extract precise timestamp from DJI Action cameras using embedded metadata."""
-        try:
-            result = subprocess.run([
-                "ffprobe", "-v", "quiet", "-print_format", "json",
-                "-show_format", "-show_streams", str(file_path)
-            ], capture_output=True, text=True, timeout=10)
-            if result.returncode != 0:
-                return None, None
-            data = json.loads(result.stdout)
-            tags = data.get("format", {}).get("tags", {})
-            
-            creation_time = tags.get("creation_time")
-            if creation_time:
-                # Convert ISO to datetime (DJI uses Z or +00:00)
-                dt = datetime.fromisoformat(creation_time.replace("Z", "+00:00"))
-                return dt, "dji_metadata"
-        except Exception:
-            pass
-        return None, None
-
 
     def _preflight_check(self, input_path, output_path):
         import os
@@ -335,6 +331,20 @@ class Pipeline:
     def run(self, input_path: Path, output_path: Path) -> dict:
         self._preflight_check(input_path, output_path)
         start = time.time()
+
+
+        # Registry: open run record before any stage executes
+        try:
+            if self._registry:
+                self._registry.write_run(
+                    run_id=self.run_id,
+                    we_forge_version='1.0.0',
+                    source_path=str(input_path),
+                    output_path=str(output_path),
+                    profile_id=self.config.get('_active_profile', {}).get('name'),
+                )
+        except Exception as _e:
+            print(f"  [registry] write_run skipped: {_e}")
         output_path.mkdir(parents=True, exist_ok=True)
         logs_dir = output_path / 'LOGS'
 
@@ -543,6 +553,56 @@ class Pipeline:
                 f = proxy_result.get('failed', 0)
                 print(f"  → {t} transcoded | {s} skipped | {f} failed")
 
+            # Registry: write content records + finalize run
+            try:
+                if self._registry and all_classified:
+                    # Build proxy path lookup from proxy results
+                    _proxy_map = {}
+                    if proxy_result:
+                        for _r in proxy_result.get('results', []):
+                            if _r.status == 'transcoded' and _r.proxy_path:
+                                _proxy_map[_r.source_path] = str(_r.proxy_path)
+
+                    for _f in all_classified:
+                        _sha = sha_map.get(_f.path, '')
+                        if not _sha:
+                            continue
+                        _shoot_date = None
+                        if getattr(_f, 'timestamp', None):
+                            try:
+                                _shoot_date = datetime.fromtimestamp(
+                                    _f.timestamp, tz=timezone.utc
+                                ).strftime('%Y-%m-%d')
+                            except Exception:
+                                pass
+                        _size = None
+                        try:
+                            _size = _f.path.stat().st_size if _f.path.exists() else None
+                        except Exception:
+                            pass
+                        self._registry.write_content(
+                            run_id=self.run_id,
+                            content_id=_sha,
+                            filename=_f.path.name,
+                            original_path=str(_f.path),
+                            camera_family=getattr(_f, 'camera_source', None),
+                            shoot_date=_shoot_date,
+                            file_size_bytes=_size,
+                            proxy_path=_proxy_map.get(_f.path),
+                            content_type='original',
+                        )
+
+                    self._registry.finalize_run(
+                        run_id=self.run_id,
+                        file_count=len(all_classified),
+                        total_duration_sec=0.0,
+                        runtime_sec=round(time.time() - start, 2),
+                        errors=errors,
+                    )
+                    print(f"  [registry] {len(all_classified)} records → ~/.weforge/registry/weforge.db")
+            except Exception as _e:
+                print(f"  [registry] finalize skipped: {_e}")
+
             # ── Stage 7: AUDIT CLOSE ─────────────────────────────────────
             print(f"[{self.run_id}] Stage 7: Flushing audit logs")
             log_paths = logger.flush()
@@ -564,7 +624,7 @@ class Pipeline:
 
             elapsed = summary.get('elapsed_seconds', 0)
             # Priority 4: Count final ingested files after Stage 0.5 expansion
-            ingested = len(final_files) if 'final_files' in locals() else summary.get('files_ingested', len(raw_files))
+            ingested = summary.get('files_ingested', len(raw_files))
             throughput = (ingested / elapsed * 3600) if elapsed > 0 else 0
             print(f"\n✓ {self.run_id} complete in {elapsed}s")
             px_t = summary.get('proxies_transcoded', 0)
