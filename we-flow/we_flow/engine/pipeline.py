@@ -620,6 +620,25 @@ class Pipeline:
             except Exception as _e:
                 print(f"  [registry] finalize skipped: {_e}")
 
+            # ── Measure 3: Warn if proxy generation expected but 0 produced ──
+            if proxy_result:
+                _eligible  = proxy_result.get('eligible', 0)
+                _transcoded = proxy_result.get('transcoded', 0)
+                _unchanged  = sum(
+                    1 for r in proxy_result.get('results', [])
+                    if r.status == 'skipped_unchanged'
+                )
+                if _eligible > 0 and _transcoded == 0 and _unchanged < _eligible:
+                    print(
+                        f"\n  ⚠  WARNING: {_eligible} files were eligible for "
+                        f"proxy generation but 0 were transcoded.\n"
+                        f"  Check ffmpeg installation and source file integrity."
+                    )
+                    errors.append(
+                        f"WARN: 0 proxies generated from {_eligible} eligible files"
+                    )
+            # ── End Measure 3 ────────────────────────────────────────────────
+
             # ── Stage 7: AUDIT CLOSE ─────────────────────────────────────
             print(f"[{self.run_id}] Stage 7: Flushing audit logs")
             log_paths = logger.flush()
