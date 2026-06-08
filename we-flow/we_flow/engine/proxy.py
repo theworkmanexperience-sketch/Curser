@@ -323,12 +323,14 @@ class ProxyGenerator:
             return
 
         hours = total_sec / 3600
-        # Phase 1 baseline: 8.9h for 77 files, ~3200s source = ~10x realtime on USB/1w
-        # NVMe/4w target: ~1x realtime (empirical target, validated post-hardware install)
-        est_usb_min  = (total_sec / 60) * 10 / self._workers
-        est_nvme_min = (total_sec / 60) * 1.0 / self._workers
+        n = len(eligible)
+        # Estimate based on per-file transcoding rate (Phase 1 validated):
+        # USB HDD 1 worker: ~7 min/file (MG-01 baseline: 77 files / 8.9h)
+        # NVMe 4 workers:   ~0.75 min/file (projected from hardware specs)
+        est_usb_min  = n * 7.0 / self._workers
+        est_nvme_min = n * 0.75 / self._workers
         print(
-            f"  Pre-flight: {scanned}/{len(eligible)} files scanned, "
+            f"  Pre-flight: {scanned}/{n} files scanned, "
             f"{hours:.1f}h source duration\n"
             f"  Estimated: ~{est_usb_min:.0f}m (USB/{self._workers}w) · "
             f"~{est_nvme_min:.0f}m (NVMe/{self._workers}w)"
