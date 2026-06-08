@@ -100,6 +100,23 @@ class Pipeline:
         if os.environ.get('WE_FLOW_TEST_MODE') == '1':
             return  # Skip interactive prompts in automated test runs
         import shutil
+
+        # ── Measure 1: Dependency check — fail fast before any processing ───
+        # Prevents silent 8-9 hour runs that produce 0 proxies due to missing tools
+        if self.config.get('proxy_generation', {}).get('enabled', False):
+            _missing = [t for t in ('ffmpeg', 'ffprobe') if not shutil.which(t)]
+            if _missing:
+                raise RuntimeError(
+                    "\n\n  ✗ Pre-flight FAILED — missing required tools:\n"
+                    f"\n  Proxy generation is enabled but "
+                    f"{', '.join(_missing)} "
+                    f"{'is' if len(_missing) == 1 else 'are'} not installed.\n"
+                    "\n  Install with:  brew install ffmpeg"
+                    "\n  Then re-run this command."
+                    "\n\n  Run aborted — 0 files processed, 0 hours wasted."
+                )
+        # ── End dependency check ─────────────────────────────────────────────
+
         file_op = self.config.get('pipeline', {}).get('file_operation', 'symlink')
         output_path.mkdir(parents=True, exist_ok=True)
 
