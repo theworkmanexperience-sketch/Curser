@@ -1,4 +1,5 @@
 # CLAUDE.md — W.E. FORGE / W.E. FLOW Build Context
+## Version 2.0 | Updated June 8, 2026
 
 ## What This Project Is
 
@@ -16,9 +17,10 @@ W.E. FLOW is described as "the first product from W.E. FORGE."
 Repo:    github.com:theworkmanexperience-sketch/Curser.git
 Local:   ~/Curser/we-flow/
 Package: we_flow/ (target: weforge/ — see Phase 2)
-Commit:  f153467 — CLAUDE.md added
-Tests:   95/95 passing
+Commit:  27c8043 — Measure 3 implemented
+Tests:   171/171 passing
 Phase 1: COMPLETE
+Phase 2: IN PROGRESS (registry live, Measures 1+3, formula fix)
 ```
 
 ### Production Baseline (O-SIX RYDERZ MC — validated)
@@ -411,3 +413,52 @@ W.E. FLOW replaces: Hedge ($99/yr) + manual Finder org + PluralEyes ($199) + Kyn
 W.E. FORGE at J5: production intelligence platform with 2+ years creator data + AI across pre-edit workflow.
 Adobe paid $1.275B for Frame.io (cloud collaboration, no AI, no ingest intelligence).
 W.E. FORGE at J5 is a different conversation entirely.
+
+---
+
+## MG-02 Results (O-SIX RYDERZ MC Community Service — June 8, 2026)
+
+```
+Run ID:   WEF_20260608_120955_289A74
+Files:    103 | Groups: 2 | Variants: 23 | Errors: 0 | Diagnostics: 4
+Proxies:  79 transcoded | 0 skipped | 0 failed
+Runtime:  32,697s = 9.08 hours
+Rate:     6.90 min/file (validates MG-01: 6.96 min/file)
+Registry: 103 records in ~/.weforge/registry/weforge.db
+Cameras:  Insta360(48) DJI(29) unclassified(23)
+```
+
+Validated per-file rate: ~7 min/file USB/1w | ~0.75 min/file NVMe/4w (projected)
+
+---
+
+## Backlog — Known Issues (Priority Order)
+
+1. Measure 2 — show proxy count estimate before long run starts
+2. Measure 4 — smoke test one file before full run
+3. Measure 5 — progress heartbeat for runs >1 hour
+4. weforge/flow/ migration (Option A — 2-3 sessions)
+5. _extract_dji_telemetry integration in timestamp.py
+6. Windows platform support (AMD Ryzen PC available)
+7. Executive Summary v4.7 -> v4.8
+
+---
+
+## Recent Commits
+
+```
+27c8043  feat(preflight): Measure 3 — warn when 0 proxies from eligible
+62209f2  fix(proxy): pre-flight estimate per-file rate, MG-01 calibrated
+c35750a  feat(preflight): Measure 1 — fail fast if ffmpeg/ffprobe missing
+9033721  feat(registry): wire RegistryWriter into pipeline
+65866a9  docs: add WEFORGE Architecture v1.0 and Phase 2 build log
+```
+
+---
+
+## Hardware Pending
+
+Samsung 990 PRO 4TB (~$260) + ZikeDrive Z666 TB4 enclosure (~$150) = ~$410
+Connect NVMe DIRECTLY to Mac Studio TB4 port — NOT StarTech dock
+After install: config.yaml workers: 1 -> 4
+Expected: 9 hours -> ~60 minutes per 79-file shoot
