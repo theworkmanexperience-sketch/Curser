@@ -1,0 +1,342 @@
+archive_engine:
+  enabled: true
+  encrypted_archives:
+    action: quarantine
+  extraction:
+    isolated_directories: true
+    max_nesting_depth: 3
+    overwrite_existing: false
+    preserve_originals: true
+  partial_downloads:
+    action: quarantine
+    markers:
+    - .crdownload
+    - .part
+    - .download
+    - .tmp
+    - .partial
+  performance:
+    hash_chunk_size_mb: 64
+    max_workers: 8
+  phase: Phase1
+  quarantine:
+    quarantine_dir: QUARANTINE
+  recursive_container:
+    flag_as_corrupted: true
+    halt_on_detection: true
+  repair:
+    attempt_repair: true
+    repair_timeout_seconds: 30
+  size_limits:
+    max_single_file_extracted_gb: 10
+    max_total_extracted_gb: 50
+  supported_formats:
+  - .zip
+  - .gz
+  - .tar
+  - .tar.gz
+  - .tgz
+  enabled_comment: Now ON by default (Phase 1+). Was gated for v4.1 retail.
+audio_classification:
+  default_classification: generic
+  field_recorder_patterns:
+  - ^ZOOM\d*
+  - ^ZH\d
+  - ^SD_\d+
+  - ^F\d+_\d+
+  - ^TASCAM_
+  - ^DR\d+_
+classification:
+  camera_folder_patterns:
+  - camera_model: DJI_ACTION_5
+    pattern: DJI ACTION 5
+  - camera_model: DJI_ACTION_6
+    pattern: DJI ACTION 6
+  - camera_model: INSTA360_X5
+    pattern: Insta360 X5
+  camera_sources:
+    Blackmagic:
+      extensions:
+      - .braw
+      - .mp4
+      - .mov
+      - .dng
+      patterns:
+      - ^Blackmagic_
+      - ^BMPCC
+    Canon:
+      extensions:
+      - .mov
+      - .mp4
+      - .cr3
+      - .cr2
+      patterns:
+      - ^MVI_\d+
+      - ^_MG_\d+
+    DJI:
+      extensions:
+      - .mp4
+      - .mov
+      - .jpg
+      - .jpeg
+      - .dng
+      patterns:
+      - ^DJI_
+      - ^DJI\d
+      - DJI_\d{4}
+    Generic_Camera:
+      extensions:
+      - .mp4
+      - .mov
+      - .mxf
+      - .avi
+      - .mkv
+      patterns:
+      - ^\d{8}_\d{6}
+      - ^\d{4}-\d{2}-\d{2}
+    GoPro:
+      extensions:
+      - .mp4
+      - .lrv
+      - .thm
+      - .jpg
+      patterns:
+      - ^GOPR\d+
+      - ^GP\d{6}
+      - ^GH\d{6}
+      - ^GX\d{6}
+      - ^GL\d{6}
+    Insta360:
+      extensions:
+      - .insv
+      - .insp
+      - .mp4
+      - .jpg
+      patterns:
+      - ^ISD_
+      - ^VID_
+      - _00_\d+\.insv
+      - ^PRO_VID
+    OMSystem:
+      extensions:
+      - .mov
+      - .mp4
+      - .orf
+      - .jpg
+      - .jpeg
+      patterns:
+      - ^P\d{7}
+      - ^PA\d{6}
+    Sony:
+      extensions:
+      - .mxf
+      - .mp4
+      - .mov
+      patterns:
+      - ^C\d{3}S\d{4}
+      - ^CLIP\d+
+      - ^M2U\d+
+    iPhone:
+      extensions:
+      - .mov
+      - .mp4
+      - .heic
+      - .jpg
+      - .jpeg
+      patterns:
+      - ^IMG_\d{4}
+      - ^MOV_\d{4}
+      - ^RPReplay
+      - ^AAL
+  generic_filename_prefixes:
+  - Screen Recording
+  - Screencast
+  - Screenshot
+  - T_Workman_
+  - grok-video-
+  - ChatGPT Image
+  generic_filename_substrings:
+  - _screenshot
+  generic_folder_patterns:
+  - Media File vid and pics
+  - Media Files
+  - 2. Road Glide
+  generic_image_extensions:
+  - .png
+  - .tiff
+  - .tif
+  - .bmp
+  - .gif
+  - .psd
+  - .ai
+  - .eps
+  generic_video_extensions:
+  - .mp4
+  - .mov
+  - .avi
+  - .mkv
+  - .wmv
+  - .flv
+  - .webm
+  reference_extensions:
+  - .pdf
+  - .docx
+  - .xlsx
+  - .pptx
+  - .txt
+  - .xml
+  - .csv
+  - .srt
+  - .vtt
+  - .aaf
+  - .edl
+  - .fcpxml
+  reference_folder_patterns:
+  - MEDIA KIT FILES
+  - PRESS KIT
+  - MEDIA KIT
+compliance:
+  eula:
+    accepted: false
+    text: "W.E. C.A.P.E. CAPTURE / W.E. C.A.P.E. END USER LICENSE AGREEMENT\n\nVersion 1.0 \u2014\
+      \ Effective May 22, 2026\n\nIMPORTANT \u2014 READ CAREFULLY:\n\nThis End User\
+      \ License Agreement (\"Agreement\") is a legal agreement between you (\"User,\"\
+      \ \"you,\" or \"your\") and The Workman Experience, LLC (\"Company,\" \"we,\"\
+      \ \"us,\" or \"our\") governing your access to and use of the W.E. Flow and\
+      \ W.E. Forge software platforms, including all associated software, scripts,\
+      \ workflows, configurations, documentation, media-processing tools, AI-assisted\
+      \ workflow components, updates, and related services (collectively, the \"Software\"\
+      ).\n\nBY TYPING \"YES,\" INSTALLING, COPYING, ACCESSING, OR OTHERWISE USING\
+      \ THE SOFTWARE, YOU AGREE TO BE BOUND BY THE TERMS OF THIS AGREEMENT. IF YOU\
+      \ DO NOT AGREE TO THESE TERMS, DO NOT ACCESS OR USE THE SOFTWARE.\n\n1. LICENSE\
+      \ GRANT\n\nSubject to your compliance with this Agreement, Company grants you\
+      \ a limited, non-exclusive, non-transferable, non-sublicensable, revocable license\
+      \ to access and use the Software solely for lawful internal business or personal\
+      \ use.\n\n2. OWNERSHIP\n\nThe Software is licensed, not sold. Company retains\
+      \ all rights, title, and interest in and to the Software, including all intellectual\
+      \ property rights, workflows, source code, architecture, trade secrets, branding,\
+      \ visual elements, documentation, derivative works, and related materials.\n\
+      \nNo ownership rights are transferred to you under this Agreement.\n\n3. RESTRICTIONS\n\
+      \nYou shall not:\n\n- Copy, modify, distribute, sell, sublicense, lease, or\
+      \ commercially exploit the Software except as expressly authorized;\n- Reverse\
+      \ engineer, decompile, disassemble, or attempt to derive source code or underlying\
+      \ logic;\n- Remove or alter proprietary notices, branding, or copyright information;\n\
+      - Use the Software for unlawful, infringing, abusive, or fraudulent purposes;\n\
+      - Circumvent security controls, authentication systems, or licensing mechanisms;\n\
+      - Use the Software to process data in violation of applicable privacy, intellectual\
+      \ property, export control, or cybersecurity laws.\n\n4. USER CONTENT AND DATA\n\
+      \nYou retain ownership of content, footage, media, files, and data you upload\
+      \ or process using the Software (\"User Content\").\n\nYou grant Company a limited\
+      \ license to process User Content solely as necessary to operate, maintain,\
+      \ secure, and improve the Software.\n\nYou represent and warrant that you have\
+      \ all rights necessary to upload and process User Content and that such use\
+      \ does not violate any law or third-party rights.\n\n5. AI-ASSISTED FEATURES\n\
+      \nCertain Software components may include AI-assisted workflows, automation,\
+      \ metadata analysis, media organization, or content enhancement functionality.\n\
+      \nAI-generated outputs may contain inaccuracies, errors, or unintended results.\
+      \ You are solely responsible for reviewing and validating all outputs before\
+      \ reliance, publication, distribution, or commercial use.\n\nCompany does not\
+      \ guarantee the accuracy, legality, or fitness of AI-generated outputs.\n\n\
+      6. PRIVACY AND SECURITY\n\nCompany may collect limited operational, diagnostic,\
+      \ licensing, and usage information necessary to maintain, secure, and improve\
+      \ the Software.\n\nYou acknowledge that no system or transmission method is\
+      \ completely secure. You are responsible for implementing appropriate safeguards,\
+      \ backups, and operational controls for your environment and data.\n\n7. UPDATES\
+      \ AND MODIFICATIONS\n\nCompany may release updates, patches, upgrades, or modifications\
+      \ to the Software at any time. Certain updates may be required for continued\
+      \ operation, security, compatibility, or compliance.\n\nCompany reserves the\
+      \ right to modify, suspend, or discontinue features or functionality without\
+      \ liability.\n\n8. THIRD-PARTY SERVICES\n\nThe Software may integrate with or\
+      \ rely upon third-party platforms, APIs, devices, cloud providers, media systems,\
+      \ or services.\n\nCompany is not responsible for the availability, functionality,\
+      \ security, or practices of third-party systems.\n\nUse of third-party services\
+      \ may be subject to separate terms and conditions.\n\n9. DISCLAIMER OF WARRANTIES\n\
+      \nTHE SOFTWARE IS PROVIDED \"AS IS\" AND \"AS AVAILABLE\" WITHOUT WARRANTIES\
+      \ OF ANY KIND, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE.\n\nTO THE\
+      \ MAXIMUM EXTENT PERMITTED BY LAW, COMPANY DISCLAIMS ALL WARRANTIES, INCLUDING\
+      \ IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE,\
+      \ NON-INFRINGEMENT, ACCURACY, AVAILABILITY, AND SECURITY.\n\nCOMPANY DOES NOT\
+      \ WARRANT THAT THE SOFTWARE WILL BE ERROR-FREE, UNINTERRUPTED, OR FREE OF HARMFUL\
+      \ COMPONENTS.\n\n10. LIMITATION OF LIABILITY\n\nTO THE MAXIMUM EXTENT PERMITTED\
+      \ BY LAW, COMPANY SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, CONSEQUENTIAL,\
+      \ SPECIAL, EXEMPLARY, OR PUNITIVE DAMAGES, INCLUDING LOSS OF DATA, LOSS OF PROFITS,\
+      \ BUSINESS INTERRUPTION, MEDIA LOSS, OR SYSTEM FAILURE, ARISING FROM OR RELATED\
+      \ TO THE SOFTWARE OR THIS AGREEMENT.\n\nCOMPANY'S TOTAL AGGREGATE LIABILITY\
+      \ UNDER THIS AGREEMENT SHALL NOT EXCEED THE AMOUNT PAID BY YOU FOR ACCESS TO\
+      \ THE SOFTWARE DURING THE TWELVE (12) MONTHS PRECEDING THE CLAIM.\n\n11. INDEMNIFICATION\n\
+      \nYou agree to defend, indemnify, and hold harmless Company and its officers,\
+      \ members, employees, contractors, affiliates, licensors, and partners from\
+      \ and against any claims, liabilities, damages, losses, costs, and expenses\
+      \ arising out of:\n\n- Your use or misuse of the Software;\n- Your violation\
+      \ of this Agreement;\n- Your User Content;\n- Your violation of any law or third-party\
+      \ rights.\n\n12. TERMINATION\n\nThis Agreement remains effective until terminated.\n\
+      \nCompany may suspend or terminate your access immediately if you violate this\
+      \ Agreement or if continued access creates legal, operational, or security risk.\n\
+      \nUpon termination, your license rights immediately cease.\n\n13. GOVERNING\
+      \ LAW\n\nThis Agreement shall be governed by and construed in accordance with\
+      \ the laws of the State of Texas, without regard to conflict of law principles.\n\
+      \nAny legal action arising from this Agreement shall be brought exclusively\
+      \ in the state or federal courts located in Texas, and you consent to such jurisdiction\
+      \ and venue.\n\n14. ENTIRE AGREEMENT\n\nThis Agreement constitutes the entire\
+      \ agreement between you and Company concerning the Software and supersedes all\
+      \ prior or contemporaneous understandings, communications, or agreements relating\
+      \ to the subject matter herein.\n\nIf any provision of this Agreement is determined\
+      \ to be unenforceable, the remaining provisions shall remain in full force and\
+      \ effect.\n\n15. CONTACT INFORMATION\n\nThe Workman Experience, LLC\n\nFor legal\
+      \ or licensing inquiries, contact:\n\nValerie Workman, Esq.\nvalerieworkmanesq@gmail.com\n\
+      973-803-1323\n\nBy typing \"YES\" you acknowledge that you have read, understood,\
+      \ and agreed to this Agreement.\n"
+    version: '1.0'
+grouping:
+  camera_offsets:
+    DJI: 0
+    GoPro: 0
+    Insta360: 0
+    Unknown_Camera: 0
+    iPhone: 0
+  min_cameras: 2
+  window_seconds: 15
+logging:
+  log_format: json
+  log_level: INFO
+  retain_logs_days: 90
+output:
+  date_format: '%Y-%m-%d'
+  group_id_prefix: MCG
+performance:
+  hash_chunk_size_mb: 64
+  max_workers: 8
+pipeline:
+  enable_duplicate_content_detection: false
+  file_operation: symlink
+  run_id_prefix: WEF
+proxies:
+  generate_proxies: false
+variant_detection:
+  duplicate_keywords:
+  - copy
+  - final
+  - backup
+  - duplicate
+  indexed_pattern: '[\(\[](\d+)[\)\]]'
+  parent_selection: largest_file
+  suffix_patterns:
+  - _v\d+
+  - _edit
+  - _final
+  - _export
+  - _rev\d*
+
+proxy_generation:
+  enabled: false          # activate via --proxy flag or profile
+  target_files: camera_only  # camera_only | camera_and_generic | all_video
+  resolution: 720p
+  bitrate_mbps: 1.5
+  encoder: h264_videotoolbox  # h264_videotoolbox (macOS) | libx264 (cross-platform)
+  preset: fast            # libx264 only; ignored by videotoolbox
+  output_folder: PROXIES
+  skip_unchanged: true    # SHA-256 based — only retranscode if source changed
+  workers: 1              # Phase 2: parallel ffmpeg workers
+                          #   1 = USB HDD (current) — 4 workers on spinning disk adds IO contention
+                          #   4 = NVMe via TB4 (set after Samsung 990 PRO installed)
+  preflight: true         # Phase 2: ffprobe duration scan before transcoding starts
