@@ -122,7 +122,7 @@ class Pipeline:
 
         free_bytes = shutil.disk_usage(output_path).free
         free_gb = free_bytes / (1024 ** 3)
-        sys_free_gb = shutil.disk_usage('/').free / (1024 ** 3)
+        sys_free_gb = shutil.disk_usage(str(Path.home())).free / (1024 ** 3)
         on_system_drive = self._is_system_drive(output_path)
 
         input_gb = 0.0
