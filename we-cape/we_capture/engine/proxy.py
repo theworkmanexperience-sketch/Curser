@@ -164,6 +164,58 @@ class ProxyGenerator:
             print(f"  Non-interactive mode — proceeding automatically.\n")
         # ── End Measure 2 ─────────────────────────────────────────────────────
 
+        # ── Measure 4: Smoke test — transcode one file before full run ─────
+        # If the first file fails, abort before wasting hours on a broken config.
+        # Only runs when total > 1 (single-file runs skip — they ARE the smoke test).
+        if total > 1:
+            _smoke_cf, _smoke_sha, _smoke_proxy = to_transcode[0]
+            _smoke_tmp = tmp_dir / f"_smoketest_{_smoke_sha[:8]}_{_smoke_proxy.name}"
+            print(f"  Smoke test [{_smoke_cf.path.name}]...", end='', flush=True)
+            _smoke_result = self._transcode(
+                _smoke_cf.path, _smoke_proxy, _smoke_tmp, _smoke_sha
+            )
+            if _smoke_result.status == 'transcoded':
+                _smoke_mb = (_smoke_result.proxy_size_bytes or 0) / 1_048_576
+                print(f" ✓ ({_smoke_mb:.0f} MB, {_smoke_result.elapsed_s:.1f}s)")
+                # Register smoke test result — it counts as transcoded
+                with self._registry_lock:
+                    _reg = self._load_registry(proxy_dir)
+                    _reg[_smoke_sha] = {
+                        'proxy_path': str(_smoke_proxy),
+                        'proxied_at': _now(),
+                    }
+                    self._save_registry(proxy_dir, _reg)
+                results.append(_smoke_result)
+                transcoded += 1
+                to_transcode = to_transcode[1:]  # remove smoke test file from queue
+                total = len(to_transcode)
+            else:
+                # Distinguish config failures (abort) from file failures (warn + continue)
+                # Config failures: ffmpeg_not_found, encoder_error
+                # File failures:   timeout, corrupt source — log and continue
+                _config_failures = {'ffmpeg_not_found', 'encoder_error'}
+                _is_config_failure = any(
+                    tag in (_smoke_result.reason or '')
+                    for tag in _config_failures
+                )
+                if _is_config_failure:
+                    print(f" ✗ FAILED — {_smoke_result.reason}")
+                    raise RuntimeError(
+                        f"\n\n  ✗ Smoke test FAILED — configuration error: "
+                        f"{_smoke_cf.path.name}"
+                        f"\n  Reason: {_smoke_result.reason}"
+                        f"\n  Aborting before full {total}-file run."
+                        f"\n  Check ffmpeg installation and encoder config."
+                    )
+                else:
+                    # File-level failure — warn but do not abort
+                    print(f" ⚠ ({_smoke_result.reason}) — file issue, continuing run")
+                    results.append(_smoke_result)
+                    failed += 1
+                    to_transcode = to_transcode[1:]
+                    total = len(to_transcode)
+        # ── End Measure 4 ────────────────────────────────────────────────────
+
         if self._workers <= 1 or total <= 1:
             # ── Serial path — original behavior, backward compatible ──────────
             for i, (cf, src_sha, proxy_path) in enumerate(to_transcode, 1):
