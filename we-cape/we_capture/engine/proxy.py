@@ -132,6 +132,38 @@ class ProxyGenerator:
 
         total = len(to_transcode)
 
+        # ── Measure 2: Pre-run proxy count summary ───────────────────────────
+        # Show operator exactly what will happen before first ffmpeg call.
+        # Counts are final — all skips resolved, to_transcode is the real list.
+        already_proxied = sum(1 for r in results if r.status == 'skipped_unchanged')
+        no_video        = sum(1 for r in results if r.status == 'skipped_no_video')
+        import os as _os, sys as _sys
+
+        print(f"\n  ── Proxy Run Summary ──────────────────────────────────────")
+        print(f"  Eligible:         {len(eligible):>4}")
+        print(f"  Already proxied:  {already_proxied:>4}  (SHA registry match — will skip)")
+        print(f"  No video stream:  {no_video:>4}  (audio/ref files — will skip)")
+        print(f"  To transcode:     {total:>4}  (will run ffmpeg)")
+        print(f"  ────────────────────────────────────────────────────────────")
+
+        _non_interactive = (
+            not _sys.stdin.isatty()
+            or _os.getenv('WECAPE_NONINTERACTIVE') == '1'
+        )
+
+        if total == 0:
+            print(f"  Nothing to transcode — all files already proxied or skipped.\n")
+        elif not _non_interactive:
+            print(f"  Proceed with transcoding? Press Enter to continue or Ctrl+C to cancel.")
+            print(f"  > ", end='', flush=True)
+            try:
+                input()
+            except (EOFError, KeyboardInterrupt):
+                raise RuntimeError("\n  Proxy run cancelled at Measure 2 confirmation.")
+        else:
+            print(f"  Non-interactive mode — proceeding automatically.\n")
+        # ── End Measure 2 ─────────────────────────────────────────────────────
+
         if self._workers <= 1 or total <= 1:
             # ── Serial path — original behavior, backward compatible ──────────
             for i, (cf, src_sha, proxy_path) in enumerate(to_transcode, 1):
