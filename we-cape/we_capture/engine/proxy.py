@@ -331,15 +331,26 @@ class ProxyGenerator:
         # USB HDD 1 worker:  ~7.0 min/proxy  (MG-02 validated — 79 proxies / 9.08h)
         # USB HDD 4 workers: ~2.7 min/proxy  (MG-03a validated — 79 proxies / 3.56h)
         # NVMe 4 workers:    ~2.3 min/proxy  (MG-03b validated — 79 proxies / 3.07h)
-        # NVMe 4w + hwaccel: ~TBD            (MG-04 pending — hardware decode unvalidated)
-        est_usb_min  = n * 7.0 / self._workers
-        est_nvme_min = n * 2.3 / self._workers
-        print(
-            f"  Pre-flight: {scanned}/{n} files scanned, "
-            f"{hours:.1f}h source duration\n"
-            f"  Estimated: ~{est_usb_min:.0f}m (USB/{self._workers}w) · "
-            f"~{est_nvme_min:.0f}m (NVMe/{self._workers}w)"
-        )
+        # NVMe 4w + hwaccel: ~0.43 min/proxy  (MG-04 validated — 79 proxies / 34 min)
+        # Source: NVMe, workers: 4, encoder: h264_videotoolbox + hwaccel videotoolbox
+        est_usb_min   = n * 7.0 / self._workers
+        est_nvme_min  = n * 2.3 / self._workers   # software decode (no hwaccel)
+        est_hwaccel_min = n * 1.7 / self._workers  # hwaccel decode (MG-04 validated)
+        if self._encoder == 'h264_videotoolbox':
+            print(
+                f"  Pre-flight: {scanned}/{n} files scanned, "
+                f"{hours:.1f}h source duration\n"
+                f"  Estimated: ~{est_usb_min:.0f}m (USB/{self._workers}w) · "
+                f"~{est_nvme_min:.0f}m (NVMe/sw/{self._workers}w) · "
+                f"~{est_hwaccel_min:.0f}m (NVMe/hwaccel/{self._workers}w)"
+            )
+        else:
+            print(
+                f"  Pre-flight: {scanned}/{n} files scanned, "
+                f"{hours:.1f}h source duration\n"
+                f"  Estimated: ~{est_usb_min:.0f}m (USB/{self._workers}w) · "
+                f"~{est_nvme_min:.0f}m (NVMe/{self._workers}w)"
+            )
 
     def _get_file_duration(self, file_path: Path) -> Optional[float]:
         """Return duration in seconds via ffprobe, or None on failure."""
