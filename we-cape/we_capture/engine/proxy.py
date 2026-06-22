@@ -289,8 +289,11 @@ class ProxyGenerator:
     def _build_cmd(self, source: Path, output: Path,
                    force_libx264: bool = False) -> list:
         encoder = 'libx264' if force_libx264 else self._encoder
-        base = [
-            self.ffmpeg_cmd, '-i', str(source),
+        # Hardware decode: keeps frames in GPU memory, pipes to h264_videotoolbox encoder.
+        # ffmpeg silently falls back to software decode if source codec unsupported.
+        hwaccel_flags = ['-hwaccel', 'videotoolbox'] if encoder == 'h264_videotoolbox' else []
+        base = [self.ffmpeg_cmd] + hwaccel_flags + [
+            '-i', str(source),
             '-vf', f'scale=-2:{self._height}',
             '-c:a', 'aac', '-b:a', '128k',
             '-map_metadata', '-1',
@@ -324,11 +327,13 @@ class ProxyGenerator:
 
         hours = total_sec / 3600
         n = len(eligible)
-        # Estimate based on per-file transcoding rate (Phase 1 validated):
-        # USB HDD 1 worker: ~7 min/file (MG-01 baseline: 77 files / 8.9h)
-        # NVMe 4 workers:   ~0.75 min/file (projected from hardware specs)
+        # Empirically validated rates (h264_videotoolbox, software decode):
+        # USB HDD 1 worker:  ~7.0 min/proxy  (MG-02 validated — 79 proxies / 9.08h)
+        # USB HDD 4 workers: ~2.7 min/proxy  (MG-03a validated — 79 proxies / 3.56h)
+        # NVMe 4 workers:    ~2.3 min/proxy  (MG-03b validated — 79 proxies / 3.07h)
+        # NVMe 4w + hwaccel: ~TBD            (MG-04 pending — hardware decode unvalidated)
         est_usb_min  = n * 7.0 / self._workers
-        est_nvme_min = n * 0.75 / self._workers
+        est_nvme_min = n * 2.3 / self._workers
         print(
             f"  Pre-flight: {scanned}/{n} files scanned, "
             f"{hours:.1f}h source duration\n"
