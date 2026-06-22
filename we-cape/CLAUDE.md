@@ -17,10 +17,10 @@ W.E. C.A.P.E. CAPTURE is described as "the first product from W.E. C.A.P.E.."
 Repo:    github.com:theworkmanexperience-sketch/Curser.git
 Local:   ~/Curser/we-flow/
 Package: we_capture/ (target: wecape/ — see Phase 2)
-Commit:  27c8043 — Measure 3 implemented
+Commit:  04d3910 — Measures 2+4 implemented
 Tests:   171/171 passing
 Phase 1: COMPLETE
-Phase 2: IN PROGRESS (registry live, Measures 1+3, formula fix)
+Phase 2: IN PROGRESS (registry live, Measures 1-4, hwaccel, rebrand complete)
 ```
 
 ### Production Baseline (O-SIX RYDERZ MC — validated)
@@ -504,3 +504,94 @@ Repo:      ~/Curser/we-cape/
 Namespace: wecape/ (platform) + we_capture/ (CAPTURE module)
 Tests:     171/171 passing
 Env vars:  WECAPE_TEST_MODE=1 | WECAPE_NONINTERACTIVE=1
+
+
+---
+
+## Benchmark Results — All Validated Runs
+
+| Run | Source | Workers | Encoder | Runtime | Rate | Gate |
+|-----|--------|---------|---------|---------|------|------|
+| MG-01 | USB HDD | 1 | VTB sw decode | 8.9h | 6.96 min/proxy | baseline |
+| MG-02 | USB HDD | 1 | VTB sw decode | 9.08h | 6.90 min/proxy | fail |
+| MG-03a | USB HDD | 4 | VTB sw decode | 3.56h | 2.71 min/proxy | fail |
+| MG-03b | NVMe | 4 | VTB sw decode | 3.07h | 2.33 min/proxy | fail |
+| MG-04 | NVMe | 4 | VTB hwaccel | 34 min | 0.43 min/proxy | PASS |
+
+Gate: < 90 minutes. Confirmed MG-04 June 22, 2026.
+
+Critical discovery: commit 724bdae declared gate active before any validation.
+NVMe delivered 2.96x improvement. Free -hwaccel flag delivered 16x.
+Storage was never the bottleneck. Software decoding was.
+
+---
+
+## Pre-Flight Estimates — Validated Rates
+
+| Config | Rate | Source |
+|--------|------|--------|
+| USB/1w/sw | 7.0 min/proxy | MG-02 validated |
+| USB/4w/sw | 2.7 min/proxy | MG-03a validated |
+| NVMe/4w/sw | 2.3 min/proxy | MG-03b validated |
+| NVMe/4w/hwaccel | 0.43 min/proxy | MG-04 validated |
+
+---
+
+## Measures Implemented
+
+| Measure | Commit | Description |
+|---------|--------|-------------|
+| 1 | c35750a | Fail fast if ffmpeg/ffprobe missing when proxy enabled |
+| 2 | c17795a | Proxy count summary + confirm before transcoding starts |
+| 3 | 27c8043 | Warn when 0 proxies generated from eligible files |
+| 4 | 04d3910 | Smoke test first file — abort config failures, warn file failures |
+
+Pending: Measure 5 (progress heartbeat for runs >1 hour)
+
+---
+
+## Storage Map — June 22, 2026
+
+| Volume | Size | Used | Free | Notes |
+|--------|------|------|------|-------|
+| Macintosh HD Data | 414 GB | 314 GB | 77 GB | Correct volume to monitor — fixed d402855 |
+| WE_CAPE_OUTPUT NVMe TB4 | 4.0 TB | 256 GB | 3.5 TB | Primary output + source copies |
+| 10TB My Book Duo | 10 TB | 9.2 TB | 0.8 TB | Active shoots |
+| timemachine | 4.0 TB | 3.9 TB | 0.1 TB | Time Machine — same physical drive as 10TB |
+| Got My BackUP | 5.0 TB | 184 GB | 4.8 TB | Underutilized — backs up almost nothing |
+| Holder Mac HFS+ | 6.0 TB | 4.6 TB | 1.4 TB | Production content + legal docs — zero backup |
+| G-DRIVE SSD | 4.0 TB | unknown | unknown | MG-02 proxies — disconnected June 22 |
+| WEDDING NTFS | 512 GB | unknown | unknown | Unverified backup status |
+| DJIAction6 NTFS | 256 GB | 157 GB | 99 GB | Unprocessed shoot — needs CAPTURE |
+| FreeAgent GoFlex | 1.0 TB | unknown | unknown | Corrupted — DiskWarrior needed |
+
+Critical risks:
+  Holder Mac 4.6 TB has zero backup — single HFS+ volume
+  disk12 holds timemachine + 10TB + Holder Mac — one failure loses all three
+  Got My BackUP has 4.8 TB free but is backing up almost nothing
+  G-DRIVE SSD disconnected — MG-02 proxies inaccessible
+
+Pre-flight fix June 22: sys_free_gb was reading OS volume (12 GB)
+instead of Data volume (314 GB) since June 8. Fixed in d402855.
+All prior pre-flight reports contain incorrect system drive free space.
+
+---
+
+## Known Registry Anomaly
+
+WEF_20260622_020843_66257B: 0 files, 0.0h
+  Cause: CAPTURE ran against empty source (rsync still in progress)
+  Rule:  All aggregate queries must include WHERE file_count > 0
+
+---
+
+## Rebrand — June 22, 2026 (commit f8c8878)
+
+W.E. FORGE     -> W.E. C.A.P.E.
+W.E. FLOW      -> W.E. C.A.P.E. CAPTURE
+weforge/       -> wecape/
+we_flow/       -> we_capture/
+~/.weforge/    -> ~/.wecape/
+weforge.db     -> wecape.db
+Entity:        Workman Experience Technologies LLC (pending formation)
+Domain:        workmanexperience.com/cape (pending build)
