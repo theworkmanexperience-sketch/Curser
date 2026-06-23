@@ -558,7 +558,7 @@ Storage was never the bottleneck. Software decoding was.
 | 3 | 27c8043 | Warn when 0 proxies generated from eligible files |
 | 4 | 04d3910 | Smoke test first file — abort config failures, warn file failures |
 
-Pending: Measure 5 (progress heartbeat for runs >1 hour)
+Measure 5  4fa19c6  parallel + serial heartbeat every 5 min — validated MG-05
 
 ---
 
