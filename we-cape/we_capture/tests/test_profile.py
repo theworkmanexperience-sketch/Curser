@@ -5,7 +5,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 import os; os.environ['WECAPE_TEST_MODE'] = '1'
 
-from engine.profile import ProfileLoader, deep_merge
+from wecape.capture.profile import ProfileLoader, deep_merge
 
 BASE_CONFIG = {
     'pipeline': {'file_operation': 'symlink', 'enable_duplicate_content_detection': False},

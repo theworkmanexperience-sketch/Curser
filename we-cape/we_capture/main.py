@@ -53,7 +53,7 @@ def main():
 
     # --list-profiles doesn't need --input or --output
     if hasattr(args, 'list_profiles') and args.list_profiles:
-        from engine.profile import ProfileLoader
+        from wecape.capture.profile import ProfileLoader
         profiles = ProfileLoader().list_profiles()
         if not profiles:
             print("No profiles found in profiles/ or ~/.weflow/profiles/")
@@ -72,7 +72,7 @@ def main():
         print(f'[ERROR] Config file not found: {args.config}')
         sys.exit(1)
 
-    from engine.pipeline import Pipeline
+    from wecape.capture.pipeline import Pipeline
 
     print('=' * 60)
     print('  W.E. C.A.P.E. CAPTURE / W.E. C.A.P.E.  |  v4.1 ENHANCED')
@@ -91,7 +91,7 @@ def main():
     config_path = args.config
     if args.profile:
         import yaml, tempfile
-        from engine.profile import ProfileLoader
+        from wecape.capture.profile import ProfileLoader
         base_config = yaml.safe_load(config_path.read_text())
         merged = ProfileLoader().load(args.profile, base_config)
         meta = merged.get('_active_profile', {})

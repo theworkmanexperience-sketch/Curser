@@ -29,8 +29,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 import os
 os.environ['WECAPE_TEST_MODE'] = '1'
 
-from engine.pipeline import Pipeline
-from engine.classifier import FileClassifier
+from wecape.capture.pipeline import Pipeline
+from wecape.capture.classifier import FileClassifier
 
 # ── Shared config ─────────────────────────────────────────────────────
 PIPELINE_CONFIG = {

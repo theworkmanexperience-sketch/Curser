@@ -12,8 +12,8 @@ import time
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-from engine.proxy import ProxyGenerator, ProxyResult
-from engine.classifier import ClassifiedFile
+from wecape.capture.proxy import ProxyGenerator, ProxyResult
+from wecape.capture.classifier import ClassifiedFile
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 

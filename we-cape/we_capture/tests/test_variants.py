@@ -6,8 +6,8 @@ from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from engine.classifier import ClassifiedFile
-from engine.variants import VariantDetector
+from wecape.capture.classifier import ClassifiedFile
+from wecape.capture.variants import VariantDetector
 
 CONFIG = {
     'variant_detection': {

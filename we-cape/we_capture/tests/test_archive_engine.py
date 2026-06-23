@@ -4,9 +4,9 @@ import gzip, io, sys, tarfile, tempfile, zipfile
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from archive_engine.detector import ArchiveDetector
-from archive_engine.extractor import ArchiveExtractor
-from archive_engine.stage import ArchiveIntelligenceStage
+from wecape.archive.detector import ArchiveDetector
+from wecape.archive.extractor import ArchiveExtractor
+from wecape.archive.stage import ArchiveIntelligenceStage
 
 ARCHIVE_CONFIG = {
     'pipeline': {'file_operation': 'copy'},

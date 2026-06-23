@@ -33,7 +33,7 @@ from pathlib import Path
 from typing import Optional
 
 import yaml
-from engine.proxy import ProxyGenerator
+from wecape.capture.proxy import ProxyGenerator
 
 from .classifier import FileClassifier, ClassifiedFile
 from .timestamp import TimestampExtractor
@@ -410,7 +410,7 @@ class Pipeline:
             _ae_cfg = self.config.get('archive_engine', {})
             if _ae_cfg.get('enabled', False):
                 print(f"[PHASE1] Archive Intelligence Engine ENABLED")
-                from archive_engine.stage import ArchiveIntelligenceStage
+                from wecape.archive.stage import ArchiveIntelligenceStage
                 _archive_stage = ArchiveIntelligenceStage(self.config, output_path)
                 print(f"[{self.run_id}] Stage 0.5: Archive & Compression Intelligence")
                 raw_files, archive_result = _archive_stage.process(

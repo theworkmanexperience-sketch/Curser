@@ -9,8 +9,8 @@ from unittest.mock import MagicMock, patch
 sys.path.insert(0, str(Path(__file__).parent.parent))
 import os; os.environ['WECAPE_TEST_MODE'] = '1'
 
-from engine.proxy import ProxyGenerator, ProxyResult
-from engine.classifier import ClassifiedFile
+from wecape.capture.proxy import ProxyGenerator, ProxyResult
+from wecape.capture.classifier import ClassifiedFile
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 

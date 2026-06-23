@@ -7,7 +7,7 @@ from unittest.mock import patch
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from engine.classifier import FileClassifier, AUDIO_EXTENSIONS
+from wecape.capture.classifier import FileClassifier, AUDIO_EXTENSIONS
 
 MINIMAL_CONFIG = {
     'pipeline': {'file_operation': 'copy', 'enable_duplicate_content_detection': False},

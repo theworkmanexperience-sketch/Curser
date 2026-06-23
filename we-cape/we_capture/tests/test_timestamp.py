@@ -10,7 +10,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from engine.timestamp import TimestampExtractor, TimestampResult
+from wecape.capture.timestamp import TimestampExtractor, TimestampResult
 
 
 def _make_file(name: str, tmp: Path, content: bytes = b"data") -> Path:

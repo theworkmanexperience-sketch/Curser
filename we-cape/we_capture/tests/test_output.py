@@ -21,7 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 import os
 os.environ['WECAPE_TEST_MODE'] = '1'
 
-from engine.pipeline import Pipeline
+from wecape.capture.pipeline import Pipeline
 
 # ── Minimal synthetic config (no ffprobe required) ────────────────────
 PIPELINE_CONFIG = {
