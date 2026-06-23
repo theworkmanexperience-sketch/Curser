@@ -623,6 +623,10 @@ Justification:      DJI/Insta360 clock drift is 6-12s in field conditions.
                     Deviation is a field calibration, not a spec violation.
 Status:             Documented deviation — defensible, validated, intentional.
 
+### RFQ Tests 1-5 — PASS
+All five tests covered by existing test suite.
+Test 3 variant patterns (copy/final/backup) confirmed implemented in variants.py.
+
 ### Test 6 Quantitative Thresholds
 Status:             Cannot be written — RFQ Appendix B not available.
                     Appendix B contains the specific thresholds for Test 6.
