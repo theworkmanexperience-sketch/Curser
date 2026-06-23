@@ -442,7 +442,7 @@ COMPLETED:
 
 PENDING:
 1. Measure 5 - progress heartbeat for runs >1 hour
-2. wecape/capture migration (Option A)
+2. wecape/capture migration (Option A) — COMPLETE 083889c
 3. _extract_dji_telemetry integration
 4. Windows platform support
 5. Executive Summary update
