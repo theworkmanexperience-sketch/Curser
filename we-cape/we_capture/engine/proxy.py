@@ -216,6 +216,15 @@ class ProxyGenerator:
                     total = len(to_transcode)
         # ── End Measure 4 ────────────────────────────────────────────────────
 
+        # ── Measure 5: Heartbeat state ────────────────────────────────────
+        # Emits periodic progress in serial path (parallel already logs per-file)
+        # Fires every 5 minutes when run has been active > 5 minutes
+        import time as _time
+        _run_start      = _time.time()
+        _last_heartbeat = [_run_start]
+        _heartbeat_interval = 300  # seconds (5 minutes)
+        # ── End Measure 5 state ───────────────────────────────────────────────
+
         if self._workers <= 1 or total <= 1:
             # ── Serial path — original behavior, backward compatible ──────────
             for i, (cf, src_sha, proxy_path) in enumerate(to_transcode, 1):
@@ -240,6 +249,22 @@ class ProxyGenerator:
                     print(f" FAILED: {result.reason}")
                     failed += 1
                 results.append(result)
+
+                # ── Measure 5: Serial heartbeat ───────────────────────────────
+                _now_t   = _time.time()
+                _elapsed = _now_t - _run_start
+                _since   = _now_t - _last_heartbeat[0]
+                if _elapsed > _heartbeat_interval and _since > _heartbeat_interval:
+                    _pct       = int((i / total) * 100)
+                    _rate      = _elapsed / i
+                    _remaining = max(0, _rate * (total - i))
+                    print(
+                        f"  [HEARTBEAT] {i}/{total} files ({_pct}%) | "
+                        f"elapsed: {int(_elapsed/60)}m | "
+                        f"est. remaining: {int(_remaining/60)}m"
+                    )
+                    _last_heartbeat[0] = _now_t
+                # ── End Measure 5 serial ──────────────────────────────────────
 
         else:
             # ── Parallel path — workers > 1 ───────────────────────────────────
