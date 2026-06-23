@@ -282,6 +282,22 @@ class ProxyGenerator:
                 with count_lock:
                     completed[0] += 1
                     n = completed[0]
+                    # ── Measure 5: Parallel heartbeat ─────────────────────────
+                    # Fires inside count_lock — only one worker prints at a time
+                    _now_t   = _time.time()
+                    _elapsed = _now_t - _run_start
+                    _since   = _now_t - _last_heartbeat[0]
+                    if _elapsed > _heartbeat_interval and _since > _heartbeat_interval:
+                        _pct       = int((n / total) * 100)
+                        _rate      = _elapsed / n
+                        _remaining = max(0, _rate * (total - n))
+                        print(
+                            f"  [PROGRESS] {n}/{total} files ({_pct}%) | "
+                            f"elapsed: {int(_elapsed/60)}m | "
+                            f"est. remaining: {int(_remaining/60)}m"
+                        )
+                        _last_heartbeat[0] = _now_t
+                    # ── End Measure 5 parallel ────────────────────────────────
 
                 if result.status == 'transcoded':
                     with self._registry_lock:
