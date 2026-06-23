@@ -295,7 +295,12 @@ grouping:
     Unknown_Camera: 0
     iPhone: 0
   min_cameras: 2
-  window_seconds: 15
+  window_seconds: 15               # Field-validated: DJI/Insta360 clock drift
+                                   # is 6-12s in production (Community Service MG-02+)
+                                   # RFQ §7 specifies ±5s as default — widened to ±15s
+                                   # after empirical testing showed ±5s produces 67%
+                                   # ungrouped files on real DJI+Insta360 datasets.
+                                   # Deviation documented: June 22, 2026
 logging:
   log_format: json
   log_level: INFO

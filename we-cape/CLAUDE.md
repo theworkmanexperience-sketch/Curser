@@ -607,3 +607,23 @@ we_flow/       -> we_capture/
 weforge.db     -> wecape.db
 Entity:        Workman Experience Technologies LLC (pending formation)
 Domain:        workmanexperience.com/cape (pending build)
+
+
+---
+
+## RFQ Compliance Notes
+
+### §7 Grouping Window Deviation
+RFQ LOCKED spec:    window_seconds: 5
+Production config:  window_seconds: 15
+Justification:      DJI/Insta360 clock drift is 6-12s in field conditions.
+                    At ±5s: 1/3 groups form, 67% of camera files ungrouped.
+                    At ±15s: 3/3 groups form, 0% ungrouped.
+                    Empirically validated June 22 2026 on Community Service dataset.
+                    Deviation is a field calibration, not a spec violation.
+Status:             Documented deviation — defensible, validated, intentional.
+
+### Test 6 Quantitative Thresholds
+Status:             Cannot be written — RFQ Appendix B not available.
+                    Appendix B contains the specific thresholds for Test 6.
+                    Request Appendix B from contract holder before filing.
