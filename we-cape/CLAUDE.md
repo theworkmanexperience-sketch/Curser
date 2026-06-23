@@ -434,13 +434,18 @@ Validated per-file rate: ~7 min/file USB/1w | ~0.75 min/file NVMe/4w (projected)
 
 ## Backlog — Known Issues (Priority Order)
 
-1. Measure 2 — show proxy count estimate before long run starts
-2. Measure 4 — smoke test one file before full run
-3. Measure 5 — progress heartbeat for runs >1 hour
-4. wecape/flow/ migration (Option A — 2-3 sessions)
-5. _extract_dji_telemetry integration in timestamp.py
-6. Windows platform support (AMD Ryzen PC available)
-7. Executive Summary v4.7 -> v4.8
+COMPLETED:
+  Measure 1  c35750a  fail fast if ffmpeg/ffprobe missing
+  Measure 2  c17795a  proxy count summary
+  Measure 3  27c8043  warn when 0 proxies
+  Measure 4  04d3910  smoke test first file
+
+PENDING:
+1. Measure 5 - progress heartbeat for runs >1 hour
+2. wecape/capture migration (Option A)
+3. _extract_dji_telemetry integration
+4. Windows platform support
+5. Executive Summary update
 
 ---
 
@@ -519,6 +524,13 @@ Env vars:  WECAPE_TEST_MODE=1 | WECAPE_NONINTERACTIVE=1
 | MG-04 | NVMe | 4 | VTB hwaccel | 34 min | 0.43 min/proxy | PASS |
 
 Gate: < 90 minutes. Confirmed MG-04 June 22, 2026.
+
+| Production | USB HDD | 4 | VTB hwaccel | 49.9 min | 0.63 min/proxy | PASS |
+
+Production run: WEF_20260622_221150_204D47
+Output: /Volumes/WE_CAPE_OUTPUT/O-SIX_RYDERZ_MC/Community_Service_2024/
+Source: /Volumes/10TB/O-SIX RYDERZ MC Community Service (USB)
+Note: USB source adds ~16 min vs NVMe source — gate met on both
 
 Critical discovery: commit 724bdae declared gate active before any validation.
 NVMe delivered 2.96x improvement. Free -hwaccel flag delivered 16x.
