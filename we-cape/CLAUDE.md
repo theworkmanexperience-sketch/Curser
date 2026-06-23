@@ -43,6 +43,12 @@ See CODEBASE_AUDIT_2026-06-23.md for the full audit. Changes applied:
                                  entry -> python -m wecape, ProfileLoader path bug fixed
  #6 schema v2 migration          runs.we_forge_version -> we_cape_version (auto, lossless)
  #7 housekeeping                 .weflow->.wecape, junk files -> .trash_junk/, governance doc
+ #8 CLI fixes (real-footage)     --proxy now works without --profile (was silently
+                                 ignored); added --engine stages|legacy flag.
+ REAL-FOOTAGE VALIDATION PASSED  6-file DJI shoot: legacy==stages output (TREES
+                                 IDENTICAL), proxy stage 5t/1s/0f, 0 errors.
+                                 Caveat: real MULTICAM grouping still untested
+                                 (validation card was single-camera).
 Verify: python3 -m pytest wecape/tests/ -q   (pytest-free: python run_tests.py)
 ```
 
