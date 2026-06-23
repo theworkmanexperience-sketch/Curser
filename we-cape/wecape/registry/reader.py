@@ -29,12 +29,38 @@ class RegistryReader:
         ).fetchone()
         return dict(row) if row else None
 
-    def list_runs(self, limit: int = 50) -> list[dict]:
-        """Return most recent runs, newest first."""
+    def list_runs(self, limit: int = 50, include_empty: bool = False) -> list[dict]:
+        """
+        Return most recent runs, newest first.
+
+        Empty/no-op runs (file_count == 0 — e.g. a run started against a source
+        still being copied) are excluded by default so they never pollute
+        listings or aggregates. Pass include_empty=True for raw history.
+        See "Known Registry Anomaly" in CLAUDE.md.
+        """
+        where = "" if include_empty else "WHERE file_count > 0"
         rows = self.conn.execute(
-            "SELECT * FROM runs ORDER BY timestamp DESC LIMIT ?", (limit,)
+            f"SELECT * FROM runs {where} ORDER BY timestamp DESC LIMIT ?", (limit,)
         ).fetchall()
         return [dict(r) for r in rows]
+
+    def get_aggregate_stats(self) -> dict:
+        """
+        Roll-up across real runs only. Excludes empty runs by construction so
+        the documented 'all aggregate queries must filter file_count > 0' rule
+        is enforced in code, not just in docs.
+        """
+        row = self.conn.execute(
+            """
+            SELECT COUNT(*)                         AS run_count,
+                   COALESCE(SUM(file_count), 0)     AS total_files,
+                   COALESCE(SUM(runtime_sec), 0.0)  AS total_runtime_sec,
+                   COALESCE(SUM(total_duration_sec), 0.0) AS total_media_sec
+            FROM runs
+            WHERE file_count > 0
+            """
+        ).fetchone()
+        return dict(row) if row else {}
 
     def get_content(self, content_id: str) -> Optional[dict]:
         """Return a single content record by ID (hash)."""

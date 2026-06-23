@@ -315,6 +315,20 @@ pipeline:
   enable_duplicate_content_detection: false
   file_operation: symlink
   run_id_prefix: WEF
+  # Orchestration engine: 'stages' routes the run through core.stage.run_stages()
+  # (the PipelineStage seam — default). 'legacy' calls the identical stage methods
+  # directly (rollback path). Output is equivalent; 'stages' adds per-stage audit.
+  engine: stages
+intelligence:
+  # P6: AI is additive and never foundational. Disabled in v1. When true, a no-op
+  # placeholder stage is appended to demonstrate where J1-J5 AI stages plug in.
+  enabled: false
+registry:
+  # Strict audit mode (P3 / compliance-first): when true (default), a run aborts
+  # if it cannot write its audit trail to the local registry, rather than
+  # completing silently without a record. Set false to downgrade audit-write
+  # failures to warnings. Always relaxed automatically under WECAPE_TEST_MODE.
+  strict: true
 proxies:
   generate_proxies: false
 variant_detection:

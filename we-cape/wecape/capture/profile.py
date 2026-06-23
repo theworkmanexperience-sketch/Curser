@@ -4,11 +4,11 @@ W.E. C.A.P.E. CAPTURE — Config Profile System (Phase 1-C)
 Profile resolution order (last wins):
   1. config.yaml                     — base defaults
   2. profiles/{name}.yaml            — project-level client profile
-  3. ~/.weflow/profiles/{name}.yaml  — user-local override
+  3. ~/.wecape/profiles/{name}.yaml  — user-local override
 
 Usage:
-  python3 main.py --profile ryderz
-  python3 main.py --profile google_drive
+  python3 -m wecape --profile ryderz
+  python3 -m wecape --profile google_drive
 """
 
 import yaml
@@ -18,7 +18,7 @@ from typing import Optional
 
 # ── Profile directories ───────────────────────────────────────────────────────
 SYSTEM_PROFILES_DIR = Path(__file__).parent.parent / 'profiles'
-USER_PROFILES_DIR   = Path.home() / '.weflow' / 'profiles'
+USER_PROFILES_DIR   = Path.home() / '.wecape' / 'profiles'
 
 
 def deep_merge(base: dict, override: dict) -> dict:

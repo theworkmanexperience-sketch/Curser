@@ -41,10 +41,80 @@ from .grouper import MulticamGrouper, GroupingResult
 from .variants import VariantDetector, VariantGroup
 from .output import OutputBuilder
 from .audit import AuditLogger
+from ..core.errors import RegistryAuditError
+from ..core.stage import (
+    PipelineStage, StageContext, StageResult, ValidationResult, run_stages,
+)
+from ..core.sync import LocalOnlySyncAdapter
 
 
 SKIP_NAMES = {'.DS_Store', 'Thumbs.db', 'desktop.ini', '.gitkeep', '.gitignore'}
 SKIP_PREFIXES = {'.', '~'}
+
+
+def _audit_failure(strict: bool, test_mode: bool, phase: str, exc: Exception) -> None:
+    """
+    Strict-audit policy for registry/audit write failures.
+
+    In strict mode (default) a failed audit write aborts the run — a
+    compliance-first product must not report success without an audit record.
+    Disabled in test mode (the production registry is intentionally skipped) and
+    when ``registry.strict: false`` is configured.
+    """
+    if strict and not test_mode:
+        raise RegistryAuditError(
+            f"[{phase}] audit write failed and strict audit mode is ON — aborting run. "
+            f"Cause: {exc}. Set 'registry.strict: false' in config to run without a "
+            f"guaranteed audit trail."
+        ) from exc
+    print(f"  [registry] {phase} skipped (non-strict mode): {exc}")
+
+
+class _MethodStage(PipelineStage):
+    """
+    Internal production stage: wraps a Pipeline bound-method as a PipelineStage
+    so the real orchestrator runs through core.stage.run_stages(). Shares state
+    via StageContext.metadata. (The clean public J3 contract is in
+    wecape/capture/stages.py; these instance-bound stages are the production set.)
+    """
+
+    def __init__(self, stage_id, stage_version, fn, desc=""):
+        self.stage_id = stage_id
+        self.stage_version = stage_version
+        self.stage_description = desc
+        self._fn = fn
+
+    def validate_input(self, context) -> ValidationResult:
+        return ValidationResult(True)
+
+    def execute(self, context) -> StageResult:
+        return self._fn(context)
+
+    def on_error(self, error, context) -> dict:
+        return {"stage": self.stage_id, "error": str(error),
+                "resolution": "See the LOGS error stream for details."}
+
+
+class _NullIntelligenceStage(PipelineStage):
+    """
+    Placeholder for the J1–J5 AI stages (P6: AI is additive and never
+    foundational). Disabled by default; only appended when
+    `intelligence.enabled: true`. A genuine no-op so v1 ships zero AI.
+    """
+    stage_id = "intelligence:placeholder"
+    stage_version = "0.0.0"
+    stage_description = "Reserved AI hook — no-op until J1+ (camera/quality/alignment/editorial)"
+
+    def validate_input(self, context) -> ValidationResult:
+        return ValidationResult(True)
+
+    def execute(self, context) -> StageResult:
+        return StageResult(self.stage_id, self.stage_version, True,
+                           metadata={"enabled": False,
+                                     "note": "AI stages (J1-J5) plug in here via PipelineStage"})
+
+    def on_error(self, error, context) -> dict:
+        return {"stage": self.stage_id, "error": str(error)}
 
 
 class Pipeline:
@@ -67,22 +137,27 @@ class Pipeline:
         self.grouper = MulticamGrouper(self.config)
         self.variant_detector = VariantDetector(self.config)
 
-        # W.E. C.A.P.E. Registry — writes production history to local SQLite
-        # Wrapped in try/except: registry failures never prevent pipeline startup
+        # W.E. C.A.P.E. Registry — writes production history to local SQLite.
+        # Strict audit mode (default ON): if the audit trail cannot be written,
+        # the run aborts rather than silently completing without a record.
+        # Opt out with `registry.strict: false`. Always relaxed under test mode.
+        import os as _os
+        self._test_mode = _os.environ.get('WECAPE_TEST_MODE') == '1'
+        self._registry_strict = bool(self.config.get('registry', {}).get('strict', True))
         try:
-            import sys as _sys, os as _os
-            if _os.environ.get('WECAPE_TEST_MODE') == '1':
+            import sys as _sys
+            if self._test_mode:
                 self._registry = None  # Never write test runs to production registry
             else:
-                _weforge_root = str(Path(__file__).resolve().parent.parent.parent)
-                if _weforge_root not in _sys.path:
-                    _sys.path.insert(0, _weforge_root)
+                _wecape_root = str(Path(__file__).resolve().parent.parent.parent)
+                if _wecape_root not in _sys.path:
+                    _sys.path.insert(0, _wecape_root)
                 from wecape.registry.writer import RegistryWriter as _RegistryWriter
                 _reg_path = Path.home() / '.wecape' / 'registry' / 'wecape.db'
                 self._registry = _RegistryWriter(db_path=_reg_path)
         except Exception as _e:
             self._registry = None
-            print(f"  [registry] init failed — runs will not be recorded: {_e}")
+            _audit_failure(self._registry_strict, self._test_mode, 'registry-init', _e)
 
     @staticmethod
     def _is_system_drive(path: Path) -> bool:
@@ -355,13 +430,13 @@ class Pipeline:
             if self._registry:
                 self._registry.write_run(
                     run_id=self.run_id,
-                    we_forge_version='1.0.0',
+                    we_cape_version='1.0.0',
                     source_path=str(input_path),
                     output_path=str(output_path),
                     profile_id=self.config.get('_active_profile', {}).get('name'),
                 )
         except Exception as _e:
-            print(f"  [registry] write_run skipped: {_e}")
+            _audit_failure(self._registry_strict, self._test_mode, 'write_run', _e)
         output_path.mkdir(parents=True, exist_ok=True)
         logs_dir = output_path / 'LOGS'
 
@@ -380,163 +455,54 @@ class Pipeline:
         written: dict = {}
         sha_map: dict  = {}  # Stage 0 → Stage 6: source path → SHA-256
 
+        # Shared state for the stage engine. The same mutable objects (errors,
+        # sha_map) are visible to the finally block below.
+        stage_state = {
+            'logger': logger, 'output_builder': output_builder,
+            'sha_map': sha_map, 'all_classified': all_classified,
+            'errors': errors, 'written': written,
+            'raw_files': [], 'grouping_result': None,
+            'variant_groups': [], 'standalone': [], 'archive_result': None,
+        }
+        stage_ctx = StageContext(
+            run_id=self.run_id,
+            source_path=str(input_path),
+            output_path=str(output_path),
+            profile=self.config,
+            registry_writer=self._registry,
+            sync_adapter=LocalOnlySyncAdapter(),
+            timestamp=datetime.now(timezone.utc),
+            metadata=stage_state,
+        )
+
+        # Ordered production stages. run_stages() is the central entry point;
+        # `pipeline.engine: legacy` calls the identical methods directly (rollback).
+        engine = self.config.get('pipeline', {}).get('engine', 'stages')
+        stage_list = [
+            _MethodStage('ingest',    '1.0.0', self._stage_ingest,    'Discover + hash all files (§14)'),
+            _MethodStage('archive',   '1.0.0', self._stage_archive,   'Stage 0.5 archive intelligence (gated)'),
+            _MethodStage('classify',  '1.0.0', self._stage_classify,  'Classify camera/generic/reference (§6)'),
+            _MethodStage('timestamp', '1.0.0', self._stage_timestamp, 'Timestamp fallback chain (§5)'),
+            _MethodStage('group',     '1.0.0', self._stage_group,     'Multicam grouping (§7)'),
+            _MethodStage('variants',  '1.0.0', self._stage_variants,  'Variant detection (§8)'),
+            _MethodStage('output',    '1.0.0', self._stage_output,    'Write locked output structure (§10)'),
+        ]
+        # P6: disabled-by-default AI hook. Never foundational; opt-in only.
+        if self.config.get('intelligence', {}).get('enabled', False):
+            stage_list.append(_NullIntelligenceStage())
+
         try:
-            # ── Stage 0: INGEST ──────────────────────────────────────────
-            print(f"\n[{self.run_id}] Stage 0: Ingest — {input_path}")
-            raw_files = self._discover_files(input_path)
-            print(f"  → {len(raw_files):,} files discovered")
-
-            # Parallel hash + ingest log
-            def _ingest_file(fp: Path) -> Optional[ClassifiedFile]:
-                try:
-                    size = fp.stat().st_size
-                    sha = self.classifier.compute_hash(fp, self.hash_chunk_mb)
-                    sha_map[fp] = sha
-                    logger.log_ingest(fp, file_size=size, file_hash=sha)
-                    return None
-                except Exception as e:
-                    logger.log_error(fp, 'ingest_error', str(e), recoverable=True)
-                    errors.append(f"Ingest: {fp.name}: {e}")
-                    return None
-
-            with ThreadPoolExecutor(max_workers=self.max_workers) as ex:
-                list(ex.map(_ingest_file, raw_files))
-
-
-            # ── Stage 0.5: ARCHIVE & COMPRESSION INTELLIGENCE ────────────
-            # Stage 0.5 Archive Intelligence is Phase 1 gated.
-            # Disabled by default to preserve locked v4.1 retail determinism.
-            archive_result = None
-            _ae_cfg = self.config.get('archive_engine', {})
-            if _ae_cfg.get('enabled', False):
-                print(f"[PHASE1] Archive Intelligence Engine ENABLED")
-                from wecape.archive.stage import ArchiveIntelligenceStage
-                _archive_stage = ArchiveIntelligenceStage(self.config, output_path)
-                print(f"[{self.run_id}] Stage 0.5: Archive & Compression Intelligence")
-                raw_files, archive_result = _archive_stage.process(
-                    raw_files, self.run_id, output_path / 'LOGS'
-                )
-                if archive_result.archives_detected > 0:
-                    print(f"  → {archive_result.archives_detected} archives | "
-                          f"{len(archive_result.files_extracted)} extracted | "
-                          f"{len(archive_result.files_quarantined)} quarantined")
-                    if archive_result.partial_downloads:
-                        print(f"  ⚠  {len(archive_result.partial_downloads)} partial downloads detected")
-                for e in (archive_result.errors if archive_result else []):
-                    errors.append(e)
-            # ── End Stage 0.5 gate ────────────────────────────────────────
-
-                        # ── Stage 1: CLASSIFY ────────────────────────────────────────
-            print(f"[{self.run_id}] Stage 1: Classification")
-
-            def _classify(fp: Path) -> Optional[ClassifiedFile]:
-                try:
-                    return self.classifier.classify(fp)
-                except Exception as e:
-                    logger.log_error(fp, 'classification_error', str(e), recoverable=True)
-                    errors.append(f"Classify: {fp.name}: {e}")
-                    return None
-
-            with ThreadPoolExecutor(max_workers=self.max_workers) as ex:
-                results = list(ex.map(_classify, raw_files))
-
-            all_classified = [r for r in results if r is not None]
-            cam = sum(1 for f in all_classified if f.is_camera)
-            gen = sum(1 for f in all_classified if f.is_generic)
-            ref = sum(1 for f in all_classified if f.is_reference)
-            print(f"  → {cam} camera | {gen} generic | {ref} reference")
-
-            # ── Stage 2: TIMESTAMP ───────────────────────────────────────
-            print(f"[{self.run_id}] Stage 2: Timestamp extraction")
-            low_confidence_count = 0
-
-            def _stamp(f: ClassifiedFile) -> ClassifiedFile:
-                nonlocal low_confidence_count
-                try:
-                    r = self.ts_extractor.extract(f.path, f.camera_source)
-                    f.timestamp = r.unix_timestamp
-                    f.timestamp_method = r.method
-                    f.timestamp_fallback_level = r.fallback_level
-                    f.timestamp_confidence = r.confidence
-                    if r.fallback_level > 0:
-                        logger.log_fallback(f.path, 'higher_priority', r.method,
-                                            f"fallback_level={r.fallback_level}")
-                    if r.confidence == 'low':
-                        low_confidence_count += 1
-                    logger.log_classification(
-                        file_path=f.path,
-                        classification=f.classification,
-                        camera_source=f.camera_source,
-                        method=f.detection_method,
-                        timestamp_used=f.timestamp,
-                        timestamp_fallback_level=f.timestamp_fallback_level,
-                        timestamp_confidence=f.timestamp_confidence,
-                    )
-                except Exception as e:
-                    logger.log_error(f.path, 'timestamp_error', str(e), recoverable=True)
-                    f.timestamp = 0.0
-                    f.timestamp_confidence = 'low'
-                    errors.append(f"Timestamp: {f.path.name}: {e}")
-                return f
-
-            with ThreadPoolExecutor(max_workers=self.max_workers) as ex:
-                all_classified = list(ex.map(_stamp, all_classified))
-
-            if low_confidence_count:
-                print(f"  ⚠  WARNING: {low_confidence_count} files resolved via file-system clock "
-                      f"(timestamp_confidence=low). Multicam grouping accuracy may be degraded.")
-                logger.log_error(None, 'low_confidence_timestamps',
-                                 f"{low_confidence_count} files at fallback_level=2",
-                                 recoverable=True)
-
-            # ── Stage 3: MULTICAM GROUPING ───────────────────────────────
-            print(f"[{self.run_id}] Stage 3: Multicam grouping")
-            camera_files = [f for f in all_classified if f.is_camera]
-            grouping_result: GroupingResult = self.grouper.group(camera_files)
-
-            for group in grouping_result.groups:
-                logger.log_grouping(
-                    group_id=group.group_id,
-                    files=[f.path for f in group.files],
-                    anchor_timestamp=group.anchor_timestamp,
-                    timestamp_deltas=group.timestamp_deltas,
-                    conflict_resolved=group.conflict_resolved,
-                    conflict_note=group.conflict_note,
-                )
-            for f in grouping_result.ungrouped:
-                logger.log_ungrouped(f.path, grouping_result.ungrouped_reasons.get(f.path.name, ''))
-
-            print(f"  → {len(grouping_result.groups)} groups | "
-                  f"{len(grouping_result.ungrouped)} ungrouped camera files")
-
-            # ── Stage 4: VARIANT DETECTION ───────────────────────────────
-            print(f"[{self.run_id}] Stage 4: Variant detection")
-            variant_groups, standalone = self.variant_detector.detect(all_classified)
-
-            for vg in variant_groups:
-                for child in vg.children:
-                    logger.log_variant(vg.parent.path, child.path,
-                                       vg.parent_selection_method, 'stem_base_match')
-
-            # Log orphan variants (classification_note set by detector)
-            orphans = [f for f in standalone if f.classification_note == 'variant_pattern_no_base_found']
-            for f in orphans:
-                logger.log_error(f.path, 'orphan_variant',
-                                 'variant_pattern_no_base_found — reclassified as standalone',
-                                 recoverable=True)
-
-            print(f"  → {len(variant_groups)} variant groups | "
-                  f"{len(orphans)} orphan variants (standalone)")
-
-            # ── Stage 5: OUTPUT ──────────────────────────────────────────
-            print(f"[{self.run_id}] Stage 5: Writing output → {output_path}")
-            written = output_builder.build(
-                run_id=self.run_id,
-                all_files=all_classified,
-                grouping_result=grouping_result,
-                variant_groups=variant_groups,
-                standalone_files=standalone,
-            )
+            if engine == 'legacy':
+                # Rollback path: identical stage methods, single-try semantics.
+                for _stage in stage_list:
+                    _stage.execute(stage_ctx)
+            else:
+                _results = run_stages(stage_list, stage_ctx)
+                _failed = [r for r in _results if not r.success]
+                if _failed:
+                    # Surface the first stage failure as a pipeline-fatal (matches
+                    # the legacy single-try behaviour: remaining stages skipped).
+                    raise RuntimeError((_failed[0].errors or ['stage failed'])[0])
 
         except Exception as e:
             logger.log_error(None, 'pipeline_fatal', str(e), recoverable=False, exception=e)
@@ -544,6 +510,13 @@ class Pipeline:
             print(f"\n[FATAL] {e}\n{traceback.format_exc()}")
 
         finally:
+            # Pull stage outputs back from the shared context (stages reassign
+            # these inside metadata, so the run()-local names must be refreshed).
+            all_classified = stage_ctx.metadata.get('all_classified', all_classified)
+            sha_map = stage_ctx.metadata.get('sha_map', sha_map)
+            raw_files = stage_ctx.metadata.get('raw_files', [])
+            errors = stage_ctx.metadata.get('errors', errors)
+
             # ── Stage 6: PROXY GENERATION ────────────────────────────────
             proxy_result = None
             _px_cfg = self.config.get('proxy_generation', {})
@@ -617,8 +590,10 @@ class Pipeline:
                         errors=errors,
                     )
                     print(f"  [registry] {len(all_classified)} records → ~/.wecape/registry/wecape.db")
+            except RegistryAuditError:
+                raise
             except Exception as _e:
-                print(f"  [registry] finalize skipped: {_e}")
+                _audit_failure(self._registry_strict, self._test_mode, 'finalize', _e)
 
             # ── Measure 3: Warn if proxy generation expected but 0 produced ──
             if proxy_result:
@@ -674,6 +649,199 @@ class Pipeline:
             print(f"  Report: {report}\n")
 
         return summary
+
+    # ------------------------------------------------------------------ #
+    # Production stages (driven by core.stage.run_stages)                  #
+    # Each operates on StageContext.metadata and returns a StageResult.    #
+    # Logic is identical to the legacy inline blocks — only relocated.     #
+    # ------------------------------------------------------------------ #
+
+    def _stage_ingest(self, ctx: StageContext) -> StageResult:
+        m = ctx.metadata
+        logger = m['logger']; errors = m['errors']; sha_map = m['sha_map']
+        input_path = Path(ctx.source_path)
+        print(f"\n[{self.run_id}] Stage 0: Ingest — {input_path}")
+        raw_files = self._discover_files(input_path)
+        print(f"  → {len(raw_files):,} files discovered")
+
+        def _ingest_file(fp: Path) -> Optional[ClassifiedFile]:
+            try:
+                size = fp.stat().st_size
+                sha = self.classifier.compute_hash(fp, self.hash_chunk_mb)
+                sha_map[fp] = sha
+                logger.log_ingest(fp, file_size=size, file_hash=sha)
+                return None
+            except Exception as e:
+                logger.log_error(fp, 'ingest_error', str(e), recoverable=True)
+                errors.append(f"Ingest: {fp.name}: {e}")
+                return None
+
+        with ThreadPoolExecutor(max_workers=self.max_workers) as ex:
+            list(ex.map(_ingest_file, raw_files))
+
+        m['raw_files'] = raw_files
+        return StageResult('ingest', '1.0.0', True, files_processed=len(raw_files))
+
+    def _stage_archive(self, ctx: StageContext) -> StageResult:
+        m = ctx.metadata; errors = m['errors']
+        raw_files = m['raw_files']
+        archive_result = None
+        _ae_cfg = self.config.get('archive_engine', {})
+        if _ae_cfg.get('enabled', False):
+            print(f"[PHASE1] Archive Intelligence Engine ENABLED")
+            from wecape.archive.stage import ArchiveIntelligenceStage
+            _archive_stage = ArchiveIntelligenceStage(self.config, Path(ctx.output_path))
+            print(f"[{self.run_id}] Stage 0.5: Archive & Compression Intelligence")
+            raw_files, archive_result = _archive_stage.process(
+                raw_files, self.run_id, Path(ctx.output_path) / 'LOGS'
+            )
+            if archive_result.archives_detected > 0:
+                print(f"  → {archive_result.archives_detected} archives | "
+                      f"{len(archive_result.files_extracted)} extracted | "
+                      f"{len(archive_result.files_quarantined)} quarantined")
+                if archive_result.partial_downloads:
+                    print(f"  ⚠  {len(archive_result.partial_downloads)} partial downloads detected")
+            for e in (archive_result.errors if archive_result else []):
+                errors.append(e)
+        m['raw_files'] = raw_files
+        m['archive_result'] = archive_result
+        return StageResult('archive', '1.0.0', True, files_processed=len(raw_files))
+
+    def _stage_classify(self, ctx: StageContext) -> StageResult:
+        m = ctx.metadata; logger = m['logger']; errors = m['errors']
+        raw_files = m['raw_files']
+        print(f"[{self.run_id}] Stage 1: Classification")
+
+        def _classify(fp: Path) -> Optional[ClassifiedFile]:
+            try:
+                return self.classifier.classify(fp)
+            except Exception as e:
+                logger.log_error(fp, 'classification_error', str(e), recoverable=True)
+                errors.append(f"Classify: {fp.name}: {e}")
+                return None
+
+        with ThreadPoolExecutor(max_workers=self.max_workers) as ex:
+            results = list(ex.map(_classify, raw_files))
+
+        all_classified = [r for r in results if r is not None]
+        cam = sum(1 for f in all_classified if f.is_camera)
+        gen = sum(1 for f in all_classified if f.is_generic)
+        ref = sum(1 for f in all_classified if f.is_reference)
+        print(f"  → {cam} camera | {gen} generic | {ref} reference")
+        m['all_classified'] = all_classified
+        return StageResult('classify', '1.0.0', True, files_processed=len(all_classified),
+                           metadata={'camera': cam, 'generic': gen, 'reference': ref})
+
+    def _stage_timestamp(self, ctx: StageContext) -> StageResult:
+        m = ctx.metadata; logger = m['logger']; errors = m['errors']
+        all_classified = m['all_classified']
+        print(f"[{self.run_id}] Stage 2: Timestamp extraction")
+        low = [0]
+
+        def _stamp(f: ClassifiedFile) -> ClassifiedFile:
+            try:
+                r = self.ts_extractor.extract(f.path, f.camera_source)
+                f.timestamp = r.unix_timestamp
+                f.timestamp_method = r.method
+                f.timestamp_fallback_level = r.fallback_level
+                f.timestamp_confidence = r.confidence
+                if r.fallback_level > 0:
+                    logger.log_fallback(f.path, 'higher_priority', r.method,
+                                        f"fallback_level={r.fallback_level}")
+                if r.confidence == 'low':
+                    low[0] += 1
+                logger.log_classification(
+                    file_path=f.path,
+                    classification=f.classification,
+                    camera_source=f.camera_source,
+                    method=f.detection_method,
+                    timestamp_used=f.timestamp,
+                    timestamp_fallback_level=f.timestamp_fallback_level,
+                    timestamp_confidence=f.timestamp_confidence,
+                )
+            except Exception as e:
+                logger.log_error(f.path, 'timestamp_error', str(e), recoverable=True)
+                f.timestamp = 0.0
+                f.timestamp_confidence = 'low'
+                errors.append(f"Timestamp: {f.path.name}: {e}")
+            return f
+
+        with ThreadPoolExecutor(max_workers=self.max_workers) as ex:
+            all_classified = list(ex.map(_stamp, all_classified))
+
+        if low[0]:
+            print(f"  ⚠  WARNING: {low[0]} files resolved via file-system clock "
+                  f"(timestamp_confidence=low). Multicam grouping accuracy may be degraded.")
+            logger.log_error(None, 'low_confidence_timestamps',
+                             f"{low[0]} files at fallback_level=2",
+                             recoverable=True)
+        m['all_classified'] = all_classified
+        return StageResult('timestamp', '1.0.0', True, files_processed=len(all_classified),
+                           diagnostics=([f"low_confidence={low[0]}"] if low[0] else []))
+
+    def _stage_group(self, ctx: StageContext) -> StageResult:
+        m = ctx.metadata; logger = m['logger']
+        all_classified = m['all_classified']
+        print(f"[{self.run_id}] Stage 3: Multicam grouping")
+        camera_files = [f for f in all_classified if f.is_camera]
+        grouping_result: GroupingResult = self.grouper.group(camera_files)
+
+        for group in grouping_result.groups:
+            logger.log_grouping(
+                group_id=group.group_id,
+                files=[f.path for f in group.files],
+                anchor_timestamp=group.anchor_timestamp,
+                timestamp_deltas=group.timestamp_deltas,
+                conflict_resolved=group.conflict_resolved,
+                conflict_note=group.conflict_note,
+            )
+        for f in grouping_result.ungrouped:
+            logger.log_ungrouped(f.path, grouping_result.ungrouped_reasons.get(f.path.name, ''))
+
+        print(f"  → {len(grouping_result.groups)} groups | "
+              f"{len(grouping_result.ungrouped)} ungrouped camera files")
+        m['grouping_result'] = grouping_result
+        return StageResult('group', '1.0.0', True, files_processed=len(camera_files),
+                           metadata={'groups': len(grouping_result.groups),
+                                     'ungrouped': len(grouping_result.ungrouped)})
+
+    def _stage_variants(self, ctx: StageContext) -> StageResult:
+        m = ctx.metadata; logger = m['logger']
+        all_classified = m['all_classified']
+        print(f"[{self.run_id}] Stage 4: Variant detection")
+        variant_groups, standalone = self.variant_detector.detect(all_classified)
+
+        for vg in variant_groups:
+            for child in vg.children:
+                logger.log_variant(vg.parent.path, child.path,
+                                   vg.parent_selection_method, 'stem_base_match')
+
+        orphans = [f for f in standalone if f.classification_note == 'variant_pattern_no_base_found']
+        for f in orphans:
+            logger.log_error(f.path, 'orphan_variant',
+                             'variant_pattern_no_base_found — reclassified as standalone',
+                             recoverable=True)
+
+        print(f"  → {len(variant_groups)} variant groups | "
+              f"{len(orphans)} orphan variants (standalone)")
+        m['variant_groups'] = variant_groups
+        m['standalone'] = standalone
+        return StageResult('variants', '1.0.0', True, files_processed=len(all_classified),
+                           metadata={'variant_groups': len(variant_groups), 'orphans': len(orphans)})
+
+    def _stage_output(self, ctx: StageContext) -> StageResult:
+        m = ctx.metadata
+        output_builder = m['output_builder']
+        print(f"[{self.run_id}] Stage 5: Writing output → {ctx.output_path}")
+        written = output_builder.build(
+            run_id=self.run_id,
+            all_files=m['all_classified'],
+            grouping_result=m['grouping_result'],
+            variant_groups=m['variant_groups'],
+            standalone_files=m['standalone'],
+        )
+        m['written'] = written
+        return StageResult('output', '1.0.0', True, files_processed=len(m['all_classified']))
 
     # ------------------------------------------------------------------ #
     # File discovery                                                       #

@@ -15,12 +15,35 @@ W.E. C.A.P.E. CAPTURE is described as "the first product from W.E. C.A.P.E.."
 
 ```
 Repo:    github.com:theworkmanexperience-sketch/Curser.git
-Local:   ~/Curser/we-flow/
-Package: we_capture/ (target: wecape/ — see Phase 2)
-Commit:  04d3910 — Measures 2+4 implemented
-Tests:   171/171 passing
+Local:   ~/Curser/we-cape/
+Package: wecape/ (canonical). we_capture/ retained only as deprecated CLI shim.
+Commit:  04d3910 — Measures 2+4 implemented (pre-audit baseline)
+Tests:   189/189 passing (171 baseline + 18 added by 2026-06-23 audit remediation + rewire)
+Entry:   python -m wecape   (config: wecape/config.yaml, profiles: wecape/profiles/)
 Phase 1: COMPLETE
-Phase 2: IN PROGRESS (registry live, Measures 1-4, hwaccel, rebrand complete)
+Phase 2: IN PROGRESS (registry live, Measures 1-5, hwaccel, rebrand complete,
+         namespace migration COMPLETE, PipelineStage seam real — see Audit Remediation)
+```
+
+### Audit Remediation — June 23, 2026 (not yet committed)
+```
+See CODEBASE_AUDIT_2026-06-23.md for the full audit. Changes applied:
+ #1 PipelineStage made real      wecape/capture/stages.py + core/stage.run_stages
+ #1b pipeline.py REWIRED         run() now routes through run_stages() by default
+                                 (pipeline.engine: stages|legacy; legacy = rollback).
+                                 7 production stages extracted to _stage_* methods.
+                                 Equivalence validated: legacy==stages output on
+                                 synthetic 1080p multicam footage (2 groups, 7 proxies);
+                                 in-suite guard test_engine_equivalence.py.
+                                 AI hooks: disabled _NullIntelligenceStage (P6).
+ #2 write_content preserves      INSERT..ON CONFLICT DO UPDATE w/ COALESCE (P5 now true)
+ #3 empty-run guard              reader filter file_count>0 + finalize prunes empty runs
+ #4 strict audit mode            registry.strict:true aborts run if audit unwritable (P3)
+ #5 migration finished           tests -> wecape/tests/, config+profiles -> wecape/,
+                                 entry -> python -m wecape, ProfileLoader path bug fixed
+ #6 schema v2 migration          runs.we_forge_version -> we_cape_version (auto, lossless)
+ #7 housekeeping                 .weflow->.wecape, junk files -> .trash_junk/, governance doc
+Verify: python3 -m pytest wecape/tests/ -q   (pytest-free: python run_tests.py)
 ```
 
 ### Production Baseline (O-SIX RYDERZ MC — validated)
@@ -54,41 +77,46 @@ These are non-negotiable. Do not modify without explicit instruction.
 - **P2 Privacy by Design** — local engine cannot make network calls
 - **P3 Auditability** — every run produces a complete manifest
 - **P4 Extensibility Without Coupling** — new stages never modify existing stages
-- **P5 Registry Continuity** — registry is append-only, never overwritten
+- **P5 Registry Continuity** — non-destructive: content enrichment is never overwritten or nulled (field-preserving upsert); only empty no-op runs are pruned
 - **P6 Staged Intelligence** — AI features never foundational to core pipeline
 - **P7 Creator Data Sovereignty** — creator owns all production data
 
 ---
 
-## Current Package Structure
+## Current Package Structure (actual, as of 2026-06-23 audit)
 
 ```
-we_capture/
-├── archive_engine/     ← Archive Intelligence (Stage 0.5)
-│   ├── detector.py
-│   ├── extractor.py
-│   ├── manifest.py
-│   ├── quarantine.py
-│   ├── repair.py
-│   ├── stage.py
-│   └── validator.py
-├── engine/             ← Core pipeline
-│   ├── audit.py
-│   ├── classifier.py
-│   ├── grouper.py
-│   ├── output.py
-│   ├── pipeline.py
-│   ├── profile.py
-│   ├── proxy.py        ← JSON registry today, SQLite at Phase 2
-│   ├── timestamp.py    ← _extract_dji_telemetry stub (unintegrated, no tests yet)
-│   └── variants.py
-├── profiles/
-│   ├── default.yaml
-│   ├── ryderz.yaml
-│   └── google_drive.yaml
-├── tests/              ← 95 tests, must stay green
-└── main.py
+wecape/                 ← CANONICAL package (all source + tests live here)
+├── __main__.py         ← `python -m wecape` entry
+├── config.yaml         ← canonical config (moved from we_capture/)
+├── profiles/           ← default.yaml, ryderz.yaml, google_drive.yaml (moved here;
+│                          ProfileLoader resolves wecape/profiles — fixed June 23)
+├── core/
+│   ├── stage.py        ← PipelineStage ABC + run_stages() driver (NEW)
+│   ├── sync.py         ← SyncAdapter ABC + LocalOnlySyncAdapter
+│   ├── manifest.py     ← RunManifest (JSON+HTML+XML); field now we_cape_version
+│   └── errors.py       ← error taxonomy incl. RegistryAuditError (NEW)
+│                          (NOTE: core/config.py still not present — see backlog)
+├── registry/           ← schema.py (v2 + migrate()), writer.py, reader.py
+├── capture/            ← the working pipeline (NOT wecape/flow/)
+│   ├── pipeline.py     ← orchestrator (calls components directly today)
+│   ├── classifier.py grouper.py variants.py output.py audit.py proxy.py profile.py
+│   ├── timestamp.py    ← _extract_dji_telemetry stub (still unintegrated, no tests)
+│   ├── stages.py       ← PipelineStage adapters: Archive/Classify/Group/Variant/Proxy (NEW)
+│   └── main.py         ← canonical CLI implementation
+├── archive/            ← Stage 0.5 (detector/extractor/validator/repair/quarantine/manifest/stage)
+├── flow/ sync/ api/ intelligence/   ← EMPTY namespace stubs (__init__ only; future)
+└── tests/              ← 188 tests, must stay green (run: python -m pytest wecape/tests/)
+
+we_capture/             ← DEPRECATED. Only main.py (shim) + run_tests.py (shim) remain.
+                          Empty leftover dir we_capture/profiles/ could not be unlinked
+                          on the working mount; safe to `rmdir` locally.
 ```
+
+> Reality check vs the "Target Package Structure" below: working code went to
+> `wecape/capture/`, **not** `wecape/flow/`. `flow/ sync/ api/ intelligence/` are
+> still empty. `SyncAdapter`/`LocalOnly` live in `core/sync.py`, not `sync/local.py`.
+> Treat the Target block as aspirational, not built.
 
 ---
 
@@ -139,7 +167,7 @@ Location: `~/.wecape/registry/wecape.db`
 CREATE TABLE IF NOT EXISTS runs (
     id                  TEXT PRIMARY KEY,
     timestamp           TEXT NOT NULL,
-    we_forge_version    TEXT NOT NULL,
+    we_cape_version     TEXT NOT NULL,   -- v2 rename from we_forge_version (auto-migrated)
     profile_id          TEXT,
     source_path         TEXT NOT NULL,
     output_path         TEXT NOT NULL,
@@ -399,11 +427,11 @@ Technical dependency: internal seams designed at J1, published at J3.
 
 ## Test Requirements
 
-- All 95 tests must pass before any commit merges
+- All 188 tests must pass before any commit merges
 - New features require tests before merge
-- `python3 -m pytest we_capture/tests/ -q` is the current gate
-- After wecape/ namespace reorganization: update all imports, verify 95/95 still pass
-- Test file location after reorganization: `wecape/tests/`
+- `python3 -m pytest wecape/tests/ -q` is the current gate (all tests now live in wecape/tests/)
+- Pytest-free acceptance subset: `python run_tests.py` (repo root; §17 suite only)
+- Namespace reorganization COMPLETE — imports verified, 188/188 passing
 
 ---
 
@@ -594,6 +622,12 @@ All prior pre-flight reports contain incorrect system drive free space.
 WEF_20260622_020843_66257B: 0 files, 0.0h
   Cause: CAPTURE ran against empty source (rsync still in progress)
   Rule:  All aggregate queries must include WHERE file_count > 0
+  STATUS (2026-06-23): NOW ENFORCED IN CODE.
+    - reader.list_runs() / get_aggregate_stats() exclude file_count=0 by default
+      (pass include_empty=True for raw history)
+    - writer.finalize_run() prunes a run that finalizes with 0 files
+  The historical WEF_20260622_020843_66257B row in the live DB should be deleted
+  once (DELETE FROM runs WHERE file_count=0); new empty runs no longer persist.
 
 ---
 

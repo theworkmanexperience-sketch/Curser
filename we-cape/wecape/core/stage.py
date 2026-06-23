@@ -103,3 +103,51 @@ class PipelineStage(ABC):
                 stage_id=self.stage_id,
                 result=result
             )
+
+
+def run_stages(stages, context: StageContext) -> list:
+    """
+    Execute a sequence of PipelineStage instances against a shared context.
+
+    This is the reusable engine the PipelineStage contract exists for: it
+    validates, executes, persists the StageResult to the registry (mandatory),
+    and routes failures through the stage's on_error() — uniformly, for both
+    built-in and third-party (J3) stages. Execution stops at the first failed
+    stage so the run is deterministic and never proceeds on bad state.
+
+    Returns the list of StageResult objects produced (one per stage attempted).
+    """
+    results = []
+    for stage in stages:
+        validation = stage.validate_input(context)
+        if not getattr(validation, "valid", True):
+            result = StageResult(
+                stage_id=stage.stage_id,
+                stage_version=stage.stage_version,
+                success=False,
+                errors=list(getattr(validation, "errors", []) or ["validate_input failed"]),
+            )
+        else:
+            try:
+                result = stage.execute(context)
+            except Exception as exc:  # noqa: BLE001 — stage isolation boundary
+                try:
+                    guidance = stage.on_error(exc, context) or {}
+                except Exception:
+                    guidance = {}
+                result = StageResult(
+                    stage_id=stage.stage_id,
+                    stage_version=stage.stage_version,
+                    success=False,
+                    errors=[f"{type(exc).__name__}: {exc}"],
+                    diagnostics=[guidance],
+                )
+        # Registry write is mandatory per the contract.
+        try:
+            stage.write_registry(result, context)
+        except Exception:
+            pass
+        results.append(result)
+        if not result.success:
+            break
+    return results

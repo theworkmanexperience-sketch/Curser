@@ -17,13 +17,13 @@ from pathlib import Path
 
 REGISTRY_DIR = Path.home() / ".wecape" / "registry"
 REGISTRY_PATH = REGISTRY_DIR / "wecape.db"
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2  # v2: rebrand column we_forge_version -> we_cape_version
 
 RUNS_TABLE = """
 CREATE TABLE IF NOT EXISTS runs (
     id                  TEXT PRIMARY KEY,
     timestamp           TEXT NOT NULL,
-    we_forge_version    TEXT NOT NULL,
+    we_cape_version     TEXT NOT NULL,
     profile_id          TEXT,
     source_path         TEXT NOT NULL,
     output_path         TEXT NOT NULL,
@@ -89,21 +89,54 @@ def get_connection(db_path: Path = REGISTRY_PATH) -> sqlite3.Connection:
     return conn
 
 
+def _table_columns(conn: sqlite3.Connection, table: str) -> set:
+    return {row[1] for row in conn.execute(f"PRAGMA table_info({table})").fetchall()}
+
+
+def migrate(conn: sqlite3.Connection) -> int:
+    """
+    Bring an existing registry up to SCHEMA_VERSION. Idempotent and
+    non-destructive — safe to call on every open. Returns the resulting version.
+
+    v1 -> v2: rename runs.we_forge_version -> runs.we_cape_version (rebrand).
+              Uses ALTER TABLE ... RENAME COLUMN (SQLite >= 3.25), which
+              preserves all existing data.
+    """
+    cols = _table_columns(conn, "runs")
+    if "we_forge_version" in cols and "we_cape_version" not in cols:
+        conn.execute(
+            "ALTER TABLE runs RENAME COLUMN we_forge_version TO we_cape_version"
+        )
+    # Record v2 once the rebranded column is in place (fresh or migrated).
+    if "we_cape_version" in _table_columns(conn, "runs"):
+        conn.execute(
+            "INSERT OR IGNORE INTO schema_version (version, applied_at, description) "
+            "VALUES (2, datetime('now'), ?)",
+            ("Rebrand: runs.we_forge_version -> runs.we_cape_version",),
+        )
+    conn.commit()
+    return get_schema_version(conn)
+
+
 def initialize_registry(db_path: Path = REGISTRY_PATH) -> sqlite3.Connection:
     """
-    Create all tables and seed schema version.
-    Safe to call on existing registry — CREATE IF NOT EXISTS.
+    Create all tables, seed schema version, and apply pending migrations.
+    Safe to call on existing registry — CREATE IF NOT EXISTS + idempotent migrate().
     """
     conn = get_connection(db_path)
     cursor = conn.cursor()
     cursor.executescript(
         RUNS_TABLE + CONTENT_TABLE + PREFERENCES_TABLE + SCHEMA_VERSION_TABLE
     )
+    # Baseline marker for fresh databases.
     cursor.execute(
-        "INSERT OR IGNORE INTO schema_version (version, applied_at, description) VALUES (?, datetime('now'), ?)",
-        (SCHEMA_VERSION, "Initial schema — W.E. C.A.P.E. v1.0")
+        "INSERT OR IGNORE INTO schema_version (version, applied_at, description) "
+        "VALUES (1, datetime('now'), ?)",
+        ("Initial schema — W.E. C.A.P.E. v1.0",),
     )
     conn.commit()
+    # Apply pending migrations (records v2; renames legacy column if present).
+    migrate(conn)
     return conn
 
 

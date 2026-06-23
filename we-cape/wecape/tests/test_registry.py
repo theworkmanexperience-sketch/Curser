@@ -5,7 +5,7 @@ import pathlib
 import tempfile
 import pytest
 
-from wecape.registry.schema import initialize_registry, get_schema_version
+from wecape.registry.schema import initialize_registry, get_schema_version, SCHEMA_VERSION
 from wecape.registry.writer import RegistryWriter
 from wecape.registry.reader import RegistryReader
 
@@ -49,10 +49,10 @@ def test_initialize_creates_all_tables(tmp_db):
     conn.close()
 
 
-def test_schema_version_is_one(tmp_db):
+def test_schema_version_is_current(tmp_db):
     conn = initialize_registry(tmp_db)
     version = get_schema_version(conn)
-    assert version == 1
+    assert version == SCHEMA_VERSION
     conn.close()
 
 
@@ -60,7 +60,7 @@ def test_initialize_is_idempotent(tmp_db):
     initialize_registry(tmp_db)
     conn = initialize_registry(tmp_db)  # second call must not raise
     version = get_schema_version(conn)
-    assert version == 1
+    assert version == SCHEMA_VERSION
     conn.close()
 
 
