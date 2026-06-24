@@ -560,11 +560,26 @@ Env vars:  WECAPE_TEST_MODE=1 | WECAPE_NONINTERACTIVE=1
 Gate: < 90 minutes. Confirmed MG-04 June 22, 2026.
 
 | Production | USB HDD | 4 | VTB hwaccel | 49.9 min | 0.63 min/proxy | PASS |
+| Production (rewired/stages) | USB HDD | 4 | VTB hwaccel | 51.9 min | 0.66 min/proxy | PASS |
 
 Production run: WEF_20260622_221150_204D47
 Output: /Volumes/WE_CAPE_OUTPUT/O-SIX_RYDERZ_MC/Community_Service_2024/
 Source: /Volumes/10TB/O-SIX RYDERZ MC Community Service (USB)
 Note: USB source adds ~16 min vs NVMe source — gate met on both
+
+Production run (rewired engine): WEF_20260624_001707_C5A8AB — June 24, 2026
+Engine:  stages — run() routed through run_stages(). FIRST production-scale
+         validation of the rewired orchestrator (see Audit Remediation #1b).
+Output:  /Volumes/WE_CAPE_OUTPUT/O-SIX_RYDERZ_MC/Community_Service_2026/
+Source:  /Volumes/10TB/O-SIX RYDERZ MC Community Service (USB)
+Result:  95 files | 2 groups | 23 variants | 4 diagnostics | 0 errors | Proxies 79t/0s/0f
+Runtime: 3111.68s = 51.9 min — on-benchmark vs June 22 (49.9 min); hwaccel confirmed active.
+         (Pre-flight's ~138m line was the software-decode comparison, not the actual path.)
+Validation: reproduced MG-02 ground truth (2 groups, 23 variants, 4 diagnostics).
+         95 real files vs MG-02's 103 = the same 95 + 8 .crdownload partial-download
+         artifacts that are absent from this (cleaner) source copy. 0 proxy failures,
+         including every Insta360 .insv. Rewired engine matches the proven pipeline
+         at production scale.
 
 Critical discovery: commit 724bdae declared gate active before any validation.
 NVMe delivered 2.96x improvement. Free -hwaccel flag delivered 16x.
