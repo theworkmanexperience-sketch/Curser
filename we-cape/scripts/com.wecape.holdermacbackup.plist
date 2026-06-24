@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.wecape.holdermacbackup</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/twork/Curser/we-cape/scripts/backup_holder_mac.sh</string>
+  </array>
+
+  <!-- Weekly, Sunday 03:00. For DAILY, delete the <Weekday> key+value below.
+       If the Mac is asleep at the scheduled time, launchd runs it on next wake. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key><integer>0</integer>
+    <key>Hour</key><integer>3</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/twork/Library/Logs/wecape_holdermac_backup.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/twork/Library/Logs/wecape_holdermac_backup.err.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>
