@@ -45,27 +45,23 @@ class TimestampResult:
 
 class TimestampExtractor:
     def _extract_dji_telemetry(self, file_path):
-        """Extract precise timestamp from DJI Action cameras using ffprobe metadata."""
-        try:
-            result = subprocess.run([
-                'ffprobe', '-v', 'quiet', '-print_format', 'json',
-                '-show_format', '-show_streams', str(file_path)
-            ], capture_output=True, text=True)
-            data = json.loads(result.stdout)
-            tags = data.get('format', {}).get('tags', {})
-            
-            # Primary DJI timestamp sources
-            creation_time = tags.get('creation_time')
-            if creation_time:
-                return datetime.fromisoformat(creation_time.replace('Z', '+00:00')), 'dji_metadata'
-            
-            # Fallback to QuickTime model + handler for DJI
-            model = tags.get('com.apple.quicktime.model') or tags.get('model')
-            if model and 'dji' in model.lower():
-                # DJI filename pattern is already strong, but we can add offset here later
-                pass
-        except Exception:
-            pass
+        """
+        PLANNED — DJI telemetry timestamp source (NOT yet integrated).
+
+        Intended design: read the per-frame capture time from a DJI telemetry
+        sidecar ('<name>.SRT', written alongside the .MP4 by DJI Action cameras)
+        to obtain a drift-free timestamp, addressing the camera clock skew behind
+        the §7 grouping-window deviation. It would slot into extract() as a
+        high-priority, OPT-IN source (config-gated, default off) so it never
+        changes the validated default grouping.
+
+        Currently a deliberate no-op returning (None, None). Embedded
+        creation_time is already covered by _from_ffprobe(), so there is no
+        behavioural gap until real .SRT parsing lands. Tracked in CLAUDE.md
+        backlog. (The previous body just re-read ffprobe creation_time — i.e.
+        duplicated _from_ffprobe — and was never called; removed to avoid
+        misleading dead code.)
+        """
         return None, None
 
 

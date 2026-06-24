@@ -18,7 +18,7 @@ Repo:    github.com:theworkmanexperience-sketch/Curser.git
 Local:   ~/Curser/we-cape/
 Package: wecape/ (canonical). we_capture/ retained only as deprecated CLI shim.
 Commit:  04d3910 — Measures 2+4 implemented (pre-audit baseline)
-Tests:   189/189 passing (171 baseline + 18 added by 2026-06-23 audit remediation + rewire)
+Tests:   200/200 passing (171 baseline + 18 audit/rewire + 11 backlog: core/config + telemetry placeholder)
 Entry:   python -m wecape   (config: wecape/config.yaml, profiles: wecape/profiles/)
 Phase 1: COMPLETE
 Phase 2: IN PROGRESS (registry live, Measures 1-5, hwaccel, rebrand complete,
@@ -101,8 +101,8 @@ wecape/                 ← CANONICAL package (all source + tests live here)
 │   ├── stage.py        ← PipelineStage ABC + run_stages() driver (NEW)
 │   ├── sync.py         ← SyncAdapter ABC + LocalOnlySyncAdapter
 │   ├── manifest.py     ← RunManifest (JSON+HTML+XML); field now we_cape_version
-│   └── errors.py       ← error taxonomy incl. RegistryAuditError (NEW)
-│                          (NOTE: core/config.py still not present — see backlog)
+│   ├── errors.py       ← error taxonomy incl. RegistryAuditError (NEW)
+│   └── config.py       ← centralized config: load/profile-merge/overrides/validate (NEW)
 ├── registry/           ← schema.py (v2 + migrate()), writer.py, reader.py
 ├── capture/            ← the working pipeline (NOT wecape/flow/)
 │   ├── pipeline.py     ← orchestrator (calls components directly today)
@@ -477,9 +477,13 @@ COMPLETED:
 PENDING:
 1. Measure 5 - progress heartbeat for runs >1 hour
 2. wecape/capture migration (Option A) — COMPLETE 083889c
-3. _extract_dji_telemetry integration
+3. DJI telemetry timestamp — FUTURE ENHANCEMENT (deferred by decision 2026-06-24).
+   Stub cleaned to an honest no-op placeholder; intended design (parse '<name>.SRT'
+   sidecar for drift-free time, opt-in/default-off) documented in timestamp.py.
+   .SRT stays classified as reference for now. Would let ±15s window (§7) shrink.
 4. Windows platform support
 5. Executive Summary update
+6. core/config.py — DONE 2026-06-24 (centralized config layer; main.py + pipeline use it)
 
 ---
 
@@ -676,6 +680,17 @@ Justification:      DJI/Insta360 clock drift is 6-12s in field conditions.
                     At ±15s: 3/3 groups form, 0% ungrouped.
                     Empirically validated June 22 2026 on Community Service dataset.
                     Deviation is a field calibration, not a spec violation.
+Status:             Documented deviation — defensible, validated, intentional.
+
+### Stage 0.5 Archive Engine — Enabled (intentional deviation)
+RFQ LOCKED spec:    archive_engine disabled by default (Phase-1 gated, v4.1 retail determinism)
+Production config:  archive_engine.enabled: true
+Justification:      Acts as a production safeguard — quarantines partial/corrupt
+                    downloads (.crdownload/.part/.tmp) and handles archives before
+                    they reach the pipeline. Caused zero harm in the June 24
+                    production run (95 files, 0 errors); would have caught the 8
+                    .crdownload artifacts that polluted the MG-02 baseline.
+Decision:           2026-06-24 — keep enabled as an intentional production safeguard.
 Status:             Documented deviation — defensible, validated, intentional.
 
 ### RFQ Tests 1-5 — PASS

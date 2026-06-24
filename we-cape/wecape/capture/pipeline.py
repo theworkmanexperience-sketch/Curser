@@ -120,8 +120,8 @@ class _NullIntelligenceStage(PipelineStage):
 class Pipeline:
 
     def __init__(self, config_path: Path):
-        with open(config_path, 'r') as f:
-            self.config = yaml.safe_load(f)
+        from ..core.config import load_base
+        self.config = load_base(config_path)
 
         prefix = self.config.get('pipeline', {}).get('run_id_prefix', 'WEF')
         self.run_id = (

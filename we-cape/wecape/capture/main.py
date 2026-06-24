@@ -88,38 +88,35 @@ def main():
     print('  W.E. C.A.P.E. CAPTURE  |  Deterministic Media Ingestion Engine')
     print('=' * 60)
 
-    # Load and merge client profile if specified
-    config_path = args.config
+    # Build the full run config — base + optional profile + CLI overrides —
+    # centralized in wecape.core.config.
+    from wecape.core.config import load_config, validate, write_temp
+    try:
+        config = load_config(
+            args.config,
+            profile=args.profile,
+            proxy=getattr(args, 'proxy', False),
+            engine=getattr(args, 'engine', None),
+            workers=args.workers,
+        )
+    except Exception as e:
+        print(f'[ERROR] {e}')
+        sys.exit(1)
+
     if args.profile:
-        import yaml
-        import tempfile
-        from wecape.capture.profile import ProfileLoader
-        base_config = yaml.safe_load(config_path.read_text())
-        merged = ProfileLoader().load(args.profile, base_config)
-        meta = merged.get('_active_profile', {})
+        meta = config.get('_active_profile', {})
         print(f"  [PROFILE] {args.profile}"
               + (f" — {meta['client']}" if meta.get('client') else ""))
-        tmp = tempfile.NamedTemporaryFile(
-            mode='w', suffix='.yaml', delete=False, prefix='wecape_profile_')
-        yaml.dump(merged, tmp)
-        tmp.close()
-        config_path = Path(tmp.name)
-
-    pipeline = Pipeline(config_path=config_path)
-
-    if args.workers is not None:
-        pipeline.max_workers = args.workers
-        print(f'  Workers: {args.workers} (CLI override)')
-
-    # --proxy enables proxy generation for this run, with or without --profile.
     if getattr(args, 'proxy', False):
-        pipeline.config.setdefault('proxy_generation', {})['enabled'] = True
         print('  [PROXY] proxy generation enabled via --proxy flag')
-
-    # --engine selects the orchestration path (stages | legacy) for this run.
+    if args.workers is not None:
+        print(f'  [WORKERS] {args.workers} (CLI override)')
     if getattr(args, 'engine', None):
-        pipeline.config.setdefault('pipeline', {})['engine'] = args.engine
         print(f'  [ENGINE] {args.engine}')
+    for w in validate(config):
+        print(f'  [config] ⚠ {w}')
+
+    pipeline = Pipeline(config_path=write_temp(config))
 
     summary = pipeline.run(input_path=args.input, output_path=args.output)
 
