@@ -117,8 +117,10 @@ def run_stages(stages, context: StageContext) -> list:
 
     Returns the list of StageResult objects produced (one per stage attempted).
     """
+    import time as _time
     results = []
     for stage in stages:
+        _t0 = _time.perf_counter()
         validation = stage.validate_input(context)
         if not getattr(validation, "valid", True):
             result = StageResult(
@@ -142,6 +144,11 @@ def run_stages(stages, context: StageContext) -> list:
                     errors=[f"{type(exc).__name__}: {exc}"],
                     diagnostics=[guidance],
                 )
+        # Wall time for this stage (metadata only — never affects deterministic output).
+        try:
+            result.duration_sec = round(_time.perf_counter() - _t0, 3)
+        except Exception:
+            pass
         # Registry write is mandatory per the contract.
         try:
             stage.write_registry(result, context)

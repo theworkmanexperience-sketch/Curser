@@ -523,12 +523,14 @@ class Pipeline:
             if _px_cfg.get('enabled', False):
                 print(f"[{self.run_id}] Stage 6: Proxy generation")
                 generator = ProxyGenerator(self.config)
+                _px_t0 = time.perf_counter()
                 proxy_result = generator.generate(
                     classified_files=all_classified,
                     output_path=output_path,
                     tmp_dir=tmp_dir,
                     sha_map=sha_map,
                 )
+                _px_secs = round(time.perf_counter() - _px_t0, 2)
                 for r in proxy_result.get('results', []):
                     logger.log_proxy(
                         source_path=r.source_path,
@@ -542,6 +544,18 @@ class Pipeline:
                 s = proxy_result.get('skipped', 0)
                 f = proxy_result.get('failed', 0)
                 print(f"  → {t} transcoded | {s} skipped | {f} failed")
+                # Record proxy as a stage_result — makes re-runs (transcoded=0) and
+                # proxy time attributable in the registry. No schema change.
+                try:
+                    if self._registry:
+                        self._registry.write_stage_result(self.run_id, 'proxy', StageResult(
+                            stage_id='proxy', stage_version='1.0.0', success=(f == 0),
+                            files_processed=t, files_skipped=s, files_failed=f,
+                            duration_sec=_px_secs,
+                            metadata={'transcoded': t, 'skipped': s, 'failed': f,
+                                      'eligible': proxy_result.get('eligible', 0)}))
+                except Exception:
+                    pass
 
             # Registry: write content records + finalize run
             try:
