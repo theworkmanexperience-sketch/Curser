@@ -585,6 +585,25 @@ Validation: reproduced MG-02 ground truth (2 groups, 23 variants, 4 diagnostics)
          including every Insta360 .insv. Rewired engine matches the proven pipeline
          at production scale.
 
+### Reliability Runs (real-world usage — "ten runs prove reliability")
+```
+#1  O-SIX RYDERZ MC Community Service  — WEF_20260624_001707_C5A8AB (above)
+    Multicam (Insta360 X5 + DJI Action 5/6). 95 files, 2 groups, 23 variants,
+    79 proxies, 0 errors. Reproduced MG-02 ground truth on the rewired engine.
+
+#2  DJIAction6 card (single-camera)    — June 24-25, 2026
+    Source: DJIAction6 NTFS card -> copied to WE_CAPE_OUTPUT/DJIAction6_2026/_source
+    Output: /Volumes/WE_CAPE_OUTPUT/DJIAction6_2026/
+    Files:  157 (39 video .MP4 + ~118 DJI sidecars: .LRV/.SRT/.THM)
+    Result: 0 groups (single camera — correct) | 0 variants | 0 errors | 1 diagnostic
+    Proxies: 39 transcoded (run 1, WEF_20260624_215037_BC0C7F)
+    IDEMPOTENCY PROVEN: re-run (WEF_20260625_013821_E5FEF7) completed in 54.66s,
+    skipped all 39 by SHA registry match, 0 re-transcodes, 0 errors. Re-running a
+    processed shoot is safe and ~25x faster than the original transcode pass.
+    Note: .SRT telemetry sidecars present on card -> real test data for the
+    deferred DJI-telemetry enhancement (backlog #3).
+```
+
 Critical discovery: commit 724bdae declared gate active before any validation.
 NVMe delivered 2.96x improvement. Free -hwaccel flag delivered 16x.
 Storage was never the bottleneck. Software decoding was.
