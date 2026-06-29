@@ -17,7 +17,7 @@ from pathlib import Path
 
 REGISTRY_DIR = Path.home() / ".wecape" / "registry"
 REGISTRY_PATH = REGISTRY_DIR / "wecape.db"
-SCHEMA_VERSION = 2  # v2: rebrand column we_forge_version -> we_cape_version
+SCHEMA_VERSION = 3  # v2: we_forge_version->we_cape_version | v3: content.source_clip lineage
 
 RUNS_TABLE = """
 CREATE TABLE IF NOT EXISTS runs (
@@ -61,6 +61,8 @@ CREATE TABLE IF NOT EXISTS content (
     embedding_model_version TEXT,
     embedding_vector_dims   INTEGER,
     content_type            TEXT DEFAULT 'original',
+    source_clip             TEXT,   -- v3: derivation lineage — source stem this file derives from
+    source_clip_sha         TEXT,   -- v3: source clip's SHA-256 (if present in run); pins lineage to content
     first_seen              TEXT NOT NULL,
     last_seen               TEXT NOT NULL,
     metadata                TEXT
@@ -99,8 +101,10 @@ def migrate(conn: sqlite3.Connection) -> int:
     non-destructive — safe to call on every open. Returns the resulting version.
 
     v1 -> v2: rename runs.we_forge_version -> runs.we_cape_version (rebrand).
-              Uses ALTER TABLE ... RENAME COLUMN (SQLite >= 3.25), which
-              preserves all existing data.
+              Uses ALTER TABLE ... RENAME COLUMN (SQLite >= 3.25).
+    v2 -> v3: add content.source_clip + content.source_clip_sha (derivation
+              lineage). Additive ALTER TABLE ADD COLUMN — nullable, lossless.
+    All steps preserve existing data.
     """
     cols = _table_columns(conn, "runs")
     if "we_forge_version" in cols and "we_cape_version" not in cols:
@@ -114,6 +118,19 @@ def migrate(conn: sqlite3.Connection) -> int:
             "VALUES (2, datetime('now'), ?)",
             ("Rebrand: runs.we_forge_version -> runs.we_cape_version",),
         )
+    # v3: derivation-lineage columns on content (additive, nullable).
+    content_cols = _table_columns(conn, "content")
+    if content_cols:  # content table exists
+        if "source_clip" not in content_cols:
+            conn.execute("ALTER TABLE content ADD COLUMN source_clip TEXT")
+        if "source_clip_sha" not in content_cols:
+            conn.execute("ALTER TABLE content ADD COLUMN source_clip_sha TEXT")
+        if "source_clip" in _table_columns(conn, "content"):
+            conn.execute(
+                "INSERT OR IGNORE INTO schema_version (version, applied_at, description) "
+                "VALUES (3, datetime('now'), ?)",
+                ("Derivation lineage: content.source_clip + source_clip_sha",),
+            )
     conn.commit()
     return get_schema_version(conn)
 

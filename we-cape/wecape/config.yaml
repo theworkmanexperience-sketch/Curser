@@ -329,6 +329,14 @@ registry:
   # completing silently without a record. Set false to downgrade audit-write
   # failures to warnings. Always relaxed automatically under WECAPE_TEST_MODE.
   strict: true
+lineage:
+  # Derivation lineage (schema v3): record that a curated 'select' derives from a
+  # source clip — SEPARATE from §8 variant detection (derivation, not duplicate).
+  # A select is named <source_stem>_sel<NN> (e.g. VID_..._006_sel01), captured in
+  # content.source_clip / source_clip_sha for querying + W.E. ARCHIVE (J5).
+  # Additive metadata; safe no-op for filenames that don't match select_pattern.
+  enabled: true
+  select_pattern: '_sel\d+'
 proxies:
   generate_proxies: false
 variant_detection:

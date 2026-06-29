@@ -553,10 +553,23 @@ class Pipeline:
                             if _r.status == 'transcoded' and _r.proxy_path:
                                 _proxy_map[_r.source_path] = str(_r.proxy_path)
 
+                    # Derivation lineage (v3): record select -> source provenance.
+                    # Additive metadata only; safe no-op for non-select filenames.
+                    from .derivation import DerivationResolver
+                    _lin = self.config.get('lineage', {})
+                    _resolver = DerivationResolver(
+                        select_pattern=_lin.get('select_pattern', r'_sel\d+'),
+                        enabled=_lin.get('enabled', True),
+                    )
+                    _resolver.index_sources(
+                        (f.path.stem, sha_map.get(f.path)) for f in all_classified
+                    )
+
                     for _f in all_classified:
                         _sha = sha_map.get(_f.path, '')
                         if not _sha:
                             continue
+                        _src_clip, _src_sha = _resolver.resolve(_f.path.name)
                         _shoot_date = None
                         if getattr(_f, 'timestamp', None):
                             try:
@@ -580,6 +593,8 @@ class Pipeline:
                             file_size_bytes=_size,
                             proxy_path=_proxy_map.get(_f.path),
                             content_type='original',
+                            source_clip=_src_clip,
+                            source_clip_sha=_src_sha,
                         )
 
                     self._registry.finalize_run(

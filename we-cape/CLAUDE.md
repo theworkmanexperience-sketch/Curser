@@ -18,7 +18,7 @@ Repo:    github.com:theworkmanexperience-sketch/Curser.git
 Local:   ~/Curser/we-cape/
 Package: wecape/ (canonical). we_capture/ retained only as deprecated CLI shim.
 Commit:  04d3910 — Measures 2+4 implemented (pre-audit baseline)
-Tests:   200/200 passing (171 baseline + 18 audit/rewire + 11 backlog: core/config + telemetry placeholder)
+Tests:   207/207 passing (171 baseline + 18 audit/rewire + 11 core/config+telemetry + 7 lineage)
 Entry:   python -m wecape   (config: wecape/config.yaml, profiles: wecape/profiles/)
 Phase 1: COMPLETE
 Phase 2: IN PROGRESS (registry live, Measures 1-5, hwaccel, rebrand complete,
@@ -210,6 +210,8 @@ CREATE TABLE IF NOT EXISTS content (
     embedding_model_version TEXT,
     embedding_vector_dims   INTEGER,
     content_type            TEXT DEFAULT 'original',
+    source_clip             TEXT,    -- v3: derivation lineage — source stem a select derives from
+    source_clip_sha         TEXT,    -- v3: source clip SHA-256 (if in run) — pins lineage to content
     first_seen              TEXT NOT NULL,
     last_seen               TEXT NOT NULL,
     metadata                TEXT
@@ -226,6 +228,28 @@ CREATE TABLE IF NOT EXISTS schema_version (
     applied_at  TEXT NOT NULL,
     description TEXT
 );
+```
+
+### Derivation Lineage & Select Naming Convention (schema v3, 2026-06-29)
+```
+Problem: §3/§8 LOCKED variant detection treats indexed (1),(2) as duplicate
+         variants. A creator using (N) for CURATED SELECTS (segments cut from a
+         long source) gets them flagged as variants — spec-correct, but wrong
+         intent. Spec collision, not a bug (files are always preserved).
+
+CONVENTION (adopt going forward): name curated selects
+         <source_stem>_sel<NN>   e.g.  VID_20260314_093040_00_006_sel01.mp4
+  - '_sel<NN>' is OUTSIDE all reserved variant patterns -> stays standalone.
+  - KEEP the YYYYMMDD_HHMMSS block so §5 filename-timestamp parsing still works.
+  - Rename BEFORE CAPTURE ingest (keeps proxy<->original relink + registry clean).
+
+LINEAGE (schema v3): wecape/capture/derivation.py + lineage config records, per
+  select, content.source_clip (source stem) and source_clip_sha (source SHA-256
+  if the source is in the run). SEPARATE from variant detection — 'derived from',
+  not 'duplicate'. Additive, opt-in (lineage.enabled, default true; no-op for
+  non-_sel names). Feeds W.E. ARCHIVE (J5) cross-project lineage.
+  Query example:  SELECT filename FROM content WHERE source_clip = '<stem>';
+  Validated end-to-end 2026-06-29 (selects -> source_clip + source_clip_sha).
 ```
 
 ---

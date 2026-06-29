@@ -1,7 +1,9 @@
 """
-Tests for the registry schema migration (CODEBASE_AUDIT_2026-06-23 finding #6):
-rebrand of runs.we_forge_version -> runs.we_cape_version, applied idempotently
-and without data loss, so an existing live registry upgrades safely on next open.
+Tests for the registry schema migrations, applied idempotently and without data
+loss so a live registry upgrades safely on next open.
+
+  v1 -> v2: runs.we_forge_version -> runs.we_cape_version (rebrand)
+  v2 -> v3: content.source_clip + source_clip_sha (derivation lineage)
 """
 
 import sqlite3
@@ -12,26 +14,33 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from wecape.registry.schema import (
     initialize_registry, get_schema_version, migrate, _table_columns,
+    SCHEMA_VERSION,
 )
 
 
-def test_fresh_db_is_v2_with_rebranded_column(tmp_path):
+def test_fresh_db_is_current_with_all_columns(tmp_path):
     conn = initialize_registry(tmp_path / "fresh.db")
-    cols = _table_columns(conn, "runs")
-    assert "we_cape_version" in cols
-    assert "we_forge_version" not in cols
-    assert get_schema_version(conn) == 2
+    runs = _table_columns(conn, "runs")
+    content = _table_columns(conn, "content")
+    assert "we_cape_version" in runs and "we_forge_version" not in runs
+    assert "source_clip" in content and "source_clip_sha" in content
+    assert get_schema_version(conn) == SCHEMA_VERSION
     conn.close()
 
 
-def test_legacy_v1_db_migrates_without_data_loss(tmp_path):
+def test_legacy_db_migrates_rename_and_lineage_without_data_loss(tmp_path):
     db = tmp_path / "legacy.db"
     conn = sqlite3.connect(str(db))
     conn.row_factory = sqlite3.Row
+    # A realistic v1 DB: old runs column + a content table lacking source_clip.
     conn.execute(
         "CREATE TABLE runs (id TEXT PRIMARY KEY, timestamp TEXT, "
         "we_forge_version TEXT, source_path TEXT, output_path TEXT, "
         "file_count INTEGER DEFAULT 0)"
+    )
+    conn.execute(
+        "CREATE TABLE content (id TEXT PRIMARY KEY, filename TEXT, "
+        "first_seen TEXT, last_seen TEXT)"
     )
     conn.execute(
         "CREATE TABLE schema_version (version INTEGER PRIMARY KEY, "
@@ -42,21 +51,28 @@ def test_legacy_v1_db_migrates_without_data_loss(tmp_path):
         "INSERT INTO runs (id, timestamp, we_forge_version, source_path, "
         "output_path, file_count) VALUES ('OLD', '2026-06-01', '0.9', '/s', '/o', 42)"
     )
+    conn.execute(
+        "INSERT INTO content (id, filename, first_seen, last_seen) "
+        "VALUES ('H', 'a.mp4', '2026-06-01', '2026-06-01')"
+    )
     conn.commit()
 
     result_version = migrate(conn)
 
-    cols = _table_columns(conn, "runs")
-    assert "we_cape_version" in cols and "we_forge_version" not in cols
-    assert result_version == 2
-    row = conn.execute("SELECT * FROM runs WHERE id='OLD'").fetchone()
-    assert row["we_cape_version"] == "0.9", "renamed column must keep its data"
-    assert row["file_count"] == 42, "other columns untouched"
+    runs = _table_columns(conn, "runs")
+    content = _table_columns(conn, "content")
+    assert "we_cape_version" in runs and "we_forge_version" not in runs
+    assert "source_clip" in content and "source_clip_sha" in content
+    assert result_version == SCHEMA_VERSION
+    # data preserved through both migrations
+    assert conn.execute("SELECT we_cape_version FROM runs WHERE id='OLD'").fetchone()[0] == "0.9"
+    assert conn.execute("SELECT file_count FROM runs WHERE id='OLD'").fetchone()[0] == 42
+    assert conn.execute("SELECT filename FROM content WHERE id='H'").fetchone()[0] == "a.mp4"
     conn.close()
 
 
 def test_migrate_is_idempotent(tmp_path):
     conn = initialize_registry(tmp_path / "x.db")
-    assert migrate(conn) == 2
-    assert migrate(conn) == 2  # second call must be a safe no-op
+    assert migrate(conn) == SCHEMA_VERSION
+    assert migrate(conn) == SCHEMA_VERSION  # second call must be a safe no-op
     conn.close()
