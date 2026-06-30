@@ -9,14 +9,27 @@
 # Safe by design: read-only on the source (never writes to it); additive by
 # default (never deletes on the destination until you opt into MIRROR).
 #
-# Run on the Mac Studio:  bash scripts/backup_holder_mac.sh
+# Run on the Mac Studio:
+#   bash scripts/backup_holder_mac.sh                  # ~/.wecape (+offsite) THEN the 4.6 TB Holder Mac
+#   bash scripts/backup_holder_mac.sh --registry-only  # ONLY ~/.wecape snapshot + offsite (fast; for hourly/daily)
 # ---------------------------------------------------------------------------
 
 # ── CONFIRM THESE against `ls /Volumes` before the first run ───────────────
 SRC="/Volumes/Holder Mac"                               # source (verify exact name!)
 DST="/Volumes/Got My BackUP/HolderMac_Backup"           # destination subfolder
 MIRROR=0   # 0 = additive (safe, never deletes). 1 = true mirror (--delete).
+
+# ── Offsite (3-2-1) for the tiny registry+notes — opt-in, best-effort ──────
+# Only ~/.wecape snapshots go offsite (a few MB); the 4.6 TB footage stays local.
+# Set RCLONE_REMOTE to YOUR rclone target — run `rclone listremotes` to get the
+# exact remote name. The value below is a PLACEHOLDER; verify before relying on it.
+OFFSITE=1                                               # 1 = push offsite, 0 = local-only
+RCLONE_REMOTE="gdrive:WECAPE_Backup"                    # <remote>:<path> — VERIFY the remote name!
 # ---------------------------------------------------------------------------
+
+# Mode: --registry-only does just the ~/.wecape snapshot (+offsite), skipping the 4.6 TB job.
+REG_ONLY=0
+[ "${1:-}" = "--registry-only" ] && REG_ONLY=1
 
 LOG="$HOME/wecape_holdermac_backup_$(date +%Y%m%d_%H%M%S).log"
 RSYNC="/usr/bin/rsync"   # Apple's stock rsync: -E preserves HFS+ metadata/forks
@@ -33,10 +46,10 @@ REG_DST_SUB="wecape_Backup"          # destination subfolder (registry + annotat
 REG_KEEP=14                          # retain this many timestamped snapshots (tiny files)
 
 backup_wecape() {
-  local dst_vol="$1" snap stamp rel out sqlite chk
+  local base="$1" snap stamp rel out sqlite chk
   [ -d "$WECAPE_DIR" ] || { echo "  (no $WECAPE_DIR yet — nothing to snapshot)"; return 0; }
   stamp="$(date +%Y%m%d_%H%M%S)"
-  snap="$dst_vol/$REG_DST_SUB/$stamp"
+  snap="$base/$stamp"
   mkdir -p "$snap"
   sqlite="$(command -v sqlite3 || true)"
   echo "  ~/.wecape snapshot -> $snap"
@@ -54,11 +67,26 @@ backup_wecape() {
   # 2) Any non-db files (profiles, logs) via rsync.
   "$RSYNC" -a --exclude '*.db' --exclude '*.db-wal' --exclude '*.db-shm' \
            "$WECAPE_DIR/" "$snap/" >/dev/null 2>&1 || true
-  ln -sfn "$snap" "$dst_vol/$REG_DST_SUB/latest" 2>/dev/null || true
+  ln -sfn "$snap" "$base/latest" 2>/dev/null || true
   # 3) Prune — keep the most recent REG_KEEP timestamped snapshots.
-  ls -1dt "$dst_vol/$REG_DST_SUB"/20*/ 2>/dev/null | tail -n +$((REG_KEEP+1)) \
+  ls -1dt "$base"/20*/ 2>/dev/null | tail -n +$((REG_KEEP+1)) \
     | while IFS= read -r old; do rm -rf "$old"; done
-  echo "    kept $(ls -1d "$dst_vol/$REG_DST_SUB"/20*/ 2>/dev/null | wc -l | tr -d ' ') snapshot(s); restore from $REG_DST_SUB/latest"
+  echo "    kept $(ls -1d "$base"/20*/ 2>/dev/null | wc -l | tr -d ' ') snapshot(s); restore from $base/latest"
+}
+
+# Offsite (3-2-1): mirror the local registry/notes snapshots to a cloud remote.
+# Best-effort and non-fatal — the local snapshot already succeeded before this runs.
+push_offsite() {
+  local src="$1"
+  [ "$OFFSITE" = 1 ] || { echo "  (offsite disabled — OFFSITE=0)"; return 0; }
+  command -v rclone >/dev/null 2>&1 || { echo "  (rclone not found — skipping offsite; install rclone or set OFFSITE=0)"; return 0; }
+  [ -n "$RCLONE_REMOTE" ] || { echo "  (RCLONE_REMOTE unset — skipping offsite)"; return 0; }
+  echo "  Offsite push -> $RCLONE_REMOTE  (rclone copy; additive — never deletes, symlinks skipped)"
+  if rclone copy "$src" "$RCLONE_REMOTE" --skip-links --transfers 4 --checkers 8 --quiet; then
+    echo "    ✓ offsite copy updated"
+  else
+    echo "    ⚠ offsite push failed — local snapshot is still safe. Check 'rclone listremotes', the RCLONE_REMOTE name, and network."
+  fi
 }
 
 echo "============================================================"
@@ -68,21 +96,43 @@ echo "  Dest:   $DST"
 echo "  Log:    $LOG"
 echo "============================================================"
 
-# ── Pre-flight: destination drive mounted? (needed for BOTH backups) ────────
+# ── Critical-small backup FIRST: registry + annotations ─────────────────────
+# Snapshot to an always-available INTERNAL staging dir so the frequent job never
+# depends on an external drive; push that offsite (cloud, reachable regardless);
+# then mirror to Got My BackUP when it's mounted. Internal + offsite means the
+# registry/notes are protected even if the external drive is unplugged.
+STAGE="$HOME/.wecape_snapshots"
+backup_wecape "$STAGE"
+push_offsite "$STAGE"
+
 DST_VOL="$(dirname "$DST")"
-if [ ! -d "$DST_VOL" ]; then
-  echo "✗ Destination drive not mounted: $DST_VOL"
-  exit 1
+if [ -d "$DST_VOL" ]; then
+  mkdir -p "$DST_VOL/$REG_DST_SUB"
+  if "$RSYNC" -a --delete "$STAGE/" "$DST_VOL/$REG_DST_SUB/" >/dev/null 2>&1; then
+    echo "  ✓ mirrored snapshots to $DST_VOL/$REG_DST_SUB"
+  else
+    echo "  ⚠ external mirror to $DST_VOL failed (internal + offsite copies still made)"
+  fi
+else
+  echo "  (Got My BackUP not mounted — internal + offsite copies made; external mirror skipped)"
 fi
 
-# ── Critical-small backup FIRST: ~/.wecape registry + annotations ───────────
-# Protected on every run the backup drive is present — even if Holder Mac is offline.
-backup_wecape "$DST_VOL"
+if [ "$REG_ONLY" = 1 ]; then
+  echo
+  echo "✓ Registry-only backup complete — $(date)"
+  exit 0
+fi
+
+# ── Full mode: the 4.6 TB Holder Mac job needs the external destination ─────
+if [ ! -d "$DST_VOL" ]; then
+  echo "✗ Destination drive not mounted: $DST_VOL (required for the Holder Mac backup)"
+  exit 1
+fi
 
 # ── Pre-flight: Holder Mac source mounted? ──────────────────────────────────
 if [ ! -d "$SRC" ]; then
   echo
-  echo "✓ Registry + annotations snapshotted. Holder Mac source not mounted ($SRC)"
+  echo "✓ Registry safe (internal + offsite + external). Holder Mac source not mounted ($SRC)"
   echo "  — skipping the 4.6 TB volume backup. Mount it and re-run to protect the footage."
   echo "  (If the name is wrong, run 'ls /Volumes' and fix SRC — watch for spaces.)"
   exit 0

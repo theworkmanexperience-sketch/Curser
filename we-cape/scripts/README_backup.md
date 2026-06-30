@@ -56,21 +56,52 @@ launchctl unload ~/Library/LaunchAgents/com.wecape.holdermacbackup.plist
 
 ## Registry + annotations (`~/.wecape`)
 
-Every run also snapshots `~/.wecape/` to `<drive>/wecape_Backup/<timestamp>/`, keeping the
-last **14** snapshots (a few MB each). This runs *first*, so it succeeds even if the 4.6 TB
-Holder Mac source isn't mounted — mount just the backup drive and the registry + notes are protected.
+The registry (`wecape.db`) and your notes (`annotations.db`) are tiny but critical, so they back up
+on a **separate, frequent** schedule from the 4.6 TB footage — to three places:
+
+1. **Internal staging** (`~/.wecape_snapshots/<timestamp>/`) — always available, so the backup never
+   depends on an external drive being plugged in.
+2. **Offsite** (cloud, via `rclone`) — reachable regardless of which drives are mounted.
+3. **Got My BackUP** (`wecape_Backup/`) — mirrored as a bonus *when that drive is present*.
+
+The last **14** snapshots are kept at each tier (a few MB each). Run standalone anytime:
+```bash
+bash scripts/backup_holder_mac.sh --registry-only     # snapshot + offsite; skips the 4.6 TB job
+```
 
 - **SQLite is snapshotted with the online `.backup` API**, not a file copy — it produces a
-  *consistent* database even if a CAPTURE run is writing at that moment (a plain `cp`/`rsync` of
-  a live `.db` can capture a torn write). Each snapshot is verified with `PRAGMA integrity_check`.
-  If `sqlite3` is ever missing it falls back to a plain copy and says so.
+  *consistent* database even if a CAPTURE run is writing at that moment (a plain `cp`/`rsync` of a
+  live `.db` can capture a torn write). Each snapshot is verified with `PRAGMA integrity_check`; the
+  first real run should print `(integrity: ok)`. If `sqlite3` is missing it falls back to a copy and says so.
 - **`annotations.db` is the one truly irreplaceable file** — nothing can regenerate your notes.
-  This is its only backup; `wecape.db` is valuable history (re-CAPTURE can't reproduce timestamps/runtimes).
-- **Restore** (point-in-time): `latest` points at the newest snapshot.
+  (`wecape.db` is valuable history; re-CAPTURE can't reproduce timestamps/runtimes.)
+
+### Offsite (3-2-1) — one-time setup
+With `OFFSITE=1` (default) each run `rclone copy`s new snapshots to `RCLONE_REMOTE`. It uses **copy,
+not sync** — additive, so it *never deletes* on the remote (safe even if the path holds other data;
+offsite copies accumulate but are only MBs). Confirm your remote name once and set it atop the script:
+```bash
+rclone listremotes        # e.g. prints "gdrive:" — then set RCLONE_REMOTE="gdrive:WECAPE_Backup"
+```
+Point it at a **dedicated** path (the default `…:WECAPE_Backup` is its own folder). Missing
+rclone/remote → it skips with a warning; internal + external copies still succeed. `OFFSITE=0` disables.
+
+### Automatic daily registry backup (recommended)
+```bash
+cp scripts/com.wecape.registrybackup.plist ~/Library/LaunchAgents/
+launchctl load ~/Library/LaunchAgents/com.wecape.registrybackup.plist
+launchctl list | grep registrybackup
+```
+Runs `--registry-only` **daily at 12:30** (and once at load). For **hourly**, delete the `<Hour>` key
+in the plist — but then raise `REG_KEEP` in the script (default 14 ≈ 14 hours hourly / ≈ 2 weeks daily).
+Logs: `~/Library/Logs/wecape_registry_backup.*.log`.
+
+- **Restore** (point-in-time): `latest` points at the newest snapshot at any tier.
   ```bash
-  cp -a "/Volumes/Got My BackUP/wecape_Backup/latest/." ~/.wecape/
+  cp -a ~/.wecape_snapshots/latest/.  ~/.wecape/                       # from internal staging
+  cp -a "/Volumes/Got My BackUP/wecape_Backup/latest/."  ~/.wecape/    # or the external mirror
   ```
-  Or pick a specific `wecape_Backup/<timestamp>/` to roll back a bad edit.
+  Or pull a specific `<timestamp>/` to roll back a bad edit.
 
 ## Honest caveats
 
@@ -78,8 +109,9 @@ Holder Mac source isn't mounted — mount just the backup drive and the registry
   if under 300 GB remains — plan a larger destination before the gap closes.
 - **`Got My BackUP` already holds ~184 GB** of other data; the backup goes into a
   dedicated `HolderMac_Backup/` subfolder so nothing collides.
-- **Same-machine backup ≠ offsite.** This protects against a single *drive* failure,
-  not theft/fire/flood. A true 3-2-1 strategy adds an offsite/cloud copy (you have
-  the 20 TB Google Drive — a future step once the local second copy exists).
+- **The 4.6 TB footage is still same-machine only.** The Holder Mac → Got My BackUP copy protects
+  against a single *drive* failure, not theft/fire/flood — both drives hang off the Mac Studio. The
+  **registry + notes now go offsite** (above), so the small critical data is 3-2-1; the footage's
+  offsite copy (to the 20 TB Google Drive) remains a future step given its size.
 - HFS+ metadata/resource forks are preserved via Apple's stock `/usr/bin/rsync -aE`.
   For a bulletproof GUI alternative, Carbon Copy Cloner does the same job.

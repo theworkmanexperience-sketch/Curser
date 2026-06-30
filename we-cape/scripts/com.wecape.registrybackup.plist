@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.wecape.registrybackup</string>
+
+  <!-- Lightweight: ONLY snapshots ~/.wecape (registry + annotations.db) and pushes
+       offsite. Does NOT touch the 4.6 TB Holder Mac volume (that's the weekly job in
+       com.wecape.holdermacbackup.plist). Safe to run often — the data is a few MB. -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/twork/Curser/we-cape/scripts/backup_holder_mac.sh</string>
+    <string>--registry-only</string>
+  </array>
+
+  <!-- DAILY at 12:30. For HOURLY (at :30 past every hour), delete the <Hour> key+value.
+       NOTE: retention is REG_KEEP=14 snapshots in the script. Daily => ~2 weeks of history;
+       if you switch to hourly, raise REG_KEEP (e.g. 48) or you'll keep <1 day. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key><integer>12</integer>
+    <key>Minute</key><integer>30</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/twork/Library/Logs/wecape_registry_backup.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/twork/Library/Logs/wecape_registry_backup.err.log</string>
+
+  <!-- Run once immediately when loaded (and on each login), so notes are protected promptly. -->
+  <key>RunAtLoad</key>
+  <true/>
+</dict>
+</plist>
