@@ -94,6 +94,25 @@ def enrich_from_folder(out_path, run_id, src_path):
             except Exception:
                 pass
         info["groups"] = members
+        # Explainability (from LOGS/*.json): timestamp fallback/confidence + grouping conflicts.
+        ex, logs = {}, od / "LOGS"
+        cl = logs / f"{run_id}_classification.json"
+        if cl.exists():
+            conf, fb, low = {}, {}, []
+            for e in json.loads(cl.read_text()).get("entries", []):
+                c = e.get("timestamp_confidence", "?")
+                conf[c] = conf.get(c, 0) + 1
+                lvl = e.get("timestamp_fallback_level")
+                fb[str(lvl)] = fb.get(str(lvl), 0) + 1
+                if c == "low" or lvl == 2:
+                    low.append({"filename": e.get("filename"), "level": lvl})
+            ex["confidence"], ex["fallback"], ex["low"] = conf, fb, low[:8]
+        gr = logs / f"{run_id}_grouping.json"
+        if gr.exists():
+            ex["conflicts"] = [{"id": e.get("group_id"), "note": e.get("conflict_note")}
+                               for e in json.loads(gr.read_text()).get("entries", [])
+                               if e.get("event") == "grouping" and e.get("conflict_resolved")]
+        info["explain"] = ex
     except Exception:
         pass
     return info
@@ -292,6 +311,21 @@ def shoot_card(r):
             t2_html += (f"<div class='t2row'><b>multicam {esc(grp['id'])[:16]}</b> "
                         f"({'+'.join(esc(s) for s in grp['sources'])}): "
                         f"{', '.join(esc(f) for f in grp['files'])}</div>")
+        ex = t2.get("explain") or {}
+        if ex:
+            FBL = {"0": "filename", "1": "metadata", "2": "file-clock"}
+            conf_str = " · ".join(f"{esc(k)} {v}" for k, v in (ex.get("confidence") or {}).items()) or "—"
+            fb_str = " · ".join(f"L{esc(k)}({FBL.get(k, '?')}) {v}"
+                                for k, v in sorted((ex.get("fallback") or {}).items())) or "—"
+            t2_html += f"<div class='t2row'><b>Timestamps:</b> confidence {conf_str} · fallback {fb_str}</div>"
+            low_n = (ex.get("confidence") or {}).get("low", 0)
+            if low_n:
+                t2_html += (f"<div class='t2row warn-txt'>⚠ {esc(low_n)} clip(s) resolved via "
+                            f"file-system clock (low confidence) — flagged, not dropped "
+                            f"(filenames hashed in the audit log).</div>")
+            for cf in ex.get("conflicts", []):
+                t2_html += (f"<div class='t2row'><b>conflict resolved</b> "
+                            f"{esc((cf['id'] or '')[:16])}: {esc(cf['note'] or '')}</div>")
         if t2.get("output_path"):
             t2_html += (f"<div class='t2row muted'>Output: <span class='mono'>{esc(t2['output_path'])}</span></div>")
     else:
@@ -364,10 +398,16 @@ def render(d, db_path):
  .pie{{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}}
  .legs{{font-size:11.5px}} .leg{{margin:1px 0}} .sw{{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle}}
  .note{{border-left:3px solid var(--line);padding:6px 12px;color:var(--muted);margin-top:10px;font-size:12px}}
+ .menu{{position:sticky;top:0;background:rgba(15,17,21,.96);border-bottom:1px solid var(--line);padding:9px 2px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;z-index:10}}
+ .menu a{{color:var(--muted);text-decoration:none;font-size:12.5px}} .menu a:hover{{color:var(--ink)}}
+ .warn-txt{{color:var(--warn)}} html{{scroll-behavior:smooth}} [id]{{scroll-margin-top:54px}}
  footer{{color:var(--muted);font-size:12px;margin-top:26px;border-top:1px solid var(--line);padding-top:14px}}
 </style></head><body><div class="wrap">
  <h1>W.E. C.A.P.E. — Production Dashboard</h1>
  <p class="sub">Local · read-only · {generated} · registry schema v{d['schema_version']} · <span class="mono">{esc(db_path)}</span></p>
+ <nav class="menu">
+   <a href="#shoots">Per-Shoot Reference</a><a href="#activity">Processing Activity</a><a href="#disposition">Disposition</a><a href="#lineage">Derivation Lineage</a><a href="#perclip">Per-clip record</a>
+ </nav>
  <div class="cards">
    <div class="card"><div class="n">{len(d['runs'])}</div><div class="k">Shoots</div></div>
    <div class="card"><div class="n">{d['content_total']}</div><div class="k">Files · 0 lost</div></div>
@@ -375,19 +415,19 @@ def render(d, db_path):
    <div class="card"><div class="n">{gb(d['total_bytes'])}</div><div class="k">Footage</div></div>
  </div>
 
- <h2>Per-Shoot Reference</h2>
+ <h2 id="shoots">Per-Shoot Reference</h2>
  {cards}
 
- <section><h2>Processing Activity · by period</h2>
+ <section id="activity"><h2>Processing Activity · by period</h2>
    <p class="muted">Bucketed by processing date. Toggle granularity:</p>
    {periods}</section>
 
- <section><h2>Disposition · nothing dropped</h2>
+ <section id="disposition"><h2>Disposition · nothing dropped</h2>
    <p class="muted">Every ingested file preserved &amp; classified. By camera family:</p>{cam_bars}</section>
 
- <section><h2>Derivation Lineage</h2>{lineage_html}</section>
+ <section id="lineage"><h2>Derivation Lineage</h2>{lineage_html}</section>
 
- <section><h2>Per-clip record (sample)</h2>
+ <section id="perclip"><h2>Per-clip record (sample)</h2>
    <table><tr><th>SHA-256</th><th>Filename</th><th>Camera</th><th>Shoot date</th><th>Proxy</th><th>Source clip</th></tr>{sample}</table>
    <div class="note">Processing breakdown + rate + re-run flag populate for runs processed after stage-timing
      was added; older runs show total runtime only. Per-clip fallback/confidence &amp; conflict decisions
