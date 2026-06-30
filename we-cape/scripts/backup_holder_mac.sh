@@ -21,6 +21,46 @@ MIRROR=0   # 0 = additive (safe, never deletes). 1 = true mirror (--delete).
 LOG="$HOME/wecape_holdermac_backup_$(date +%Y%m%d_%H%M%S).log"
 RSYNC="/usr/bin/rsync"   # Apple's stock rsync: -E preserves HFS+ metadata/forks
 
+# ── ~/.wecape protection (registry + annotations) ───────────────────────────
+# wecape.db (production history) and annotations.db (your human notes — NOT
+# regenerable) live in ~/.wecape: tiny but critical. We snapshot them to the
+# same backup drive on EVERY run, before the big 4.6 TB job, so they're safe
+# even when Holder Mac isn't mounted. SQLite is snapshotted via the online
+# .backup API — consistent even if a CAPTURE run is writing right now; a plain
+# cp/rsync of a live .db can capture a torn write and back up a corrupt file.
+WECAPE_DIR="$HOME/.wecape"
+REG_DST_SUB="wecape_Backup"          # destination subfolder (registry + annotations)
+REG_KEEP=14                          # retain this many timestamped snapshots (tiny files)
+
+backup_wecape() {
+  local dst_vol="$1" snap stamp rel out sqlite chk
+  [ -d "$WECAPE_DIR" ] || { echo "  (no $WECAPE_DIR yet — nothing to snapshot)"; return 0; }
+  stamp="$(date +%Y%m%d_%H%M%S)"
+  snap="$dst_vol/$REG_DST_SUB/$stamp"
+  mkdir -p "$snap"
+  sqlite="$(command -v sqlite3 || true)"
+  echo "  ~/.wecape snapshot -> $snap"
+  # 1) SQLite databases via the consistent online .backup API + integrity check.
+  while IFS= read -r db; do
+    rel="${db#"$WECAPE_DIR"/}"; out="$snap/$rel"; mkdir -p "$(dirname "$out")"
+    if [ -n "$sqlite" ] && "$sqlite" "$db" ".backup '$out'" 2>/dev/null; then
+      chk="$("$sqlite" "$out" 'PRAGMA integrity_check;' 2>/dev/null | head -1)"
+      echo "    ✓ $rel  (integrity: ${chk:-?})"
+    else
+      cp -p "$db" "$out"
+      echo "    ⚠ $rel copied as-is (${sqlite:+.backup failed}${sqlite:-sqlite3 not found}) — may be inconsistent if a run is active"
+    fi
+  done < <(find "$WECAPE_DIR" -type f -name '*.db')
+  # 2) Any non-db files (profiles, logs) via rsync.
+  "$RSYNC" -a --exclude '*.db' --exclude '*.db-wal' --exclude '*.db-shm' \
+           "$WECAPE_DIR/" "$snap/" >/dev/null 2>&1 || true
+  ln -sfn "$snap" "$dst_vol/$REG_DST_SUB/latest" 2>/dev/null || true
+  # 3) Prune — keep the most recent REG_KEEP timestamped snapshots.
+  ls -1dt "$dst_vol/$REG_DST_SUB"/20*/ 2>/dev/null | tail -n +$((REG_KEEP+1)) \
+    | while IFS= read -r old; do rm -rf "$old"; done
+  echo "    kept $(ls -1d "$dst_vol/$REG_DST_SUB"/20*/ 2>/dev/null | wc -l | tr -d ' ') snapshot(s); restore from $REG_DST_SUB/latest"
+}
+
 echo "============================================================"
 echo "  W.E. C.A.P.E. Asset Backup — $(date)"
 echo "  Source: $SRC"
@@ -28,16 +68,24 @@ echo "  Dest:   $DST"
 echo "  Log:    $LOG"
 echo "============================================================"
 
-# ── Pre-flight: both volumes mounted? ──────────────────────────────────────
-if [ ! -d "$SRC" ]; then
-  echo "✗ Source not mounted: $SRC"
-  echo "  Run 'ls /Volumes' and set SRC to the exact Holder Mac name (watch for spaces)."
-  exit 1
-fi
+# ── Pre-flight: destination drive mounted? (needed for BOTH backups) ────────
 DST_VOL="$(dirname "$DST")"
 if [ ! -d "$DST_VOL" ]; then
   echo "✗ Destination drive not mounted: $DST_VOL"
   exit 1
+fi
+
+# ── Critical-small backup FIRST: ~/.wecape registry + annotations ───────────
+# Protected on every run the backup drive is present — even if Holder Mac is offline.
+backup_wecape "$DST_VOL"
+
+# ── Pre-flight: Holder Mac source mounted? ──────────────────────────────────
+if [ ! -d "$SRC" ]; then
+  echo
+  echo "✓ Registry + annotations snapshotted. Holder Mac source not mounted ($SRC)"
+  echo "  — skipping the 4.6 TB volume backup. Mount it and re-run to protect the footage."
+  echo "  (If the name is wrong, run 'ls /Volumes' and fix SRC — watch for spaces.)"
+  exit 0
 fi
 mkdir -p "$DST"
 

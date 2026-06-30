@@ -8,6 +8,11 @@ failure domain (`disk12`) with the 10TB and Time Machine volumes. The footage is
 the one irreplaceable asset — this puts a second copy on the idle `Got My BackUP`
 drive (4.8 TB free).
 
+It **also** snapshots `~/.wecape/` — your production registry (`wecape.db`) and your
+notes (`annotations.db`) — to the same drive on every run, *before* the big job, so the
+small-but-critical data is protected even when Holder Mac isn't mounted. See
+**Registry + annotations** below.
+
 ## One-time setup
 
 1. **Confirm the source name.** Volume names vary; the Holder Mac volume may show
@@ -48,6 +53,24 @@ To stop automation:
 ```bash
 launchctl unload ~/Library/LaunchAgents/com.wecape.holdermacbackup.plist
 ```
+
+## Registry + annotations (`~/.wecape`)
+
+Every run also snapshots `~/.wecape/` to `<drive>/wecape_Backup/<timestamp>/`, keeping the
+last **14** snapshots (a few MB each). This runs *first*, so it succeeds even if the 4.6 TB
+Holder Mac source isn't mounted — mount just the backup drive and the registry + notes are protected.
+
+- **SQLite is snapshotted with the online `.backup` API**, not a file copy — it produces a
+  *consistent* database even if a CAPTURE run is writing at that moment (a plain `cp`/`rsync` of
+  a live `.db` can capture a torn write). Each snapshot is verified with `PRAGMA integrity_check`.
+  If `sqlite3` is ever missing it falls back to a plain copy and says so.
+- **`annotations.db` is the one truly irreplaceable file** — nothing can regenerate your notes.
+  This is its only backup; `wecape.db` is valuable history (re-CAPTURE can't reproduce timestamps/runtimes).
+- **Restore** (point-in-time): `latest` points at the newest snapshot.
+  ```bash
+  cp -a "/Volumes/Got My BackUP/wecape_Backup/latest/." ~/.wecape/
+  ```
+  Or pick a specific `wecape_Backup/<timestamp>/` to roll back a bad edit.
 
 ## Honest caveats
 
