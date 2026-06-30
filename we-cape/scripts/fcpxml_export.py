@@ -83,6 +83,23 @@ def load_groups(output_path):
     return groups
 
 
+def load_ungrouped(output_path, run_id):
+    """Ungrouped camera files for this run, from <run_id>_index.json (authoritative
+    per-run list — avoids cross-run registry ambiguity). Returns a list of paths."""
+    base = Path(output_path)
+    idx = base / f"{run_id}_index.json"
+    if not idx.exists():
+        hits = list(base.glob(f"**/{run_id}_index.json"))
+        idx = hits[0] if hits else None
+    if not idx or not idx.exists():
+        return []
+    try:
+        data = json.loads(idx.read_text())
+    except Exception:
+        return []
+    return [e.get("file") for e in data.get("ungrouped_camera_files", []) if e.get("file")]
+
+
 # ── ffprobe (with graceful fallback to registry metadata) ────────────────────
 def probe_media(path):
     """Return {width,height,fps_num,fps_den,duration_s,has_video,has_audio,
@@ -156,9 +173,16 @@ def _uri(path):
 
 # ── build ────────────────────────────────────────────────────────────────────
 def build_fcpxml(event_name, groups, media_index, probe=probe_media,
-                 seq_fps=None, media_mode="both"):
-    """Return (xml_str, stats). Pure-ish: `probe` is injectable for tests."""
-    stats = {"groups": 0, "angles": 0, "clips": 0, "assets": 0, "fallback": 0, "missing": 0}
+                 seq_fps=None, media_mode="both", ungrouped=None):
+    """Return (xml_str, stats). Pure-ish: `probe` is injectable for tests.
+
+    `ungrouped` (optional) is a list of dicts {original, proxy, sha, camera,
+    resolution, duration_sec} for single-camera clips that didn't form a group;
+    they're emitted as ordinary <asset-clip>s in the Event so the whole shoot lands
+    in FCP, not just the multicam moments.
+    """
+    stats = {"groups": 0, "angles": 0, "clips": 0, "assets": 0,
+             "fallback": 0, "missing": 0, "ungrouped": 0}
 
     # 1) Resolve every clip across all groups.
     clips = []          # {group_id, sha, camera, delta, original, proxy, fmt}
@@ -300,6 +324,41 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
         event_items.append(
             f'<mc-clip ref="{mid}" name="MC_{_esc(gid)}" duration="{gdur}"/>')
 
+    # 4b) Ungrouped single-camera clips -> ordinary <asset-clip>s in the Event,
+    #     so the whole shoot is available in FCP (not only the multicam moments).
+    for u in (ungrouped or []):
+        original = u.get("original")
+        if not original:
+            stats["missing"] += 1
+            continue
+        if original not in probe_cache:
+            probe_cache[original] = probe(original)
+        pr = probe_cache[original]
+        if pr and pr["width"]:
+            fmt = pr
+        else:
+            stats["fallback"] += 1
+            w = h = 0
+            res = u.get("resolution") or ""
+            if "x" in res:
+                try:
+                    w, h = (int(v) for v in res.lower().split("x")[:2])
+                except Exception:
+                    w = h = 0
+            fmt = {"width": w, "height": h, "fps_num": 0, "fps_den": 1,
+                   "duration_s": float(u.get("duration_sec") or 0.0),
+                   "has_video": True, "has_audio": True,
+                   "audio_channels": 2, "audio_rate": 48000}
+        c = {"sha": u.get("sha") or original, "camera": u.get("camera") or "Unknown",
+             "original": original, "proxy": u.get("proxy"), "fmt": fmt}
+        aid = asset_id(c)
+        fid = format_id(fmt["width"], fmt["height"], fmt["fps_num"], fmt["fps_den"])
+        dur, _ = _t(fmt["duration_s"], fmt["fps_num"] or seq_num, fmt["fps_den"] or seq_den)
+        event_items.append(
+            f'<asset-clip ref="{aid}" name="{_esc(Path(original).stem)}" '
+            f'duration="{dur}" format="{fid}"/>')
+        stats["ungrouped"] += 1
+
     # 5) Assemble. Formats first, then assets, then media (FCPXML resource order).
     res = ([v[1] for v in formats.values()]
            + [v[1] for v in assets.values()]
@@ -323,6 +382,8 @@ def main(argv=None):
     ap.add_argument("--media", choices=["both", "proxies", "originals"], default="both")
     ap.add_argument("--fps", help="force sequence timebase, e.g. 30000/1001 or 30")
     ap.add_argument("--event", help="override the Event name (default: shoot folder name)")
+    ap.add_argument("--groups-only", action="store_true",
+                    help="export only the multicam groups (omit ungrouped single-camera clips)")
     args = ap.parse_args(argv)
 
     if not args.db.exists():
@@ -348,14 +409,32 @@ def main(argv=None):
         seq_fps = (int(n), int(d or 1))
 
     event_name = args.event or (Path(output_path).name or args.run)
-    xml, stats = build_fcpxml(event_name, groups, media_index,
-                              seq_fps=seq_fps, media_mode=args.media)
+
+    ungrouped = []
+    if not args.groups_only:
+        by_path, by_name = {}, {}
+        for row in media_index.values():
+            if row.get("original_path"):
+                by_path[row["original_path"]] = row
+            if row.get("filename"):
+                by_name.setdefault(row["filename"], row)
+        for p in load_ungrouped(output_path, args.run):
+            row = by_path.get(p) or by_name.get(Path(p).name) or {}
+            ungrouped.append({"original": p, "proxy": row.get("proxy_path"),
+                              "sha": row.get("id"), "camera": row.get("camera_family"),
+                              "resolution": row.get("resolution"),
+                              "duration_sec": row.get("duration_sec")})
+
+    xml, stats = build_fcpxml(event_name, groups, media_index, seq_fps=seq_fps,
+                              media_mode=args.media, ungrouped=ungrouped)
 
     out = args.out or Path(f"{event_name}_multicam.fcpxml")
     Path(out).write_text(xml, encoding="utf-8")
     print(f"✓ FCPXML written: {Path(out).resolve()}")
     print(f"  {stats['groups']} multicam clip(s) · {stats['angles']} angle(s) · "
           f"{stats['clips']} clip placement(s) · {stats['assets']} asset(s)")
+    if stats.get("ungrouped"):
+        print(f"  + {stats['ungrouped']} ungrouped single-camera clip(s) in the Event")
     if stats["fallback"]:
         print(f"  ⚠ {stats['fallback']} clip(s) used registry metadata (ffprobe unavailable/offline) "
               f"— fps assumed; verify timing in FCP.")

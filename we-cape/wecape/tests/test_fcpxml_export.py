@@ -177,6 +177,53 @@ def test_assets_deduped_by_sha():
     assert len(root.findall(".//asset")) == 5
 
 
+# ── ungrouped single-camera clips ───────────────────────────────────────────
+UNGROUPED = [
+    {"original": "/src/Insta360 X5/VID_solo1.mp4", "proxy": "/out/VID_solo1_proxy.mov",
+     "sha": "u1", "camera": "Insta360 X5", "resolution": "3840x2160", "duration_sec": 8.0},
+    {"original": "/src/DJI ACTION 6/DJI_solo2.MP4", "proxy": None,
+     "sha": "u2", "camera": "DJI Osmo Action 6", "resolution": "3840x2160", "duration_sec": 6.0},
+]
+
+
+def _build_ung(ungrouped, media_mode="both"):
+    return fx.build_fcpxml("O-SIX", make_groups(), make_index(),
+                           probe=fake_probe(), media_mode=media_mode, ungrouped=ungrouped)
+
+
+def test_ungrouped_emitted_as_event_asset_clips():
+    xml, stats = _build_ung(UNGROUPED)
+    ev = _root(xml).find("library").find("event")
+    assert len(ev.findall("asset-clip")) == 2      # event-level (direct children)
+    assert len(ev.findall("mc-clip")) == 2         # multicam clips still present
+    assert stats["ungrouped"] == 2
+
+
+def test_ungrouped_clips_are_not_inside_multicam():
+    root = _root(_build_ung(UNGROUPED)[0])
+    assert len(root.findall(".//multicam//asset-clip")) == 5   # grouped placements
+    event_clips = root.find("library").find("event").findall("asset-clip")
+    names = {c.get("name") for c in event_clips}
+    assert names == {"VID_solo1", "DJI_solo2"}
+
+
+def test_groups_only_omits_ungrouped():
+    xml, stats = fx.build_fcpxml("O-SIX", make_groups(), make_index(),
+                                 probe=fake_probe(), ungrouped=None)
+    assert _root(xml).find("library").find("event").findall("asset-clip") == []
+    assert stats["ungrouped"] == 0
+
+
+def test_ungrouped_assets_resolve_refs_and_carry_proxy():
+    xml, _ = _build_ung(UNGROUPED)
+    root = _root(xml)
+    ids = {e.get("id") for e in root.iter() if e.get("id")}
+    for c in root.find("library").find("event").findall("asset-clip"):
+        assert c.get("ref") in ids
+    assert "/out/VID_solo1_proxy.mov" in xml          # u1 proxy linked
+    assert "file:///src/DJI%20ACTION%206/DJI_solo2.MP4" in xml   # u2 original (no proxy)
+
+
 # ── robustness ──────────────────────────────────────────────────────────────
 def test_fallback_to_registry_metadata_when_probe_fails():
     xml, stats = fx.build_fcpxml("S", make_groups(), make_index(),

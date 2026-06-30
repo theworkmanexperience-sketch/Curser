@@ -135,12 +135,24 @@ scripts/                ← ops tooling (NOT the engine)
 │                          Annotations section). annotations.db is NOT regenerable — back it up.
 ├── fcpxml_export.py    ← FCPXML export bridge (2026-06-30). CAPTURE multicam GROUPS -> one FCP
 │                          multicam clip per group (each camera = an angle), placed by the
-│                          corrected-timestamp delta. v1 = TIMESTAMP alignment (±s), NOT waveform —
+│                          corrected-timestamp delta; ungrouped single-camera clips ride along as
+│                          ordinary Event clips (whole shoot in FCP; --groups-only to omit).
+│                          v1 = TIMESTAMP alignment (±s), NOT waveform —
 │                          FCP 'Synchronize Clips' (or J3) locks audio (CAPTURE groups / FCP syncs).
 │                          Assets carry original + proxy media-reps (FCP proxy workflow); proxies
 │                          joined by SHA across runs (P5 upsert preserves them, so a no-proxy
 │                          re-CAPTURE still links them). ffprobe formats + registry fallback;
 │                          FCPXML 1.9 (FCP + Resolve). Read-only. Docs: scripts/README_fcpxml.md
+├── capture_to_fcp.sh   ← one-command handoff (2026-06-30): CAPTURE -> fcpxml_export -> `open`
+│                          the .fcpxml on FCP's import sheet. Detects the new run_id (summary line
+│                          / newest registry row), passes extra args to wecape. STOPS at the one
+│                          click FCP needs — never UI-scripts the import (no API; editor's call).
+│                          Docs: scripts/README_fcpxml.md + SOP_fcpxml_import.md
+├── offload_cards.py    ← Verified card offload — the Hedge-style FRONT END (2026-06-30). Card ->
+│                          <dest>/<shoot>/<camera>/ per-camera folders (+ optional 2nd dest), every
+│                          copy SHA-256-verified vs source (mismatch = hard fail, not silent),
+│                          resumable, JSON manifest, NEVER deletes the card. Two copies satisfied
+│                          BEFORE CAPTURE (Principle #1). offload -> CAPTURE. Docs: README_offload.md
 ├── backup_holder_mac.sh + com.wecape.holdermacbackup.plist + com.wecape.registrybackup.plist
 │                          ← asset-protection: 4.6TB Holder Mac (weekly) + ~/.wecape 3-2-1 (internal
 │                          staging + offsite rclone copy + external mirror; daily via --registry-only).

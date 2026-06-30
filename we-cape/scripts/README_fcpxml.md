@@ -3,7 +3,9 @@
 Turns a CAPTURE run's multicam **groups** into a Final Cut Pro **multicam clip** per
 group: each camera (DJI Osmo Action 5/6, Insta360 X5, …) becomes an **angle**, and each
 clip is placed on its angle by the corrected-timestamp delta CAPTURE already computed.
-One Event per shoot, one `<mc-clip>` per group. Reads the registry **read-only**; stdlib + `ffprobe`; zero network.
+One Event per shoot: one `<mc-clip>` per group, **plus every ungrouped single-camera clip as an
+ordinary clip** so the *whole* shoot lands in FCP (not just the multicam moments; use `--groups-only`
+to omit them). Reads the registry **read-only**; stdlib + `ffprobe`; zero network.
 
 ## The honest scope (read this first)
 
@@ -34,9 +36,26 @@ Options:
 --media MODE     both | proxies | originals   (default both)
 --fps N/D        force the sequence timebase, e.g. 30000/1001 or 30
 --event NAME     override the Event name (default: shoot folder name)
+--groups-only    export only the multicam groups (omit ungrouped single-camera clips)
 ```
+By default the Event holds **both** the multicam clips (the grouped moments) and the ungrouped
+single-camera clips, so the full shoot is editable in FCP. The ungrouped list comes from the run's
+`<run_id>_index.json`; each clip is matched to its proxy by SHA, same as the grouped ones.
 Then in Final Cut Pro: **File ▸ Import ▸ XML…**, pick the `.fcpxml`. Each group lands as a
 multicam clip; open one and run **Clip ▸ Synchronize Clips** to refine audio sync.
+(Full import walkthrough + troubleshooting: `SOP_fcpxml_import.md`.)
+
+## One-command handoff
+
+`capture_to_fcp.sh` chains it end to end — run CAPTURE on a source, auto-export the new run's
+FCPXML, and open it on FCP's import sheet (one confirming click; it never UI-scripts the import,
+since FCP has no import API and that step is the editor's call):
+```bash
+bash scripts/capture_to_fcp.sh "/Volumes/10TB/O-SIX RYDERZ MC Community Service" \
+    "/Volumes/WE_CAPE_OUTPUT/O-SIX_v2" --proxy
+```
+Anything after the output path passes straight to `python -m wecape` (e.g. `--proxy`, `--profile
+ryderz`). For an `--fps` tweak on the export, run `fcpxml_export.py` directly afterward.
 
 ## Media references (the FCP proxy workflow)
 
