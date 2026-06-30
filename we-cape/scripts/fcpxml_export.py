@@ -294,9 +294,11 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
             f'<media id="{mid}" name="MC_{_esc(gid)}">'
             f'<multicam format="{seq_fmt}" tcStart="0s" tcFormat="NDF">' + "".join(angles) +
             "</multicam></media>")
+        # NOTE: the FCPXML DTD does NOT allow 'format'/'tcFormat' on <mc-clip>
+        # (FCP rejects them — DTD validation error). The format/timecode live on
+        # the referenced <multicam>; mc-clip derives from it.
         event_items.append(
-            f'<mc-clip ref="{mid}" name="MC_{_esc(gid)}" duration="{gdur}" '
-            f'format="{seq_fmt}" tcFormat="NDF"/>')
+            f'<mc-clip ref="{mid}" name="MC_{_esc(gid)}" duration="{gdur}"/>')
 
     # 5) Assemble. Formats first, then assets, then media (FCPXML resource order).
     res = ([v[1] for v in formats.values()]

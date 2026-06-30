@@ -155,6 +155,20 @@ def test_every_ref_resolves_to_a_resource_id():
     assert fmts and fmts <= ids, (fmts - ids)
 
 
+def test_mc_clip_has_no_format_or_tcformat_attr():
+    # FCPXML DTD: <mc-clip> does NOT declare 'format' or 'tcFormat' — FCP rejects them
+    # ("No declaration for attribute format of element mc-clip"). They live on <multicam>.
+    xml, _ = _build()
+    root = _root(xml)
+    mcs = root.findall(".//mc-clip")
+    assert mcs
+    for mc in mcs:
+        assert mc.get("format") is None, "mc-clip must not carry 'format'"
+        assert mc.get("tcFormat") is None, "mc-clip must not carry 'tcFormat'"
+    for m in root.findall(".//multicam"):       # multicam SHOULD still carry format
+        assert m.get("format") is not None
+
+
 def test_assets_deduped_by_sha():
     # 5 distinct SHAs across the two groups -> 5 assets, no duplicates.
     xml, stats = _build()
