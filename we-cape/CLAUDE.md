@@ -18,7 +18,7 @@ Repo:    github.com:theworkmanexperience-sketch/Curser.git
 Local:   ~/Curser/we-cape/
 Package: wecape/ (canonical). we_capture/ retained only as deprecated CLI shim.
 Commit:  04d3910 — Measures 2+4 implemented (pre-audit baseline)
-Tests:   207/207 passing (171 baseline + 18 audit/rewire + 11 core/config+telemetry + 7 lineage)
+Tests:   225/225 passing (207 prior + 3 camera-model + 15 annotations layer)
 Entry:   python -m wecape   (config: wecape/config.yaml, profiles: wecape/profiles/)
 Phase 1: COMPLETE
 Phase 2: IN PROGRESS (registry live, Measures 1-5, hwaccel, rebrand complete,
@@ -122,9 +122,17 @@ scripts/                ← ops tooling (NOT the engine)
 ├── dashboard.py        ← W.E. C.A.P.E. Production Dashboard: local, read-only (mode=ro),
 │                          zero-CDN/zero-network self-contained HTML over the registry.
 │                          Per-shoot cards (Tier 1 registry + Tier 2 shoot-folder), processing
-│                          rates/breakdown, explainability (from LOGS), period pie charts.
+│                          rates/breakdown, explainability (from LOGS), period pie charts, and
+│                          annotations (reads annotations.db mode=ro — see below).
 │                          Reference impl of UI_Dashboard_Design_Guidelines_v2.md.
 │                          Docs: scripts/README_dashboard.md  ·  Run: python3 scripts/dashboard.py
+├── annotations.py      ← Annotations store + CLI (2026-06-30). Human notes on shoots (target=run_id)
+│                          and clips (target=content SHA) in a SEPARATE ~/.wecape/annotations.db —
+│                          deliberately OUT of the deterministic registry (P1: engine output vs.
+│                          mutable human notes stay separated). CRUD + tags + soft-delete (archive/
+│                          restore/--hard); `targets` reads the registry ro to list valid run_ids/SHAs.
+│                          stdlib-only, zero-network. Dashboard reads it ro and renders (card + table +
+│                          Annotations section). annotations.db is NOT regenerable — back it up.
 ├── backup_holder_mac.sh + com.wecape.holdermacbackup.plist  ← asset-protection backup (README_backup.md)
 └── organize_iphone_backup.sh   ← iPhone originals organizer/verifier (README_iphone.md)
 ```
@@ -470,11 +478,11 @@ Technical dependency: internal seams designed at J1, published at J3.
 
 ## Test Requirements
 
-- All 188 tests must pass before any commit merges
+- All 225 tests must pass before any commit merges
 - New features require tests before merge
 - `python3 -m pytest wecape/tests/ -q` is the current gate (all tests now live in wecape/tests/)
 - Pytest-free acceptance subset: `python run_tests.py` (repo root; §17 suite only)
-- Namespace reorganization COMPLETE — imports verified, 188/188 passing
+- Namespace reorganization COMPLETE — imports verified, 225/225 passing
 
 ---
 

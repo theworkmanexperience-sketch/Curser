@@ -20,20 +20,50 @@ Stdlib only — no `pip install`. Works on any Python 3.8+; macOS-native.
 
 ## What it shows
 - **Overview**: shoots, files (`0 lost`), proxies, footage.
-- **Section nav** (sticky): Per-Shoot Reference · Processing Activity · Disposition · Derivation Lineage · Per-clip record.
+- **Section nav** (sticky): Per-Shoot Reference · Processing Activity · Disposition · Derivation Lineage · Annotations · Per-clip record.
 - **Per-Shoot Reference cards**, in two tiers:
   - **Tier 1 (registry only, always available):** file count, camera mix, proxies, groups/variants, selects, errors, footage, and **processing** (total time + per-stage breakdown + `min/proxy` & `min/GB` rates + an *idempotent re-run* flag when a run transcoded 0).
   - **Tier 2 (when the shoot's `output_path` is reachable):** a **Ready-to-edit / originals-offline** handoff badge (checks the source drive), the **true 4-way classification** (from the run's `index.json`), **multicam membership** (from `MULTICAM/*.json`), and the **explainability panel** (timestamp confidence + fallback level + low-confidence count + conflict-resolved groups, from `LOGS/*.json`).
 - **Processing Activity** — pie charts bucketed by processing date, toggling **Monthly / Quarterly / Semi-annual / Annual**, for **shoots / files / proxies / footage**.
 - **Disposition** — camera-family breakdown with the *nothing dropped* trust signal.
 - **Derivation Lineage** — selects → source clips (schema v3).
-- **Per-clip record** — a sample of the registry's per-file rows (hash, camera, shoot date, proxy, source clip).
+- **Annotations** — your own notes on shoots and clips, from a separate `annotations.db`. Shoot notes appear inline on the card, clip notes in the per-clip table, and every active note in a dedicated **Annotations** section.
+- **Per-clip record** — a sample of the registry's per-file rows (hash, camera, shoot date, proxy, source clip, notes).
 
 ## Data sources
 | View | Source |
 |------|--------|
 | Shoots, counts, camera mix, lineage, per-clip | the registry (`wecape.db`) |
 | Classification breakdown, multicam membership, explainability, handoff | the shoot's output folder — `<run_id>_index.json`, `MULTICAM/*.json`, `LOGS/*.json` (Tier 2, when mounted) |
+| Annotations (shoot + clip notes) | `annotations.db` — a **separate** file, opened `mode=ro` (written only by `scripts/annotations.py`) |
+
+## Annotations — your notes on shoots & clips
+Annotations live in a **separate** SQLite file (`~/.wecape/annotations.db`), *not* the
+registry. This is deliberate: the registry is the **deterministic** record of what the
+pipeline produced (P1); mixing freely-editable human notes into it would muddy that. So
+notes get their own store, written only by the CLI — the dashboard opens it `mode=ro`
+like everything else (still zero-network). A read-only static page can't save what you
+type into it; the CLI is the write path.
+
+```bash
+# discover valid targets straight from the registry (read-only)
+python3 scripts/annotations.py targets             # run_ids (shoots); add --clips 50 for clip SHAs
+
+# shoot note (target = run_id) + clip note (target = content SHA-256)
+python3 scripts/annotations.py add --scope shoot --target WEF_20260630_125435_06980D \
+    --label "O-SIX Community Service" --body "Client wants a 90s hero cut." --tags deliverable,priority
+python3 scripts/annotations.py add --scope clip  --target <sha256> --body "Best take." --tags select
+
+python3 scripts/annotations.py list                # active notes (--all includes archived)
+python3 scripts/annotations.py edit <id> --body "Client wants 60s."
+python3 scripts/annotations.py rm <id>             # soft-delete (archive); --hard to purge
+python3 scripts/annotations.py restore <id>
+
+python3 scripts/dashboard.py                        # regenerate to see them rendered
+```
+- **Soft-delete by default** — `rm` archives (recoverable with `restore`); `--hard` purges irreversibly.
+- **Shoot notes anchor to a `run_id`** (the card). A re-CAPTURE makes a *new* run_id, so a note won't auto-carry to the re-run — correct, since notes are tied to a specific processing run. (Shoot-name-spanning notes are a possible future addition.)
+- `annotations.db` holds your own words — back it up alongside the registry; it is **not** regenerable from the pipeline.
 
 ## Guarantees it honors
 - **P2 — privacy:** zero CDN, zero network, no telemetry; the page is fully self-contained.

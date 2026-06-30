@@ -23,6 +23,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 DEFAULT_DB = Path.home() / ".wecape" / "registry" / "wecape.db"
+DEFAULT_ANN_DB = Path.home() / ".wecape" / "annotations.db"
 PALETTE = ['#4f8cff', '#3fb950', '#d29922', '#bc8cff', '#ff7b72', '#39c5cf',
            '#db61a2', '#e3b341', '#56d364', '#a371f7', '#f0883e', '#6e7681']
 
@@ -33,6 +34,34 @@ def connect_ro(db_path):
     c = sqlite3.connect(uri, uri=True)
     c.row_factory = sqlite3.Row
     return c
+
+
+def load_annotations(ann_path):
+    """Read annotations.db mode=ro (a SEPARATE file from the deterministic registry).
+
+    Returns an index {'shoot':{run_id:[..]}, 'clip':{clip_id:[..]}, 'all':[..]};
+    empty if the file is absent/unreadable. The dashboard NEVER writes — all writes
+    go through scripts/annotations.py. Keeps the read-only, zero-network contract.
+    """
+    idx = {"shoot": {}, "clip": {}, "all": []}
+    p = Path(ann_path)
+    if not p.exists():
+        return idx
+    try:
+        c = connect_ro(p)
+        try:
+            rows = [dict(r) for r in c.execute(
+                "SELECT * FROM annotations WHERE archived=0 ORDER BY created_at DESC")]
+        finally:
+            c.close()
+    except sqlite3.Error:
+        return idx
+    for a in rows:
+        idx["all"].append(a)
+        bucket = idx.get(a.get("scope"))
+        if bucket is not None:
+            bucket.setdefault(a.get("target_id"), []).append(a)
+    return idx
 
 
 def table_cols(conn, table):
@@ -264,7 +293,43 @@ def period_section(runs):
     return f"<div class='periodbtns'>{btns}</div>{''.join(blocks)}{script}"
 
 
-def shoot_card(r):
+def _ann_chip(a):
+    tags = "".join(f"<span class='tag'>{esc(t)}</span>"
+                   for t in (a.get("tags") or "").split(",") if t)
+    who = f" · {esc(a['author'])}" if a.get("author") else ""
+    return (f"<span class='ann'><span class='ann-id mono'>{esc(a['id'])}</span> "
+            f"{esc(a['body'])} {tags}<span class='ann-meta'>{esc((a.get('updated_at') or '')[:10])}{who}</span></span>")
+
+
+def card_annotations_html(anns):
+    """Inline shoot-notes for a card (matched by run_id)."""
+    if not anns:
+        return ""
+    return "<div class='t2row anns'><b>📝 Notes</b> " + " ".join(_ann_chip(a) for a in anns) + "</div>"
+
+
+def annotations_section(ann):
+    """The dedicated Annotations table — every active note, complete (not just the sample)."""
+    items = ann.get("all") or []
+    if not items:
+        return ("<p class='muted'>No annotations yet. Add one with "
+                "<code>python3 scripts/annotations.py add --scope shoot "
+                "--target &lt;run_id&gt; --body \"…\"</code> — discover valid targets via "
+                "<code>annotations.py targets</code>.</p>")
+    rows = []
+    for a in items:
+        tags = "".join(f"<span class='tag'>{esc(t)}</span>"
+                       for t in (a.get("tags") or "").split(",") if t)
+        meta = (a.get("updated_at") or "")[:10] + (f" · {esc(a['author'])}" if a.get("author") else "")
+        rows.append(
+            f"<tr><td class='mono'>{esc(a['id'])}</td><td>{esc(a['scope'])}</td>"
+            f"<td>{esc(a.get('target_label') or a.get('target_id'))}</td>"
+            f"<td>{esc(a['body'])} {tags}</td><td class='muted'>{meta}</td></tr>")
+    return ("<table><tr><th>ID</th><th>Scope</th><th>Target</th><th>Note</th><th>Updated</th></tr>"
+            + "".join(rows) + "</table>")
+
+
+def shoot_card(r, ann=None):
     name = Path(r.get("output_path") or "").name or (r.get("id") or "")[:24]
     t2 = r["_t2"]
     if not t2["reachable"]:
@@ -332,6 +397,7 @@ def shoot_card(r):
         t2_html = ("<div class='t2row muted'>Shoot folder not reachable — mount its drive for "
                    "multicam membership, full classification, and the edit handoff.</div>")
 
+    ann_html = card_annotations_html((ann or {}).get("shoot", {}).get(r.get("id"), []))
     return f"""
     <div class="shoot">
       <div class="shoot-head"><span class="sname">{esc(name)}</span>{badge}</div>
@@ -339,14 +405,16 @@ def shoot_card(r):
         {esc(r['_proxies'])} proxies · {esc(g)} groups · {esc(v)} variants{esc(sel)} ·
         {esc(r['_errors'])} errors · {gb(r['_bytes'])}</div>
       <div class="metrics muted">cameras: {mix} · {esc((r.get('timestamp') or '')[:19])} UTC · profile {esc(r.get('profile_id') or '—')}</div>
-      {proc}{t2_html}
+      {proc}{t2_html}{ann_html}
     </div>"""
 
 
-def render(d, db_path):
-    cards = "".join(shoot_card(r) for r in d["runs"]) or "<p class='muted'>No shoots recorded.</p>"
+def render(d, db_path, ann=None):
+    ann = ann or {"shoot": {}, "clip": {}, "all": []}
+    cards = "".join(shoot_card(r, ann) for r in d["runs"]) or "<p class='muted'>No shoots recorded.</p>"
     cam_bars = svg_bars(list(d["by_cam"].items()))
     periods = period_section(d["runs"])
+    ann_sec = annotations_section(ann)
 
     if d["lineage"] is None:
         lineage_html = ("<p class='muted'>Lineage available at schema v3+. Registry is v"
@@ -358,11 +426,15 @@ def render(d, db_path):
         lineage_html = (f"<p><b>{L['selects']}</b> selects from <b>{L['sources']}</b> sources · "
                         f"{L['pinned']} SHA-pinned.</p>" + svg_bars([(k, v) for k, v in L["top"]]))
 
+    def clip_note_cell(c):
+        ns = ann["clip"].get(c.get("id"), [])
+        return ("📝 " + " · ".join(esc(n["body"][:48]) for n in ns)) if ns else ""
     sample = "".join(
         f"<tr><td class='mono'>{esc((c.get('id') or '')[:12])}…</td><td>{esc(c.get('filename'))}</td>"
         f"<td>{esc(c.get('camera_family') or '—')}</td><td>{esc(c.get('shoot_date') or '—')}</td>"
-        f"<td>{'✓' if c.get('proxy_path') else ''}</td><td>{esc(c.get('source_clip') or '')}</td></tr>"
-        for c in d["sample"]) or "<tr><td colspan='6' class='muted'>No content.</td></tr>"
+        f"<td>{'✓' if c.get('proxy_path') else ''}</td><td>{esc(c.get('source_clip') or '')}</td>"
+        f"<td>{clip_note_cell(c)}</td></tr>"
+        for c in d["sample"]) or "<tr><td colspan='7' class='muted'>No content.</td></tr>"
 
     generated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     return f"""<!DOCTYPE html>
@@ -398,6 +470,9 @@ def render(d, db_path):
  .pie{{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}}
  .legs{{font-size:11.5px}} .leg{{margin:1px 0}} .sw{{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle}}
  .note{{border-left:3px solid var(--line);padding:6px 12px;color:var(--muted);margin-top:10px;font-size:12px}}
+ .anns{{border-left-color:var(--bar)}} .ann{{display:inline-block;background:#12151b;border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin:3px 4px 0 0;font-size:12px}}
+ .ann-id{{color:var(--muted);font-size:11px;margin-right:3px}} .ann-meta{{color:var(--muted);font-size:11px;margin-left:6px}}
+ .tag{{display:inline-block;background:#1b2430;color:#9db4d4;border-radius:10px;padding:0 7px;margin:0 2px;font-size:10.5px}}
  .menu{{position:sticky;top:0;background:rgba(15,17,21,.96);border-bottom:1px solid var(--line);padding:9px 2px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;z-index:10}}
  .menu a{{color:var(--muted);text-decoration:none;font-size:12.5px}} .menu a:hover{{color:var(--ink)}}
  .warn-txt{{color:var(--warn)}} html{{scroll-behavior:smooth}} [id]{{scroll-margin-top:54px}}
@@ -406,7 +481,7 @@ def render(d, db_path):
  <h1>W.E. C.A.P.E. — Production Dashboard</h1>
  <p class="sub">Local · read-only · {generated} · registry schema v{d['schema_version']} · <span class="mono">{esc(db_path)}</span></p>
  <nav class="menu">
-   <a href="#shoots">Per-Shoot Reference</a><a href="#activity">Processing Activity</a><a href="#disposition">Disposition</a><a href="#lineage">Derivation Lineage</a><a href="#perclip">Per-clip record</a>
+   <a href="#shoots">Per-Shoot Reference</a><a href="#activity">Processing Activity</a><a href="#disposition">Disposition</a><a href="#lineage">Derivation Lineage</a><a href="#annotations">Annotations</a><a href="#perclip">Per-clip record</a>
  </nav>
  <div class="cards">
    <div class="card"><div class="n">{len(d['runs'])}</div><div class="k">Shoots</div></div>
@@ -427,8 +502,14 @@ def render(d, db_path):
 
  <section id="lineage"><h2>Derivation Lineage</h2>{lineage_html}</section>
 
+ <section id="annotations"><h2>Annotations</h2>
+   <p class="muted">Human notes from <code>annotations.db</code> — a separate file from the deterministic
+     registry, opened <code>mode=ro</code>. Add/edit via <code>scripts/annotations.py</code>; shoot notes also
+     appear on their card above, clip notes in the per-clip table below.</p>
+   {ann_sec}</section>
+
  <section id="perclip"><h2>Per-clip record (sample)</h2>
-   <table><tr><th>SHA-256</th><th>Filename</th><th>Camera</th><th>Shoot date</th><th>Proxy</th><th>Source clip</th></tr>{sample}</table>
+   <table><tr><th>SHA-256</th><th>Filename</th><th>Camera</th><th>Shoot date</th><th>Proxy</th><th>Source clip</th><th>Notes</th></tr>{sample}</table>
    <div class="note">Processing breakdown + rate + re-run flag populate for runs processed after stage-timing
      was added; older runs show total runtime only. Per-clip fallback/confidence &amp; conflict decisions
      live in <code>LOGS/*.json</code>; AI fields (quality/highlight/tags) are null in v1.</div></section>
@@ -441,6 +522,8 @@ def render(d, db_path):
 def main():
     ap = argparse.ArgumentParser(description="Generate a local read-only W.E. C.A.P.E. dashboard.")
     ap.add_argument("--db", type=Path, default=DEFAULT_DB)
+    ap.add_argument("--annotations", type=Path, default=DEFAULT_ANN_DB,
+                    help=f"annotations db, read-only (default {DEFAULT_ANN_DB}; optional)")
     ap.add_argument("--out", type=Path, default=Path("wecape_dashboard.html"))
     args = ap.parse_args()
     if not args.db.exists():
@@ -450,11 +533,13 @@ def main():
         data = gather(conn)
     finally:
         conn.close()
-    args.out.write_text(render(data, args.db), encoding="utf-8")
+    ann = load_annotations(args.annotations)
+    args.out.write_text(render(data, args.db, ann), encoding="utf-8")
     reachable = sum(1 for r in data["runs"] if r["_t2"]["reachable"])
     print(f"✓ Dashboard written: {args.out.resolve()}")
     print(f"  {len(data['runs'])} shoots ({reachable} folder-reachable) · "
-          f"{data['content_total']} files · schema v{data['schema_version']}")
+          f"{data['content_total']} files · schema v{data['schema_version']} · "
+          f"{len(ann['all'])} annotation(s)")
     print(f"  Open it: open \"{args.out.resolve()}\"")
 
 
