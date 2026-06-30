@@ -497,6 +497,10 @@ Runtime:  32,697s = 9.08 hours
 Rate:     6.90 min/file (validates MG-01: 6.96 min/file)
 Registry: 103 records in ~/.wecape/registry/wecape.db
 Cameras:  Insta360(48) DJI(29) unclassified(23)
+          NOTE (2026): "DJI(29)" lumped BOTH bodies. Real kit = Insta360 X5 +
+          DJI Osmo Action 5 + DJI Osmo Action 6 (no GoPro). Re-CAPTURE applies the
+          per-body split (camera_folder_patterns fix) — distinct §7 sources; group
+          count may rise vs this baseline (two DJI bodies can now group).
 ```
 
 Validated per-file rate: ~7 min/file USB/1w | ~0.75 min/file NVMe/4w (projected)
@@ -737,6 +741,26 @@ Justification:      DJI/Insta360 clock drift is 6-12s in field conditions.
                     Empirically validated June 22 2026 on Community Service dataset.
                     Deviation is a field calibration, not a spec violation.
 Status:             Documented deviation — defensible, validated, intentional.
+
+### Camera Identification — per-body distinction (2026-06-29)
+Actual kit:         Insta360 X5 + DJI Osmo Action 5 + DJI Osmo Action 6. No GoPro
+                    (GoPro is a supported-but-unused config pattern; it appeared
+                    only in synthetic test fixtures, never real footage).
+Bug fixed:          camera_folder_patterns was DEAD CODE — the config read sat after
+                    a `return` inside the static _safe_size(), and _match_camera_folder()
+                    was never called. So every DJI body collapsed to a generic "DJI"
+                    and the Osmo 5/6 distinction did nothing.
+Fix:                read moved to __init__; _match_camera_folder() now called in
+                    classify(). When footage is in a per-camera folder
+                    ("DJI ACTION 5/6", "Insta360 X5"), camera_source resolves to the
+                    specific body. camera_id now persisted to the registry.
+Decision (2026-06-29): two DJI bodies are DISTINCT §7 grouping sources (a physical
+                    camera = an angle). More correct — two DJI cameras rolling the
+                    same moment now form a group (previously did not).
+Re-validate:        existing runs (O-SIX, MG-02) were processed pre-fix (both DJI as
+                    one source). Re-CAPTURE to apply; expect group count to rise vs
+                    MG-02 — a more-correct direction, so re-validate the new baseline.
+Status:             Correctness fix + intentional deviation from the lumped baseline.
 
 ### Stage 0.5 Archive Engine — Enabled (intentional deviation)
 RFQ LOCKED spec:    archive_engine disabled by default (Phase-1 gated, v4.1 retail determinism)

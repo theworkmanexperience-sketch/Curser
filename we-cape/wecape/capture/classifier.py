@@ -99,6 +99,10 @@ class FileClassifier:
         self._generic_folder_patterns: list[str] = [
             p.lower() for p in cls_cfg.get('generic_folder_patterns', [])
         ]
+        # Camera-model folder patterns (e.g. "DJI ACTION 6" -> "DJI Osmo Action 6").
+        # Used to distinguish physical bodies (Osmo Action 5 vs 6) as separate
+        # multicam sources when footage is organized in per-camera folders.
+        self._camera_folder_patterns: list[dict] = cls_cfg.get('camera_folder_patterns', [])
 
         # Duplicate detection
         self._dedup_enabled: bool = config.get('pipeline', {}).get(
@@ -144,6 +148,12 @@ class FileClassifier:
         # 1. Camera video/image source detection
         camera_source, method = self._detect_camera(filename, ext)
         if camera_source:
+            # Refine to the specific body (e.g. "DJI Osmo Action 6") when footage
+            # lives in a per-camera folder, so distinct physical cameras are
+            # distinct multicam sources (§7).
+            folder_model = self._match_camera_folder(file_path)
+            if folder_model:
+                camera_source, method = folder_model, 'camera_folder_pattern'
             return ClassifiedFile(
                 path=file_path, classification='camera',
                 camera_source=camera_source, detection_method=method, file_size=size,
@@ -287,9 +297,6 @@ class FileClassifier:
             return file_path.stat().st_size
         except OSError:
             return 0
-
-        # Camera folder patterns (new Phase 1 feature)
-        self._camera_folder_patterns: list[dict] = cls_cfg.get('camera_folder_patterns', [])
 
     def _match_camera_folder(self, file_path: Path) -> Optional[str]:
         """Return camera_model if a parent folder matches a configured pattern."""

@@ -47,12 +47,14 @@ audio_classification:
   - ^TASCAM_
   - ^DR\d+_
 classification:
+  # Per-camera folder -> physical body (distinct multicam source, §7).
+  # 'pattern' matches a parent folder name; 'camera_model' is the source label.
   camera_folder_patterns:
-  - camera_model: DJI_ACTION_5
+  - camera_model: DJI Osmo Action 5
     pattern: DJI ACTION 5
-  - camera_model: DJI_ACTION_6
+  - camera_model: DJI Osmo Action 6
     pattern: DJI ACTION 6
-  - camera_model: INSTA360_X5
+  - camera_model: Insta360 X5
     pattern: Insta360 X5
   camera_sources:
     Blackmagic:

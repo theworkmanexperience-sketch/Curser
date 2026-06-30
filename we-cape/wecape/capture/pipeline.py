@@ -603,6 +603,7 @@ class Pipeline:
                             filename=_f.path.name,
                             original_path=str(_f.path),
                             camera_family=getattr(_f, 'camera_source', None),
+                            camera_id=getattr(_f, 'camera_source', None),
                             shoot_date=_shoot_date,
                             file_size_bytes=_size,
                             proxy_path=_proxy_map.get(_f.path),
