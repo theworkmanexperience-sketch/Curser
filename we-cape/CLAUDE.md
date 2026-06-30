@@ -498,9 +498,11 @@ Rate:     6.90 min/file (validates MG-01: 6.96 min/file)
 Registry: 103 records in ~/.wecape/registry/wecape.db
 Cameras:  Insta360(48) DJI(29) unclassified(23)
           NOTE (2026): "DJI(29)" lumped BOTH bodies. Real kit = Insta360 X5 +
-          DJI Osmo Action 5 + DJI Osmo Action 6 (no GoPro). Re-CAPTURE applies the
-          per-body split (camera_folder_patterns fix) — distinct §7 sources; group
-          count may rise vs this baseline (two DJI bodies can now group).
+          DJI Osmo Action 5 + DJI Osmo Action 6 (no GoPro). VALIDATED 2026-06-30
+          (WEF_20260630_125435_06980D): re-CAPTURE split DJI(29) -> Osmo 6 (19) +
+          Osmo 5 (10); Insta360 X5 (48) unchanged; camera_id now persisted. Groups
+          stayed 2 (both DJI bodies overlapped WITH the Insta360, not DJI-only) —
+          correct for this shoot.
 ```
 
 Validated per-file rate: ~7 min/file USB/1w | ~0.75 min/file NVMe/4w (projected)
@@ -643,6 +645,17 @@ Validation: reproduced MG-02 ground truth (2 groups, 23 variants, 4 diagnostics)
     processed shoot is safe and ~25x faster than the original transcode pass.
     Note: .SRT telemetry sidecars present on card -> real test data for the
     deferred DJI-telemetry enhancement (backlog #3).
+
+#3  O-SIX camera re-CAPTURE (per-body split) — WEF_20260630_125435_06980D, June 30 2026
+    FIRST run after the camera_folder_patterns fix. Source per-camera folders
+    (DJI ACTION 5/ · DJI ACTION 6/ · Insta360 X5/) now resolve to the specific body.
+    Files: 95 | Groups: 2 | Variants: 23 | Errors: 0 | Diagnostics: 4 (no-proxy validation).
+    Split CONFIRMED in registry: DJI Osmo Action 6 (19) + DJI Osmo Action 5 (10) =
+    the old lumped DJI(29) EXACTLY; Insta360 X5 (48) unchanged; camera_id now persisted
+    (was null). Groups held at 2 (NOT a regression): both DJI bodies overlapped WITH the
+    Insta360, joining existing groups as a 3rd source rather than forming DJI-only groups.
+    New validated camera-identity baseline. Proxies unaffected (split is metadata, not
+    pixels) — no re-transcode needed for the existing 79-proxy edit set.
 ```
 
 Critical discovery: commit 724bdae declared gate active before any validation.
@@ -758,8 +771,14 @@ Decision (2026-06-29): two DJI bodies are DISTINCT §7 grouping sources (a physi
                     camera = an angle). More correct — two DJI cameras rolling the
                     same moment now form a group (previously did not).
 Re-validate:        existing runs (O-SIX, MG-02) were processed pre-fix (both DJI as
-                    one source). Re-CAPTURE to apply; expect group count to rise vs
-                    MG-02 — a more-correct direction, so re-validate the new baseline.
+                    one source). Re-CAPTURE to apply.
+Validated:          2026-06-30, run WEF_20260630_125435_06980D (O-SIX, no-proxy).
+                    Split DJI(29) -> Osmo Action 6 (19) + Osmo Action 5 (10) [exact
+                    match to the lumped 29]; Insta360 X5 (48) unchanged; camera_id
+                    persisted. Groups held at 2 — the two DJI bodies overlapped WITH
+                    the Insta360 (joined existing groups as a 3rd source), so no new
+                    DJI-only groups formed. Correct for this shoot; future DJI-only
+                    overlapping moments will now group.
 Status:             Correctness fix + intentional deviation from the lumped baseline.
 
 ### Stage 0.5 Archive Engine — Enabled (intentional deviation)
