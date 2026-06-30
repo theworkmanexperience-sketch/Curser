@@ -117,6 +117,16 @@ wecape/                 ← CANONICAL package (all source + tests live here)
 we_capture/             ← DEPRECATED. Only main.py (shim) + run_tests.py (shim) remain.
                           Empty leftover dir we_capture/profiles/ could not be unlinked
                           on the working mount; safe to `rmdir` locally.
+
+scripts/                ← ops tooling (NOT the engine)
+├── dashboard.py        ← W.E. C.A.P.E. Production Dashboard: local, read-only (mode=ro),
+│                          zero-CDN/zero-network self-contained HTML over the registry.
+│                          Per-shoot cards (Tier 1 registry + Tier 2 shoot-folder), processing
+│                          rates/breakdown, explainability (from LOGS), period pie charts.
+│                          Reference impl of UI_Dashboard_Design_Guidelines_v2.md.
+│                          Docs: scripts/README_dashboard.md  ·  Run: python3 scripts/dashboard.py
+├── backup_holder_mac.sh + com.wecape.holdermacbackup.plist  ← asset-protection backup (README_backup.md)
+└── organize_iphone_backup.sh   ← iPhone originals organizer/verifier (README_iphone.md)
 ```
 
 > Reality check vs the "Target Package Structure" below: working code went to
@@ -393,7 +403,10 @@ Gate: 100-file shoot completes in under 90 minutes
 - W.E. API public (J3) — internal seams only for now
 - AI features of any kind — v1 ships zero AI
 - Cloud sync — LocalOnlySyncAdapter is v1 default
-- UI layer — after performance gate passes
+- UI layer (packaged / signed app) — after performance gate passes.
+  NOTE: a read-only dashboard PROTOTYPE now exists (scripts/dashboard.py, gate passed) — a
+  window over the registry, not the shippable app. Docs: scripts/README_dashboard.md +
+  UI_Dashboard_Design_Guidelines_v2.md.
 
 ---
 
