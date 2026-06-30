@@ -133,7 +133,18 @@ scripts/                ← ops tooling (NOT the engine)
 │                          restore/--hard); `targets` reads the registry ro to list valid run_ids/SHAs.
 │                          stdlib-only, zero-network. Dashboard reads it ro and renders (card + table +
 │                          Annotations section). annotations.db is NOT regenerable — back it up.
-├── backup_holder_mac.sh + com.wecape.holdermacbackup.plist  ← asset-protection backup (README_backup.md)
+├── fcpxml_export.py    ← FCPXML export bridge (2026-06-30). CAPTURE multicam GROUPS -> one FCP
+│                          multicam clip per group (each camera = an angle), placed by the
+│                          corrected-timestamp delta. v1 = TIMESTAMP alignment (±s), NOT waveform —
+│                          FCP 'Synchronize Clips' (or J3) locks audio (CAPTURE groups / FCP syncs).
+│                          Assets carry original + proxy media-reps (FCP proxy workflow); proxies
+│                          joined by SHA across runs (P5 upsert preserves them, so a no-proxy
+│                          re-CAPTURE still links them). ffprobe formats + registry fallback;
+│                          FCPXML 1.9 (FCP + Resolve). Read-only. Docs: scripts/README_fcpxml.md
+├── backup_holder_mac.sh + com.wecape.holdermacbackup.plist + com.wecape.registrybackup.plist
+│                          ← asset-protection: 4.6TB Holder Mac (weekly) + ~/.wecape 3-2-1 (internal
+│                          staging + offsite rclone copy + external mirror; daily via --registry-only).
+│                          SQLite online .backup + integrity check. Docs: README_backup.md
 └── organize_iphone_backup.sh   ← iPhone originals organizer/verifier (README_iphone.md)
 ```
 
