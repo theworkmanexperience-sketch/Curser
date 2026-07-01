@@ -309,15 +309,23 @@ def test_multicam_named_sequentially():
 
 
 def test_clips_carry_metadata_note():
+    # DTD: <note> is a first-child element (not an attribute). FCP shows it in Notes.
     xml, _ = fx.build_fcpxml("O-SIX Shoot", make_groups(), make_index(),
                              probe=fake_probe(), ungrouped=UNGROUPED, run_id="WEF_TESTRUN")
     root = _root(xml)
+
+    def note_text(el):
+        n = el.find("note")
+        return n.text if n is not None else ""
+
     angle_clips = root.findall(".//mc-angle/asset-clip")
-    assert angle_clips and all("cam=" in (a.get("note") or "") and "shoot=O-SIX Shoot" in (a.get("note") or "")
+    assert angle_clips and all("cam=" in note_text(a) and "shoot=O-SIX Shoot" in note_text(a)
                                for a in angle_clips)
-    assert any("run=WEF_TESTRUN" in (a.get("note") or "") for a in angle_clips)
+    assert any("run=WEF_TESTRUN" in note_text(a) for a in angle_clips)
     ev_clips = root.find("library").find("event").findall("asset-clip")
-    assert all("file=" in (c.get("note") or "") for c in ev_clips)
+    assert all("file=" in note_text(c) for c in ev_clips)
+    # a mc-clip's note is also a child element
+    assert any("angles" in note_text(mc) for mc in root.findall(".//mc-clip"))
 
 
 # ── robustness ──────────────────────────────────────────────────────────────

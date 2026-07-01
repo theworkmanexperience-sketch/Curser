@@ -230,7 +230,8 @@ def _note(filename, camera, ts_disp, run_id, shoot):
         parts.append(f"run={run_id}")
     if shoot:
         parts.append(f"shoot={shoot}")
-    return f' note="{_esc(" · ".join(parts))}"' if parts else ""
+    # FCPXML DTD: note is a <note> CHILD element (first child), not an attribute.
+    return f'<note>{_esc(" · ".join(parts))}</note>' if parts else ""
 
 
 # ── build ────────────────────────────────────────────────────────────────────
@@ -380,7 +381,7 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
             angles.append(
                 f'<mc-angle name="{_esc(label)}" angleID="A{i}">'
                 f'<asset-clip ref="{aid}" offset="{off}" name="{_esc(label)}" '
-                f'duration="{dur}" format="{fid}"{note}/></mc-angle>')
+                f'duration="{dur}" format="{fid}">{note}</asset-clip></mc-angle>')
 
         mid = _rid()
         seq_fmt = format_id(gclips[0]["fmt"]["width"], gclips[0]["fmt"]["height"], seq_num, seq_den)
@@ -397,9 +398,9 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
                                          f"shot={sdisp}" if sdisp else "",
                                          f"run={run_id}" if run_id else "",
                                          f"shoot={event_name}" if event_name else ""] if x)
-        mc_note = f' note="{_esc(_mc_txt)}"' if _mc_txt else ""
+        mc_note = f'<note>{_esc(_mc_txt)}</note>' if _mc_txt else ""
         event_items.append(
-            (skey, f'<mc-clip ref="{mid}" name="{_esc(mc_name)}" duration="{gdur}"{mc_note}/>'))
+            (skey, f'<mc-clip ref="{mid}" name="{_esc(mc_name)}" duration="{gdur}">{mc_note}</mc-clip>'))
 
     # 4b) Ungrouped single-camera clips -> ordinary <asset-clip>s in the Event,
     #     so the whole shoot is available in FCP (not only the multicam moments).
@@ -436,7 +437,7 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
         note = _note(Path(original).name, u.get("camera"), sdisp, run_id, event_name)
         event_items.append(
             (skey, f'<asset-clip ref="{aid}" name="{_esc(uname)}" '
-                   f'duration="{dur}" format="{fid}"{note}/>'))
+                   f'duration="{dur}" format="{fid}">{note}</asset-clip>'))
         stats["ungrouped"] += 1
 
     # 5) Assemble. Event items sorted CHRONOLOGICALLY by capture time (stable sort keeps
