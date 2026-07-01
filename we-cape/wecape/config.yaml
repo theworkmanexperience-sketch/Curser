@@ -368,3 +368,6 @@ proxy_generation:
   workers: 4              # NVMe TB4 direct — installed June 8, 2026 (3,098 MB/s confirmed)
                           #   4 = NVMe via TB4 (set after Samsung 990 PRO installed)
   preflight: true         # Phase 2: ffprobe duration scan before transcoding starts
+  embed_source_timecode: true  # re-stamp each proxy with the source's start timecode
+                          #   (ffmpeg -timecode) so FCP accepts it as a proxy for the
+                          #   original — without it FCP rejects: "no shared media range"

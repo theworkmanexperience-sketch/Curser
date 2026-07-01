@@ -197,6 +197,33 @@ def test_proxy_output_folder_created(tmp_path):
     assert (tmp_path / 'PROXIES').exists()
 
 
+# ── Source-timecode re-stamp (FCP proxy compatibility) ─────────────────────────
+def test_build_cmd_includes_timecode_when_provided(tmp_path):
+    g = _gen()
+    cmd = g._build_cmd(Path('/src/x.mp4'), Path('/out/x.mp4'), timecode='11:09:21:00')
+    assert '-timecode' in cmd
+    assert cmd[cmd.index('-timecode') + 1] == '11:09:21:00'
+
+
+def test_build_cmd_omits_timecode_when_none(tmp_path):
+    g = _gen()
+    assert '-timecode' not in g._build_cmd(Path('/src/x.mp4'), Path('/out/x.mp4'), timecode=None)
+
+
+def test_get_timecode_parses_ffprobe(tmp_path):
+    g = _gen()
+    fake = MagicMock(returncode=0, stdout=json.dumps({"format": {"tags": {"timecode": "11:09:21:00"}}}))
+    with patch('subprocess.run', return_value=fake):
+        assert g._get_timecode(Path('/src/x.mp4')) == '11:09:21:00'
+
+
+def test_get_timecode_none_when_absent(tmp_path):
+    g = _gen()
+    fake = MagicMock(returncode=0, stdout=json.dumps({"format": {"tags": {}}, "streams": []}))
+    with patch('subprocess.run', return_value=fake):
+        assert g._get_timecode(Path('/src/x.mp4')) is None
+
+
 if __name__ == '__main__':
     tests = [
         test_enabled_flag, test_disabled_flag, test_enabled_default_is_false,
@@ -206,6 +233,8 @@ if __name__ == '__main__':
         test_ffmpeg_failure_logged_as_failed, test_failed_does_not_stop_run,
         test_registry_load_missing_file, test_registry_load_corrupt_json,
         test_proxy_output_folder_created,
+        test_build_cmd_includes_timecode_when_provided, test_build_cmd_omits_timecode_when_none,
+        test_get_timecode_parses_ffprobe, test_get_timecode_none_when_absent,
     ]
     passed = failed = 0
     for fn in tests:

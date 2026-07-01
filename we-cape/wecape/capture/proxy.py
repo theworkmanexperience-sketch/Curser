@@ -65,6 +65,7 @@ class ProxyGenerator:
         self._skip_unchanged = cfg.get('skip_unchanged', True)
         self._workers        = max(1, int(cfg.get('workers', 1)))      # NEW Phase 2
         self._preflight      = bool(cfg.get('preflight', False))       # NEW Phase 2
+        self._embed_timecode = bool(cfg.get('embed_source_timecode', True))  # FCP proxy compat
         self.ffmpeg_cmd      = ffmpeg_cmd
         self.ffprobe_cmd     = ffprobe_cmd
         self._registry_lock  = threading.Lock()                        # NEW Phase 2
@@ -372,7 +373,8 @@ class ProxyGenerator:
         Falls back from h264_videotoolbox to libx264 on encoder failure.
         """
         tmp_proxy = tmp_path
-        cmd = self._build_cmd(source, tmp_proxy)
+        timecode = self._get_timecode(source) if self._embed_timecode else None
+        cmd = self._build_cmd(source, tmp_proxy, timecode=timecode)
         try:
             t0 = time.time()
             r  = subprocess.run(cmd, capture_output=True, text=True, timeout=7200)
@@ -382,7 +384,7 @@ class ProxyGenerator:
                 if self._encoder == 'h264_videotoolbox' and tmp_proxy.exists():
                     tmp_proxy.unlink()
                 if self._encoder == 'h264_videotoolbox':
-                    cmd2 = self._build_cmd(source, tmp_proxy, force_libx264=True)
+                    cmd2 = self._build_cmd(source, tmp_proxy, force_libx264=True, timecode=timecode)
                     r2 = subprocess.run(cmd2, capture_output=True, text=True,
                                         timeout=7200)
                     if r2.returncode == 0:
@@ -412,16 +414,21 @@ class ProxyGenerator:
             return ProxyResult(source, None, src_sha, 'failed', reason=str(e))
 
     def _build_cmd(self, source: Path, output: Path,
-                   force_libx264: bool = False) -> list:
+                   force_libx264: bool = False, timecode: Optional[str] = None) -> list:
         encoder = 'libx264' if force_libx264 else self._encoder
         # Hardware decode: keeps frames in GPU memory, pipes to h264_videotoolbox encoder.
         # ffmpeg silently falls back to software decode if source codec unsupported.
         hwaccel_flags = ['-hwaccel', 'videotoolbox'] if encoder == 'h264_videotoolbox' else []
+        # Re-stamp the source's start timecode. -map_metadata -1 strips it; without a
+        # matching timecode FCP rejects the proxy ("no shared media range"). -timecode
+        # writes it back (tmcd track) so FCP pairs proxy<->original correctly.
+        tc_flags = ['-timecode', timecode] if timecode else []
         base = [self.ffmpeg_cmd] + hwaccel_flags + [
             '-i', str(source),
             '-vf', f'scale=-2:{self._height}',
             '-c:a', 'aac', '-b:a', '128k',
             '-map_metadata', '-1',
+        ] + tc_flags + [
             '-movflags', '+faststart',
             '-y',
         ]
@@ -491,6 +498,31 @@ class ProxyGenerator:
             return dur if dur > 0 else None
         except Exception:
             return None
+
+    def _get_timecode(self, source: Path) -> Optional[str]:
+        """Source start timecode (e.g. '11:09:21:00'), so the proxy can carry it — FCP
+        requires a proxy to share the original's timecode range. None if the source
+        has no timecode (then original + proxy both start at 0 and still match)."""
+        try:
+            r = subprocess.run(
+                [self.ffprobe_cmd, '-v', 'quiet', '-print_format', 'json',
+                 '-show_entries', 'format_tags=timecode:stream_tags=timecode',
+                 str(source)],
+                capture_output=True, text=True, timeout=15,
+            )
+            if r.returncode != 0:
+                return None
+            data = json.loads(r.stdout)
+            tc = ((data.get('format', {}) or {}).get('tags', {}) or {}).get('timecode')
+            if tc:
+                return tc
+            for s in data.get('streams', []) or []:
+                tc = (s.get('tags', {}) or {}).get('timecode')
+                if tc:
+                    return tc
+        except Exception:
+            pass
+        return None
 
     def _load_registry(self, proxy_dir: Path) -> dict:
         p = proxy_dir / self.REGISTRY_FILE

@@ -827,6 +827,20 @@ Justification:      Acts as a production safeguard — quarantines partial/corru
 Decision:           2026-06-24 — keep enabled as an intentional production safeguard.
 Status:             Documented deviation — defensible, validated, intentional.
 
+### Proxy timecode for FCP proxy workflow (2026-06-30)
+Problem:   proxies were re-encoded with `-map_metadata -1` -> started at TC 00:00:00,
+           while DJI/Insta360 originals carry time-of-day timecode. FCP then rejected
+           the CAPTURE proxies on FCPXML import: "proxy media incompatible … no shared
+           media range" (clips showed "Missing Proxy"; originals imported fine).
+Fix:       wecape/capture/proxy.py — _get_timecode() reads the source timecode (ffprobe
+           format/stream tags) and _build_cmd re-stamps it via `ffmpeg -timecode <TC>`
+           so proxy and original share a timecode range. Config toggle
+           proxy_generation.embed_source_timecode (default true).
+Apply:     requires RE-TRANSCODE — existing proxies predate the fix. Re-run the proxy
+           stage (--proxy) to regenerate FCP-compatible proxies.
+Validated: cmd construction + 4 new tests (261/261). TRUE proof is an FCP re-import
+           after re-transcode (couldn't run ffmpeg/FCP in the build env).
+
 ### RFQ Tests 1-5 — PASS
 All five tests covered by existing test suite.
 Test 3 variant patterns (copy/final/backup) confirmed implemented in variants.py.
