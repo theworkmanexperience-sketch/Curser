@@ -137,6 +137,8 @@ scripts/                ← ops tooling (NOT the engine)
 │                          multicam clip per group (each camera = an angle), placed by the
 │                          corrected-timestamp delta; ungrouped single-camera clips ride along as
 │                          ordinary Event clips (whole shoot in FCP; --groups-only to omit).
+│                          Event items in CAPTURE-time order; clip names timestamp-prefixed so FCP
+│                          Name-sort = chronological across cameras (--no-timestamp-prefix to omit).
 │                          v1 = TIMESTAMP alignment (±s), NOT waveform —
 │                          FCP 'Synchronize Clips' (or J3) locks audio (CAPTURE groups / FCP syncs).
 │                          Assets carry original + proxy media-reps (FCP proxy workflow); proxies

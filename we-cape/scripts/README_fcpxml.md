@@ -37,10 +37,19 @@ Options:
 --fps N/D        force the sequence timebase, e.g. 30000/1001 or 30
 --event NAME     override the Event name (default: shoot folder name)
 --groups-only    export only the multicam groups (omit ungrouped single-camera clips)
+--no-timestamp-prefix   keep clean clip names (no capture-time prefix; order stays chronological)
 ```
 By default the Event holds **both** the multicam clips (the grouped moments) and the ungrouped
 single-camera clips, so the full shoot is editable in FCP. The ungrouped list comes from the run's
 `<run_id>_index.json`; each clip is matched to its proxy by SHA, same as the grouped ones.
+
+**Chronological order.** Event items are emitted in **capture-time order**, and each clip's name is
+prefixed with its corrected capture timestamp (e.g. `2026-03-14 07:23:47 · DJI_0001`) — so sorting the
+FCP browser by **Name** gives true chronological order across *all* cameras, using CAPTURE's *corrected*
+times, not the camera clock or FCP's metadata guess. Multicam clips slot in at their group's start
+time, interleaved with the ungrouped clips. Times come from the group anchor (multicam) or the
+registry's `corrected_timestamp`, falling back to the timestamp embedded in the filename. Use
+`--no-timestamp-prefix` if you'd rather keep clean names (the XML order stays chronological either way).
 Then in Final Cut Pro: **File ▸ Import ▸ XML…**, pick the `.fcpxml`. Each group lands as a
 multicam clip; open one and run **Clip ▸ Synchronize Clips** to refine audio sync.
 (Full import walkthrough + troubleshooting: `SOP_fcpxml_import.md`.)

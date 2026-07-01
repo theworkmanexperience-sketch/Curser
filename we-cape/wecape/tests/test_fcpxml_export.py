@@ -8,6 +8,7 @@ frame-conformed time tokens, and XML well-formedness. Frame-accurate behaviour a
 FCP acceptance are validated by importing into FCP — out of scope for a unit test.
 """
 
+import calendar
 import re
 import sys
 import xml.dom.minidom as minidom
@@ -222,6 +223,60 @@ def test_ungrouped_assets_resolve_refs_and_carry_proxy():
         assert c.get("ref") in ids
     assert "/out/VID_solo1_proxy.mov" in xml          # u1 proxy linked
     assert "file:///src/DJI%20ACTION%206/DJI_solo2.MP4" in xml   # u2 original (no proxy)
+
+
+# ── chronological order + timestamp-prefixed names ──────────────────────────
+def _groups_ts():
+    g = make_groups()
+    g[0]["timestamp_start"] = calendar.timegm((2026, 3, 14, 6, 0, 0, 0, 0, 0))    # 06:00 UTC
+    g[1]["timestamp_start"] = calendar.timegm((2026, 3, 14, 12, 0, 0, 0, 0, 0))   # 12:00 UTC
+    return g
+
+
+UNGROUPED_TS = [
+    {"original": "/src/Insta360 X5/VID_a.mp4", "proxy": "/out/VID_a_proxy.mov", "sha": "u1",
+     "camera": "Insta360 X5", "resolution": "3840x2160", "duration_sec": 8.0,
+     "corrected_timestamp": "2026-03-14T09:00:00"},
+    {"original": "/src/DJI ACTION 6/DJI_b.MP4", "proxy": None, "sha": "u2",
+     "camera": "DJI Osmo Action 6", "resolution": "3840x2160", "duration_sec": 6.0,
+     "corrected_timestamp": "2026-03-14T18:00:00"},
+]
+
+
+def _build_ts(timestamp_names=True):
+    return fx.build_fcpxml("O-SIX", _groups_ts(), make_index(), probe=fake_probe(),
+                           ungrouped=UNGROUPED_TS, timestamp_names=timestamp_names)
+
+
+def test_event_items_sorted_chronologically():
+    ev = _root(_build_ts()[0]).find("library").find("event")
+    names = [c.get("name") for c in list(ev)]     # mc-clips + asset-clips, document order
+    assert names == sorted(names)                 # timestamp-prefixed -> lexical == chronological
+    assert names[0].startswith("2026-03-14 06:00:00")    # earliest group first
+    assert names[-1].startswith("2026-03-14 18:00:00")   # latest ungrouped last
+
+
+def test_names_are_timestamp_prefixed():
+    ev = _root(_build_ts()[0]).find("library").find("event")
+    for c in list(ev):
+        assert re.match(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} · ", c.get("name")), c.get("name")
+
+
+def test_no_timestamp_prefix_still_chronological():
+    ev = _root(_build_ts(timestamp_names=False)[0]).find("library").find("event")
+    names = [c.get("name") for c in list(ev)]
+    assert not any("·" in n for n in names)          # prefix suppressed
+    assert names.index("MC_G001") < names.index("MC_G002")   # still ordered by capture time
+
+
+def test_ungrouped_timestamp_from_filename_when_no_corrected_ts():
+    ung = [{"original": "/src/DJI ACTION 6/DJI_20260314072347_0001_D.MP4", "proxy": None,
+            "sha": "uf", "camera": "DJI Osmo Action 6", "resolution": "3840x2160",
+            "duration_sec": 5.0, "corrected_timestamp": None}]
+    ev = _root(fx.build_fcpxml("O-SIX", [], make_index(), probe=fake_probe(), ungrouped=ung)[0])\
+        .find("library").find("event")
+    names = [c.get("name") for c in list(ev)]
+    assert names and names[0].startswith("2026-03-14 07:23:47")   # parsed from the filename
 
 
 # ── robustness ──────────────────────────────────────────────────────────────

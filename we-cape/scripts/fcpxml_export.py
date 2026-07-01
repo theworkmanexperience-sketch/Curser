@@ -30,9 +30,11 @@ Then: import the .fcpxml into Final Cut Pro (File ▸ Import ▸ XML).
 
 import argparse
 import json
+import re
 import sqlite3
 import subprocess
 import sys
+from datetime import datetime, timezone
 from fractions import Fraction
 from pathlib import Path
 
@@ -59,11 +61,12 @@ def load_media_index(conn):
     prior run are found for a no-proxy re-CAPTURE (P5 field-preserving upsert)."""
     idx = {}
     try:
-        for r in conn.execute(
-            "SELECT id, original_path, proxy_path, resolution, duration_sec, "
-            "filename, codec FROM content"
-        ):
-            idx[r["id"]] = dict(r)
+        # SELECT * so a schema variant (a missing/renamed column) never makes this
+        # silently return empty — downstream reads are all .get()-guarded.
+        for r in conn.execute("SELECT * FROM content"):
+            row = dict(r)
+            if row.get("id"):
+                idx[row["id"]] = row
     except sqlite3.Error:
         pass
     return idx
@@ -171,9 +174,52 @@ def _uri(path):
         return "file://" + _esc(str(p))         # relative fallback (shouldn't happen)
 
 
+# ── capture-time chronology (CAPTURE's corrected timestamps drive the order) ──
+_NAME_DT = re.compile(r"(20\d{2})(\d{2})(\d{2})[_]?(\d{2})(\d{2})(\d{2})")
+
+
+def _parse_name_dt(name):
+    """DJI_20260314072347… / VID_20260314_120430… -> datetime (capture time in the filename)."""
+    m = _NAME_DT.search(name or "")
+    if not m:
+        return None
+    try:
+        y, mo, d, h, mi, s = (int(x) for x in m.groups())
+        return datetime(y, mo, d, h, mi, s, tzinfo=timezone.utc)
+    except Exception:
+        return None
+
+
+def _stamp(unix=None, iso=None, filename=None):
+    """Best-available capture time -> (sort_key, display 'YYYY-MM-DD HH:MM:SS').
+    Order of trust: unix epoch (group anchor) -> ISO (registry corrected_timestamp)
+    -> filename-embedded time. Unknown -> ('9999', '') so it sorts last, unprefixed."""
+    dt = None
+    if unix:
+        try:
+            dt = datetime.fromtimestamp(float(unix), tz=timezone.utc)
+        except Exception:
+            dt = None
+    if dt is None and iso:
+        try:
+            dt = datetime.fromisoformat(str(iso).replace("Z", "").split("+")[0].strip())
+        except Exception:
+            dt = None
+    if dt is None:
+        dt = _parse_name_dt(filename)
+    if dt is None:
+        return ("9999", "")
+    s = dt.strftime("%Y-%m-%d %H:%M:%S")
+    return (s, s)
+
+
+def _pfx(display, base):
+    return f"{display} · {base}" if display else base
+
+
 # ── build ────────────────────────────────────────────────────────────────────
 def build_fcpxml(event_name, groups, media_index, probe=probe_media,
-                 seq_fps=None, media_mode="both", ungrouped=None):
+                 seq_fps=None, media_mode="both", ungrouped=None, timestamp_names=True):
     """Return (xml_str, stats). Pure-ish: `probe` is injectable for tests.
 
     `ungrouped` (optional) is a list of dicts {original, proxy, sha, camera,
@@ -321,8 +367,14 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
         # NOTE: the FCPXML DTD does NOT allow 'format'/'tcFormat' on <mc-clip>
         # (FCP rejects them — DTD validation error). The format/timecode live on
         # the referenced <multicam>; mc-clip derives from it.
+        gts = g.get("timestamp_start")
+        if not gts:
+            _fts = [f.get("timestamp_unix") for f in g.get("files", []) if f.get("timestamp_unix")]
+            gts = min(_fts) if _fts else None
+        skey, sdisp = _stamp(unix=gts)
+        mc_name = _pfx(sdisp, f"MC_{gid}") if timestamp_names else f"MC_{gid}"
         event_items.append(
-            f'<mc-clip ref="{mid}" name="MC_{_esc(gid)}" duration="{gdur}"/>')
+            (skey, f'<mc-clip ref="{mid}" name="{_esc(mc_name)}" duration="{gdur}"/>'))
 
     # 4b) Ungrouped single-camera clips -> ordinary <asset-clip>s in the Event,
     #     so the whole shoot is available in FCP (not only the multicam moments).
@@ -354,12 +406,17 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
         aid = asset_id(c)
         fid = format_id(fmt["width"], fmt["height"], fmt["fps_num"], fmt["fps_den"])
         dur, _ = _t(fmt["duration_s"], fmt["fps_num"] or seq_num, fmt["fps_den"] or seq_den)
+        skey, sdisp = _stamp(iso=u.get("corrected_timestamp"), filename=Path(original).name)
+        uname = _pfx(sdisp, Path(original).stem) if timestamp_names else Path(original).stem
         event_items.append(
-            f'<asset-clip ref="{aid}" name="{_esc(Path(original).stem)}" '
-            f'duration="{dur}" format="{fid}"/>')
+            (skey, f'<asset-clip ref="{aid}" name="{_esc(uname)}" '
+                   f'duration="{dur}" format="{fid}"/>'))
         stats["ungrouped"] += 1
 
-    # 5) Assemble. Formats first, then assets, then media (FCPXML resource order).
+    # 5) Assemble. Event items sorted CHRONOLOGICALLY by capture time (stable sort keeps
+    #    same-timestamp items in insertion order). Resources: formats, assets, media.
+    event_items.sort(key=lambda t: t[0])
+    event_xml = [x for _, x in event_items]
     res = ([v[1] for v in formats.values()]
            + [v[1] for v in assets.values()]
            + media_xml)
@@ -368,7 +425,7 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
         f'<fcpxml version="{FCPXML_VERSION}">\n'
         "  <resources>\n    " + "\n    ".join(res) + "\n  </resources>\n"
         "  <library>\n"
-        f'    <event name="{_esc(event_name)}">\n      ' + "\n      ".join(event_items) +
+        f'    <event name="{_esc(event_name)}">\n      ' + "\n      ".join(event_xml) +
         "\n    </event>\n  </library>\n</fcpxml>\n")
     return xml, stats
 
@@ -384,6 +441,8 @@ def main(argv=None):
     ap.add_argument("--event", help="override the Event name (default: shoot folder name)")
     ap.add_argument("--groups-only", action="store_true",
                     help="export only the multicam groups (omit ungrouped single-camera clips)")
+    ap.add_argument("--no-timestamp-prefix", action="store_true",
+                    help="don't prefix clip names with the capture timestamp (order stays chronological)")
     args = ap.parse_args(argv)
 
     if not args.db.exists():
@@ -423,10 +482,12 @@ def main(argv=None):
             ungrouped.append({"original": p, "proxy": row.get("proxy_path"),
                               "sha": row.get("id"), "camera": row.get("camera_family"),
                               "resolution": row.get("resolution"),
-                              "duration_sec": row.get("duration_sec")})
+                              "duration_sec": row.get("duration_sec"),
+                              "corrected_timestamp": row.get("corrected_timestamp")})
 
     xml, stats = build_fcpxml(event_name, groups, media_index, seq_fps=seq_fps,
-                              media_mode=args.media, ungrouped=ungrouped)
+                              media_mode=args.media, ungrouped=ungrouped,
+                              timestamp_names=not args.no_timestamp_prefix)
 
     out = args.out or Path(f"{event_name}_multicam.fcpxml")
     Path(out).write_text(xml, encoding="utf-8")
