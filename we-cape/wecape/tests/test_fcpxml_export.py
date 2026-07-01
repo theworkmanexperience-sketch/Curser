@@ -265,8 +265,8 @@ def test_names_are_timestamp_prefixed():
 def test_no_timestamp_prefix_still_chronological():
     ev = _root(_build_ts(timestamp_names=False)[0]).find("library").find("event")
     names = [c.get("name") for c in list(ev)]
-    assert not any("·" in n for n in names)          # prefix suppressed
-    assert names.index("MC_G001") < names.index("MC_G002")   # still ordered by capture time
+    assert not any("·" in n for n in names)              # prefix suppressed
+    assert names.index("Multicam 01") < names.index("Multicam 02")   # still capture-ordered
 
 
 def test_ungrouped_timestamp_from_filename_when_no_corrected_ts():
@@ -277,6 +277,47 @@ def test_ungrouped_timestamp_from_filename_when_no_corrected_ts():
         .find("library").find("event")
     names = [c.get("name") for c in list(ev)]
     assert names and names[0].startswith("2026-03-14 07:23:47")   # parsed from the filename
+
+
+# ── angle labels, per-clip numbering, multicam names, metadata ──────────────
+def test_angle_labels_are_camera_plus_clip_number():
+    root = _root(_build()[0])
+    labels = [a.get("name") for a in root.findall(".//mc-angle")]
+    assert labels and all(re.search(r" - \d{2}$", n) for n in labels), labels
+    assert any(n.startswith("Insta360 X5 - ") for n in labels)
+
+
+def test_multiple_clips_same_camera_get_distinct_numbered_angles():
+    g = [{"group_id": "G", "timestamp_start": 100, "files": [
+        {"file_hash_sha256": "s1", "path": "/src/DJI ACTION 6/DJI_1.MP4",
+         "camera_source": "DJI Osmo Action 6", "timestamp_delta_seconds": 0.0},
+        {"file_hash_sha256": "s2", "path": "/src/DJI ACTION 6/DJI_2.MP4",
+         "camera_source": "DJI Osmo Action 6", "timestamp_delta_seconds": 3.0},
+        {"file_hash_sha256": "s3", "path": "/src/Insta360 X5/VID_1.mp4",
+         "camera_source": "Insta360 X5", "timestamp_delta_seconds": 1.0}]}]
+    idx = {s: {"proxy_path": None, "resolution": "3840x2160", "duration_sec": 5.0}
+           for s in ("s1", "s2", "s3")}
+    labels = [a.get("name") for a in _root(fx.build_fcpxml("O", g, idx, probe=fake_probe())[0]).findall(".//mc-angle")]
+    # numbered chronologically by delta; the two DJI clips stay distinct
+    assert labels == ["DJI Osmo Action 6 - 01", "Insta360 X5 - 02", "DJI Osmo Action 6 - 03"]
+
+
+def test_multicam_named_sequentially():
+    names = [c.get("name") for c in _root(_build_ts()[0]).findall(".//mc-clip")]
+    assert any("Multicam 01" in n for n in names)
+    assert any("Multicam 02" in n for n in names)
+
+
+def test_clips_carry_metadata_note():
+    xml, _ = fx.build_fcpxml("O-SIX Shoot", make_groups(), make_index(),
+                             probe=fake_probe(), ungrouped=UNGROUPED, run_id="WEF_TESTRUN")
+    root = _root(xml)
+    angle_clips = root.findall(".//mc-angle/asset-clip")
+    assert angle_clips and all("cam=" in (a.get("note") or "") and "shoot=O-SIX Shoot" in (a.get("note") or "")
+                               for a in angle_clips)
+    assert any("run=WEF_TESTRUN" in (a.get("note") or "") for a in angle_clips)
+    ev_clips = root.find("library").find("event").findall("asset-clip")
+    assert all("file=" in (c.get("note") or "") for c in ev_clips)
 
 
 # ── robustness ──────────────────────────────────────────────────────────────

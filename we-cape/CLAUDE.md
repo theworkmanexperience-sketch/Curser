@@ -139,6 +139,8 @@ scripts/                ← ops tooling (NOT the engine)
 │                          ordinary Event clips (whole shoot in FCP; --groups-only to omit).
 │                          Event items in CAPTURE-time order; clip names timestamp-prefixed so FCP
 │                          Name-sort = chronological across cameras (--no-timestamp-prefix to omit).
+│                          Angles labeled '<camera> - NN' (one per clip, chronological); multicam clips
+│                          'Multicam NN'; every clip carries a Notes field (cam/shot/file/run/shoot).
 │                          v1 = TIMESTAMP alignment (±s), NOT waveform —
 │                          FCP 'Synchronize Clips' (or J3) locks audio (CAPTURE groups / FCP syncs).
 │                          Assets carry original + proxy media-reps (FCP proxy workflow); proxies

@@ -217,9 +217,26 @@ def _pfx(display, base):
     return f"{display} · {base}" if display else base
 
 
+def _note(filename, camera, ts_disp, run_id, shoot):
+    """FCP Notes field (visible + searchable in the Info inspector) with clip provenance."""
+    parts = []
+    if camera:
+        parts.append(f"cam={camera}")
+    if ts_disp:
+        parts.append(f"shot={ts_disp}")
+    if filename:
+        parts.append(f"file={filename}")
+    if run_id:
+        parts.append(f"run={run_id}")
+    if shoot:
+        parts.append(f"shoot={shoot}")
+    return f' note="{_esc(" · ".join(parts))}"' if parts else ""
+
+
 # ── build ────────────────────────────────────────────────────────────────────
 def build_fcpxml(event_name, groups, media_index, probe=probe_media,
-                 seq_fps=None, media_mode="both", ungrouped=None, timestamp_names=True):
+                 seq_fps=None, media_mode="both", ungrouped=None, timestamp_names=True,
+                 run_id=""):
     """Return (xml_str, stats). Pure-ish: `probe` is injectable for tests.
 
     `ungrouped` (optional) is a list of dicts {original, proxy, sha, camera,
@@ -265,6 +282,7 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
             clips.append({"group_id": gid, "sha": sha or original,
                           "camera": f.get("camera_source") or "Unknown",
                           "delta": float(f.get("timestamp_delta_seconds") or 0.0),
+                          "ts": f.get("timestamp_unix"),
                           "original": original, "proxy": proxy, "fmt": fmt})
 
     # 2) Sequence timebase: explicit --fps, else the most common probed fps, else default.
@@ -325,37 +343,44 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
         stats["assets"] += 1
         return aid
 
+    # Number groups chronologically for "Multicam NN" naming.
+    def _gstamp(g):
+        t = g.get("timestamp_start")
+        if not t:
+            fts = [f.get("timestamp_unix") for f in g.get("files", []) if f.get("timestamp_unix")]
+            t = min(fts) if fts else None
+        return _stamp(unix=t)
+    group_seq = {id(g): i for i, g in enumerate(sorted(groups, key=lambda g: _gstamp(g)[0]), 1)}
+
     # 4) Build one <media><multicam> per group + the <mc-clip> that references it.
+    #    ONE ANGLE PER CLIP, labeled "<camera> - NN" (chronological within the group) so
+    #    multiple clips from the same camera stay distinct in the Angle Viewer.
     media_xml, event_items = [], []
     for g in groups:
         gid = g.get("group_id") or "group"
-        gclips = [c for c in clips if c["group_id"] == gid]
+        gclips = sorted((c for c in clips if c["group_id"] == gid), key=lambda x: x["delta"])
         if not gclips:
             continue
         stats["groups"] += 1
-        base_delta = min(c["delta"] for c in gclips)     # normalize earliest -> 0
-        by_cam = {}
-        for c in gclips:
-            by_cam.setdefault(c["camera"], []).append(c)
-
+        base_delta = gclips[0]["delta"]                   # normalize earliest -> 0
         angles, group_end_s = [], 0.0
-        ai = 0
-        for cam, cs in by_cam.items():
-            ai += 1
+        for i, c in enumerate(gclips, 1):
             stats["angles"] += 1
-            angle_clips = []
-            for c in sorted(cs, key=lambda x: x["delta"]):
-                stats["clips"] += 1
-                aid = asset_id(c)
-                off_s = c["delta"] - base_delta
-                off, _ = _t(off_s, seq_num, seq_den)
-                dur_s = c["fmt"]["duration_s"] or 0.0
-                dur, _ = _t(dur_s, seq_num, seq_den)
-                group_end_s = max(group_end_s, off_s + dur_s)
-                angle_clips.append(
-                    f'<asset-clip ref="{aid}" offset="{off}" name="{_esc(Path(c["original"]).stem)}" '
-                    f'duration="{dur}" format="{format_id(c["fmt"]["width"], c["fmt"]["height"], c["fmt"]["fps_num"], c["fmt"]["fps_den"])}"/>')
-            angles.append(f'<mc-angle name="{_esc(cam)}" angleID="A{ai}">' + "".join(angle_clips) + "</mc-angle>")
+            stats["clips"] += 1
+            aid = asset_id(c)
+            off_s = c["delta"] - base_delta
+            off, _ = _t(off_s, seq_num, seq_den)
+            dur_s = c["fmt"]["duration_s"] or 0.0
+            dur, _ = _t(dur_s, seq_num, seq_den)
+            group_end_s = max(group_end_s, off_s + dur_s)
+            fid = format_id(c["fmt"]["width"], c["fmt"]["height"], c["fmt"]["fps_num"], c["fmt"]["fps_den"])
+            label = f'{c["camera"]} - {i:02d}'
+            ts_disp = _stamp(unix=c.get("ts"), filename=Path(c["original"]).name)[1]
+            note = _note(Path(c["original"]).name, c["camera"], ts_disp, run_id, event_name)
+            angles.append(
+                f'<mc-angle name="{_esc(label)}" angleID="A{i}">'
+                f'<asset-clip ref="{aid}" offset="{off}" name="{_esc(label)}" '
+                f'duration="{dur}" format="{fid}"{note}/></mc-angle>')
 
         mid = _rid()
         seq_fmt = format_id(gclips[0]["fmt"]["width"], gclips[0]["fmt"]["height"], seq_num, seq_den)
@@ -364,17 +389,17 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
             f'<media id="{mid}" name="MC_{_esc(gid)}">'
             f'<multicam format="{seq_fmt}" tcStart="0s" tcFormat="NDF">' + "".join(angles) +
             "</multicam></media>")
-        # NOTE: the FCPXML DTD does NOT allow 'format'/'tcFormat' on <mc-clip>
-        # (FCP rejects them — DTD validation error). The format/timecode live on
-        # the referenced <multicam>; mc-clip derives from it.
-        gts = g.get("timestamp_start")
-        if not gts:
-            _fts = [f.get("timestamp_unix") for f in g.get("files", []) if f.get("timestamp_unix")]
-            gts = min(_fts) if _fts else None
-        skey, sdisp = _stamp(unix=gts)
-        mc_name = _pfx(sdisp, f"MC_{gid}") if timestamp_names else f"MC_{gid}"
+        # NOTE: the FCPXML DTD does NOT allow 'format'/'tcFormat' on <mc-clip>.
+        skey, sdisp = _gstamp(g)
+        mc_base = f"Multicam {group_seq.get(id(g), 0):02d}"
+        mc_name = _pfx(sdisp, mc_base) if timestamp_names else mc_base
+        _mc_txt = " · ".join(x for x in [f"{len(gclips)} angles",
+                                         f"shot={sdisp}" if sdisp else "",
+                                         f"run={run_id}" if run_id else "",
+                                         f"shoot={event_name}" if event_name else ""] if x)
+        mc_note = f' note="{_esc(_mc_txt)}"' if _mc_txt else ""
         event_items.append(
-            (skey, f'<mc-clip ref="{mid}" name="{_esc(mc_name)}" duration="{gdur}"/>'))
+            (skey, f'<mc-clip ref="{mid}" name="{_esc(mc_name)}" duration="{gdur}"{mc_note}/>'))
 
     # 4b) Ungrouped single-camera clips -> ordinary <asset-clip>s in the Event,
     #     so the whole shoot is available in FCP (not only the multicam moments).
@@ -408,9 +433,10 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
         dur, _ = _t(fmt["duration_s"], fmt["fps_num"] or seq_num, fmt["fps_den"] or seq_den)
         skey, sdisp = _stamp(iso=u.get("corrected_timestamp"), filename=Path(original).name)
         uname = _pfx(sdisp, Path(original).stem) if timestamp_names else Path(original).stem
+        note = _note(Path(original).name, u.get("camera"), sdisp, run_id, event_name)
         event_items.append(
             (skey, f'<asset-clip ref="{aid}" name="{_esc(uname)}" '
-                   f'duration="{dur}" format="{fid}"/>'))
+                   f'duration="{dur}" format="{fid}"{note}/>'))
         stats["ungrouped"] += 1
 
     # 5) Assemble. Event items sorted CHRONOLOGICALLY by capture time (stable sort keeps
@@ -487,7 +513,7 @@ def main(argv=None):
 
     xml, stats = build_fcpxml(event_name, groups, media_index, seq_fps=seq_fps,
                               media_mode=args.media, ungrouped=ungrouped,
-                              timestamp_names=not args.no_timestamp_prefix)
+                              timestamp_names=not args.no_timestamp_prefix, run_id=args.run)
 
     out = args.out or Path(f"{event_name}_multicam.fcpxml")
     Path(out).write_text(xml, encoding="utf-8")

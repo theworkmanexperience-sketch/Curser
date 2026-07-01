@@ -50,6 +50,14 @@ times, not the camera clock or FCP's metadata guess. Multicam clips slot in at t
 time, interleaved with the ungrouped clips. Times come from the group anchor (multicam) or the
 registry's `corrected_timestamp`, falling back to the timestamp embedded in the filename. Use
 `--no-timestamp-prefix` if you'd rather keep clean names (the XML order stays chronological either way).
+
+**Naming & metadata.**
+- **Angles** in a multicam clip are labeled `<camera> - NN` (e.g. `DJI Osmo Action 6 - 03`), numbered
+  chronologically within the group — so multiple clips from the same camera stay distinct in the Angle Viewer.
+- **Multicam clips** are named `Multicam NN` in capture order (behind the timestamp prefix).
+- **Every clip** (angles + standalone) carries a **Notes** field, visible and searchable in FCP's Info
+  inspector: `cam=<model> · shot=<corrected time> · file=<original> · run=<run_id> · shoot=<name>` —
+  full provenance back to the source file and the CAPTURE run that produced it.
 Then in Final Cut Pro: **File ▸ Import ▸ XML…**, pick the `.fcpxml`. Each group lands as a
 multicam clip; open one and run **Clip ▸ Synchronize Clips** to refine audio sync.
 (Full import walkthrough + troubleshooting: `SOP_fcpxml_import.md`.)
