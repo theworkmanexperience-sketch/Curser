@@ -234,6 +234,15 @@ def _note(filename, camera, ts_disp, run_id, shoot):
     return f'<note>{_esc(" · ".join(parts))}</note>' if parts else ""
 
 
+def _keyword(values, duration):
+    """<keyword> child (after <note>) — FCP turns each value into a Keyword Collection
+    in the browser sidebar. value is a comma-separated list, so one element = many."""
+    vals = [v for v in values if v]
+    if not vals:
+        return ""
+    return f'<keyword start="0s" duration="{duration}" value="{_esc(", ".join(vals))}"/>'
+
+
 # ── build ────────────────────────────────────────────────────────────────────
 def build_fcpxml(event_name, groups, media_index, probe=probe_media,
                  seq_fps=None, media_mode="both", ungrouped=None, timestamp_names=True,
@@ -399,8 +408,10 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
                                          f"run={run_id}" if run_id else "",
                                          f"shoot={event_name}" if event_name else ""] if x)
         mc_note = f'<note>{_esc(_mc_txt)}</note>' if _mc_txt else ""
+        _cams = sorted({c["camera"] for c in gclips})       # each camera in the group
+        mc_kw = _keyword([f'Camera: {c}' for c in _cams] + ([f'Shoot: {sdisp[:10]}'] if sdisp else []), gdur)
         event_items.append(
-            (skey, f'<mc-clip ref="{mid}" name="{_esc(mc_name)}" duration="{gdur}">{mc_note}</mc-clip>'))
+            (skey, f'<mc-clip ref="{mid}" name="{_esc(mc_name)}" duration="{gdur}">{mc_note}{mc_kw}</mc-clip>'))
 
     # 4b) Ungrouped single-camera clips -> ordinary <asset-clip>s in the Event,
     #     so the whole shoot is available in FCP (not only the multicam moments).
@@ -435,9 +446,11 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
         skey, sdisp = _stamp(iso=u.get("corrected_timestamp"), filename=Path(original).name)
         uname = _pfx(sdisp, Path(original).stem) if timestamp_names else Path(original).stem
         note = _note(Path(original).name, u.get("camera"), sdisp, run_id, event_name)
+        kw = _keyword([f'Camera: {u["camera"]}' if u.get("camera") else "",
+                       f'Shoot: {sdisp[:10]}' if sdisp else ""], dur)
         event_items.append(
             (skey, f'<asset-clip ref="{aid}" name="{_esc(uname)}" '
-                   f'duration="{dur}" format="{fid}">{note}</asset-clip>'))
+                   f'duration="{dur}" format="{fid}">{note}{kw}</asset-clip>'))
         stats["ungrouped"] += 1
 
     # 5) Assemble. Event items sorted CHRONOLOGICALLY by capture time (stable sort keeps

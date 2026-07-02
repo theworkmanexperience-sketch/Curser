@@ -585,11 +585,12 @@ class Pipeline:
                             continue
                         _src_clip, _src_sha = _resolver.resolve(_f.path.name)
                         _shoot_date = None
+                        _corrected_ts = None
                         if getattr(_f, 'timestamp', None):
                             try:
-                                _shoot_date = datetime.fromtimestamp(
-                                    _f.timestamp, tz=timezone.utc
-                                ).strftime('%Y-%m-%d')
+                                _dt = datetime.fromtimestamp(_f.timestamp, tz=timezone.utc)
+                                _shoot_date = _dt.strftime('%Y-%m-%d')
+                                _corrected_ts = _dt.isoformat()   # persist for the FCPXML export
                             except Exception:
                                 pass
                         _size = None
@@ -605,6 +606,7 @@ class Pipeline:
                             camera_family=getattr(_f, 'camera_source', None),
                             camera_id=getattr(_f, 'camera_source', None),
                             shoot_date=_shoot_date,
+                            corrected_timestamp=_corrected_ts,
                             file_size_bytes=_size,
                             proxy_path=_proxy_map.get(_f.path),
                             content_type='original',

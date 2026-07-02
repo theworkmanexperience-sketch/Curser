@@ -139,6 +139,9 @@ scripts/                ← ops tooling (NOT the engine)
 │                          ordinary Event clips (whole shoot in FCP; --groups-only to omit).
 │                          Event items in CAPTURE-time order; clip names timestamp-prefixed so FCP
 │                          Name-sort = chronological across cameras (--no-timestamp-prefix to omit).
+│                          Clips tagged with <keyword> (Camera: <model>, Shoot: <date>) -> FCP Keyword
+│                          Collections (per-camera / per-date sidebar grouping, no scrolling). Pipeline
+│                          now persists content.corrected_timestamp for accurate export times.
 │                          Angles labeled '<camera> - NN' (one per clip, chronological); multicam clips
 │                          'Multicam NN'; every clip carries a Notes field (cam/shot/file/run/shoot).
 │                          v1 = TIMESTAMP alignment (±s), NOT waveform —

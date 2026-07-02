@@ -51,6 +51,18 @@ time, interleaved with the ungrouped clips. Times come from the group anchor (mu
 registry's `corrected_timestamp`, falling back to the timestamp embedded in the filename. Use
 `--no-timestamp-prefix` if you'd rather keep clean names (the XML order stays chronological either way).
 
+**Keyword Collections (organize without scrolling).** Every clip is tagged with `<keyword>` values,
+which FCP turns into clickable **Keyword Collections** in the browser sidebar — click one to see just
+those clips:
+- `Camera: <model>` (e.g. `Camera: Insta360 X5`) — per-camera grouping. Multicam clips are tagged with
+  every camera they contain.
+- `Shoot: <YYYY-MM-DD>` — per-capture-date grouping.
+
+Camera keywords are always correct. **Date keywords are only as accurate as the camera clocks** — a
+camera set to the wrong year (e.g. an Insta360 stuck at 2018) lands its clips under a wrong `Shoot:`
+date. CAPTURE now persists its resolved timestamp (`corrected_timestamp`) so the export prefers it over
+re-reading raw filenames, but nothing can override a genuinely wrong camera clock — set the clock.
+
 **Naming & metadata.**
 - **Angles** in a multicam clip are labeled `<camera> - NN` (e.g. `DJI Osmo Action 6 - 03`), numbered
   chronologically within the group — so multiple clips from the same camera stay distinct in the Angle Viewer.

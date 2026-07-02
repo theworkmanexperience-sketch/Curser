@@ -328,6 +328,28 @@ def test_clips_carry_metadata_note():
     assert any("angles" in note_text(mc) for mc in root.findall(".//mc-clip"))
 
 
+def test_clips_carry_camera_and_date_keywords():
+    # <keyword> children -> FCP Keyword Collections ("Camera: …", "Shoot: …").
+    xml, _ = fx.build_fcpxml("O-SIX", _groups_ts(), make_index(), probe=fake_probe(),
+                             ungrouped=UNGROUPED_TS, run_id="R")
+    ev = _root(xml).find("library").find("event")
+    kws = [k.get("value") for k in ev.findall("asset-clip/keyword")]
+    assert any("Camera: Insta360 X5" in v for v in kws)
+    assert any("Shoot: 2026-03-14" in v for v in kws)
+    mc_kw = [k.get("value") for mc in ev.findall("mc-clip") for k in mc.findall("keyword")]
+    assert mc_kw and any("Camera:" in v and "Shoot: 2026-03-14" in v for v in mc_kw)
+
+
+def test_keyword_is_after_note_and_well_formed():
+    xml, _ = fx.build_fcpxml("O-SIX", [], make_index(), probe=fake_probe(),
+                             ungrouped=UNGROUPED_TS)
+    minidom.parseString(xml)                       # DTD-shaped: note then keyword
+    for ac in _root(xml).find("library").find("event").findall("asset-clip"):
+        kids = [c.tag for c in list(ac)]
+        assert kids == ["note", "keyword"] or kids == ["keyword"], kids
+        assert all(k.get("value") for k in ac.findall("keyword"))   # value required
+
+
 # ── robustness ──────────────────────────────────────────────────────────────
 def test_fallback_to_registry_metadata_when_probe_fails():
     xml, stats = fx.build_fcpxml("S", make_groups(), make_index(),
