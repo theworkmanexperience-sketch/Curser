@@ -149,7 +149,9 @@ scripts/                ← ops tooling (NOT the engine)
 │                          Assets carry original + proxy media-reps (FCP proxy workflow); proxies
 │                          joined by SHA across runs (P5 upsert preserves them, so a no-proxy
 │                          re-CAPTURE still links them). ffprobe formats + registry fallback;
-│                          FCPXML 1.9 (FCP + Resolve). Read-only. Docs: scripts/README_fcpxml.md
+│                          FCPXML 1.9 (FCP + Resolve). --stills <folder> adds images as still assets
+│                          in a 'Stills' Keyword Collection (Additive-Ingest spec). Read-only.
+│                          Docs: scripts/README_fcpxml.md · SPEC_Additive_Ingest_Found_Footage.md
 ├── capture_to_fcp.sh   ← one-command handoff (2026-06-30): CAPTURE -> fcpxml_export -> `open`
 │                          the .fcpxml on FCP's import sheet. Detects the new run_id (summary line
 │                          / newest registry row), passes extra args to wecape. STOPS at the one
@@ -160,6 +162,10 @@ scripts/                ← ops tooling (NOT the engine)
 │                          copy SHA-256-verified vs source (mismatch = hard fail, not silent),
 │                          resumable, JSON manifest, NEVER deletes the card. Two copies satisfied
 │                          BEFORE CAPTURE (Principle #1). offload -> CAPTURE. Docs: README_offload.md
+├── reconcile.py        ← Footage reconciliation / coverage audit (2026-07-01). Cross-checks footage
+│                          folders vs the registry: PROCESSED / UNPROCESSED (gap) / DUPLICATE (byte-
+│                          identical, reclaimable). quick (filename+size) or --hash (SHA-256, definitive).
+│                          Read-only, stdlib. Answers "is every file accounted for?"
 ├── backup_holder_mac.sh + com.wecape.holdermacbackup.plist + com.wecape.registrybackup.plist
 │                          ← asset-protection: 4.6TB Holder Mac (weekly) + ~/.wecape 3-2-1 (internal
 │                          staging + offsite rclone copy + external mirror; daily via --registry-only).

@@ -350,6 +350,36 @@ def test_keyword_is_after_note_and_well_formed():
         assert all(k.get("value") for k in ac.findall("keyword"))   # value required
 
 
+# ── still images ────────────────────────────────────────────────────────────
+STILLS = [
+    {"original": "/photos/IMG_0001.HEIC", "mtime": "2026-03-22T10:00:00", "camera": "iPhone"},
+    {"original": "/photos/screenshot.png", "mtime": "2026-03-14T09:00:00", "camera": None},
+]
+
+
+def test_stills_emitted_as_image_assets_with_keyword():
+    xml, stats = fx.build_fcpxml("O-SIX", [], make_index(), probe=fake_probe(),
+                                 stills=STILLS, run_id="R")
+    minidom.parseString(xml)
+    root = _root(xml)
+    imgs = [a for a in root.findall(".//asset") if a.get("hasAudio") == "0"]   # image assets
+    assert len(imgs) == 2 and all(a.get("duration") == "0s" for a in imgs)
+    ev = root.find("library").find("event")
+    kws = [k.get("value") for c in ev.findall("asset-clip") for k in c.findall("keyword")]
+    assert any("Stills" in v for v in kws)
+    assert any("Camera: iPhone (Stills)" in v for v in kws)     # IMG_ -> iPhone still
+    assert stats["stills"] == 2
+
+
+def test_still_format_has_no_frameduration():
+    xml, _ = fx.build_fcpxml("O", [], make_index(), probe=fake_probe(), stills=STILLS)
+    root = _root(xml)
+    img_fmt_ids = {a.get("format") for a in root.findall(".//asset") if a.get("hasAudio") == "0"}
+    for f in root.findall(".//format"):
+        if f.get("id") in img_fmt_ids:
+            assert f.get("frameDuration") is None            # stills carry no frameDuration
+
+
 # ── robustness ──────────────────────────────────────────────────────────────
 def test_fallback_to_registry_metadata_when_probe_fails():
     xml, stats = fx.build_fcpxml("S", make_groups(), make_index(),

@@ -41,6 +41,8 @@ from pathlib import Path
 FCPXML_VERSION = "1.9"
 DEFAULT_DB = Path.home() / ".wecape" / "registry" / "wecape.db"
 DEFAULT_FPS = (30, 1)   # used only if nothing can be probed and no --fps given
+IMAGE_EXT = {".jpg", ".jpeg", ".png", ".heic", ".heif", ".tif", ".tiff", ".gif", ".webp", ".dng"}
+STILL_DURATION = "4s"   # placement length for a still in FCP (browser clip)
 
 
 # ── registry (read-only) ─────────────────────────────────────────────────────
@@ -246,7 +248,7 @@ def _keyword(values, duration):
 # ── build ────────────────────────────────────────────────────────────────────
 def build_fcpxml(event_name, groups, media_index, probe=probe_media,
                  seq_fps=None, media_mode="both", ungrouped=None, timestamp_names=True,
-                 run_id=""):
+                 run_id="", stills=None):
     """Return (xml_str, stats). Pure-ish: `probe` is injectable for tests.
 
     `ungrouped` (optional) is a list of dicts {original, proxy, sha, camera,
@@ -255,7 +257,7 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
     in FCP, not just the multicam moments.
     """
     stats = {"groups": 0, "angles": 0, "clips": 0, "assets": 0,
-             "fallback": 0, "missing": 0, "ungrouped": 0}
+             "fallback": 0, "missing": 0, "ungrouped": 0, "stills": 0}
 
     # 1) Resolve every clip across all groups.
     clips = []          # {group_id, sha, camera, delta, original, proxy, fmt}
@@ -352,6 +354,15 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
         assets[sha] = (aid, xml)
         stats["assets"] += 1
         return aid
+
+    still_formats = {}       # (w,h) -> (id, xml) — image formats carry NO frameDuration
+    def still_format_id(w, h):
+        key = (w, h)
+        if key not in still_formats:
+            fid = _rid()
+            still_formats[key] = (
+                fid, f'<format id="{fid}" name="FFVideoFormat{w}x{h}" width="{w}" height="{h}"/>')
+        return still_formats[key][0]
 
     # Number groups chronologically for "Multicam NN" naming.
     def _gstamp(g):
@@ -453,12 +464,44 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
                    f'duration="{dur}" format="{fid}">{note}{kw}</asset-clip>'))
         stats["ungrouped"] += 1
 
+    # 4c) Still images -> image assets in a 'Stills' Keyword Collection (browser only,
+    #     never auto-placed on the timeline).
+    still_asset_xml = []
+    for s in (stills or []):
+        original = s.get("original")
+        if not original:
+            continue
+        if original not in probe_cache:
+            probe_cache[original] = probe(original)
+        pr = probe_cache[original] or {}
+        w, h = (pr.get("width") or 1920), (pr.get("height") or 1080)
+        sfid = still_format_id(w, h)
+        aid = _rid()
+        stem = Path(original).stem
+        still_asset_xml.append(
+            f'<asset id="{aid}" name="{_esc(stem)}" start="0s" duration="0s" '
+            f'hasVideo="1" videoSources="1" hasAudio="0" format="{sfid}">'
+            f'<media-rep kind="original-media" src="{_esc(_uri(original))}"/></asset>')
+        skey, sdisp = _stamp(iso=s.get("mtime"), filename=Path(original).name)
+        name = _pfx(sdisp, stem) if timestamp_names else stem
+        note = _note(Path(original).name, s.get("camera"), sdisp, run_id, event_name)
+        kwv = (["Stills"]
+               + ([f'Camera: {s["camera"]} (Stills)'] if s.get("camera") else [])
+               + ([f'Shoot: {sdisp[:10]}'] if sdisp else []))
+        kw = _keyword(kwv, STILL_DURATION)
+        event_items.append(
+            (skey, f'<asset-clip ref="{aid}" name="{_esc(name)}" duration="{STILL_DURATION}" '
+                   f'format="{sfid}">{note}{kw}</asset-clip>'))
+        stats["stills"] += 1
+
     # 5) Assemble. Event items sorted CHRONOLOGICALLY by capture time (stable sort keeps
     #    same-timestamp items in insertion order). Resources: formats, assets, media.
     event_items.sort(key=lambda t: t[0])
     event_xml = [x for _, x in event_items]
     res = ([v[1] for v in formats.values()]
+           + [v[1] for v in still_formats.values()]
            + [v[1] for v in assets.values()]
+           + still_asset_xml
            + media_xml)
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE fcpxml>\n'
@@ -483,6 +526,8 @@ def main(argv=None):
                     help="export only the multicam groups (omit ungrouped single-camera clips)")
     ap.add_argument("--no-timestamp-prefix", action="store_true",
                     help="don't prefix clip names with the capture timestamp (order stays chronological)")
+    ap.add_argument("--stills", action="append",
+                    help="folder of still images to include as a 'Stills' collection (repeatable)")
     args = ap.parse_args(argv)
 
     if not args.db.exists():
@@ -525,9 +570,25 @@ def main(argv=None):
                               "duration_sec": row.get("duration_sec"),
                               "corrected_timestamp": row.get("corrected_timestamp")})
 
+    stills = []
+    for folder in (args.stills or []):
+        fp = Path(folder)
+        if not fp.exists():
+            print(f"  ⚠ stills folder not found: {folder}")
+            continue
+        for p in sorted(fp.rglob("*")):
+            if p.is_file() and p.suffix.lower() in IMAGE_EXT and not p.name.startswith("._"):
+                try:
+                    mt = datetime.fromtimestamp(p.stat().st_mtime, tz=timezone.utc).isoformat()
+                except Exception:
+                    mt = None
+                stills.append({"original": str(p), "mtime": mt,
+                               "camera": "iPhone" if p.name.upper().startswith("IMG_") else None})
+
     xml, stats = build_fcpxml(event_name, groups, media_index, seq_fps=seq_fps,
                               media_mode=args.media, ungrouped=ungrouped,
-                              timestamp_names=not args.no_timestamp_prefix, run_id=args.run)
+                              timestamp_names=not args.no_timestamp_prefix, run_id=args.run,
+                              stills=stills)
 
     out = args.out or Path(f"{event_name}_multicam.fcpxml")
     Path(out).write_text(xml, encoding="utf-8")
@@ -536,6 +597,8 @@ def main(argv=None):
           f"{stats['clips']} clip placement(s) · {stats['assets']} asset(s)")
     if stats.get("ungrouped"):
         print(f"  + {stats['ungrouped']} ungrouped single-camera clip(s) in the Event")
+    if stats.get("stills"):
+        print(f"  + {stats['stills']} still image(s) in a 'Stills' collection")
     if stats["fallback"]:
         print(f"  ⚠ {stats['fallback']} clip(s) used registry metadata (ffprobe unavailable/offline) "
               f"— fps assumed; verify timing in FCP.")

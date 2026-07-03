@@ -38,6 +38,8 @@ Options:
 --event NAME     override the Event name (default: shoot folder name)
 --groups-only    export only the multicam groups (omit ungrouped single-camera clips)
 --no-timestamp-prefix   keep clean clip names (no capture-time prefix; order stays chronological)
+--stills FOLDER         include a folder of still images (iPhone photos, screenshots) as a 'Stills'
+                        Keyword Collection — image assets, browser-only, never auto-placed (repeatable)
 ```
 By default the Event holds **both** the multicam clips (the grouped moments) and the ungrouped
 single-camera clips, so the full shoot is editable in FCP. The ungrouped list comes from the run's
