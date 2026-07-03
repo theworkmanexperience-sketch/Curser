@@ -80,7 +80,10 @@ MEDIA_EXTS = {
     "lrv", "thm", "srt", "wav", "jpg", "jpeg", "heic", "png", "dng", "cr3",
 }
 VIDEO_EXTS = {"mp4", "mov", "m4v", "avi", "mxf", "mkv", "insv", "braw"}
-CARD_MARKERS = ("DCIM",)          # a folder that marks a removable camera card
+# Root-level folders that mark an actual camera card. A general hard drive full of
+# loose videos has NONE of these at its root — which is how we avoid mis-detecting
+# an archive/backup drive (e.g. a 1 TB FreeAgent) as a "card".
+CARD_MARKERS = ("DCIM", "PRIVATE", "CLIPS", "XDROOT", "PANA", "MP_ROOT", "AVF_INFO")
 # Volumes we never treat as camera cards.
 SYSTEM_VOLUMES = {"Macintosh HD", "Macintosh HD - Data", "com.apple.TimeMachine.localsnapshots"}
 
@@ -150,16 +153,27 @@ def scan_media(path, exts=None):
     return files, total, vids
 
 
-def is_camera_card(path):
-    """A mount that has a DCIM folder, or contains media files, looks like a card."""
+def is_camera_card(path, patterns=None):
+    """True only if the mount has a recognizable card STRUCTURE at its root — a
+    DCIM/PRIVATE/CLIPS/… folder, or a top-level folder matching a known camera
+    pattern (e.g. 'DJI ACTION 6', 'Insta360 X5').
+
+    Deliberately does NOT treat 'has some video files' as a card: a general archive
+    or backup drive scatters videos in arbitrary folders and would be a false
+    positive (the FreeAgent-GoFlex case). A real card always has the structure."""
     root = Path(path)
     if not root.is_dir():
         return False
-    for m in CARD_MARKERS:
-        if (root / m).is_dir():
-            return True
-    _, _, vids = scan_media(root, MEDIA_EXTS)
-    return vids > 0
+    try:
+        dirs = {e.name for e in root.iterdir() if e.is_dir()}
+    except OSError:
+        return False
+    upper = {d.upper() for d in dirs}
+    if upper & {m.upper() for m in CARD_MARKERS}:
+        return True
+    # a hand-organized per-camera folder at the root also counts
+    subs = [p.lower() for p, _ in (patterns or load_camera_patterns())]
+    return any(sub in d.lower() for d in dirs for sub in subs)
 
 
 # A removable camera card tops out around 1-2 TB; anything larger is a fixed/archive
@@ -196,7 +210,7 @@ def detect_cards(volumes="/Volumes", patterns=None, max_card_bytes=None, capacit
             cap = capacity_fn(mount)                       # cheap — before any file walk
             if cap is not None and cap > max_card_bytes:
                 continue                                   # fixed/archive drive, not a card
-            if not is_camera_card(mount):
+            if not is_camera_card(mount, patterns):        # require a real card structure
                 continue
         except OSError:
             continue

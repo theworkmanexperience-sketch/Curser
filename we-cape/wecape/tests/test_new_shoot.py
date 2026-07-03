@@ -52,6 +52,34 @@ def test_scan_media_counts_and_skips_cruft():
         assert vids == 2 and total == 30 and len(files) == 2
 
 
+def test_loose_videos_without_structure_is_not_a_card():
+    """The FreeAgent-GoFlex case: a drive full of scattered videos but NO card
+    structure at root must NOT be treated as a card."""
+    with tempfile.TemporaryDirectory() as t:
+        d = Path(t) / "FreeAgent GoFlex Drive"
+        (d / "MOVIES").mkdir(parents=True)
+        (d / "MOVIES" / "IMG_0001.MOV").write_bytes(b"v" * 10)   # video, but no DCIM
+        assert not ns.is_camera_card(d)
+
+
+def test_dcim_or_camera_folder_counts_as_card():
+    with tempfile.TemporaryDirectory() as t:
+        a = Path(t) / "A"; (a / "DCIM").mkdir(parents=True)
+        b = Path(t) / "B"; (b / "DJI ACTION 6").mkdir(parents=True)
+        assert ns.is_camera_card(a) and ns.is_camera_card(b)
+
+
+def test_detect_ignores_loose_video_drive():
+    with tempfile.TemporaryDirectory() as t:
+        vols = Path(t)
+        real = vols / "CARD"; (real / "DCIM").mkdir(parents=True)
+        (real / "DCIM" / "DJI_0001.MP4").write_bytes(b"v" * 10)
+        junk = vols / "FreeAgent"; (junk / "stuff").mkdir(parents=True)
+        (junk / "stuff" / "MOV_1.MOV").write_bytes(b"v" * 10)      # loose videos, no DCIM
+        names = [Path(c["mount"]).name for c in ns.detect_cards(str(vols))]
+        assert names == ["CARD"]
+
+
 def test_detect_skips_oversized_volumes():
     """A 10 TB archive drive must be skipped WITHOUT being walked — only real cards."""
     with tempfile.TemporaryDirectory() as t:
