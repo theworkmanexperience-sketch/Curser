@@ -109,7 +109,7 @@ becomes relevant — **but only if remote access exists.**
 |---|---------|-----------|
 | M1 | **Encrypt external drives** that hold output/registry-adjacent data or that ever leave the building (APFS encrypted volume). Trade-off: transcode perf + unlock friction — see D2. | T4 |
 | M2 | **`annotations.db` 3-2-1, verified** — ≥2 local + 1 offsite, with a tested restore. It is the one irreplaceable asset. | T1 |
-| M3 | **Credential inventory + rotation plan** — one page: every token/cert, where it lives, how to rotate. | T2 |
+| M3 | **Credential inventory + rotation plan** — ✅ DONE 2026-07-03: `CREDENTIAL_INVENTORY.md` (locations + rotation only, no secret values). | T2 |
 | M4 | **Encrypt the offsite copy** (rclone *crypt* remote) so `annotations.db`/registry are ciphertext in Google Drive. | T4, D4 |
 
 ### 3.3 Longer term (J3 / cloud horizon)
