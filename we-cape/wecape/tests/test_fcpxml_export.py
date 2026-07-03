@@ -380,6 +380,13 @@ def test_still_format_has_no_frameduration():
             assert f.get("frameDuration") is None            # stills carry no frameDuration
 
 
+def test_still_capture_time_prefers_filename_source_moment():
+    # A video screenshot's name carries the SOURCE clip's moment (3/14 09:30:40); that
+    # beats the grab date (3/22, in the trailing timestamp / EXIF / mtime).
+    name = "/x/VID_20260314_093040_00_007_2026-03-22_14-25-17_screenshot.jpg"
+    assert fx._still_capture_time(Path(name)).startswith("2026-03-14T09:30:40")
+
+
 # ── robustness ──────────────────────────────────────────────────────────────
 def test_fallback_to_registry_metadata_when_probe_fails():
     xml, stats = fx.build_fcpxml("S", make_groups(), make_index(),

@@ -220,12 +220,19 @@ def _pfx(display, base):
 
 
 def _still_capture_time(path):
-    """True capture time for a still image (ISO) — the EXIF 'Content created' date, so
-    photos sort by when they were SHOT, not saved. Order of trust: macOS Spotlight
-    content-created (= EXIF DateTimeOriginal) -> filename date -> file mtime -> None.
-    (Spotlight is macOS-only; elsewhere it falls through to filename/mtime.)"""
+    """True 'moment depicted' time for a still (ISO), so it sorts with the shoot.
+    Order of trust:
+      1. FILENAME-embedded source time — a video screenshot 'VID_20260314_093040…' carries
+         its source clip's moment (the leading timestamp), which beats the grab date.
+      2. EXIF content-created (macOS Spotlight) — for iPhone photos with no filename date,
+         this is the true capture time (Finder's 'Content created').
+      3. file mtime — last resort.
+    (Spotlight is macOS-only; elsewhere it just uses filename/mtime.)"""
     p = Path(path)
-    try:
+    dt = _parse_name_dt(p.name)                 # 1) leading source/camera timestamp in the name
+    if dt:
+        return dt.isoformat()
+    try:                                        # 2) EXIF content-created via Spotlight
         r = subprocess.run(["mdls", "-name", "kMDItemContentCreationDate", "-raw", str(p)],
                            capture_output=True, text=True, timeout=10)
         v = (r.stdout or "").strip()
@@ -237,10 +244,7 @@ def _still_capture_time(path):
                     pass
     except Exception:
         pass
-    dt = _parse_name_dt(p.name)
-    if dt:
-        return dt.isoformat()
-    try:
+    try:                                        # 3) file mtime
         return datetime.fromtimestamp(p.stat().st_mtime, tz=timezone.utc).isoformat()
     except Exception:
         return None
