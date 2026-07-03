@@ -162,10 +162,29 @@ def is_camera_card(path):
     return vids > 0
 
 
-def detect_cards(volumes="/Volumes", patterns=None):
+# A removable camera card tops out around 1-2 TB; anything larger is a fixed/archive
+# drive (10TB, WE_CAPE_OUTPUT, …) that we must NOT walk during detection — doing so
+# would grind through millions of files. Overridable via detect_cards(max_card_bytes=).
+MAX_CARD_BYTES = int(2.5 * 1024 ** 4)          # ~2.5 TB
+
+
+def _volume_capacity(mount):
+    try:
+        return shutil.disk_usage(str(mount)).total
+    except OSError:
+        return None
+
+
+def detect_cards(volumes="/Volumes", patterns=None, max_card_bytes=None, capacity_fn=None):
     """Scan mounts and return candidate cards with a GUESSED camera + confidence.
-    The result is a proposal — the caller confirms/overrides before any copy."""
+    The result is a proposal — the caller confirms/overrides before any copy.
+
+    Volumes larger than `max_card_bytes` (default ~2.5 TB) are skipped WITHOUT being
+    walked — they're archive/output drives, not cards, and walking a 9 TB drive would
+    hang detection. `capacity_fn` is injectable for tests."""
     patterns = patterns or load_camera_patterns()
+    max_card_bytes = MAX_CARD_BYTES if max_card_bytes is None else max_card_bytes
+    capacity_fn = capacity_fn or _volume_capacity
     vroot = Path(volumes)
     out = []
     if not vroot.is_dir():
@@ -174,6 +193,9 @@ def detect_cards(volumes="/Volumes", patterns=None):
         try:
             if mount.name in SYSTEM_VOLUMES or not mount.is_dir():
                 continue
+            cap = capacity_fn(mount)                       # cheap — before any file walk
+            if cap is not None and cap > max_card_bytes:
+                continue                                   # fixed/archive drive, not a card
             if not is_camera_card(mount):
                 continue
         except OSError:
@@ -534,6 +556,8 @@ def _cli(argv=None):
     sub = ap.add_subparsers(dest="cmd")
 
     ap.add_argument("--volumes", default="/Volumes", help="where to look for cards (default /Volumes)")
+    ap.add_argument("--max-card-tb", type=float, default=None,
+                    help="skip volumes larger than this many TB when detecting (default ~2.5)")
 
     sub.add_parser("detect", help="list detected camera cards + guessed cameras")
 
@@ -556,8 +580,9 @@ def _cli(argv=None):
         p.add_argument("--no-proxy", action="store_true", help="skip proxy transcode in CAPTURE")
 
     args = ap.parse_args(argv)
+    mcb = int(args.max_card_tb * 1024 ** 4) if args.max_card_tb else None
     if args.cmd == "detect" or args.cmd is None:
-        _print_cards(detect_cards(args.volumes))
+        _print_cards(detect_cards(args.volumes, max_card_bytes=mcb))
         return 0
 
     if args.cmd == "redact":
@@ -570,7 +595,7 @@ def _cli(argv=None):
         print(f"  ({SHARE_NOTE})")
         return 0
 
-    cards = detect_cards(args.volumes)
+    cards = detect_cards(args.volumes, max_card_bytes=mcb)
     overrides = dict(x.split("=", 1) for x in args.card if "=" in x)
     for c in cards:                                  # apply --card overrides
         if c["mount"] in overrides:

@@ -52,6 +52,20 @@ def test_scan_media_counts_and_skips_cruft():
         assert vids == 2 and total == 30 and len(files) == 2
 
 
+def test_detect_skips_oversized_volumes():
+    """A 10 TB archive drive must be skipped WITHOUT being walked — only real cards."""
+    with tempfile.TemporaryDirectory() as t:
+        vols = Path(t)
+        card = vols / "CARD"; (card / "DCIM").mkdir(parents=True)
+        (card / "DCIM" / "DJI_0001.MP4").write_bytes(b"v" * 10)
+        big = vols / "10TB"; (big / "DCIM").mkdir(parents=True)
+        (big / "DCIM" / "VID.MP4").write_bytes(b"v" * 10)
+        caps = {str(card): 256 * 1024 ** 3, str(big): 10 * 1024 ** 4}   # 256 GB card, 10 TB drive
+        cards = ns.detect_cards(str(vols), capacity_fn=lambda m: caps.get(str(m)))
+        names = [Path(c["mount"]).name for c in cards]
+        assert "CARD" in names and "10TB" not in names
+
+
 def test_detect_cards_finds_dcim_and_guesses():
     with tempfile.TemporaryDirectory() as t:
         vols = Path(t)
