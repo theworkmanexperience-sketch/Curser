@@ -163,8 +163,22 @@ scripts/                ← ops tooling (NOT the engine)
 ├── export_wizard.py + wecape_export.command  ← novice-friendly guided export (2026-07-01):
 │                          double-click the .command -> numbered shoot menu -> pick a number ->
 │                          auto-detects the source Photos folder for stills (or drag one in); warns if
-│                          the shoot's drive is offline -> runs fcpxml_export -> opens FCP. No run IDs/
-│                          paths to type. One-time: chmod +x the .command.
+│                          the shoot's drive is offline -> runs fcpxml_export -> opens FCP + a
+│                          'Next Steps in FCP' one-pager (scripts/next_steps_fcp.html) so the guidance
+│                          is on screen at handoff. No run IDs/paths to type. One-time: chmod +x .command.
+├── new_shoot.py        ← New Shoot orchestration CORE (2026-07-03). Phase 0 -> FCP front door:
+│                          headless, unit-tested spine that chains verified offload -> CAPTURE ->
+│                          FCPXML export -> open FCP behind ONE flow. Writes a shoot.yaml MANIFEST
+│                          (name/date/location/trusted_clock) that feeds keywords + Production Health;
+│                          pre-flight space check (+10% headroom) BEFORE any copy; per-step audit
+│                          JSONL (_new_shoot_session.jsonl, P3); idempotent (offload resumes by hash,
+│                          CAPTURE skips by SHA). Card detection (detect) GUESSES camera (high=name /
+│                          medium=filenames / low=you choose via --card MOUNT=CAMERA) — an unlabeled
+│                          card is NEVER silently offloaded. CLI: detect · plan (dry-run) · run. Every
+│                          step still runnable standalone (thin wrapper — not the only path). GUI skin
+│                          (PyWebView, license-clean; NOT PySimpleGUI which is now paid) deferred by
+│                          decision — logic stays framework-agnostic here. stdlib-only, zero-network,
+│                          read-only on cards. Docs: scripts/README_new_shoot.md
 ├── offload_cards.py    ← Verified card offload — the Hedge-style FRONT END (2026-06-30). Card ->
 │                          <dest>/<shoot>/<camera>/ per-camera folders (+ optional 2nd dest), every
 │                          copy SHA-256-verified vs source (mismatch = hard fail, not silent),

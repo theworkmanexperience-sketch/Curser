@@ -1,0 +1,69 @@
+# New Shoot — the Phase 0 → Final Cut front door
+
+`scripts/new_shoot.py` is the **headless orchestration core** behind the "New Shoot"
+wizard. It chains the tools you already have — **verified card offload → CAPTURE →
+FCPXML export → Final Cut Pro** — behind one guided flow, and records the shoot
+manifest (name / date / location / trusted-clock) as a sidecar that later feeds
+export keywords and the Production Health report.
+
+## Why a core, not a GUI (yet)
+
+A wizard is a skin. If orchestration logic lived in button callbacks it would weld
+the product to one UI framework and break the "thin wizard, tools stay independently
+runnable" rule. So the logic lives here as plain, unit-tested functions with **no GUI
+and no network**. A graphical skin (PyWebView is the planned choice — BSD-licensed,
+reuses the dashboard/cheat-sheet HTML) can sit on top later without touching any of it.
+
+> Note on GUI toolkits: **PySimpleGUI is no longer free** (paid commercial license
+> since 2024). PyWebView / Tkinter stay license-clean, which is why they're the path.
+
+## What it does, in order
+
+1. **Write the manifest** → `shoot.yaml` in the output folder (one intake, many consumers).
+2. **Pre-flight space** — checks each destination has room (+10% headroom) *before* any copy.
+3. **Verified offload** — each card → `<dest>/<shoot>/<camera>/…`, every copy SHA-256
+   checked, optional second destination (two copies before CAPTURE — Principle #1).
+4. **CAPTURE** the offloaded shoot folder (`python -m wecape … --proxy`).
+5. **Export FCPXML** for the new run.
+6. **Open Final Cut** on the import sheet + the Next-Steps guide.
+
+Every step writes a line to `_new_shoot_session.jsonl` in the output folder (audit
+trail, P3). The flow is **idempotent**: offload resumes by hash, CAPTURE skips by SHA —
+re-running a finished shoot is safe and fast.
+
+## Card → camera mapping is a guess you confirm
+
+`detect` scans `/Volumes` for cards (a `DCIM` folder or media files) and proposes a
+camera per card:
+
+- `✓ high`  — the card/volume name matches a per-body pattern (`DJI ACTION 6`, `Insta360 X5`).
+- `~ medium` — filenames match a known family (`DJI_*`, `IMG_*`, `*_00_*.insv`).
+- `? low`   — nothing matched; **you must choose** (`--card 'MOUNT=DJI ACTION 6'`).
+
+An unlabeled card is **never silently offloaded** — it's skipped and reported.
+
+## CLI (v1 front end)
+
+```bash
+# 1. See what's plugged in
+python3 scripts/new_shoot.py detect
+
+# 2. Preview the whole run — writes nothing
+python3 scripts/new_shoot.py plan \
+    --name "O-SIX_2026" --date 2026-03-14 --location "Clubhouse" \
+    --trusted-clock "DJI Osmo Action 6" \
+    --dest /Volumes/10TB --dest2 "/Volumes/Got My BackUP" \
+    --output /Volumes/WE_CAPE_OUTPUT/O-SIX_2026
+
+# 3. Run it (add --card MOUNT=CAMERA for any '?' cards; --no-proxy to skip transcode)
+python3 scripts/new_shoot.py run  … same flags …  --stills "/Volumes/…/Photos"
+```
+
+Each step is also runnable standalone (`offload_cards.py`, `python -m wecape`,
+`fcpxml_export.py`) — the wizard never becomes the only path.
+
+## Out of scope for v1 (intentionally)
+
+In-wizard video preview/thumbnails, any editing, cloud upload, multi-shoot batch queue.
+
+stdlib only · zero network · read-only on camera cards.
