@@ -276,6 +276,12 @@ def _keyword(values, duration):
     return f'<keyword start="0s" duration="{duration}" value="{_esc(", ".join(vals))}"/>'
 
 
+def _role(camera):
+    """FCP video Role per camera (attribute on asset-clip). FCP auto-creates the role,
+    so you can organize/filter/color the timeline by camera via the Timeline Index."""
+    return f' videoRole="{_esc(camera)}"' if camera else ""
+
+
 # ── build ────────────────────────────────────────────────────────────────────
 def build_fcpxml(event_name, groups, media_index, probe=probe_media,
                  seq_fps=None, media_mode="both", ungrouped=None, timestamp_names=True,
@@ -432,7 +438,7 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
             angles.append(
                 f'<mc-angle name="{_esc(label)}" angleID="A{i}">'
                 f'<asset-clip ref="{aid}" offset="{off}" name="{_esc(label)}" '
-                f'duration="{dur}" format="{fid}">{note}</asset-clip></mc-angle>')
+                f'duration="{dur}" format="{fid}"{_role(c["camera"])}>{note}</asset-clip></mc-angle>')
 
         mid = _rid()
         seq_fmt = format_id(gclips[0]["fmt"]["width"], gclips[0]["fmt"]["height"], seq_num, seq_den)
@@ -492,7 +498,7 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
                        f'Shoot: {sdisp[:10]}' if sdisp else ""], dur)
         event_items.append(
             (skey, f'<asset-clip ref="{aid}" name="{_esc(uname)}" '
-                   f'duration="{dur}" format="{fid}">{note}{kw}</asset-clip>'))
+                   f'duration="{dur}" format="{fid}"{_role(u.get("camera"))}>{note}{kw}</asset-clip>'))
         stats["ungrouped"] += 1
 
     # 4c) Still images -> image assets in a 'Stills' Keyword Collection (browser only,
@@ -522,7 +528,7 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
         kw = _keyword(kwv, STILL_DURATION)
         event_items.append(
             (skey, f'<asset-clip ref="{aid}" name="{_esc(name)}" duration="{STILL_DURATION}" '
-                   f'format="{sfid}">{note}{kw}</asset-clip>'))
+                   f'format="{sfid}"{_role("Stills")}>{note}{kw}</asset-clip>'))
         stats["stills"] += 1
 
     # 5) Assemble. Event items sorted CHRONOLOGICALLY by capture time (stable sort keeps

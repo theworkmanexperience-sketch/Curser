@@ -350,6 +350,20 @@ def test_keyword_is_after_note_and_well_formed():
         assert all(k.get("value") for k in ac.findall("keyword"))   # value required
 
 
+def test_clips_carry_camera_video_roles():
+    # videoRole=<camera> on angle + single clips (FCP auto-creates the role); stills -> 'Stills'.
+    xml, _ = fx.build_fcpxml("O-SIX", _groups_ts(), make_index(), probe=fake_probe(),
+                             ungrouped=UNGROUPED_TS,
+                             stills=[{"original": "/p/x.jpg", "ts": "2026-03-14T09:00:00", "camera": None}])
+    root = _root(xml)
+    angle_roles = {a.get("videoRole") for a in root.findall(".//mc-angle/asset-clip")}
+    assert {"DJI Osmo Action 6", "DJI Osmo Action 5", "Insta360 X5"} & angle_roles
+    ev = root.find("library").find("event")
+    ev_roles = {c.get("videoRole") for c in ev.findall("asset-clip")}
+    assert "Insta360 X5" in ev_roles and "DJI Osmo Action 6" in ev_roles   # single clips
+    assert "Stills" in ev_roles                                            # stills
+
+
 # ── still images ────────────────────────────────────────────────────────────
 STILLS = [
     {"original": "/photos/IMG_0001.HEIC", "ts": "2026-03-14T12:13:00", "camera": "iPhone"},

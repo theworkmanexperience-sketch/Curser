@@ -143,7 +143,8 @@ scripts/                ← ops tooling (NOT the engine)
 │                          Collections (per-camera / per-date sidebar grouping, no scrolling). Pipeline
 │                          now persists content.corrected_timestamp for accurate export times.
 │                          Angles labeled '<camera> - NN' (one per clip, chronological); multicam clips
-│                          'Multicam NN'; every clip carries a Notes field (cam/shot/file/run/shoot).
+│                          'Multicam NN'; every clip carries a Notes field (cam/shot/file/run/shoot)
+│                          + videoRole=<camera> (FCP Roles: organize/filter/color the timeline by camera).
 │                          v1 = TIMESTAMP alignment (±s), NOT waveform —
 │                          FCP 'Synchronize Clips' (or J3) locks audio (CAPTURE groups / FCP syncs).
 │                          Assets carry original + proxy media-reps (FCP proxy workflow); proxies
@@ -157,6 +158,11 @@ scripts/                ← ops tooling (NOT the engine)
 │                          / newest registry row), passes extra args to wecape. STOPS at the one
 │                          click FCP needs — never UI-scripts the import (no API; editor's call).
 │                          Docs: scripts/README_fcpxml.md + SOP_fcpxml_import.md
+├── export_wizard.py + wecape_export.command  ← novice-friendly guided export (2026-07-01):
+│                          double-click the .command -> numbered shoot menu -> pick a number ->
+│                          auto-detects the source Photos folder for stills (or drag one in); warns if
+│                          the shoot's drive is offline -> runs fcpxml_export -> opens FCP. No run IDs/
+│                          paths to type. One-time: chmod +x the .command.
 ├── offload_cards.py    ← Verified card offload — the Hedge-style FRONT END (2026-06-30). Card ->
 │                          <dest>/<shoot>/<camera>/ per-camera folders (+ optional 2nd dest), every
 │                          copy SHA-256-verified vs source (mismatch = hard fail, not silent),
