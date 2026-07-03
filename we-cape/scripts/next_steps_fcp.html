@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Next Steps in Final Cut Pro</title>
+<style>
+  :root{ --ink:#1d2330; --muted:#5b6472; --line:#e4e8ef; --brand:#2f6df6; --good:#1f9d55; --warn:#b7791f; --bg:#f6f8fb; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }
+  .wrap{ max-width:760px; margin:0 auto; padding:32px 22px 60px; }
+  header h1{ font-size:24px; margin:0 0 4px; }
+  header p{ color:var(--muted); margin:0 0 8px; }
+  .lede{ background:#fff; border:1px solid var(--line); border-left:4px solid var(--brand);
+         border-radius:10px; padding:14px 16px; margin:14px 0 26px; color:var(--muted); }
+  .lede b{ color:var(--ink); }
+  .step{ display:flex; gap:16px; background:#fff; border:1px solid var(--line); border-radius:12px;
+         padding:16px 18px; margin-bottom:14px; }
+  .num{ flex:0 0 34px; height:34px; border-radius:50%; background:var(--brand); color:#fff;
+        font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .step h3{ margin:2px 0 6px; font-size:17px; }
+  .step p{ margin:0; color:#333; }
+  .step p + p{ margin-top:6px; }
+  kbd{ background:#eef1f6; border:1px solid #d6dbe4; border-bottom-width:2px; border-radius:5px;
+       padding:1px 6px; font:13px ui-monospace,Menlo,monospace; color:#333; white-space:nowrap; }
+  .tip{ color:var(--muted); font-size:14px; }
+  .box{ background:#fff; border:1px solid var(--line); border-left:4px solid var(--warn);
+        border-radius:10px; padding:14px 16px; margin:22px 0 0; }
+  .box h3{ margin:0 0 8px; font-size:15px; color:var(--warn); }
+  .box p{ margin:6px 0; font-size:14px; }
+  footer{ color:var(--muted); font-size:13px; margin-top:26px; text-align:center; }
+  b.good{ color:var(--good); }
+</style></head>
+<body><div class="wrap">
+
+<header>
+  <h1>Next Steps in Final Cut Pro</h1>
+  <p>W.E. C.A.P.E. — your shoot is exported and importing. Follow these in order.</p>
+</header>
+
+<div class="lede">Everything is already <b>time-stamped, grouped by camera, and set to the right format</b>.
+You just point Final Cut at it — the steps below take about two minutes, once.</div>
+
+<div class="step"><div class="num">1</div><div>
+  <h3>Finish the import</h3>
+  <p>When Final Cut asks, click <b>Replace</b> (updates the media) and <b>Keep as Standard (SDR)</b>.
+     Your shoot shows up as an <b>Event</b> in the left sidebar.</p>
+</div></div>
+
+<div class="step"><div class="num">2</div><div>
+  <h3>Put everything in shooting order — do this once</h3>
+  <p>In the browser (middle panel), switch to <b>List view</b> (the list icon, top-left), then click the
+     <b>“Name”</b> column heading.</p>
+  <p class="tip">Every clip and photo is named with the time it was shot, so Name order = <b>first taken → last taken</b>,
+     across all cameras. Final Cut remembers this — you only set it once.</p>
+</div></div>
+
+<div class="step"><div class="num">3</div><div>
+  <h3>Open your ready-made timeline</h3>
+  <p>Under the Event, double-click the project named <b>“… — Edit”</b>. It's already the right size and
+     frame rate — <b class="good">no setup questions</b>. Just start dropping clips onto it.</p>
+</div></div>
+
+<div class="step"><div class="num">4</div><div>
+  <h3>Find each camera instantly</h3>
+  <p>In the sidebar under the Event, you'll see collections like <kbd>Camera: DJI Osmo Action 6</kbd>,
+     <kbd>Camera: Insta360 X5</kbd>, and <kbd>Stills</kbd> (your photos &amp; screenshots).</p>
+  <p>Click one → only that camera's clips, already in order. Select them and drag onto the timeline.
+     <span class="tip">No scrolling through everything.</span></p>
+</div></div>
+
+<div class="step"><div class="num">5</div><div>
+  <h3>Use the synced moments (Multicam)</h3>
+  <p>Clips named <b>“Multicam 01 / 02 …”</b> are moments where two or more cameras were rolling together,
+     bundled as one. Double-click one → the <b>Angle Editor</b> → click between cameras to cut live.</p>
+  <p class="tip">Aligned to within a second or two by time. To lock it to the frame, select the clips and use
+     <b>Clip ▸ Synchronize Clips</b> (it fine-tunes with the audio).</p>
+</div></div>
+
+<div class="step"><div class="num">6</div><div>
+  <h3>It stays fast (proxies)</h3>
+  <p>You're editing on lightweight <b>proxy</b> copies, so it's smooth even if the big footage drive isn't
+     plugged in. For your <b>final export</b>, connect the originals drive and switch the Viewer's
+     <b>View ▸ Optimized/Original</b>.</p>
+</div></div>
+
+<div class="step"><div class="num">7</div><div>
+  <h3>Color-code by camera (optional)</h3>
+  <p>Each clip is tagged with its camera as a <b>Role</b>. Open <b>Timeline Index ▸ Roles</b> to color,
+     filter, or focus one camera at a time while you edit.</p>
+</div></div>
+
+<div class="box">
+  <h3>If a clip looks black or says “Missing”</h3>
+  <p>The media drive just isn't connected. Plug in your footage drives (the <b>10TB</b> originals and
+     <b>WE_CAPE_OUTPUT</b> proxies), then in Final Cut choose <b>File ▸ Relink Files</b> and point it at the folder.</p>
+  <p>A clip or photo sitting in the wrong spot on the timeline usually means that camera's clock was set wrong —
+     the clip's <b>name shows the true time</b> W.E. C.A.P.E. recovered, so sorting by Name still lines it up.</p>
+</div>
+
+<footer>W.E. C.A.P.E. — Capture every moment. Miss nothing.</footer>
+
+</div></body></html>

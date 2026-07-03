@@ -114,6 +114,11 @@ def main():
         print("  ✓ Opening Final Cut Pro — confirm the import sheet (Replace · Keep SDR).")
     else:
         print(f"  In Final Cut Pro: File ▸ Import ▸ XML…  →  {out}")
+
+    cheat = REPO / "scripts" / "next_steps_fcp.html"     # the novice one-pager
+    if cheat.exists() and shutil.which("open"):
+        subprocess.run(["open", str(cheat)])
+        print("  ✓ A 'Next Steps in Final Cut' guide opened in your browser — just follow it.")
     print("\n  ── To see everything FIRST-shot → LAST-shot ─────────────────")
     print("     1. In the FCP browser, switch to List view (the list icon, top-left).")
     print("     2. Click the 'Name' column header  (or  Sort By ▸ Name ▸ Ascending).")
