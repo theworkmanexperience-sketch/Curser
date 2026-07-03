@@ -219,6 +219,33 @@ def _pfx(display, base):
     return f"{display} · {base}" if display else base
 
 
+def _still_capture_time(path):
+    """True capture time for a still image (ISO) — the EXIF 'Content created' date, so
+    photos sort by when they were SHOT, not saved. Order of trust: macOS Spotlight
+    content-created (= EXIF DateTimeOriginal) -> filename date -> file mtime -> None.
+    (Spotlight is macOS-only; elsewhere it falls through to filename/mtime.)"""
+    p = Path(path)
+    try:
+        r = subprocess.run(["mdls", "-name", "kMDItemContentCreationDate", "-raw", str(p)],
+                           capture_output=True, text=True, timeout=10)
+        v = (r.stdout or "").strip()
+        if v and v != "(null)":
+            for fmt in ("%Y-%m-%d %H:%M:%S %z", "%Y-%m-%d %H:%M:%S +0000"):
+                try:
+                    return datetime.strptime(v, fmt).astimezone(timezone.utc).isoformat()
+                except Exception:
+                    pass
+    except Exception:
+        pass
+    dt = _parse_name_dt(p.name)
+    if dt:
+        return dt.isoformat()
+    try:
+        return datetime.fromtimestamp(p.stat().st_mtime, tz=timezone.utc).isoformat()
+    except Exception:
+        return None
+
+
 def _note(filename, camera, ts_disp, run_id, shoot):
     """FCP Notes field (visible + searchable in the Info inspector) with clip provenance."""
     parts = []
@@ -482,7 +509,7 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
             f'<asset id="{aid}" name="{_esc(stem)}" start="0s" duration="0s" '
             f'hasVideo="1" videoSources="1" hasAudio="0" format="{sfid}">'
             f'<media-rep kind="original-media" src="{_esc(_uri(original))}"/></asset>')
-        skey, sdisp = _stamp(iso=s.get("mtime"), filename=Path(original).name)
+        skey, sdisp = _stamp(iso=s.get("ts"), filename=Path(original).name)
         name = _pfx(sdisp, stem) if timestamp_names else stem
         note = _note(Path(original).name, s.get("camera"), sdisp, run_id, event_name)
         kwv = (["Stills"]
@@ -578,11 +605,7 @@ def main(argv=None):
             continue
         for p in sorted(fp.rglob("*")):
             if p.is_file() and p.suffix.lower() in IMAGE_EXT and not p.name.startswith("._"):
-                try:
-                    mt = datetime.fromtimestamp(p.stat().st_mtime, tz=timezone.utc).isoformat()
-                except Exception:
-                    mt = None
-                stills.append({"original": str(p), "mtime": mt,
+                stills.append({"original": str(p), "ts": _still_capture_time(p),
                                "camera": "iPhone" if p.name.upper().startswith("IMG_") else None})
 
     xml, stats = build_fcpxml(event_name, groups, media_index, seq_fps=seq_fps,

@@ -352,8 +352,8 @@ def test_keyword_is_after_note_and_well_formed():
 
 # ── still images ────────────────────────────────────────────────────────────
 STILLS = [
-    {"original": "/photos/IMG_0001.HEIC", "mtime": "2026-03-22T10:00:00", "camera": "iPhone"},
-    {"original": "/photos/screenshot.png", "mtime": "2026-03-14T09:00:00", "camera": None},
+    {"original": "/photos/IMG_0001.HEIC", "ts": "2026-03-14T12:13:00", "camera": "iPhone"},
+    {"original": "/photos/screenshot.png", "ts": "2026-03-14T09:00:00", "camera": None},
 ]
 
 
