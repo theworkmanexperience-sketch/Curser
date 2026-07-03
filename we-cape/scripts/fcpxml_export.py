@@ -285,7 +285,7 @@ def _role(camera):
 # ── build ────────────────────────────────────────────────────────────────────
 def build_fcpxml(event_name, groups, media_index, probe=probe_media,
                  seq_fps=None, media_mode="both", ungrouped=None, timestamp_names=True,
-                 run_id="", stills=None):
+                 run_id="", stills=None, make_project=True):
     """Return (xml_str, stats). Pure-ish: `probe` is injectable for tests.
 
     `ungrouped` (optional) is a list of dicts {original, proxy, sha, camera,
@@ -294,7 +294,7 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
     in FCP, not just the multicam moments.
     """
     stats = {"groups": 0, "angles": 0, "clips": 0, "assets": 0,
-             "fallback": 0, "missing": 0, "ungrouped": 0, "stills": 0}
+             "fallback": 0, "missing": 0, "ungrouped": 0, "stills": 0, "project": 0}
 
     # 1) Resolve every clip across all groups.
     clips = []          # {group_id, sha, camera, delta, original, proxy, fmt}
@@ -535,6 +535,25 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
     #    same-timestamp items in insertion order). Resources: formats, assets, media.
     event_items.sort(key=lambda t: t[0])
     event_xml = [x for _, x in event_items]
+
+    # Format-matched starter Project: an empty timeline at the DOMINANT footage
+    # resolution + sequence fps, so the editor lands ready-to-drag — no "New Project /
+    # settings?" prompt, no format-mismatch warning. (format_id runs before `res` so
+    # the sequence's format is included in <resources>.)
+    project_xml = ""
+    if make_project and clips:
+        rc = {}
+        for c in clips:
+            wh = (c["fmt"]["width"], c["fmt"]["height"])
+            rc[wh] = rc.get(wh, 0) + 1
+        pw, ph = max(rc, key=rc.get)
+        pfid = format_id(pw or 1920, ph or 1080, seq_num, seq_den)
+        project_xml = (
+            f'\n      <project name="{_esc(event_name)} — Edit">'
+            f'<sequence format="{pfid}" duration="0s" tcStart="0s" tcFormat="NDF" '
+            f'audioLayout="stereo" audioRate="48k"><spine/></sequence></project>')
+        stats["project"] = 1
+
     res = ([v[1] for v in formats.values()]
            + [v[1] for v in still_formats.values()]
            + [v[1] for v in assets.values()]
@@ -546,6 +565,7 @@ def build_fcpxml(event_name, groups, media_index, probe=probe_media,
         "  <resources>\n    " + "\n    ".join(res) + "\n  </resources>\n"
         "  <library>\n"
         f'    <event name="{_esc(event_name)}">\n      ' + "\n      ".join(event_xml) +
+        project_xml +
         "\n    </event>\n  </library>\n</fcpxml>\n")
     return xml, stats
 
@@ -565,6 +585,8 @@ def main(argv=None):
                     help="don't prefix clip names with the capture timestamp (order stays chronological)")
     ap.add_argument("--stills", action="append",
                     help="folder of still images to include as a 'Stills' collection (repeatable)")
+    ap.add_argument("--no-project", action="store_true",
+                    help="don't add a format-matched starter Project (timeline) to the event")
     args = ap.parse_args(argv)
 
     if not args.db.exists():
@@ -621,7 +643,7 @@ def main(argv=None):
     xml, stats = build_fcpxml(event_name, groups, media_index, seq_fps=seq_fps,
                               media_mode=args.media, ungrouped=ungrouped,
                               timestamp_names=not args.no_timestamp_prefix, run_id=args.run,
-                              stills=stills)
+                              stills=stills, make_project=not args.no_project)
 
     out = args.out or Path(f"{event_name}_multicam.fcpxml")
     Path(out).write_text(xml, encoding="utf-8")
@@ -632,6 +654,8 @@ def main(argv=None):
         print(f"  + {stats['ungrouped']} ungrouped single-camera clip(s) in the Event")
     if stats.get("stills"):
         print(f"  + {stats['stills']} still image(s) in a 'Stills' collection")
+    if stats.get("project"):
+        print("  + a format-matched starter Project (timeline) — ready to edit, no setup prompt")
     if stats["fallback"]:
         print(f"  ⚠ {stats['fallback']} clip(s) used registry metadata (ffprobe unavailable/offline) "
               f"— fps assumed; verify timing in FCP.")

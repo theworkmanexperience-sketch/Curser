@@ -250,7 +250,7 @@ def _build_ts(timestamp_names=True):
 
 def test_event_items_sorted_chronologically():
     ev = _root(_build_ts()[0]).find("library").find("event")
-    names = [c.get("name") for c in list(ev)]     # mc-clips + asset-clips, document order
+    names = [c.get("name") for c in ev if c.tag in ("mc-clip", "asset-clip")]   # clips only
     assert names == sorted(names)                 # timestamp-prefixed -> lexical == chronological
     assert names[0].startswith("2026-03-14 06:00:00")    # earliest group first
     assert names[-1].startswith("2026-03-14 18:00:00")   # latest ungrouped last
@@ -258,7 +258,9 @@ def test_event_items_sorted_chronologically():
 
 def test_names_are_timestamp_prefixed():
     ev = _root(_build_ts()[0]).find("library").find("event")
-    for c in list(ev):
+    for c in ev:
+        if c.tag not in ("mc-clip", "asset-clip"):    # skip the starter <project>
+            continue
         assert re.match(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} · ", c.get("name")), c.get("name")
 
 
@@ -399,6 +401,28 @@ def test_still_capture_time_prefers_filename_source_moment():
     # beats the grab date (3/22, in the trailing timestamp / EXIF / mtime).
     name = "/x/VID_20260314_093040_00_007_2026-03-22_14-25-17_screenshot.jpg"
     assert fx._still_capture_time(Path(name)).startswith("2026-03-14T09:30:40")
+
+
+# ── starter Project (format-matched empty timeline) ─────────────────────────
+def test_starter_project_matches_dominant_format():
+    xml, stats = fx.build_fcpxml("O-SIX", _groups_ts(), make_index(), probe=fake_probe(),
+                                 ungrouped=UNGROUPED_TS)
+    minidom.parseString(xml)
+    root = _root(xml)
+    proj = root.find("library").find("event").find("project")
+    assert proj is not None and proj.get("name", "").endswith("Edit")
+    seq = proj.find("sequence")
+    assert seq is not None and seq.find("spine") is not None       # empty, ready-to-drag
+    fmt = {f.get("id"): f for f in root.findall(".//format")}.get(seq.get("format"))
+    assert fmt is not None and fmt.get("width") == "3840" and fmt.get("height") == "2160"
+    assert stats["project"] == 1
+
+
+def test_no_project_flag_omits_it():
+    xml, stats = fx.build_fcpxml("O", _groups_ts(), make_index(), probe=fake_probe(),
+                                 make_project=False)
+    assert _root(xml).find("library").find("event").find("project") is None
+    assert stats["project"] == 0
 
 
 # ── robustness ──────────────────────────────────────────────────────────────
