@@ -147,6 +147,33 @@ def test_offload_failure_aborts_before_capture():
         assert res["errors"] and not calls["capture"]             # never proceeds on a bad copy
 
 
+# ── D1: paths hashed on the way out, names kept, local originals untouched ────
+def test_path_hash_matches_engine_style():
+    h = ns._path_hash("/Volumes/CARD/x.mp4")
+    assert h.startswith("sha256:") and len(h) == len("sha256:") + 64
+
+
+def test_redact_hashes_paths_but_keeps_names():
+    with tempfile.TemporaryDirectory() as t:
+        out = Path(t) / "out"
+        cards = [{"mount": "/Volumes/SECRET_LOCATION_CARD", "camera": "Insta360 X5", "bytes": 100}]
+        runners, _ = _fakes()
+        m = ns.ShootManifest(name="O-SIX", location="123 Private Rd")
+        ns.run_new_shoot(m, cards, t, out, runners=runners)          # writes shoot.yaml + session log
+
+        written = ns.redact_for_sharing(out)
+        shared_yaml = (out / "shoot.shared.yaml").read_text()
+        shared_log = (out / "_new_shoot_session.shared.jsonl").read_text()
+
+        assert "O-SIX" in shared_yaml and "123 Private Rd" in shared_yaml     # names kept
+        assert "SECRET_LOCATION_CARD" not in shared_yaml                       # path hashed away
+        assert "sha256:" in shared_yaml and ns.SHARE_NOTE in shared_yaml
+        assert "SECRET_LOCATION_CARD" not in shared_log and "sha256:" in shared_log
+        # local originals must remain full-path for troubleshooting
+        assert "SECRET_LOCATION_CARD" in (out / "shoot.yaml").read_text()
+        assert len(written) == 2
+
+
 def test_card_without_camera_label_is_skipped_not_guessed():
     with tempfile.TemporaryDirectory() as t:
         out = Path(t) / "out"

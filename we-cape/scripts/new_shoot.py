@@ -22,6 +22,7 @@ stdlib only · zero network · read-only on camera cards.
 """
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -278,6 +279,69 @@ def _unq(s):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# D1 (SECURITY_RISK_ANALYSIS) — paths readable LOCALLY, hashed on anything shared
+# ─────────────────────────────────────────────────────────────────────────────
+# Full paths stay in shoot.yaml / the session log for local troubleshooting, but
+# any copy that leaves the machine (offsite backup, a shared manifest) has its
+# path-like fields hashed with the SAME scheme the engine's audit uses
+# (wecape/capture/audit.py: 'sha256:' + sha256(str(path))). Names / date /
+# location stay readable because they're useful and low-risk.
+SHARE_NOTE = "Paths hashed for privacy; full paths available locally."
+_PATH_KEYS = {"source", "mount", "path", "paths", "original_path", "out",
+              "dest", "dest2", "output", "scaffold_path", "proxy_path"}
+
+
+def _path_hash(value):
+    return "sha256:" + hashlib.sha256(str(value).encode()).hexdigest()
+
+
+def redact_paths(obj):
+    """Recursively replace path-like string fields with their hash. Names are kept."""
+    if isinstance(obj, dict):
+        return {k: (_path_hash(v) if (k in _PATH_KEYS and isinstance(v, str) and v)
+                    else redact_paths(v)) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [redact_paths(x) for x in obj]
+    return obj
+
+
+def redact_for_sharing(out_dir):
+    """Write path-hashed *.shared.* copies of a shoot's manifest + session log,
+    for offsite backup or sharing. Leaves the local full-path originals untouched."""
+    out_dir = Path(out_dir)
+    written = []
+    man = out_dir / "shoot.yaml"
+    if man.exists():
+        d = read_manifest(man)
+        for c in d.get("cameras", []):
+            if c.get("source"):
+                c["source"] = _path_hash(c["source"])       # mount/path -> hash
+        note = (d.get("notes", "") + (" | " if d.get("notes") else "") + SHARE_NOTE).strip()
+        sm = ShootManifest(name=d.get("name", ""), date=d.get("date", ""),
+                           location=d.get("location", ""),
+                           trusted_clock=d.get("trusted_clock", "unknown"),
+                           cameras=d.get("cameras", []), notes=note,
+                           created=d.get("created", _now()))
+        p = out_dir / "shoot.shared.yaml"
+        p.write_text(sm.to_yaml())
+        written.append(p)
+    log = out_dir / "_new_shoot_session.jsonl"
+    if log.exists():
+        out_lines = [json.dumps({"_note": SHARE_NOTE})]
+        for raw in log.read_text().splitlines():
+            if not raw.strip():
+                continue
+            try:
+                out_lines.append(json.dumps(redact_paths(json.loads(raw))))
+            except Exception:
+                continue
+        p = out_dir / "_new_shoot_session.shared.jsonl"
+        p.write_text("\n".join(out_lines) + "\n")
+        written.append(p)
+    return written
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Audit trail (P3) — one JSONL line per step, travels with the shoot output
 # ─────────────────────────────────────────────────────────────────────────────
 def audit(out_dir, action, **fields):
@@ -448,6 +512,10 @@ def _cli(argv=None):
 
     sub.add_parser("detect", help="list detected camera cards + guessed cameras")
 
+    rp = sub.add_parser("redact", help="write path-hashed *.shared.* copies of a shoot's "
+                                       "manifest + session log (for offsite/sharing)")
+    rp.add_argument("--output", required=True, help="the shoot's output folder")
+
     for name in ("plan", "run"):
         p = sub.add_parser(name, help="preview (plan) or execute (run) a new shoot")
         p.add_argument("--name", required=True, help="shoot name (top folder)")
@@ -465,6 +533,16 @@ def _cli(argv=None):
     args = ap.parse_args(argv)
     if args.cmd == "detect" or args.cmd is None:
         _print_cards(detect_cards(args.volumes))
+        return 0
+
+    if args.cmd == "redact":
+        w = redact_for_sharing(args.output)
+        if not w:
+            print("  Nothing to redact (no shoot.yaml / session log in that folder).")
+            return 1
+        for p in w:
+            print(f"  ✓ wrote path-hashed copy: {p}")
+        print(f"  ({SHARE_NOTE})")
         return 0
 
     cards = detect_cards(args.volumes)

@@ -62,6 +62,21 @@ python3 scripts/new_shoot.py run  … same flags …  --stills "/Volumes/…/Pho
 Each step is also runnable standalone (`offload_cards.py`, `python -m wecape`,
 `fcpxml_export.py`) — the wizard never becomes the only path.
 
+## Privacy: paths hashed on the way out (SECURITY_RISK_ANALYSIS D1)
+
+`shoot.yaml` and the session log keep **full paths readable locally** for troubleshooting.
+Before anything leaves the machine (offsite backup, a shared manifest), run:
+
+```bash
+python3 scripts/new_shoot.py redact --output /Volumes/WE_CAPE_OUTPUT/O-SIX_2026
+```
+
+This writes `shoot.shared.yaml` + `_new_shoot_session.shared.jsonl` with every path-like
+field **hashed** (`sha256:` — the same scheme the engine's audit uses), while keeping
+shoot **name / date / location** readable, plus the note *"Paths hashed for privacy; full
+paths available locally."* The local originals are untouched. `.gitignore` also blocks
+committing manifests, session logs, and `*.db`.
+
 ## Out of scope for v1 (intentionally)
 
 In-wizard video preview/thumbnails, any editing, cloud upload, multi-shoot batch queue.

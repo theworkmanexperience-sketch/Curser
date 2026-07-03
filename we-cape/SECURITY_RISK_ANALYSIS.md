@@ -134,13 +134,25 @@ Each decision has a **recommended default**; record the choice + date so this st
   it, `_offload_manifest.json`, and `_session.jsonl` from any cloud/Drive sync**, and
   **hash the paths** in the session JSONL (Q5) to match the engine. Keep name/date/location
   plaintext *locally* — they're needed and stay on the machine.
-- **Decision:** ____________  **Date:** ______
+- **Decision: DONE (2026-07-03) — Option 1, refined.** Full paths stay readable *locally*
+  in `shoot.yaml` + the session log (troubleshooting); `new_shoot.py redact --output <dir>`
+  writes path-hashed `*.shared.*` copies (engine's `sha256:` scheme) for any offsite/shared
+  use, keeping name/date/location readable + a note "Paths hashed for privacy; full paths
+  available locally." `.gitignore` now blocks committing `shoot.yaml`, `*_manifest.json`,
+  `_new_shoot_session*.jsonl`, `*.db`. Tests: `test_redact_hashes_paths_but_keeps_names`,
+  `test_path_hash_matches_engine_style` (290/290).
 
 ### D2 — External-drive encryption
 - **Recommended:** encrypt drives that hold **output + registry-adjacent data** and any
   drive that **leaves the premises**; footage-only archive drives that never leave can be
   lower priority. Accept the transcode-perf trade-off on the working NVMe or exempt it.
-- **Decision:** ____________  **Date:** ______
+- **Decision: DONE (2026-07-03) — FileVault on + encrypt drives that leave.** Internal SSD
+  via FileVault; encrypt externals that leave the premises or hold registry-adjacent/output
+  data; working NVMe exempt if transcode perf matters (M1 hardware-AES makes the cost small
+  in practice). **⚠ Sequencing caveat:** the Holder Mac 4.6 TB is HFS+ and has **zero
+  backup** — do **NOT** encrypt it in place until it's backed up first; a failed conversion
+  on an un-backed-up volume is total loss. Encrypt *after* Q1/M2 backup is verified.
+  Verify status any time with `scripts/security_check.py`.
 
 ### D3 — Backup scope & cadence
 - **Recommended:** `annotations.db` + registry → **3-2-1, daily** (already scripted via
@@ -154,7 +166,14 @@ Today `OFFSITE=1` pushes it **in plaintext** (unless a crypt remote is used).
 - **Recommended:** **yes, but encrypted** — switch the offsite target to an **rclone crypt
   remote** (M4). Offsite protection for the irreplaceable asset without handing plaintext
   human notes to a third party.
-- **Decision:** ____________  **Date:** ______
+- **Decision: DONE (2026-07-03) — Option 1, encrypted offsite.** `backup_holder_mac.sh`
+  now points `RCLONE_REMOTE` at an rclone **crypt** remote (`gcrypt:` wrapping
+  `gdrive:WECAPE_Backup_enc`); setup steps are inline in the script.
+  **NEW controlling risk (must resolve):** the crypt **passphrase is now a single point of
+  failure** — if it lives only on the Mac and the Mac dies, the offsite copy is
+  unrecoverable. **[VERIFY] passphrase stored off-machine** (password manager + sealed
+  printed copy) before relying on this. Registry encryption rides along for free; footage
+  stays local-only.
 
 ---
 
@@ -165,9 +184,15 @@ Today `OFFSITE=1` pushes it **in plaintext** (unless a crypt remote is used).
   enforced at ingest; backup + offsite tooling *exists*.
 - 🟡 **Partial / unverified:** backups scheduled & restore-tested [VERIFY]; FileVault
   [VERIFY]; `RCLONE_REMOTE` still a placeholder; Holder Mac backup actually running.
-- 🔴 **Gaps to close:** `disk12` SPOF; `new_shoot` plaintext PII (Q5); network-invariant
-  test (Q3); offsite encryption of `annotations.db` (M4); credential inventory (M3);
-  git pre-commit guard (Q7).
+- ✅ **Closed 2026-07-03:** network-invariant test (Q3, enforced in suite); `new_shoot`
+  path redaction + `.gitignore` guard (Q5/Q7 partial, D1); encrypted offsite via rclone
+  crypt (M4, D4-of-doc / user-D2); rclone-token lockdown (Q4, user-D3) — `chmod 600`
+  guidance, backup-script perms warning, and `scripts/security_check.py` environment audit.
+- 🟢 **Operator to run:** `python3 scripts/security_check.py` — resolves the FileVault,
+  rclone-perms, and crypt-remote `[VERIFY]`s with live facts.
+- 🔴 **Gaps to close:** `disk12` SPOF; FileVault + external-drive encryption (user-D4,
+  Q2/M1 — decision pending); crypt **passphrase** stored off-machine (D4 caveat);
+  credential inventory (M3); backup verification + restore test (Q1).
 
 ---
 

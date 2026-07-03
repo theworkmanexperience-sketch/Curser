@@ -19,12 +19,29 @@ SRC="/Volumes/Holder Mac"                               # source (verify exact n
 DST="/Volumes/Got My BackUP/HolderMac_Backup"           # destination subfolder
 MIRROR=0   # 0 = additive (safe, never deletes). 1 = true mirror (--delete).
 
-# ── Offsite (3-2-1) for the tiny registry+notes — opt-in, best-effort ──────
+# ── Offsite (3-2-1) for the tiny registry+notes — ENCRYPTED, opt-in ──────────
 # Only ~/.wecape snapshots go offsite (a few MB); the 4.6 TB footage stays local.
-# Set RCLONE_REMOTE to YOUR rclone target — run `rclone listremotes` to get the
-# exact remote name. The value below is a PLACEHOLDER; verify before relying on it.
+# D2 (SECURITY_RISK_ANALYSIS): the offsite copy is ENCRYPTED so annotations.db +
+# registry land as CIPHERTEXT on Google Drive — a Drive breach or token leak
+# exposes nothing readable. One-time setup of an rclone *crypt* remote wrapping
+# your Drive folder:
+#
+#   rclone config create gdrive drive                                  # if not already made
+#   rclone config create gcrypt crypt \
+#          remote=gdrive:WECAPE_Backup_enc \
+#          filename_encryption=standard directory_name_encryption=true \
+#          password="$(rclone obscure 'YOUR-LONG-PASSPHRASE')"
+#   rclone lsd gcrypt:                                                  # verify it mounts
+#
+#   ⚠ CRITICAL — store that passphrase OFF this machine (password manager + a
+#     printed/sealed copy). rclone.conf only holds the *obscured* password, not a
+#     recovery key: if the Mac dies and the passphrase is lost, the encrypted
+#     offsite backup is UNRECOVERABLE. Losing the passphrase turns a privacy win
+#     into data LOSS — back it up like it's the only key, because it is.
+#
+# Then point RCLONE_REMOTE at the CRYPT remote (never the raw gdrive:).
 OFFSITE=1                                               # 1 = push offsite, 0 = local-only
-RCLONE_REMOTE="gdrive:WECAPE_Backup"                    # <remote>:<path> — VERIFY the remote name!
+RCLONE_REMOTE="gcrypt:"                                 # the CRYPT remote — verify: `rclone listremotes`
 # ---------------------------------------------------------------------------
 
 # Mode: --registry-only does just the ~/.wecape snapshot (+offsite), skipping the 4.6 TB job.
@@ -81,6 +98,11 @@ push_offsite() {
   [ "$OFFSITE" = 1 ] || { echo "  (offsite disabled — OFFSITE=0)"; return 0; }
   command -v rclone >/dev/null 2>&1 || { echo "  (rclone not found — skipping offsite; install rclone or set OFFSITE=0)"; return 0; }
   [ -n "$RCLONE_REMOTE" ] || { echo "  (RCLONE_REMOTE unset — skipping offsite)"; return 0; }
+  # D3 (SECURITY_RISK_ANALYSIS): warn if the rclone credential is group/other-readable.
+  local conf="$HOME/.config/rclone/rclone.conf"
+  if [ -f "$conf" ] && [ -n "$(find "$conf" -perm +077 2>/dev/null)" ]; then
+    echo "  ⚠ $conf is group/other-readable — run: chmod 600 \"$conf\"  (D3; token = full Drive access)"
+  fi
   echo "  Offsite push -> $RCLONE_REMOTE  (rclone copy; additive — never deletes, symlinks skipped)"
   if rclone copy "$src" "$RCLONE_REMOTE" --skip-links --transfers 4 --checkers 8 --quiet; then
     echo "    ✓ offsite copy updated"
