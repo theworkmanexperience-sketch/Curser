@@ -176,9 +176,19 @@ scripts/                ← ops tooling (NOT the engine)
 │                          medium=filenames / low=you choose via --card MOUNT=CAMERA) — an unlabeled
 │                          card is NEVER silently offloaded. CLI: detect · plan (dry-run) · run. Every
 │                          step still runnable standalone (thin wrapper — not the only path). GUI skin
-│                          (PyWebView, license-clean; NOT PySimpleGUI which is now paid) deferred by
-│                          decision — logic stays framework-agnostic here. stdlib-only, zero-network,
-│                          read-only on cards. Docs: scripts/README_new_shoot.md
+│                          (PyWebView, license-clean; NOT PySimpleGUI which is now paid). stdlib-only,
+│                          zero-network, read-only on cards. run_new_shoot emits an optional
+│                          progress(stage,detail) callback (headless no-op when omitted).
+│                          Docs: scripts/README_new_shoot.md
+├── new_shoot_gui.py + .html + .command  ← PyWebView SKIN over the new_shoot core (2026-07-03).
+│                          BSD PyWebView (NOT PySimpleGUI, now paid); ONE dependency; macOS system
+│                          WebView; reuses dashboard/cheat-sheet design. ZERO orchestration logic —
+│                          Api bridge just calls detect_cards/build_preview/run_new_shoot. Window:
+│                          Detect cards (confidence badge + camera dropdown) -> details -> destinations
+│                          -> Preview plan (writes nothing) -> Start (threaded, streams live log via the
+│                          progress callback; opens FCP + Next-Steps). build_preview/do_run unit-tested
+│                          pywebview-free; VISUAL pass must run on the Mac. Install: pip3 install
+│                          pywebview. Everything still doable from CLI. Docs: README_new_shoot.md
 ├── offload_cards.py    ← Verified card offload — the Hedge-style FRONT END (2026-06-30). Card ->
 │                          <dest>/<shoot>/<camera>/ per-camera folders (+ optional 2nd dest), every
 │                          copy SHA-256-verified vs source (mismatch = hard fail, not silent),

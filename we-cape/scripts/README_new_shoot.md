@@ -77,8 +77,34 @@ shoot **name / date / location** readable, plus the note *"Paths hashed for priv
 paths available locally."* The local originals are untouched. `.gitignore` also blocks
 committing manifests, session logs, and `*.db`.
 
+## Graphical skin (PyWebView) — the same core, in a window
+
+`new_shoot_gui.py` + `new_shoot_gui.html` are a thin **PyWebView** front end over this
+exact core — it holds **zero orchestration logic**, only collects input and calls
+`detect_cards` / `build_preview` / `run_new_shoot`. PyWebView is BSD-licensed (unlike
+PySimpleGUI, now paid), needs one dependency, uses macOS's system WebView, and reuses the
+dashboard/cheat-sheet design language.
+
+```bash
+pip3 install pywebview                 # one-time
+python3 scripts/new_shoot_gui.py       # or double-click scripts/new_shoot_gui.command
+```
+
+The window: **Detect cards** (each card shows a confidence badge — green "name" / amber
+"guess" / red "choose" — and a camera dropdown) → shoot details → destinations →
+**Preview plan** (plan + pre-flight space, writes nothing) → **Start shoot** (runs on a
+background thread, streaming a live log; opens Final Cut + the Next-Steps guide at the end).
+
+The core emits a `progress(stage, detail)` callback the GUI listens to; the CLI ignores it.
+Because the GUI is pure skin, everything it does is still doable from the CLI.
+
+> **Honest caveat:** the window's logic (`build_preview`, `do_run`, the progress callback)
+> is unit-tested, but a GUI can't be launched in a headless build — the **visual/interaction
+> pass must be run on the Mac** (`python3 scripts/new_shoot_gui.py`). Treat the first live
+> launch as the validation step.
+
 ## Out of scope for v1 (intentionally)
 
 In-wizard video preview/thumbnails, any editing, cloud upload, multi-shoot batch queue.
 
-stdlib only · zero network · read-only on camera cards.
+Core: stdlib only · zero network · read-only on camera cards.  ·  GUI: + pywebview.

@@ -415,9 +415,12 @@ def open_file(path):
 # Orchestrator — sequences the steps; `runners` lets tests inject fakes
 # ─────────────────────────────────────────────────────────────────────────────
 def run_new_shoot(manifest, cards, dest, output, dest2=None, stills=None,
-                  proxy=True, dry_run=False, db=None, runners=None):
+                  proxy=True, dry_run=False, db=None, runners=None, progress=None):
     """Execute the full flow. Returns a result dict. Idempotent: offload resumes by
-    hash, CAPTURE skips by SHA — re-running a finished shoot is safe and fast."""
+    hash, CAPTURE skips by SHA — re-running a finished shoot is safe and fast.
+
+    `progress(stage, detail)` is an OPTIONAL callback fired at each step (for a GUI
+    or live log); omit it and the core runs exactly as before, fully headless."""
     r = runners or {}
     _offload = r.get("offload", run_offload)
     _capture = r.get("capture", run_capture)
@@ -428,19 +431,29 @@ def run_new_shoot(manifest, cards, dest, output, dest2=None, stills=None,
     result = {"manifest": None, "offloaded": [], "run_id": None, "exported": False, "opened": False,
               "dry_run": dry_run, "errors": []}
 
+    def _emit(stage, **detail):
+        if progress:
+            try:
+                progress(stage, detail)
+            except Exception:
+                pass
+
     # 1) manifest sidecar
     manifest.cameras = manifest.cameras or [{"label": c["camera"], "source": c["mount"]} for c in cards]
     mpath = manifest.write(output)
     result["manifest"] = str(mpath)
     audit(output, "manifest", path=str(mpath), name=manifest.name, dry_run=dry_run)
+    _emit("manifest", path=str(mpath), name=manifest.name)
 
     # 2) pre-flight space (needed across all cards) — abort before touching anything
     total = sum(int(c.get("bytes", 0)) for c in cards)
     dests = [dest] + ([dest2] if dest2 else [])
     pf = preflight_space(total, dests)
     audit(output, "preflight", **pf)
+    _emit("preflight", ok=pf["ok"], needed=pf["needed"])
     if not pf["ok"] and not dry_run:
         result["errors"].append("insufficient free space — see preflight")
+        _emit("done", ok=False, errors=result["errors"])
         return result
 
     # 3) verified offload, per card
@@ -448,35 +461,46 @@ def run_new_shoot(manifest, cards, dest, output, dest2=None, stills=None,
         if not c.get("camera"):
             result["errors"].append(f"card {c['mount']} has no camera label — skipped")
             audit(output, "offload_skip", mount=c["mount"], reason="no camera label")
+            _emit("offload_skip", mount=c["mount"])
             continue
+        _emit("offload_start", mount=c["mount"], camera=c["camera"])
         rc = _offload(c["mount"], c["camera"], manifest.name, dest, dest2, dry_run)
         audit(output, "offload", mount=c["mount"], camera=c["camera"], rc=rc, dry_run=dry_run)
+        _emit("offload", mount=c["mount"], camera=c["camera"], ok=(rc == 0))
         if rc != 0:
             result["errors"].append(f"offload verification FAILED for {c['mount']} — card not safe to format")
+            _emit("done", ok=False, errors=result["errors"])
             return result
         result["offloaded"].append(c["mount"])
 
     if dry_run:
         audit(output, "dry_run_complete")
+        _emit("done", ok=True, dry_run=True)
         return result
 
     # 4) CAPTURE the offloaded shoot folder
     src = Path(dest) / manifest.name
     extra = ["--proxy"] if proxy else []
+    _emit("capture_start", source=str(src))
     run_id = _capture(src, output, extra)
     result["run_id"] = run_id
     audit(output, "capture", source=str(src), run_id=run_id)
+    _emit("capture", run_id=run_id)
     if not run_id:
         result["errors"].append("CAPTURE produced no run_id — export skipped")
+        _emit("done", ok=False, errors=result["errors"])
         return result
 
     # 5) export FCPXML
     out_xml = output / f"{output.name}_multicam.fcpxml"
+    _emit("export_start", out=str(out_xml))
     rc = _export(run_id, out_xml, db, stills)
     result["exported"] = (rc == 0)
     audit(output, "export", out=str(out_xml), rc=rc)
+    _emit("export", ok=result["exported"])
     if rc != 0:
         result["errors"].append("FCPXML export failed")
+        _emit("done", ok=False, errors=result["errors"])
         return result
 
     # 6) hand off to FCP + open the Next-Steps guide
@@ -485,6 +509,7 @@ def run_new_shoot(manifest, cards, dest, output, dest2=None, stills=None,
     if guide.exists():
         _open(guide)
     audit(output, "handoff", opened=result["opened"])
+    _emit("done", ok=True, run_id=run_id, opened=result["opened"], errors=result["errors"])
     return result
 
 

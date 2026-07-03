@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>W.E. C.A.P.E. — New Shoot</title>
+<style>
+  :root{ --ink:#1d2330; --muted:#5b6472; --line:#e4e8ef; --brand:#2f6df6; --good:#1f9d55;
+         --warn:#b7791f; --bad:#c0392b; --bg:#f6f8fb; --card:#fff; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }
+  .wrap{ max-width:900px; margin:0 auto; padding:22px 20px 60px; }
+  h1{ font-size:21px; margin:0 0 2px; }
+  .sub{ color:var(--muted); margin:0 0 18px; }
+  .step{ background:var(--card); border:1px solid var(--line); border-radius:12px;
+         padding:16px 18px; margin-bottom:14px; }
+  .step h2{ font-size:15px; margin:0 0 12px; display:flex; align-items:center; gap:9px; }
+  .n{ flex:0 0 24px; height:24px; border-radius:50%; background:var(--brand); color:#fff;
+      font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  label{ display:block; font-size:12px; color:var(--muted); margin:0 0 3px; }
+  input,select{ width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:8px;
+                font:inherit; background:#fff; }
+  .row{ display:flex; gap:12px; flex-wrap:wrap; }
+  .row > div{ flex:1 1 200px; margin-bottom:10px; }
+  .card{ display:flex; align-items:center; gap:12px; padding:10px 12px; border:1px solid var(--line);
+         border-radius:9px; margin-bottom:8px; }
+  .badge{ flex:0 0 auto; font-size:11px; font-weight:700; padding:2px 8px; border-radius:20px; }
+  .b-high{ background:#e5f5ec; color:var(--good); } .b-med{ background:#fbf1de; color:var(--warn); }
+  .b-low{ background:#fbe6e3; color:var(--bad); }
+  .card .meta{ flex:1 1 auto; min-width:0; }
+  .card .meta .mount{ font:12px ui-monospace,Menlo,monospace; color:var(--muted);
+                      white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .card select{ flex:0 0 200px; }
+  button{ font:inherit; font-weight:600; border:0; border-radius:9px; padding:10px 16px;
+          background:var(--brand); color:#fff; cursor:pointer; }
+  button.ghost{ background:#eef2f8; color:var(--ink); }
+  button:disabled{ opacity:.5; cursor:not-allowed; }
+  .bar{ display:flex; gap:10px; align-items:center; margin-top:6px; }
+  .plan li{ margin:3px 0; } .plan{ padding-left:20px; }
+  .note{ padding:10px 12px; border-radius:8px; font-size:13px; margin-top:10px; }
+  .note.ok{ background:#e5f5ec; color:#16643a; } .note.bad{ background:#fbe6e3; color:#8a2318; }
+  .note.warn{ background:#fbf1de; color:#7a5310; }
+  #log{ background:#0f1420; color:#cfe3ff; border-radius:9px; padding:12px 14px; margin-top:10px;
+        font:12px/1.5 ui-monospace,Menlo,monospace; max-height:240px; overflow:auto; white-space:pre-wrap; }
+  .hidden{ display:none; }
+  .banner{ background:#fbf1de; color:#7a5310; border:1px solid #eaddc0; border-radius:9px;
+           padding:10px 12px; margin-bottom:14px; font-size:13px; }
+  .spin{ display:inline-block; width:14px; height:14px; border:2px solid #ffffff70;
+         border-top-color:#fff; border-radius:50%; animation:s .8s linear infinite; }
+  @keyframes s{ to{ transform:rotate(360deg); } }
+</style></head>
+<body><div class="wrap">
+
+  <h1>New Shoot</h1>
+  <p class="sub">Card → verified offload → CAPTURE → Final Cut, in one flow. Nothing is written until you press <b>Start</b>.</p>
+  <div id="browserBanner" class="banner hidden">This page is meant to run inside the W.E. C.A.P.E. app
+    (<code>python3 scripts/new_shoot_gui.py</code>). Opened in a plain browser, the buttons can't reach your Mac.</div>
+
+  <!-- 1 — cards -->
+  <div class="step">
+    <h2><span class="n">1</span> Camera cards</h2>
+    <button id="btnDetect" class="ghost">Detect cards</button>
+    <div id="cards" style="margin-top:12px"></div>
+    <div id="cardsNote" class="note warn hidden"></div>
+  </div>
+
+  <!-- 2 — shoot details -->
+  <div class="step">
+    <h2><span class="n">2</span> Shoot details</h2>
+    <div class="row">
+      <div><label>Shoot name *</label><input id="name" placeholder="O-SIX_2026"></div>
+      <div><label>Date</label><input id="date" placeholder="2026-03-14"></div>
+    </div>
+    <div class="row">
+      <div><label>Location</label><input id="location" placeholder="Clubhouse"></div>
+      <div><label>Trusted clock (which camera's time is correct)</label>
+        <select id="trusted_clock"><option value="unknown">unknown</option></select></div>
+    </div>
+  </div>
+
+  <!-- 3 — destinations -->
+  <div class="step">
+    <h2><span class="n">3</span> Destinations</h2>
+    <div class="row">
+      <div><label>Offload drive * (first copy)</label><input id="dest" placeholder="/Volumes/10TB"></div>
+      <div><label>Second copy (optional, recommended)</label><input id="dest2" placeholder="/Volumes/Got My BackUP"></div>
+    </div>
+    <div class="row">
+      <div><label>CAPTURE output *</label><input id="output" placeholder="/Volumes/WE_CAPE_OUTPUT/O-SIX_2026"></div>
+      <div><label>Stills folder (optional)</label><input id="stills" placeholder="/Volumes/…/Photos"></div>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;margin-top:4px">
+      <input type="checkbox" id="proxy" checked style="width:auto"> Generate edit proxies (recommended)</label>
+  </div>
+
+  <!-- actions -->
+  <div class="bar">
+    <button id="btnPreview" class="ghost">Preview plan</button>
+    <button id="btnRun">Start shoot</button>
+  </div>
+
+  <div id="preview" class="step hidden" style="margin-top:14px">
+    <h2>Plan preview</h2>
+    <ol id="planList" class="plan"></ol>
+    <div id="pfNote" class="note"></div>
+    <div id="unlabeledNote" class="note warn hidden"></div>
+  </div>
+
+  <div id="runPanel" class="step hidden" style="margin-top:14px">
+    <h2 id="runTitle">Running…</h2>
+    <div id="log"></div>
+    <div id="doneNote" class="note hidden"></div>
+  </div>
+
+<script>
+  let CARDS = [], CAMERAS = [];
+  // pywebview injects the bridge just AFTER DOMContentLoaded — check dynamically.
+  const apiReady = () => !!(window.pywebview && window.pywebview.api);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("btnDetect").onclick = detect;
+    document.getElementById("btnPreview").onclick = preview;
+    document.getElementById("btnRun").onclick = run;
+    // Only warn if the bridge truly never arrives (i.e. opened in a plain browser).
+    if (apiReady()) return;
+    window.addEventListener("pywebviewready",
+      () => document.getElementById("browserBanner").classList.add("hidden"));
+    setTimeout(() => { if (!apiReady())
+      document.getElementById("browserBanner").classList.remove("hidden"); }, 1500);
+  });
+
+  function api(method, arg){
+    if (!apiReady()) return Promise.reject("no bridge");
+    return arg === undefined ? window.pywebview.api[method]()
+                             : window.pywebview.api[method](arg);
+  }
+  const $ = id => document.getElementById(id);
+  const esc = s => (s||"").replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const human = n => { n=+n||0; for (const u of ["B","KB","MB","GB","TB"]){ if(n<1024||u==="TB") return n.toFixed(1)+" "+u; n/=1024; } };
+
+  async function detect(){
+    const btn = $("btnDetect"); btn.disabled = true; btn.textContent = "Scanning…";
+    try{
+      const r = await api("detect");
+      CARDS = r.cards || []; CAMERAS = r.cameras || [];
+      const tc = $("trusted_clock");
+      tc.innerHTML = '<option value="unknown">unknown</option>' +
+        CAMERAS.map(c => `<option>${esc(c)}</option>`).join("");
+      renderCards();
+    }catch(e){ alert("Detect failed: "+e); }
+    btn.disabled = false; btn.textContent = "Detect cards";
+  }
+
+  function renderCards(){
+    const box = $("cards"), note = $("cardsNote");
+    if (!CARDS.length){ box.innerHTML = '<p class="sub">No cards found. Plug one in and press Detect.</p>'; return; }
+    box.innerHTML = CARDS.map((c,i) => {
+      const cls = c.confidence==="high"?"b-high":c.confidence==="medium"?"b-med":"b-low";
+      const tag = c.confidence==="high"?"name":c.confidence==="medium"?"guess":"choose";
+      const opts = ['<option value="">— choose camera —</option>']
+        .concat(CAMERAS.map(m => `<option ${m===c.camera?"selected":""}>${esc(m)}</option>`)).join("");
+      return `<div class="card"><span class="badge ${cls}">${tag}</span>
+        <div class="meta"><b>${esc(c.camera||"unlabeled")}</b> · ${c.video_count} video · ${human(c.bytes)}
+        <div class="mount">${esc(c.mount)}</div></div>
+        <select data-i="${i}" onchange="CARDS[this.dataset.i].camera=this.value; checkLabels();">${opts}</select></div>`;
+    }).join("");
+    checkLabels();
+  }
+
+  function checkLabels(){
+    const bad = CARDS.filter(c => !c.camera).length;
+    const note = $("cardsNote");
+    if (bad){ note.classList.remove("hidden"); note.textContent =
+      `${bad} card(s) still need a camera — an unlabeled card is never offloaded.`; }
+    else note.classList.add("hidden");
+  }
+
+  function payload(){
+    const stills = $("stills").value.trim();
+    return {
+      name: $("name").value.trim(), date: $("date").value.trim(),
+      location: $("location").value.trim(), trusted_clock: $("trusted_clock").value,
+      dest: $("dest").value.trim(), dest2: $("dest2").value.trim() || null,
+      output: $("output").value.trim(), proxy: $("proxy").checked,
+      stills: stills ? [stills] : null,
+      cards: CARDS.map(c => ({mount:c.mount, camera:c.camera||null, bytes:c.bytes, video_count:c.video_count})),
+    };
+  }
+
+  function validate(p){
+    if (!p.cards.length) return "Detect at least one card first.";
+    if (!p.name) return "Enter a shoot name.";
+    if (!p.dest || !p.output) return "Enter the offload drive and the CAPTURE output.";
+    return null;
+  }
+
+  async function preview(){
+    const p = payload(); const err = validate(p); if (err) return alert(err);
+    try{
+      const r = await api("preview", p);
+      if (r.error) return alert("Preview failed: "+r.error);
+      $("planList").innerHTML = (r.plan||[]).map(s => `<li>${esc(s)}</li>`).join("");
+      const pf = r.preflight || {}; const d0 = (pf.dests||[])[0] || {};
+      const okBar = pf.ok;
+      $("pfNote").className = "note " + (okBar ? "ok" : "bad");
+      $("pfNote").textContent = okBar
+        ? `Space OK — need ~${human(pf.needed)} (incl. headroom); destination has room.`
+        : `Not enough space — need ~${human(pf.needed)}, destination free ${human(d0.free)}.`;
+      const un = $("unlabeledNote");
+      if ((r.unlabeled||[]).length){ un.classList.remove("hidden");
+        un.textContent = `${r.unlabeled.length} card(s) unlabeled — set a camera before Start.`; }
+      else un.classList.add("hidden");
+      $("preview").classList.remove("hidden");
+    }catch(e){ alert("Preview failed: "+e); }
+  }
+
+  function run(){
+    const p = payload(); const err = validate(p); if (err) return alert(err);
+    if (p.cards.some(c => !c.camera)) return alert("Every card needs a camera before Start.");
+    if (!confirm(`Start "${p.name}"?\nThis copies each card (verified), runs CAPTURE, and exports to Final Cut.`)) return;
+    ["btnDetect","btnPreview","btnRun"].forEach(id => $(id).disabled = true);
+    $("runTitle").innerHTML = '<span class="spin"></span> Running…';
+    $("log").textContent = ""; $("doneNote").classList.add("hidden");
+    $("runPanel").classList.remove("hidden");
+    api("run", p).catch(e => logLine("error: "+e));
+  }
+
+  function logLine(s){ const el=$("log"); el.textContent += s+"\n"; el.scrollTop = el.scrollHeight; }
+
+  // Python pushes events here (double-encoded JSON string).
+  window.onWecapeEvent = function(s){
+    let ev; try{ ev = JSON.parse(s); }catch(e){ return; }
+    const d = ev.detail || {};
+    const map = {
+      manifest:"✎ wrote shoot manifest",
+      preflight: d.ok ? "✓ space check passed" : "✗ not enough space",
+      offload_start:"→ offloading "+(d.camera||"")+" …",
+      offload: (d.ok?"✓":"✗")+" offload "+(d.camera||""),
+      offload_skip:"• skipped (no camera): "+(d.mount||""),
+      capture_start:"→ CAPTURE running (this can take a while)…",
+      capture:"✓ CAPTURE done, run "+(d.run_id||"?"),
+      export_start:"→ exporting FCPXML…",
+      export: d.ok?"✓ FCPXML exported":"✗ export failed",
+      done: d.ok?"✓ complete":"✗ stopped",
+    };
+    if (map[ev.stage] !== undefined) logLine(map[ev.stage]);
+    if (ev.stage === "result" || ev.stage === "done" || ev.stage === "error") finish(ev);
+  };
+
+  function finish(ev){
+    const res = ev.detail || {};
+    const errs = res.errors || (ev.stage==="error" ? [res.message] : []);
+    const ok = !errs.length && ev.stage !== "error";
+    $("runTitle").textContent = ok ? "Done" : "Stopped";
+    const note = $("doneNote"); note.classList.remove("hidden");
+    note.className = "note " + (ok ? "ok" : "bad");
+    note.textContent = ok
+      ? "Shoot complete — Final Cut is opening with your footage + the Next-Steps guide."
+      : "Stopped: " + errs.join("; ");
+    ["btnDetect","btnPreview","btnRun"].forEach(id => $(id).disabled = false);
+  }
+</script>
+</div></body></html>
