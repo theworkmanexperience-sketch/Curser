@@ -58,6 +58,8 @@ classification:
     pattern: Insta360 X5
   - camera_model: iPhone
     pattern: iPhone
+  - camera_model: OM System OM-1
+    pattern: OM SYSTEM
   camera_sources:
     Blackmagic:
       extensions:

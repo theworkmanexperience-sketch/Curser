@@ -62,6 +62,7 @@ DEFAULT_CAMERA_PATTERNS = [
     ("DJI ACTION 5", "DJI Osmo Action 5"),
     ("Insta360 X5", "Insta360 X5"),
     ("iPhone", "iPhone"),
+    ("OM SYSTEM", "OM System OM-1"),
 ]
 
 # Filename -> camera family, for guessing when the card/volume name is generic.
@@ -73,6 +74,9 @@ FAMILY_PATTERNS = [
     (re.compile(r"^(VID|PRO_VID|ISD)_", re.I), "Insta360 X5"),
     (re.compile(r"^IMG_\d+", re.I), "iPhone"),
     (re.compile(r"^MOV_\d+", re.I), "iPhone"),
+    # OM System / Olympus DCF: P<month><day><seq> (month 1-9, then A/B/C for Oct-Dec)
+    (re.compile(r"^P\d{7}", re.I), "OM System OM-1"),
+    (re.compile(r"^P[A-C]\d{6}", re.I), "OM System OM-1"),
 ]
 
 MEDIA_EXTS = {

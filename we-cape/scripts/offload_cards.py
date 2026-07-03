@@ -38,7 +38,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-KNOWN_CAMERAS = ("DJI ACTION 5", "DJI ACTION 6", "Insta360 X5")
+KNOWN_CAMERAS = ("DJI ACTION 5", "DJI ACTION 6", "Insta360 X5", "OM System OM-1")
 CRUFT_NAMES = {".DS_Store"}
 CRUFT_DIRS = {".Spotlight-V100", ".Trashes", ".fseventsd",
               ".DocumentRevisions-V100", ".TemporaryItems"}

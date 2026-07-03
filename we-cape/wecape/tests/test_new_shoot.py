@@ -29,6 +29,17 @@ def test_guess_camera_medium_on_filenames():
     assert label == "DJI" and conf == "medium"
 
 
+def test_om_system_guessed_from_filename():
+    for fn in ("P7030001.MOV", "PA030001.ORF"):        # OM System / Olympus DCF naming
+        label, conf = ns.guess_camera("NO NAME", [fn], [])
+        assert label == "OM System OM-1" and conf == "medium"
+
+
+def test_om_system_is_a_selectable_camera():
+    models = [m for _, m in ns.load_camera_patterns()]   # what the dropdown lists
+    assert "OM System OM-1" in models
+
+
 def test_guess_camera_low_when_unknown():
     label, conf = ns.guess_camera("SOMECARD", ["random.txt"], [])
     assert label is None and conf == "low"
