@@ -418,6 +418,41 @@ def render_markdown(data):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Append into the run's summary.md (post-run ops — does NOT touch the engine's
+# deterministic summary writer; P4 no coupling). Idempotent (delimited block).
+# ─────────────────────────────────────────────────────────────────────────────
+HEALTH_START = "<!-- WECAPE_HEALTH_START -->"
+HEALTH_END = "<!-- WECAPE_HEALTH_END -->"
+
+
+def _find_summary(output_path, run_id):
+    d = Path(output_path or "")
+    for cand in (d / "LOGS", d):
+        if cand.is_dir():
+            hits = sorted(cand.glob(f"*{run_id}*summary.md")) or sorted(cand.glob("*_summary.md"))
+            if hits:
+                return hits[0]
+    return None
+
+
+def append_to_summary(data, output_path=None):
+    """Insert/replace a '## Production Health' block in the run's summary.md."""
+    out = (data.get("run") or {}).get("output_path") or output_path
+    path = _find_summary(out, data["run_id"])
+    if not path:
+        return None
+    body = render_markdown(data).replace("# Production Health", "## Production Health", 1)
+    block = f"{HEALTH_START}\n{body.strip()}\n{HEALTH_END}"
+    text = path.read_text()
+    if HEALTH_START in text:                         # idempotent — replace prior block
+        text = re.sub(re.escape(HEALTH_START) + r".*?" + re.escape(HEALTH_END), block, text, flags=re.S)
+    else:
+        text = text.rstrip() + "\n\n" + block + "\n"
+    path.write_text(text)
+    return path
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # CLI
 # ─────────────────────────────────────────────────────────────────────────────
 def _cli(argv=None):
@@ -428,6 +463,8 @@ def _cli(argv=None):
     ap.add_argument("--telemetry", default=str(DEFAULT_TELEMETRY), help="telemetry.db (.SRT GPS time)")
     ap.add_argument("--window", type=int, default=DEFAULT_WINDOW, help="grouping window if unknown")
     ap.add_argument("--out", help="write the report to this file (default: print only)")
+    ap.add_argument("--append-summary", action="store_true",
+                    help="insert a Production Health block into the run's LOGS/summary.md")
     args = ap.parse_args(argv)
 
     data = build_report_data(args.db, args.run_id, manifest=args.manifest,
@@ -436,10 +473,14 @@ def _cli(argv=None):
         print(f"  No run '{args.run_id}' in {args.db}.")
         return 1
     md = render_markdown(data)
+    if args.append_summary:
+        p = append_to_summary(data)
+        print(f"  ✓ health block written into {p}" if p
+              else "  ⚠ no summary.md found for this run (is its output drive mounted?)")
     if args.out:
         Path(args.out).write_text(md)
         print(f"  ✓ wrote {args.out}")
-    else:
+    elif not args.append_summary:
         print(md)
     return 0
 

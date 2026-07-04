@@ -214,6 +214,10 @@ scripts/                ← ops tooling (NOT the engine)
 │                          on a ≥1-day (provable) offset or with a trusted_clock/telemetry reference,
 │                          else "likely" + outlier only. Upgrades automatically when a shoot.yaml
 │                          trusted_clock or telemetry.db (.SRT GPS) is present. stdlib, zero-network.
+│                          DELIVERY (2026-07-04): standalone <run>_health.md (--out); INTO the run's
+│                          LOGS/summary.md (--append-summary, idempotent delimited block, NO engine
+│                          coupling — P4); and a compact 🩺 Health row on each dashboard shoot card
+│                          (dashboard.py reuses health_report.build_report_data, read-only).
 │                          Spec: SPEC_Production_Health_Report.md
 ├── backup_holder_mac.sh + com.wecape.holdermacbackup.plist + com.wecape.registrybackup.plist
 │                          ← asset-protection: 4.6TB Holder Mac (weekly) + ~/.wecape 3-2-1 (internal

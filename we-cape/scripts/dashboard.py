@@ -19,8 +19,15 @@ import html
 import json
 import math
 import sqlite3
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+try:
+    import health_report as hr        # sibling ops tool — read-only reuse of the Health core
+except Exception:                     # dashboard still works without it
+    hr = None
 
 DEFAULT_DB = Path.home() / ".wecape" / "registry" / "wecape.db"
 DEFAULT_ANN_DB = Path.home() / ".wecape" / "annotations.db"
@@ -329,6 +336,36 @@ def annotations_section(ann):
             + "".join(rows) + "</table>")
 
 
+def health_row(db_path, run_id):
+    """Compact clock-health line for a shoot card — reuses the Health Report core
+    (read-only, same honesty rules). Returns '' when there is nothing to say."""
+    if hr is None or not run_id:
+        return ""
+    try:
+        data = hr.build_report_data(db_path, run_id)
+    except Exception:
+        return ""
+    if not data:
+        return ""
+    sk = data.get("skew") or {}
+    anoms = [a for a in data.get("anomalies", []) if a.get("anomalous")]
+    if sk.get("no_timestamps"):
+        return ""
+    if anoms:
+        a = anoms[0]
+        return ("<div class='t2row warn-txt'>🩺 <b>Health:</b> "
+                f"{esc(a['camera'])} has {esc(a['off_clips'])} clip(s) dated wrong "
+                f"(span {esc(hr._fmt_date(a['min']))}→{esc(hr._fmt_date(a['max']))}) — "
+                "set that camera's clock before the next shoot.</div>")
+    if sk.get("outlier"):
+        mode = data.get("ground_truth")
+        who = "culprit" if mode else "likely clock outlier"
+        return (f"<div class='t2row warn-txt'>🩺 <b>Health:</b> {who} "
+                f"{esc(sk['outlier'])}"
+                + ("" if mode else " — confirm which clock is correct") + ".</div>")
+    return "<div class='t2row'>🩺 <b>Health:</b> clocks agree — no clock error detected.</div>"
+
+
 def shoot_card(r, ann=None):
     name = Path(r.get("output_path") or "").name or (r.get("id") or "")[:24]
     t2 = r["_t2"]
@@ -405,12 +442,14 @@ def shoot_card(r, ann=None):
         {esc(r['_proxies'])} proxies · {esc(g)} groups · {esc(v)} variants{esc(sel)} ·
         {esc(r['_errors'])} errors · {gb(r['_bytes'])}</div>
       <div class="metrics muted">cameras: {mix} · {esc((r.get('timestamp') or '')[:19])} UTC · profile {esc(r.get('profile_id') or '—')}</div>
-      {proc}{t2_html}{ann_html}
+      {proc}{r.get("_health_html", "")}{t2_html}{ann_html}
     </div>"""
 
 
 def render(d, db_path, ann=None):
     ann = ann or {"shoot": {}, "clip": {}, "all": []}
+    for r in d["runs"]:                                   # attach clock-health per shoot (read-only)
+        r["_health_html"] = health_row(db_path, r.get("id"))
     cards = "".join(shoot_card(r, ann) for r in d["runs"]) or "<p class='muted'>No shoots recorded.</p>"
     cam_bars = svg_bars(list(d["by_cam"].items()))
     periods = period_section(d["runs"])

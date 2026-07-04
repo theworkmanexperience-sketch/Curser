@@ -126,6 +126,49 @@ def _synth_data(gross_outlier, trusted):
             "projection": hr.projected_improvement(skew, 15), "have_times": 4, "total_clips": 4}
 
 
+def test_append_to_summary_is_idempotent():
+    with tempfile.TemporaryDirectory() as t:
+        logs = Path(t) / "LOGS"; logs.mkdir()
+        summ = logs / "WEF_X_summary.md"
+        summ.write_text("# Run Summary\n\n- files: 4\n")
+        data = _synth_data(gross_outlier=True, trusted=None)
+        data["run"] = {"output_path": t}
+        p1 = hr.append_to_summary(data)
+        p2 = hr.append_to_summary(data)                      # second call must not duplicate
+        assert p1 == p2 == summ
+        text = summ.read_text()
+        assert text.count(hr.HEALTH_START) == 1 and text.count(hr.HEALTH_END) == 1
+        assert "# Run Summary" in text and "## Production Health" in text   # original preserved
+
+
+def test_append_to_summary_missing_file_returns_none():
+    with tempfile.TemporaryDirectory() as t:
+        data = _synth_data(gross_outlier=False, trusted=None)
+        data["run"] = {"output_path": t}                     # no summary.md present
+        assert hr.append_to_summary(data) is None
+
+
+def test_dashboard_health_row_flags_wrong_date(tmp_path=None):
+    import importlib
+    dash = importlib.import_module("dashboard")
+    with tempfile.TemporaryDirectory() as t:
+        db = Path(t) / "reg.db"
+        con = sqlite3.connect(str(db))
+        con.execute("CREATE TABLE runs(id TEXT, output_path TEXT)")
+        con.execute("CREATE TABLE content(id TEXT, run_id TEXT, camera_family TEXT, "
+                    "corrected_timestamp TEXT, content_type TEXT)")
+        con.execute("INSERT INTO runs VALUES('WEF_X', ?)", (t,))
+        rows = [("a", "WEF_X", "DJI", "2026-03-14T09:30:10+00:00", "original"),
+                ("b", "WEF_X", "iPhone", "2026-03-14T09:30:12+00:00", "original")]
+        rows += [(f"i{n}", "WEF_X", "Insta360 X5", "2026-03-14T09:30:%02d+00:00" % (10 + n), "original")
+                 for n in range(6)]
+        rows += [("w1", "WEF_X", "Insta360 X5", "2018-10-01T19:45:55+00:00", "original")]
+        con.executemany("INSERT INTO content VALUES(?,?,?,?,?)", rows)
+        con.commit(); con.close()
+        html_row = dash.health_row(str(db), "WEF_X")
+        assert "Health" in html_row and "Insta360 X5" in html_row and "wrong" in html_row.lower()
+
+
 def test_build_report_data_from_registry():
     with tempfile.TemporaryDirectory() as t:
         db = Path(t) / "reg.db"
