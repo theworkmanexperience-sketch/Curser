@@ -42,13 +42,21 @@ RFQ_WINDOW = 5
 # Pure metrics (unit-tested; no I/O)
 # ─────────────────────────────────────────────────────────────────────────────
 def _epoch(iso):
-    """ISO string → epoch seconds (tolerant). Returns None if unparseable."""
+    """ISO string → epoch seconds (tolerant of 'T', timezone offsets, 'Z', bare dates)."""
     if not iso:
         return None
-    s = str(iso).strip().replace("Z", "").replace("T", " ")
-    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M:%S.%f", "%Y-%m-%d %H:%M"):
+    s = str(iso).strip()
+    try:                                             # handles '2026-03-14T07:23:47+00:00'
+        dt = datetime.fromisoformat(s.replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.timestamp()
+    except ValueError:
+        pass
+    s2 = re.sub(r"[+-]\d{2}:?\d{2}$", "", s.replace("Z", "").replace("T", " ")).strip()
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M:%S.%f", "%Y-%m-%d %H:%M", "%Y-%m-%d"):
         try:
-            return datetime.strptime(s, fmt).replace(tzinfo=timezone.utc).timestamp()
+            return datetime.strptime(s2, fmt).replace(tzinfo=timezone.utc).timestamp()
         except ValueError:
             continue
     return None
@@ -70,13 +78,20 @@ def humanize_skew(seconds):
     return f"~{a:.0f}s {direction}"
 
 
-def camera_skews(clips, trusted_camera=None, window=DEFAULT_WINDOW):
+# Only accuse a camera when its offset is unambiguously a CLOCK error (a wrong date,
+# ≥ 1 day) — a sub-day median difference can't be separated from normal roll-time
+# (cameras rolling at different times) without group-level deltas. Honesty > sensitivity.
+NAME_THRESHOLD_S = 86400          # 24h
+
+
+def camera_skews(clips, trusted_camera=None, window=DEFAULT_WINDOW, name_threshold=NAME_THRESHOLD_S):
     """clips: list of {camera, epoch}. Returns per-camera skew vs consensus.
 
     consensus = the trusted camera's median if given & present, else the median of
     the per-camera medians (robust to a single wild outlier). skew = cam median −
-    consensus. A camera is an 'outlier' only if |skew| exceeds the grouping window
-    AND it is the largest — otherwise no accusation."""
+    consensus. A camera is an 'outlier' ONLY when |skew| ≥ a full day AND it is
+    clearly the worst — so same-day roll-time differences are never mistaken for a
+    clock error (SPEC §2.3: never name a culprit we can't prove)."""
     by_cam = {}
     for c in clips:
         if c.get("epoch") is not None:
@@ -97,8 +112,8 @@ def camera_skews(clips, trusted_camera=None, window=DEFAULT_WINDOW):
     if rows:
         top = rows[0]
         others = [abs(r["skew_s"]) for r in rows[1:]] or [0]
-        # material outlier: beyond the window and clearly worse than the next camera
-        if abs(top["skew_s"]) > window and abs(top["skew_s"]) >= 2 * max(others):
+        # material outlier: a full-day+ offset (a real clock/date error), clearly worst
+        if abs(top["skew_s"]) >= name_threshold and abs(top["skew_s"]) >= 2 * max(others):
             outlier = top["camera"]
     for r in rows:
         r["is_outlier"] = (r["camera"] == outlier)
@@ -292,27 +307,32 @@ def render_markdown(data):
         else:
             L.append("- Reference: **relative** — no trusted clock given, so this shows which "
                      "camera *disagrees* with the others, not which is objectively right.")
-        for c in sk["cameras"]:
-            tag = "  ⚠ outlier" if c["is_outlier"] else ""
-            L.append(f"  - {c['camera']}: {humanize_skew(c['skew_s'])} "
-                     f"({c['skew_s']:+.0f}s, {c['n']} clips){tag}")
         if sk["outlier"]:
+            orow = next(c for c in sk["cameras"] if c["is_outlier"])
+            others = [c["camera"] for c in sk["cameras"] if not c["is_outlier"]]
+            L.append(f"  - **{sk['outlier']}: {humanize_skew(orow['skew_s'])}** — its clock is set "
+                     "to the wrong date.")
+            if others:
+                L.append(f"  - The other camera(s) — {', '.join(others)} — agree to within the "
+                         "same shoot day.")
             if mode:
                 L.append(f"- **Culprit: {sk['outlier']}** — its clock is off; the others agree.")
             else:
                 L.append(f"- **Likely culprit: {sk['outlier']}** (statistical outlier). "
                          "Confirm which clock is correct before trusting this.")
         else:
-            L.append("- All cameras agree within the grouping window — clocks look healthy.")
+            L.append("- All cameras agree to within the same shoot day — no gross clock error detected.")
+            L.append("  - _Finer sub-day drift can't be separated from normal roll-time (cameras "
+                     "rolling at different moments) without group-level timing — a planned refinement._")
     L.append("")
 
     # 4.3 Grouping Analysis
     L.append("## Grouping Analysis")
     L.append(f"- Window used: **±{data['window_used']}s** (RFQ spec ±{RFQ_WINDOW}s — "
              "widened for field clock drift; documented deviation).")
-    if data["have_times"] < data["total_clips"]:
-        L.append(f"- {data['total_clips'] - data['have_times']} clip(s) had low-confidence "
-                 "(file-clock) timestamps — flagged.")
+    missing = data["total_clips"] - data["have_times"]
+    if missing:
+        L.append(f"- {missing} clip(s) had no resolvable timestamp — excluded from the clock check.")
     L.append("")
 
     # 4.4 Recommendations
