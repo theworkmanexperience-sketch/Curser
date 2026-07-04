@@ -353,10 +353,14 @@ def health_row(db_path, run_id):
         return ""
     if anoms:
         a = anoms[0]
+        files = a.get("off_files") or []                  # dashboard is local — name the clips
+        shown = ", ".join(esc(f) for f in files[:8])
+        more = f" +{len(files) - 8} more" if len(files) > 8 else ""
+        flist = f": {shown}{more}" if shown else ""
         return ("<div class='t2row warn-txt'>🩺 <b>Health:</b> "
-                f"{esc(a['camera'])} has {esc(a['off_clips'])} clip(s) dated wrong "
-                f"(span {esc(hr._fmt_date(a['min']))}→{esc(hr._fmt_date(a['max']))}) — "
-                "set that camera's clock before the next shoot.</div>")
+                f"{esc(a['camera'])} — {esc(a['off_clips'])} clip(s) dated wrong{flist} "
+                f"(span {esc(hr._fmt_date(a['min']))}→{esc(hr._fmt_date(a['max']))}). "
+                "Set that camera's clock before the next shoot.</div>")
     if sk.get("outlier"):
         mode = data.get("ground_truth")
         who = "culprit" if mode else "likely clock outlier"

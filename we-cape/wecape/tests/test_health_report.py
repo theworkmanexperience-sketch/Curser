@@ -21,7 +21,8 @@ _MAR14 = "2026-03-14 09:30:%02d"      # base time template
 
 
 def _clip(cam, sec, day="2026-03-14"):
-    return {"camera": cam, "epoch": hr._epoch(f"{day} 09:30:{sec:02d}")}
+    return {"camera": cam, "epoch": hr._epoch(f"{day} 09:30:{sec:02d}"),
+            "filename": f"{cam.replace(' ', '')}_{day}_{sec:02d}.mp4"}
 
 
 def test_humanize_skew_scales():
@@ -54,8 +55,27 @@ def test_intra_camera_spread_flags_partial_wrong_date():
     anoms = [a for a in hr.camera_anomalies(clips) if a["anomalous"]]
     assert len(anoms) == 1 and anoms[0]["camera"] == "Insta360 X5"
     assert anoms[0]["off_clips"] == 2                                     # exactly the 2018 clips
+    assert anoms[0]["off_files"] == []                                    # these clips had no filename set
     # and the median-based skew does NOT flag it (proves why we needed the spread signal)
     assert hr.camera_skews(clips)["outlier"] is None
+
+
+def test_filenames_local_only_not_in_summary():
+    # Full filenames appear in the standalone/local report, but NOT in the
+    # summary.md-safe form (privacy: filenames can carry PII — D1).
+    clips = [_clip("DJI Osmo 6", 10), _clip("iPhone", 12)]
+    clips += [_clip("Insta360 X5", s) for s in range(0, 30, 5)]
+    clips += [{"camera": "Insta360 X5", "epoch": hr._epoch("2018-10-01 19:45:55"),
+               "filename": "VID_20181001_PRIVATE.mp4"}]
+    anoms = hr.camera_anomalies(clips)
+    off = next(a for a in anoms if a["anomalous"])["off_files"]
+    assert "VID_20181001_PRIVATE.mp4" in off
+    data = {"run_id": "R", "run": {}, "summary": hr.grouping_health(7, None, None, 0),
+            "skew": hr.camera_skews(clips), "anomalies": anoms, "window_used": 15,
+            "ground_truth": None, "trusted": None, "projection": None,
+            "have_times": len(clips), "total_clips": len(clips)}
+    assert "VID_20181001_PRIVATE.mp4" in hr.render_markdown(data, list_files=True)     # local report
+    assert "VID_20181001_PRIVATE.mp4" not in hr.render_markdown(data, list_files=False)  # summary-safe
 
 
 def test_healthy_cameras_have_no_anomaly():

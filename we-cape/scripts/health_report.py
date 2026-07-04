@@ -106,15 +106,17 @@ def camera_anomalies(clips, spread_floor=NAME_THRESHOLD_S):
     by_cam = {}
     for c in clips:
         if c.get("epoch") is not None:
-            by_cam.setdefault(c["camera"] or "unknown", []).append(c["epoch"])
+            by_cam.setdefault(c["camera"] or "unknown", []).append((c["epoch"], c.get("filename")))
     if not by_cam:
         return []
-    consensus = statistics.median([e for ep in by_cam.values() for e in ep])
+    consensus = statistics.median([e for lst in by_cam.values() for e, _ in lst])
     cams = []
-    for cam, ep in by_cam.items():
-        cams.append({"camera": cam, "min": min(ep), "max": max(ep), "spread": max(ep) - min(ep),
-                     "n": len(ep),
-                     "off_clips": sum(1 for e in ep if abs(e - consensus) > spread_floor)})
+    for cam, lst in by_cam.items():
+        eps = [e for e, _ in lst]
+        off = [fn for e, fn in lst if abs(e - consensus) > spread_floor]
+        cams.append({"camera": cam, "min": min(eps), "max": max(eps), "spread": max(eps) - min(eps),
+                     "n": len(lst), "off_clips": len(off),
+                     "off_files": sorted(fn for fn in off if fn)})   # filenames (may be empty)
     med = statistics.median([c["spread"] for c in cams])
     for c in cams:
         c["anomalous"] = c["spread"] >= spread_floor and c["spread"] >= 3 * med
@@ -293,7 +295,7 @@ def build_report_data(db, run_id, manifest=None, telemetry=DEFAULT_TELEMETRY, wi
         epoch = tele.get(r.get("id"))                       # GPS/SRT time wins if present
         if epoch is None:
             epoch = _epoch(r.get("corrected_timestamp") or r.get("shoot_date"))
-        clips.append({"camera": _camera_of(r), "epoch": epoch})
+        clips.append({"camera": _camera_of(r), "epoch": epoch, "filename": r.get("filename")})
 
     idx = _index_counts(run.get("output_path"))
     win = idx.get("window") or window
@@ -317,7 +319,10 @@ def build_report_data(db, run_id, manifest=None, telemetry=DEFAULT_TELEMETRY, wi
 # ─────────────────────────────────────────────────────────────────────────────
 # Render
 # ─────────────────────────────────────────────────────────────────────────────
-def render_markdown(data):
+def render_markdown(data, list_files=False):
+    """list_files=True lists the mis-dated clips' FILENAMES (local-only: standalone
+    report + dashboard). Keep it False for anything that may egress (summary.md) —
+    filenames can carry PII; camera + count is the privacy-safe form (D1)."""
     r, s, sk = data["run_id"], data["summary"], data["skew"]
     L = [f"# Production Health — {r}", ""]
 
@@ -343,6 +348,9 @@ def render_markdown(data):
             L.append(f"  - **{a['camera']}: {a['n']} clips span {_fmt_date(a['min'])} → "
                      f"{_fmt_date(a['max'])} ({humanize_duration(a['spread'])})** — "
                      f"**{a['off_clips']} clip(s) carry the wrong date.**")
+            if list_files and a.get("off_files"):        # local-only: name the actual clips
+                for fn in a["off_files"]:
+                    L.append(f"    - `{fn}`")
         L.append("- **Cause: a subset of this camera's clips were recorded with the clock set "
                  "to the wrong date** — a single camera can't span that range in one shoot. "
                  "Those mis-dated clips won't group with the correctly-dated footage.")
@@ -472,7 +480,7 @@ def _cli(argv=None):
     if data is None:
         print(f"  No run '{args.run_id}' in {args.db}.")
         return 1
-    md = render_markdown(data)
+    md = render_markdown(data, list_files=True)          # standalone report is local — name the clips
     if args.append_summary:
         p = append_to_summary(data)
         print(f"  ✓ health block written into {p}" if p
