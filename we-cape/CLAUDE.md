@@ -624,8 +624,9 @@ c35750a  feat(preflight): Measure 1 — fail fast if ffmpeg/ffprobe missing
 Samsung 990 PRO 4TB + ZikeDrive Z666 TB4 (~$410) — PURCHASED + INSTALLED.
 Connected DIRECTLY to Mac Studio TB4 port (NOT the StarTech dock). ~3,098 MB/s.
 config.yaml already set: proxy_generation.workers: 4 (no change needed).
-Validated expectation (4 workers + VTB hwaccel): ~34 min benchmark / ~50 min production
-per 79-proxy shoot — well under the <90 min gate. Confirm on the next real shoot.
+CONFIRMED 2026-07-04 on installed hardware: 48.8 min / 0.62 min/proxy / 0 errors
+(run WEF_20260704_022704_099669, USB source → NVMe output) — well under the <90 min
+gate. workers=4 + VTB hwaccel effective on the real drive (was previously anticipatory).
 
 
 ---
@@ -686,6 +687,7 @@ Gate: < 90 minutes. Confirmed MG-04 June 22, 2026.
 
 | Production | USB HDD | 4 | VTB hwaccel | 49.9 min | 0.63 min/proxy | PASS |
 | Production (rewired/stages) | USB HDD | 4 | VTB hwaccel | 51.9 min | 0.66 min/proxy | PASS |
+| NVMe-confirm (installed drive) | USB→NVMe | 4 | VTB hwaccel | 48.8 min | 0.62 min/proxy | PASS |
 
 Production run: WEF_20260622_221150_204D47
 Output: /Volumes/WE_CAPE_OUTPUT/O-SIX_RYDERZ_MC/Community_Service_2024/
@@ -734,6 +736,15 @@ Validation: reproduced MG-02 ground truth (2 groups, 23 variants, 4 diagnostics)
     Insta360, joining existing groups as a 3rd source rather than forming DJI-only groups.
     New validated camera-identity baseline. Proxies unaffected (split is metadata, not
     pixels) — no re-transcode needed for the existing 79-proxy edit set.
+
+#4  O-SIX NVMe confirmation — WEF_20260704_022704_099669, July 4 2026
+    FIRST benchmark on the INSTALLED Samsung 990 PRO NVMe (ZikeDrive Z666, direct
+    TB4 Receptacle 1, 40 Gb/s USB4 — verified NOT behind the StarTech dock).
+    Source: /Volumes/10TB O-SIX (USB) -> Output: WE_CAPE_OUTPUT/O-SIX_NVMe_confirm (NVMe).
+    Files: 95 | Groups: 2 | Variants: 23 | Errors: 0 | Diagnostics: 4 | Proxies 79t/0s/0f.
+    Runtime: 2926s = 48.8 min (0.62 min/proxy) — on-benchmark vs June 22/24 (49.9/51.9),
+    well under the <90 min gate. Confirms workers=4 + VTB hwaccel effective on real
+    installed hardware (config was previously anticipatory). Ran via scripts/benchmark_run.sh.
 ```
 
 Critical discovery: commit 724bdae declared gate active before any validation.
