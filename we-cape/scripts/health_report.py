@@ -84,6 +84,43 @@ def humanize_skew(seconds):
 NAME_THRESHOLD_S = 86400          # 24h
 
 
+def humanize_duration(seconds):
+    a = abs(seconds or 0)
+    for unit, size in (("year", 31557600), ("month", 2629800), ("day", 86400),
+                       ("hour", 3600), ("minute", 60)):
+        if a >= size:
+            n = a / size
+            return f"~{n:.0f} {unit}{'s' if round(n) != 1 else ''}"
+    return f"~{a:.0f}s"
+
+
+def _fmt_date(epoch):
+    return datetime.fromtimestamp(epoch, tz=timezone.utc).strftime("%Y-%m-%d")
+
+
+def camera_anomalies(clips, spread_floor=NAME_THRESHOLD_S):
+    """Provable, roll-time-immune signal: a single camera whose OWN clips span an
+    implausibly large date range (≥ 1 day and ≥ 3× its peers) — meaning SOME of its
+    clips carry a wrong date. This catches a partial clock error (e.g. a subset of
+    clips shot with the clock unset) that a per-camera median would average away."""
+    by_cam = {}
+    for c in clips:
+        if c.get("epoch") is not None:
+            by_cam.setdefault(c["camera"] or "unknown", []).append(c["epoch"])
+    if not by_cam:
+        return []
+    consensus = statistics.median([e for ep in by_cam.values() for e in ep])
+    cams = []
+    for cam, ep in by_cam.items():
+        cams.append({"camera": cam, "min": min(ep), "max": max(ep), "spread": max(ep) - min(ep),
+                     "n": len(ep),
+                     "off_clips": sum(1 for e in ep if abs(e - consensus) > spread_floor)})
+    med = statistics.median([c["spread"] for c in cams])
+    for c in cams:
+        c["anomalous"] = c["spread"] >= spread_floor and c["spread"] >= 3 * med
+    return sorted(cams, key=lambda c: -c["spread"])
+
+
 def camera_skews(clips, trusted_camera=None, window=DEFAULT_WINDOW, name_threshold=NAME_THRESHOLD_S):
     """clips: list of {camera, epoch}. Returns per-camera skew vs consensus.
 
@@ -265,11 +302,12 @@ def build_report_data(db, run_id, manifest=None, telemetry=DEFAULT_TELEMETRY, wi
     ungrouped = idx.get("ungrouped")
 
     skew = camera_skews(clips, trusted_camera=trusted, window=win)
+    anomalies = camera_anomalies(clips)
     ground_truth = "telemetry" if tele else ("manifest" if trusted else None)
     return {
         "run_id": run_id, "run": run,
         "summary": grouping_health(total_cam, grouped, ungrouped, 0),
-        "skew": skew, "window_used": win,
+        "skew": skew, "anomalies": anomalies, "window_used": win,
         "ground_truth": ground_truth, "trusted": trusted,
         "projection": projected_improvement(skew, win, ungrouped),
         "have_times": sum(1 for c in clips if c["epoch"] is not None), "total_clips": len(clips),
@@ -295,9 +333,19 @@ def render_markdown(data):
     L.append("")
 
     # 4.2 Camera Health
+    anoms = [a for a in data.get("anomalies", []) if a.get("anomalous")]
     L.append("## Camera Health (clock check)")
     if sk["no_timestamps"]:
         L.append("- No resolved timestamps available for this run — clock check skipped.")
+    elif anoms:
+        # strongest, most provable signal: a single camera contradicting its own dates
+        for a in anoms:
+            L.append(f"  - **{a['camera']}: {a['n']} clips span {_fmt_date(a['min'])} → "
+                     f"{_fmt_date(a['max'])} ({humanize_duration(a['spread'])})** — "
+                     f"**{a['off_clips']} clip(s) carry the wrong date.**")
+        L.append("- **Cause: a subset of this camera's clips were recorded with the clock set "
+                 "to the wrong date** — a single camera can't span that range in one shoot. "
+                 "Those mis-dated clips won't group with the correctly-dated footage.")
     else:
         mode = data["ground_truth"]
         if mode == "telemetry":
@@ -338,7 +386,17 @@ def render_markdown(data):
     # 4.4 Recommendations
     L.append("## Recommendations (the cure)")
     p = data["projection"]
-    if p:
+    if anoms:
+        a = anoms[0]
+        L.append(f"- **Set the {a['camera']} clock to the correct date/time before the next shoot.** "
+                 f"Its {a['off_clips']} mis-dated clip(s) are why some footage won't line up.")
+        L.append("- For the current shoot, those clips can still be placed manually in Final Cut "
+                 "(sort by Name won't help them — their timestamps are wrong).")
+        L.append("- Better going forward: sync every camera to one accurate source (your phone) "
+                 "before rolling.")
+        L.append("- _This identifies *which* clips are mis-dated; it does not alter them "
+                 "(the report is read-only). Auto-correction is a planned option._")
+    elif p:
         L.append(f"- **Set the {p['camera']} clock to the correct date/time before the next shoot** "
                  f"(it's {humanize_skew(-p['correction_s'])} — correct it by {p['correction_human']}).")
         L.append("- Better: sync every camera to one accurate source (your phone) before rolling.")

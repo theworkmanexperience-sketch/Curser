@@ -44,6 +44,25 @@ def test_relative_skew_flags_gross_outlier():
     assert any(c["is_outlier"] for c in r["cameras"])
 
 
+def test_intra_camera_spread_flags_partial_wrong_date():
+    # The real O-SIX case: Insta360 mostly 2026 but a handful of clips stuck in 2018.
+    # A per-camera MEDIAN misses it (median lands in 2026); intra-camera spread catches it.
+    clips = [_clip("DJI Osmo 6", 10), _clip("DJI Osmo 6", 12), _clip("iPhone", 11)]
+    clips += [_clip("Insta360 X5", s) for s in range(0, 40, 5)]          # many 2026 clips
+    clips += [{"camera": "Insta360 X5", "epoch": hr._epoch("2018-10-01 19:45:55")},
+              {"camera": "Insta360 X5", "epoch": hr._epoch("2018-10-01 20:00:00")}]  # 2 wrong-date
+    anoms = [a for a in hr.camera_anomalies(clips) if a["anomalous"]]
+    assert len(anoms) == 1 and anoms[0]["camera"] == "Insta360 X5"
+    assert anoms[0]["off_clips"] == 2                                     # exactly the 2018 clips
+    # and the median-based skew does NOT flag it (proves why we needed the spread signal)
+    assert hr.camera_skews(clips)["outlier"] is None
+
+
+def test_healthy_cameras_have_no_anomaly():
+    clips = [_clip("DJI", 10), _clip("DJI", 40), _clip("Insta360", 20), _clip("iPhone", 30)]
+    assert [a for a in hr.camera_anomalies(clips) if a["anomalous"]] == []
+
+
 def test_two_cameras_disagreeing_names_no_culprit():
     # Honesty guardrail: two cameras, can't tell which is wrong → no accusation.
     clips = [{"camera": "DJI", "epoch": hr._epoch("2026-03-14 09:30:10")},
