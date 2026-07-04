@@ -198,6 +198,23 @@ scripts/                ← ops tooling (NOT the engine)
 │                          folders vs the registry: PROCESSED / UNPROCESSED (gap) / DUPLICATE (byte-
 │                          identical, reclaimable). quick (filename+size) or --hash (SHA-256, definitive).
 │                          Read-only, stdlib. Answers "is every file accounted for?"
+├── srt_telemetry.py    ← .SRT sidecar telemetry (2026-07-03). Parses DJI/Osmo .SRT sidecars for
+│                          drift-free record-time + GPS; stores in a SEPARATE ~/.wecape/telemetry.db
+│                          (NOT the deterministic registry — P1/PII, like annotations.db), keyed by
+│                          clip content SHA. Skips non-telemetry caption .SRT (no datetime). scan/show/
+│                          list CLI. GPS full-fidelity locally, hashed on egress (D1). Read-only, stdlib.
+│                          Feeds the Health Report's authoritative clock. Docs: SPEC_SRT_Telemetry.md
+├── health_report.py    ← Production Health Report / postmortem (2026-07-03). Reads the registry
+│                          READ-ONLY; explains a shoot honestly: 0-files-lost, per-camera clock health,
+│                          the cure + a *labelled simulation* of the projected gain. Two clock signals:
+│                          intra-camera spread (one camera contradicting its own dates → some clips
+│                          wrong-dated — the provable, roll-time-immune signal; caught real O-SIX
+│                          Insta360 7/48 clips at 2018) and inter-camera skew (whole clock off).
+│                          Honesty guardrails TESTED: no "% sync accuracy" ever; names a culprit only
+│                          on a ≥1-day (provable) offset or with a trusted_clock/telemetry reference,
+│                          else "likely" + outlier only. Upgrades automatically when a shoot.yaml
+│                          trusted_clock or telemetry.db (.SRT GPS) is present. stdlib, zero-network.
+│                          Spec: SPEC_Production_Health_Report.md
 ├── backup_holder_mac.sh + com.wecape.holdermacbackup.plist + com.wecape.registrybackup.plist
 │                          ← asset-protection: 4.6TB Holder Mac (weekly) + ~/.wecape 3-2-1 (internal
 │                          staging + offsite rclone copy + external mirror; daily via --registry-only).
