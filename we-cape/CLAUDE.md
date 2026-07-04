@@ -508,8 +508,9 @@ Storage:
   - Got My BackUP (5TB WD easystore): Time Machine destination
   - G-DRIVE SSD (4TB): backup archive
   - FreeAgent GoFlex (1TB): corrupted filesystem, DiskWarrior needed
-Pending purchase: Samsung 990 PRO 4TB + ZikeDrive Z666 TB4 (~$410)
-CRITICAL: Connect NVMe directly to Mac Studio TB4 port — NOT through StarTech dock
+  - Samsung 990 PRO 4TB (ZikeDrive Z666 TB4): INSTALLED 2026-07-03 — primary NVMe
+    (WE_CAPE_OUTPUT). Connected directly to Mac Studio TB4 port (NOT the StarTech dock).
+    Enables proxy_generation.workers: 4 (config already set); ~3,098 MB/s confirmed.
 ```
 
 ---
@@ -618,12 +619,13 @@ c35750a  feat(preflight): Measure 1 — fail fast if ffmpeg/ffprobe missing
 
 ---
 
-## Hardware Pending
+## Hardware — Samsung 990 PRO NVMe (INSTALLED 2026-07-03)
 
-Samsung 990 PRO 4TB (~$260) + ZikeDrive Z666 TB4 enclosure (~$150) = ~$410
-Connect NVMe DIRECTLY to Mac Studio TB4 port — NOT StarTech dock
-After install: config.yaml workers: 1 -> 4
-Expected: 9 hours -> ~60 minutes per 79-file shoot
+Samsung 990 PRO 4TB + ZikeDrive Z666 TB4 (~$410) — PURCHASED + INSTALLED.
+Connected DIRECTLY to Mac Studio TB4 port (NOT the StarTech dock). ~3,098 MB/s.
+config.yaml already set: proxy_generation.workers: 4 (no change needed).
+Validated expectation (4 workers + VTB hwaccel): ~34 min benchmark / ~50 min production
+per 79-proxy shoot — well under the <90 min gate. Confirm on the next real shoot.
 
 
 ---
