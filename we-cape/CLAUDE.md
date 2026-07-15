@@ -1043,3 +1043,21 @@ Status:             DEFINED + IMPLEMENTED (commit 2a3220e).
                     6.5 Classification >=75% named | 6.6 Determinism |
                     6.7 Run ID consistency.
                     RFQ AUDIT COMPLETE — Tests 1-6 ALL PASS. 391/391.
+
+
+---
+
+## SRT Sidecar Timestamp Source — LIVE (gated) — July 14, 2026
+
+Status:    Implemented b6ef97c. Stub _extract_dji_telemetry is now live.
+Gate:      timestamp.enable_srt_telemetry (config.yaml) — DEFAULT FALSE.
+           Gate off = byte-identical to validated baseline (395/395).
+Behavior:  When enabled, .SRT sidecar datetime becomes the highest-priority
+           timestamp source (fallback_level=0, confidence=high).
+           Datetime ONLY — no GPS parsing, no telemetry.db writes in the
+           engine path (D1). Full telemetry: scripts/srt_telemetry.py.
+Payoff:    Drift-free timestamps address the clock-skew root cause behind
+           the §7 grouping-window deviation. Future option: enable gate +
+           test grouping at RFQ-original ±5s window on SRT-equipped shoots.
+Tests:     wecape/tests/test_srt_timestamp_gate.py — 4 cases
+           (present / absent / malformed / gate-off).
