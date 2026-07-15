@@ -133,7 +133,11 @@ class Pipeline:
         self.hash_chunk_mb: int = self.config.get('performance', {}).get('hash_chunk_size_mb', 64)
 
         self.classifier = FileClassifier(self.config)
-        self.ts_extractor = TimestampExtractor(camera_offsets=offsets)
+        _srt_gate = self.config.get('timestamp', {}).get(
+            'enable_srt_telemetry', False)
+        self.ts_extractor = TimestampExtractor(
+            camera_offsets=offsets,
+            enable_srt_telemetry=_srt_gate)
         self.grouper = MulticamGrouper(self.config)
         self.variant_detector = VariantDetector(self.config)
 

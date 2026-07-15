@@ -44,31 +44,73 @@ class TimestampResult:
 
 
 class TimestampExtractor:
+    # Datetime pattern for .SRT sidecar parsing.
+    # Source of truth: scripts/srt_telemetry.py (_DT_RE) — duplicated here
+    # deliberately: the engine must not import from scripts/ (tooling layer).
+    _SRT_DT_RE = re.compile(
+        r"(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})")
+
     def _extract_dji_telemetry(self, file_path):
         """
-        PLANNED — DJI telemetry timestamp source (NOT yet integrated).
+        LIVE (opt-in) — DJI .SRT sidecar timestamp source.
 
-        Intended design: read the per-frame capture time from a DJI telemetry
-        sidecar ('<name>.SRT', written alongside the .MP4 by DJI Action cameras)
-        to obtain a drift-free timestamp, addressing the camera clock skew behind
-        the §7 grouping-window deviation. It would slot into extract() as a
-        high-priority, OPT-IN source (config-gated, default off) so it never
-        changes the validated default grouping.
+        Reads the FIRST record-time datetime from '<name>.SRT' written
+        alongside the clip by DJI Action/Osmo cameras. This is the most
+        drift-free timestamp available and addresses the camera clock skew
+        behind the §7 grouping-window deviation.
 
-        Currently a deliberate no-op returning (None, None). Embedded
-        creation_time is already covered by _from_ffprobe(), so there is no
-        behavioural gap until real .SRT parsing lands. Tracked in CLAUDE.md
-        backlog. (The previous body just re-read ffprobe creation_time — i.e.
-        duplicated _from_ffprobe — and was never called; removed to avoid
-        misleading dead code.)
+        OPT-IN: only called when config timestamp.enable_srt_telemetry is
+        true (default false). When the gate is off, default grouping
+        behavior is byte-identical to the validated baseline.
+
+        Datetime ONLY — no GPS parsing, no telemetry.db writes in this
+        path (D1: location PII stays out of the deterministic engine;
+        full-fidelity telemetry lives in scripts/srt_telemetry.py).
+
+        Returns (unix_timestamp: float, 'dji_srt_sidecar') on success,
+        (None, None) otherwise. Never raises.
         """
-        return None, None
+        try:
+            # Sidecar naming: exact-stem match, either extension case
+            for ext in ('.SRT', '.srt'):
+                sidecar = file_path.with_suffix(ext)
+                if sidecar.exists() and sidecar != file_path:
+                    break
+            else:
+                return None, None
+
+            # Read only the head — first datetime is the record start
+            with open(sidecar, 'r', errors='ignore') as f:
+                head = f.read(8192)
+
+            m = self._SRT_DT_RE.search(head)
+            if not m:
+                return None, None
+
+            dt = datetime(*(int(g) for g in m.groups()))
+            return dt.timestamp(), 'dji_srt_sidecar'
+        except Exception:
+            return None, None
 
 
-    def __init__(self, camera_offsets: dict | None = None):
+    def __init__(self, camera_offsets: dict | None = None,
+                 enable_srt_telemetry: bool = False):
         self.camera_offsets = camera_offsets or {}
+        # Opt-in gate for .SRT sidecar timestamps (default OFF —
+        # preserves validated baseline grouping behavior)
+        self.enable_srt_telemetry = enable_srt_telemetry
 
     def extract(self, file_path: Path, camera_source: Optional[str] = None) -> TimestampResult:
+        # Opt-in: .SRT sidecar — most drift-free source when present
+        if self.enable_srt_telemetry:
+            ts, method = self._extract_dji_telemetry(file_path)
+            if ts is not None:
+                result = TimestampResult(
+                    unix_timestamp=ts, method=method,
+                    fallback_level=0, confidence='high',
+                    raw_value='srt_sidecar')
+                return self._apply_offset(result, camera_source)
+
         result = self._from_filename(file_path)
         if result:
             return self._apply_offset(result, camera_source)
