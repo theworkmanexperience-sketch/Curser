@@ -36,6 +36,10 @@ from pathlib import Path
 # Reuse the verified-copy helpers rather than reimplement them.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 try:
+    import camera_identity as ci                      # footage-first identity (optional)
+except Exception:                                    # pragma: no cover - import guard
+    ci = None
+try:
     from offload_cards import is_cruft, human, KNOWN_CAMERAS
     from offload_cards import main as offload_main
 except Exception:                                    # pragma: no cover - import guard
@@ -193,16 +197,36 @@ def _volume_capacity(mount):
         return None
 
 
-def detect_cards(volumes="/Volumes", patterns=None, max_card_bytes=None, capacity_fn=None):
-    """Scan mounts and return candidate cards with a GUESSED camera + confidence.
-    The result is a proposal — the caller confirms/overrides before any copy.
+# new-scheme confidence -> old badge vocabulary (GUI/HTML understands high/medium/low).
+# The INVERSION lives here: a volume-name-only match ('label') is now 'low' — the
+# operator must confirm — because the card's name is the least trustworthy signal.
+_CONF_BADGE = {"verified": "high", "file": "high", "brand": "medium",
+               "label": "low", "none": "low"}
 
-    Volumes larger than `max_card_bytes` (default ~2.5 TB) are skipped WITHOUT being
-    walked — they're archive/output drives, not cards, and walking a 9 TB drive would
-    hang detection. `capacity_fn` is injectable for tests."""
+
+def _card_metadata(mount, files):
+    """Best-effort {serial,model} from the mount's first video (footage-first identity).
+    Read-only, graceful: returns {} if camera_identity/exiftool unavailable."""
+    if ci is None:
+        return {}
+    vid = next((f for f in files if f.suffix.lower().lstrip(".") in VIDEO_EXTS), None)
+    return ci.serial_from_metadata(vid) if vid else {}
+
+
+def detect_cards(volumes="/Volumes", patterns=None, max_card_bytes=None,
+                 capacity_fn=None, metadata_fn=None):
+    """Scan mounts and return candidate cards, each with a footage-first identity.
+
+    Identity comes from the FOOTAGE (metadata serial > filename brand) and treats the
+    volume label as a weak hint only; if the label CONTRADICTS the footage the card is
+    flagged `conflict` (the caller must stop and confirm — never silently offload a
+    mis-labeled card). `metadata_fn(mount, files)->meta` and `capacity_fn` are injectable
+    for tests. Oversized volumes (>~2.5 TB) are skipped WITHOUT being walked."""
     patterns = patterns or load_camera_patterns()
     max_card_bytes = MAX_CARD_BYTES if max_card_bytes is None else max_card_bytes
     capacity_fn = capacity_fn or _volume_capacity
+    metadata_fn = metadata_fn or _card_metadata
+    registry = ci.load_registry() if ci is not None else None
     vroot = Path(volumes)
     out = []
     if not vroot.is_dir():
@@ -220,10 +244,43 @@ def detect_cards(volumes="/Volumes", patterns=None, max_card_bytes=None, capacit
             continue
         files, total, vids = scan_media(mount, MEDIA_EXTS)
         sample = [f.name for f in files[:40]]
-        label, conf = guess_camera(mount.name, sample, patterns)
-        out.append({"mount": str(mount), "camera": label, "confidence": conf,
-                    "file_count": len(files), "video_count": vids, "bytes": total})
+        card = {"mount": str(mount), "file_count": len(files),
+                "video_count": vids, "bytes": total}
+        if ci is not None:
+            try:
+                meta = metadata_fn(mount, files)
+            except Exception:
+                meta = {}
+            idn = ci.identify(mount.name, sample, meta=meta, registry=registry)
+            # `camera` = a preselection for the dropdown: the resolved body, else the
+            # known brand (so 'DJI' still shows), else nothing.
+            camera = idn["label"] or idn["brand"]
+            conf = "low" if idn["conflict"] else _CONF_BADGE.get(idn["confidence"], "low")
+            card.update({"camera": camera, "camera_derived": camera, "confidence": conf,
+                         "conflict": idn["conflict"], "must_confirm": idn["must_confirm"],
+                         "identity_source": idn["source"], "identity_status": idn["status"],
+                         "detail": idn["detail"], "options": idn["options"],
+                         "prompt": ci.confirm_prompt(idn)})
+        else:                                              # legacy fallback (no ci module)
+            label, conf = guess_camera(mount.name, sample, patterns)
+            card.update({"camera": label, "confidence": conf, "conflict": False,
+                         "must_confirm": conf != "high"})
+        out.append(card)
     return out
+
+
+def identity_provenance(c):
+    """How a card's camera_id was derived — persisted to the manifest + audit (P3).
+    If the human's final camera differs from the footage-derived one, it's flagged an
+    override so an audit can see the human overrode the footage (progressive
+    disclosure: the system defers to the human, but records that it did)."""
+    derived = c.get("camera_derived")               # footage-derived label, if detect set one
+    src = c.get("identity_source") or "user"
+    status = c.get("identity_status") or "user_specified"
+    if derived and c.get("camera") and c["camera"] != derived:
+        src, status = "user-override", "overridden"
+    return {"label": c.get("camera"), "source": c.get("mount"),
+            "identified_by": src, "identity_status": status}
 
 
 def free_bytes(path):
@@ -277,6 +334,10 @@ class ShootManifest:
             for c in self.cameras:
                 lines.append(f"  - label: {sc(c.get('label',''))}")
                 lines.append(f"    source: {sc(c.get('source',''))}")
+                if c.get("identified_by"):          # P3: how this camera_id was derived
+                    lines.append(f"    identified_by: {sc(c.get('identified_by'))}")
+                if c.get("identity_status"):
+                    lines.append(f"    identity_status: {sc(c.get('identity_status'))}")
         else:
             lines.append("  []")
         return "\n".join(lines) + "\n"
@@ -299,8 +360,9 @@ def read_manifest(path):
         if raw.startswith("  - label:"):
             cur = {"label": _unq(raw.split(":", 1)[1].strip()), "source": ""}
             out["cameras"].append(cur)
-        elif raw.startswith("    source:") and cur is not None:
-            cur["source"] = _unq(raw.split(":", 1)[1].strip())
+        elif raw.startswith("    ") and ":" in raw and cur is not None:
+            k, v = raw.strip().split(":", 1)          # source / identified_by / identity_status / future
+            cur[k.strip()] = _unq(v.strip())
         elif raw.startswith("cameras:"):
             continue
         elif ":" in raw and not raw.startswith(" "):
@@ -478,8 +540,8 @@ def run_new_shoot(manifest, cards, dest, output, dest2=None, stills=None,
             except Exception:
                 pass
 
-    # 1) manifest sidecar
-    manifest.cameras = manifest.cameras or [{"label": c["camera"], "source": c["mount"]} for c in cards]
+    # 1) manifest sidecar — record HOW each camera_id was derived (P3 provenance).
+    manifest.cameras = manifest.cameras or [identity_provenance(c) for c in cards]
     mpath = manifest.write(output)
     result["manifest"] = str(mpath)
     audit(output, "manifest", path=str(mpath), name=manifest.name, dry_run=dry_run)
@@ -505,7 +567,10 @@ def run_new_shoot(manifest, cards, dest, output, dest2=None, stills=None,
             continue
         _emit("offload_start", mount=c["mount"], camera=c["camera"])
         rc = _offload(c["mount"], c["camera"], manifest.name, dest, dest2, dry_run)
-        audit(output, "offload", mount=c["mount"], camera=c["camera"], rc=rc, dry_run=dry_run)
+        prov = identity_provenance(c)                # how this camera_id was derived (P3)
+        audit(output, "offload", mount=c["mount"], camera=c["camera"], rc=rc, dry_run=dry_run,
+              identified_by=prov["identified_by"], identity_status=prov["identity_status"],
+              conflict=bool(c.get("conflict")))
         _emit("offload", mount=c["mount"], camera=c["camera"], ok=(rc == 0))
         if rc != 0:
             result["errors"].append(f"offload verification FAILED for {c['mount']} — card not safe to format")

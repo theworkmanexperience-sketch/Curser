@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  W.E. C.A.P.E. — scheduled footage backup (TEMPLATE).
+
+  Weekly verified mirror of the priority footage folders (backup_sources.txt) to the
+  target drive + offsite (rclone crypt) + restore drill. SAFE to schedule: if the
+  target drive isn't mounted, backup_footage.sh's guard REFUSES and logs — it never
+  writes to the boot disk.
+
+  BEFORE ENABLING:
+   1. Set --target to the real backup drive. Interim: /Volumes/WE_CAPE_OUTPUT/originals_backup
+      (only fits the priority subset). Repoint to the ≥12 TB drive when it arrives.
+   2. Confirm the rclone remote (gcrypt:) and --remote path.
+   3. Install:  cp scripts/com.wecape.footagebackup.plist ~/Library/LaunchAgents/
+               launchctl load ~/Library/LaunchAgents/com.wecape.footagebackup.plist
+      Run once now to test:  launchctl start com.wecape.footagebackup
+   4. Check ~/wecape_backup.log and RESTORE_TESTS.md after the first run.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.wecape.footagebackup</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/twork/Curser/we-cape/scripts/backup_footage.sh</string>
+    <string>--target</string><string>/Volumes/WE_CAPE_OUTPUT/originals_backup</string>
+    <string>--list</string><string>/Users/twork/Curser/we-cape/backup_sources.txt</string>
+    <string>--remote</string><string>gcrypt:originals</string>
+    <string>--go</string>
+    <string>--offsite</string>
+    <string>--restore-test</string>
+    <string>--log</string><string>/Users/twork/wecape_backup.log</string>
+  </array>
+  <!-- Weekly: Monday 03:00. Adjust to taste. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key><integer>1</integer>
+    <key>Hour</key><integer>3</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+  <key>RunAtLoad</key><false/>
+  <key>StandardOutPath</key><string>/Users/twork/wecape_backup.log</string>
+  <key>StandardErrorPath</key><string>/Users/twork/wecape_backup.err</string>
+</dict>
+</plist>

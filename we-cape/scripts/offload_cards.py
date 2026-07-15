@@ -33,12 +33,80 @@ stdlib only · zero network · read-only on the source.
 import argparse
 import hashlib
 import json
+import re
 import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 KNOWN_CAMERAS = ("DJI ACTION 5", "DJI ACTION 6", "Insta360 X5", "OM System OM-1")
+
+# ── shoot manifest (shoot.yaml) — human context for the Production Health Report ──
+# Written at offload (the one moment the operator is present), travels with the
+# footage, read by health_report.py at report time. Influences report FRAMING only,
+# never pipeline output (P1). stdlib-only mini-YAML — matches the SPEC §3 shape and
+# health_report.load_trusted_clock's line parser.
+MANIFEST_NAME = "shoot.yaml"
+_MANIFEST_ORDER = ["shoot_name", "shoot_date", "location", "event",
+                   "cameras", "trusted_clock", "notes"]
+
+
+def parse_manifest(text):
+    """Tolerant mini-YAML → dict. Only the flat `key: value` + `cameras: [a, b]`
+    shapes this tool writes; unknown lines are ignored."""
+    data = {}
+    for line in (text or "").splitlines():
+        m = re.match(r"\s*([A-Za-z_]+)\s*:\s*(.*)$", line)
+        if not m:
+            continue
+        key, val = m.group(1), m.group(2).strip().strip('"').strip("'")
+        if key == "cameras":
+            inner = val.strip().lstrip("[").rstrip("]")
+            data["cameras"] = [c.strip().strip('"').strip("'")
+                               for c in inner.split(",") if c.strip()]
+        elif val:
+            data[key] = val
+    return data
+
+
+def render_manifest(data):
+    lines = ["# W.E. C.A.P.E. shoot manifest — human context for the Production Health Report.",
+             "# Optional; influences report framing only, never pipeline output (P1)."]
+    for key in _MANIFEST_ORDER:
+        if key == "cameras":
+            cams = data.get("cameras") or []
+            if cams:
+                lines.append("cameras: [" + ", ".join(cams) + "]")
+        elif data.get(key):
+            lines.append(f"{key}: {data[key]}")
+    return "\n".join(lines) + "\n"
+
+
+def merge_manifest(existing_text, updates):
+    """Merge new fields into an existing manifest (idempotent per camera): scalar
+    fields overwrite when provided; the current camera is appended to `cameras` so
+    offloading each card in turn builds up the full camera list."""
+    data = parse_manifest(existing_text)
+    camera = updates.pop("_camera", None)
+    for k, v in updates.items():
+        if v:
+            data[k] = v
+    if camera:
+        cams = data.get("cameras") or []
+        if camera not in cams:
+            cams.append(camera)
+        data["cameras"] = cams
+    return render_manifest(data)
+
+
+def write_shoot_manifest(shoot_root, camera, fields):
+    """Create/update <shoot_root>/shoot.yaml, folding in this camera + fields."""
+    path = Path(shoot_root) / MANIFEST_NAME
+    existing = path.read_text() if path.exists() else ""
+    updates = dict(fields)
+    updates["_camera"] = camera
+    path.write_text(merge_manifest(existing, updates))
+    return path
 CRUFT_NAMES = {".DS_Store"}
 CRUFT_DIRS = {".Spotlight-V100", ".Trashes", ".fseventsd",
               ".DocumentRevisions-V100", ".TemporaryItems"}
@@ -107,7 +175,20 @@ def main(argv=None):
     ap.add_argument("--dest2", help="optional second destination root (true two-copy safety)")
     ap.add_argument("--ext", help="comma-separated extension allowlist (default: copy everything)")
     ap.add_argument("--dry-run", action="store_true", help="show what would copy; write nothing")
+    # ── shoot manifest fields (all optional) — written to shoot.yaml beside the footage ──
+    ap.add_argument("--trusted-clock",
+                    help='the camera whose clock is authoritative (e.g. "DJI Osmo Action 6"); '
+                         "lets the Health Report name the culprit definitively")
+    ap.add_argument("--shoot-date", help="the true shoot date, if known (YYYY-MM-DD)")
+    ap.add_argument("--location", help="free-text location (e.g. 'Kansas City, MO')")
+    ap.add_argument("--event", help="free-text event name")
+    ap.add_argument("--notes", help="free-text notes (e.g. 'Insta360 clock was not reset')")
     args = ap.parse_args(argv)
+
+    manifest_fields = {"shoot_name": args.shoot, "shoot_date": args.shoot_date,
+                       "location": args.location, "event": args.event,
+                       "trusted_clock": args.trusted_clock, "notes": args.notes}
+    want_manifest = any(v for k, v in manifest_fields.items() if k != "shoot_name")
 
     source = Path(args.source)
     if not source.exists():
@@ -143,6 +224,11 @@ def main(argv=None):
     if args.dry_run:
         for f in files:
             print(f"  would copy  {f.relative_to(root)}  ({human(f.stat().st_size)})")
+        if want_manifest:
+            preview = render_manifest(merge_manifest("", {**manifest_fields, "_camera": args.camera}))
+            print(f"\n  would write {MANIFEST_NAME} to each shoot root:")
+            for line in preview.splitlines():
+                print(f"    {line}")
         print(f"\n(dry-run) {len(files)} file(s), {human(total_bytes)} -> {len(dests)} destination(s). Nothing written.")
         return 0
 
@@ -194,6 +280,14 @@ def main(argv=None):
         print(f"  ✗ {mismatched} file(s) FAILED verification — re-run to retry. DO NOT format the card.")
         return 1
     print("  ✓ every file verified in every destination.")
+    if want_manifest:
+        for shoot_root in dict.fromkeys(d.parent for d in dests):   # unique, order-preserving
+            try:
+                mp = write_shoot_manifest(shoot_root, args.camera, manifest_fields)
+                print(f"  ✓ shoot manifest: {mp}"
+                      + (f"  (trusted_clock: {args.trusted_clock})" if args.trusted_clock else ""))
+            except OSError:
+                print(f"  ⚠ could not write {MANIFEST_NAME} to {shoot_root}")
     print("  Safe to format the card now (your call — the tool never touches it).")
     print(f"  Next: python3 -m wecape --input \"{dests[0].parent}\" --output <OUTPUT> --proxy")
     return 0

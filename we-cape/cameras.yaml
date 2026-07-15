@@ -1,0 +1,45 @@
+# W.E. C.A.P.E. — Camera Identity Registry
+#
+# The SOURCE OF TRUTH for which physical body recorded a card. Keyed by the camera
+# SERIAL (read from on-camera Device/Camera Info) — which, unlike a volume label,
+# the operator cannot mislabel. camera_identity.py loads this (merged over its
+# built-in defaults) so detection can identify a body from the footage, not the
+# card's name.
+#
+# Why this file exists: on this kit the SanDisk card named "DJIAction6" actually
+# holds DJI Osmo Action 5 Pro footage (verified 2026-07-04). Trusting the label
+# writes the wrong camera_id. Identity must come from the footage/serial instead.
+#
+# `serial` is the on-SCREEN serial. If the exiftool probe shows a DIFFERENT serial
+# embedded in the files, add it as `serial_embedded:` (matching is tolerant).
+# Add a new camera by copying a block and filling in its serial.
+
+# `model_code` = DJI's embedded per-file identifier (model_name:AC0NN inside the
+# exiftool Category tag) — the strongest DJI signal; there is no plain Serial tag.
+# DJI's codes are OFFSET from the marketing name (RESOLVED 2026-07-05):
+#   AC003 = Osmo Action 4   ·   AC004 = Osmo Action 5 Pro   ·   AC006 = Osmo Action 6
+# AC004→5 Pro confirmed by the camera self-reporting "OsmoAction5ProA715" + kit
+# elimination (the only non-Action-6 DJI in the kit).
+cameras:
+  - label: DJI Osmo Action 6
+    short: DJI ACTION 6
+    brand: DJI
+    serial: 9KRXNC800BGX5N
+    device_name: OsmoAction6-84CB
+    model_code: AC006             # confirmed from footage (WEDDING card)
+    gps_for_action: true          # embeds GPS at record time (DJI GPS-for-Action app)
+
+  - label: DJI Osmo Action 5 Pro
+    short: DJI ACTION 5
+    brand: DJI
+    serial: 82JXN4500BW1VE
+    device_name: OsmoAction5ProA715
+    model_code: AC004             # confirmed = 5 Pro (NOT Action 4; DJI codes are offset)
+    gps_for_action: true
+
+  - label: Insta360 X5
+    short: Insta360 X5
+    brand: Insta360
+    serial: IAHEA2503SK8FE
+    device_name: Insta360 X5
+    gps_for_action: false         # phone GPS stays app/cloud-side; keep clock synced instead

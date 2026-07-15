@@ -179,21 +179,61 @@ scripts/                ← ops tooling (NOT the engine)
 │                          (PyWebView, license-clean; NOT PySimpleGUI which is now paid). stdlib-only,
 │                          zero-network, read-only on cards. run_new_shoot emits an optional
 │                          progress(stage,detail) callback (headless no-op when omitted).
-│                          Docs: scripts/README_new_shoot.md
+│                          FOOTAGE-FIRST IDENTITY (2026-07-05): detect no longer trusts the volume
+│                          NAME — it calls camera_identity to resolve the body from the footage
+│                          (metadata serial > filename brand), demotes the mount name to a weak hint,
+│                          and flags `conflict` when the label contradicts the footage. Fixes the
+│                          card-label trap (SanDisk "DJIAction6" holds Action 5 Pro). Docs: README_new_shoot.md
+├── camera_identity.py + cameras.yaml  ← Footage-first camera identity (2026-07-05). The volume label
+│                          LIES (verified: "DJIAction6" card = Action 5 Pro), so identity is derived
+│                          from the footage: metadata serial→registry (authoritative), else filename
+│                          brand (reliable; DJI stays ambiguous→confirm), else the card name as a WEAK
+│                          hint only. A label that contradicts the footage = CONFLICT → stop + confirm
+│                          (the "never trust a MIS-labeled card" rule). Confidence INVERTED (name-only
+│                          = low). cameras.yaml = serial→label registry seeded with the 3 verified
+│                          bodies; add a camera by pasting its serial. exiftool reader is tolerant +
+│                          injectable (finalize serial tags once the on-card probe runs). stdlib,
+│                          zero-network, read-only. Confirmation-style prompts (novice
+│                          confirms a fact, never guesses "5 or 6?"). ERROR TAXONOMY +
+│                          PROVENANCE (2026-07-05): each result carries a named status
+│                          (verified/conflict/ambiguous/label_only/unknown); new_shoot persists
+│                          HOW each camera_id was derived (identified_by + identity_status) into
+│                          shoot.yaml AND the session audit JSONL, and flags a human override
+│                          (status=overridden) — P3 traceability / ISO-9001-style process control.
+├── probe_camera.py     ← Camera discovery / onboarding tool (2026-07-05). Point it at a file/
+│                          folder/card → fingerprint (structure, identity, time drift-free-vs-clock,
+│                          telemetry STREAMS flagged) + coverage verdict (does identify() resolve it,
+│                          is it in cameras.yaml, what's the gap) + PASTE-READY cameras.yaml stub &
+│                          FAMILY_PATTERNS line. Smarter label (canonical / brand+code / "Unknown
+│                          <Brand> - TODO"). Read-only by default; --add is the only writer (opt-in,
+│                          never guesses). Boundaries: FLAGS djmd/gpmf telemetry, does NOT decode it;
+│                          not a transcode tester; no engine coupling. Injectable exiftool/ffprobe →
+│                          fully unit-tested (10 tests) without either tool. Docs: scripts/README_probe.md
 ├── new_shoot_gui.py + .html + .command  ← PyWebView SKIN over the new_shoot core (2026-07-03).
 │                          BSD PyWebView (NOT PySimpleGUI, now paid); ONE dependency; macOS system
 │                          WebView; reuses dashboard/cheat-sheet design. ZERO orchestration logic —
 │                          Api bridge just calls detect_cards/build_preview/run_new_shoot. Window:
-│                          Detect cards (confidence badge + camera dropdown) -> details -> destinations
-│                          -> Preview plan (writes nothing) -> Start (threaded, streams live log via the
-│                          progress callback; opens FCP + Next-Steps). build_preview/do_run unit-tested
-│                          pywebview-free; VISUAL pass must run on the Mac. Install: pip3 install
+│                          Detect cards (footage-first STATUS badge + camera dropdown) -> details ->
+│                          destinations -> Preview plan (writes nothing) -> Start (threaded, streams live
+│                          log via the progress callback; opens FCP + Next-Steps). IDENTITY UI (2026-07-05):
+│                          badge is driven by identity_status (conflict=red + a why-line, verified=green,
+│                          ambiguous/label_only=confirm); a name/footage CONFLICT must be explicitly
+│                          acknowledged at Start; the run payload carries identity provenance through so
+│                          overrides are audited (JS syntax-checked; the VISUAL pass still runs on the Mac).
+│                          build_preview/do_run unit-tested pywebview-free. Install: pip3 install
 │                          pywebview. Everything still doable from CLI. Docs: README_new_shoot.md
 ├── offload_cards.py    ← Verified card offload — the Hedge-style FRONT END (2026-06-30). Card ->
 │                          <dest>/<shoot>/<camera>/ per-camera folders (+ optional 2nd dest), every
 │                          copy SHA-256-verified vs source (mismatch = hard fail, not silent),
 │                          resumable, JSON manifest, NEVER deletes the card. Two copies satisfied
-│                          BEFORE CAPTURE (Principle #1). offload -> CAPTURE. Docs: README_offload.md
+│                          BEFORE CAPTURE (Principle #1). offload -> CAPTURE.
+│                          SHOOT MANIFEST (2026-07-04): --trusted-clock/--shoot-date/--location/
+│                          --event/--notes write a shoot.yaml beside the footage at offload (the one
+│                          moment the operator is present, per SPEC §3/§10). Each card's camera is
+│                          merged into cameras: [...] (offloading all cards builds the list); scalars
+│                          overwrite; idempotent per camera. trusted_clock is what upgrades the Health
+│                          Report from "likely" to definitively-named culprit — no GPS needed.
+│                          Docs: README_offload.md
 ├── reconcile.py        ← Footage reconciliation / coverage audit (2026-07-01). Cross-checks footage
 │                          folders vs the registry: PROCESSED / UNPROCESSED (gap) / DUPLICATE (byte-
 │                          identical, reclaimable). quick (filename+size) or --hash (SHA-256, definitive).
@@ -218,7 +258,34 @@ scripts/                ← ops tooling (NOT the engine)
 │                          LOGS/summary.md (--append-summary, idempotent delimited block, NO engine
 │                          coupling — P4); and a compact 🩺 Health row on each dashboard shoot card
 │                          (dashboard.py reuses health_report.build_report_data, read-only).
+│                          TRUSTED-CLOCK PROMPT (2026-07-04): when NO ground truth is present but a
+│                          clock disagreement is detected, the report tells the creator to add
+│                          `trusted_clock: <agreeing camera>` to shoot.yaml (suggests a camera that
+│                          AGREES, never the outlier) — turning the "likely" gap into an actionable
+│                          habit. Suppressed once a manifest/telemetry reference exists.
 │                          Spec: SPEC_Production_Health_Report.md
+├── mirror_verify.sh + restore_test.sh  ← Backup PRIMITIVES (2026-07-05, for the storage
+│                          3-2-1 remediation — see STORAGE_RISK_AND_BACKUP_PLAN.md). mirror_verify:
+│                          SHA-256 verified folder->folder copy, ADDITIVE (never deletes), dry-run
+│                          default, --go copy+verify, --verify-only (bit-rot check rsync misses).
+│                          restore_test: canary restore from a local mirror OR rclone remote ->
+│                          scratch -> checksum vs live source, logs PASS/FAIL to RESTORE_TESTS.md
+│                          (also an rclone-crypt passphrase-recovery drill). Topology-agnostic
+│                          (path args), macOS bash-3.2 safe, handles spaces. 5 subprocess tests
+│                          incl. corruption detection. Run: chmod +x once, then dry-run before --go.
+├── backup_footage.sh + com.wecape.footagebackup.plist + backup_sources.txt  ← Footage 3-2-1
+│                          orchestrator (2026-07-05). Verified mirror of a priority-folder LIST ->
+│                          target drive + offsite (rclone crypt) + restore drill, reusing
+│                          mirror_verify/restore_test. GUARD: refuses to write unless the target is a
+│                          real, WRITABLE, MOUNTED volume — never the boot disk (unmounted-target stray
+│                          trap), never a read-only TM disk (Got My BackUP). Dry-run default; --go /
+│                          --offsite / --restore-test. plist = weekly scheduled template (safe when the
+│                          drive is absent — guard refuses + logs). Repoint --target to the ≥12TB drive
+│                          when it arrives. 5 subprocess tests incl. the boot-volume refusal.
+│                          VERIFIED TOPOLOGY (2026-07-05): disk13 (one 20TB USB enclosure) holds 10TB
+│                          originals + Holder Mac (legal) + old timemachine = the SPOF; originals had
+│                          ZERO backup; G-DRIVE SSD (disk6) is APFS-container-CORRUPT (won't mount).
+│                          Legal docs now 3-2-1'd (WE_CAPE_OUTPUT + gcrypt). See STORAGE_RISK_AND_BACKUP_PLAN.md.
 ├── backup_holder_mac.sh + com.wecape.holdermacbackup.plist + com.wecape.registrybackup.plist
 │                          ← asset-protection: 4.6TB Holder Mac (weekly) + ~/.wecape 3-2-1 (internal
 │                          staging + offsite rclone copy + external mirror; daily via --registry-only).
@@ -532,6 +599,53 @@ Storage:
   - Samsung 990 PRO 4TB (ZikeDrive Z666 TB4): INSTALLED 2026-07-03 — primary NVMe
     (WE_CAPE_OUTPUT). Connected directly to Mac Studio TB4 port (NOT the StarTech dock).
     Enables proxy_generation.workers: 4 (config already set); ~3,098 MB/s confirmed.
+```
+
+### Camera Hardware Identity — canonical (2026-07-04, from on-camera Device/Camera Info)
+```
+Body                | Device Name          | Serial          | FW (device / camera)     | Canonical label
+--------------------|----------------------|-----------------|--------------------------|------------------
+DJI Osmo Action 6   | OsmoAction6-84CB     | 9KRXNC800BGX5N  | 01.04.14.02 / 10.00.34.29| DJI ACTION 6
+DJI Osmo Action 5 Pro| OsmoAction5ProA715  | 82JXN4500BW1VE  | 01.06.01.04 / 10.00.16.13| DJI ACTION 5
+Insta360 X5         | Insta360 X5          | IAHEA2503SK8FE  | cam v1.11.6 / MCU v1.2.5 | Insta360 X5
+                    |                      |                 | (HW 520)                 |
+Note: the camera self-reports "OsmoAction6" (no "Pro"); our label "DJI ACTION 5" == the
+Action 5 **Pro** (DJI ships only the Pro variant of the 5). Both DJIs are GPS-for-Action
+capable; the X5 is not (see SPEC_SRT_Telemetry / GPS review).
+
+EMBEDDED MODEL CODE (exiftool probe 2026-07-05, RESOLVED): DJI files carry NO plain
+Serial tag; the body is in the Category tag's `model_name:AC0NN` token — the strongest
+DJI signal. DJI's codes are OFFSET from the marketing name:
+    AC003 = Osmo Action 4  ·  AC004 = Osmo Action 5 Pro  ·  AC006 = Osmo Action 6
+  WEDDING card    -> AC006 = Action 6      (confirmed)
+  DJIAction6 card -> AC004 = Action 5 Pro  (confirmed: camera self-reports "OsmoAction5ProA715"
+                     + it's the only non-Action-6 DJI in the kit; NOT an Action 4).
+Both mapped in cameras.yaml → identity is now footage-authoritative for all 3 bodies.
+The DJIAction6 card now resolves to Action 5 Pro AND flags a conflict vs its volume name.
+Unmapped codes (e.g. AC003) still defer to "confirm which body" — never a mislabel.
+SCOPING: the WEDDING and DJIAction6 SanDisk cards are STANDALONE (a wedding shoot / a
+single-camera reliability test) — NEITHER is part of the O-SIX RYDERZ MC Community
+Service production run (that footage is in the 10TB O-SIX per-camera folders). They
+were just handy probes to read each BODY's model code; the codes are kit-wide, so
+O-SIX DJI footage carries the same AC004 (5 Pro) / AC006 (6).
+O-SIX SPLIT FOOTAGE-VERIFIED (2026-07-05): probed /Volumes/10TB/O-SIX RYDERZ MC
+Community Service — every clip in DJI ACTION 5/ reports AC004 (10 clips, = registry
+Action 5 count) and every clip in DJI ACTION 6/ reports AC006. Folders match the
+embedded codes → the WEF_20260630 camera split is authoritative, no mislabels.
+(Minor, benign: the Action 6 folder holds 20 .MP4 vs 19 ingested camera_id records —
+one variant/dup not ingested; and the Insta360 X5 folder's 49 .MP4 are NOT the raw
+.insv the 48 records came from. Run reconcile.py if exact accounting is wanted.)
+
+⚠ CARD-LABEL TRAP (verified 2026-07-04): the SanDisk VOLUME NAMES are misleading —
+they do NOT match their contents. OFFLOAD BY CONTENT, NOT BY LABEL:
+  SanDisk "WEDDING"    -> holds DJI Osmo Action 6 footage   -> --camera "DJI ACTION 6"
+  SanDisk "DJIAction6" -> holds DJI Osmo Action 5 Pro footage -> --camera "DJI ACTION 5"  (NOT 6!)
+Consequence: new_shoot `detect` guesses camera from the MOUNT NAME (high-confidence path),
+so it would confidently MIS-label both of these. Any past run that trusted the "DJIAction6"
+label (e.g. reliability run #2) recorded the wrong camera_id — re-verify/re-CAPTURE if that
+footage matters. FIX DIRECTION: identify the body from the FOOTAGE (embedded model/serial
+via exiftool) or a serial→label registry, not the volume label. Until then: pass --camera
+explicitly and ignore the SanDisk names.
 ```
 
 ---

@@ -134,6 +134,33 @@ def test_render_with_trusted_names_culprit_definitively():
     assert "culprit:" in md.lower() and "likely culprit" not in md.lower()
 
 
+def test_prompt_to_declare_trusted_clock_when_none_and_clock_issue():
+    # No ground truth + a real outlier → nudge the creator to declare a trusted clock,
+    # and suggest one of the *agreeing* cameras (never the outlier).
+    md = hr.render_markdown(_synth_data(gross_outlier=True, trusted=None))
+    assert "no trusted clock declared" in md.lower()
+    assert "trusted_clock:" in md and "shoot.yaml" in md
+    # the suggested camera on the prompt line is not the outlier
+    prompt_line = [ln for ln in md.splitlines() if "No trusted clock declared" in ln][0]
+    assert "Insta360" not in prompt_line
+
+
+def test_no_prompt_when_trusted_clock_present():
+    md = hr.render_markdown(_synth_data(gross_outlier=True, trusted="DJI Osmo 6"))
+    assert "no trusted clock declared" not in md.lower()
+
+
+def test_no_prompt_when_clocks_healthy():
+    md = hr.render_markdown(_synth_data(gross_outlier=False, trusted=None))
+    assert "no trusted clock declared" not in md.lower()
+
+
+def test_clock_suggestion_prefers_agreeing_camera():
+    data = _synth_data(gross_outlier=True, trusted=None)
+    assert hr._clock_suggestion_camera(data) != "Insta360"      # never nominate the outlier
+    assert hr._clock_suggestion_camera(data).startswith("DJI")
+
+
 # ── helper: build report data without a registry, via the pure path ──────────
 def _synth_data(gross_outlier, trusted):
     clips = _gross_outlier_clips() if gross_outlier else \
@@ -187,6 +214,8 @@ def test_dashboard_health_row_flags_wrong_date(tmp_path=None):
         con.commit(); con.close()
         html_row = dash.health_row(str(db), "WEF_X")
         assert "Health" in html_row and "Insta360 X5" in html_row and "wrong" in html_row.lower()
+        # no ground truth here → the row nudges toward declaring a trusted clock
+        assert "trusted_clock" in html_row
 
 
 def test_build_report_data_from_registry():

@@ -319,6 +319,18 @@ def build_report_data(db, run_id, manifest=None, telemetry=DEFAULT_TELEMETRY, wi
 # ─────────────────────────────────────────────────────────────────────────────
 # Render
 # ─────────────────────────────────────────────────────────────────────────────
+def _clock_suggestion_camera(data):
+    """Best camera to nominate as the trusted clock: one that AGREES with consensus
+    (i.e. not the outlier and not intra-camera-anomalous). Returns a name or None."""
+    bad = set()
+    if data["skew"].get("outlier"):
+        bad.add(data["skew"]["outlier"])
+    bad.update(a["camera"] for a in data.get("anomalies", []) if a.get("anomalous"))
+    agreeing = [c["camera"] for c in data["skew"].get("cameras", [])
+                if c["camera"] not in bad and c["camera"] != "unknown"]
+    return agreeing[0] if agreeing else None
+
+
 def render_markdown(data, list_files=False):
     """list_files=True lists the mis-dated clips' FILENAMES (local-only: standalone
     report + dashboard). Keep it False for anything that may egress (summary.md) —
@@ -414,6 +426,15 @@ def render_markdown(data, list_files=False):
         L.append(f"  - _{p['note']}_")
     elif not sk["no_timestamps"]:
         L.append("- Clocks look healthy — no clock correction needed. Keep syncing cameras before shoots.")
+    # No ground truth + a clock disagreement → tell the creator how to make the next
+    # report name the culprit *definitively* instead of "likely" (SPEC §3, §8-v1).
+    if data.get("ground_truth") is None and (anoms or sk.get("outlier")):
+        pick = _clock_suggestion_camera(data)
+        example = pick or "DJI Osmo Action 6"
+        L.append(f"- **No trusted clock declared.** Add `trusted_clock: {example}` to a "
+                 "`shoot.yaml` beside this shoot's footage to name the culprit camera "
+                 "definitively next time (upgrades *likely* → *certain*). "
+                 "`offload_cards.py --trusted-clock` writes it for you at offload.")
     L.append("")
 
     L.append("## Technical Details")

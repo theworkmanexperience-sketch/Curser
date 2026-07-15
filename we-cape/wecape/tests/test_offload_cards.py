@@ -75,3 +75,49 @@ def test_list_source_filters_cruft_and_ext():
         # ext filter -> only the MP4
         _, only_mp4 = oc.list_source(root, {"mp4"})
         assert [f.name for f in only_mp4] == ["DJI_0001.MP4"]
+
+
+# ── shoot manifest (shoot.yaml) writing at offload ───────────────────────────
+def test_render_manifest_shape_matches_health_parser():
+    # The rendered trusted_clock line must be parseable by health_report's reader.
+    text = oc.render_manifest({"shoot_name": "O-SIX", "trusted_clock": "DJI Osmo Action 6",
+                               "cameras": ["DJI ACTION 6", "Insta360 X5"]})
+    assert "trusted_clock: DJI Osmo Action 6" in text
+    assert "cameras: [DJI ACTION 6, Insta360 X5]" in text
+    import health_report as hr
+    assert hr.load_trusted_clock  # sanity: importable
+    parsed = oc.parse_manifest(text)
+    assert parsed["trusted_clock"] == "DJI Osmo Action 6"
+    assert parsed["cameras"] == ["DJI ACTION 6", "Insta360 X5"]
+
+
+def test_merge_manifest_appends_cameras_and_overwrites_scalars():
+    first = oc.merge_manifest("", {"shoot_name": "O-SIX", "trusted_clock": "DJI Osmo Action 6",
+                                   "_camera": "DJI ACTION 6"})
+    # second card offload: same shoot, new camera, and a corrected note
+    second = oc.merge_manifest(first, {"notes": "Insta360 clock not reset", "_camera": "Insta360 X5"})
+    d = oc.parse_manifest(second)
+    assert d["cameras"] == ["DJI ACTION 6", "Insta360 X5"]     # accumulated, no dupes
+    assert d["trusted_clock"] == "DJI Osmo Action 6"           # preserved across merge
+    assert d["notes"] == "Insta360 clock not reset"
+    # re-offloading the same camera must not duplicate it
+    third = oc.merge_manifest(second, {"_camera": "Insta360 X5"})
+    assert oc.parse_manifest(third)["cameras"] == ["DJI ACTION 6", "Insta360 X5"]
+
+
+def test_write_shoot_manifest_roundtrip(tmp_path=None):
+    with tempfile.TemporaryDirectory() as t:
+        root = Path(t)
+        p = oc.write_shoot_manifest(root, "DJI ACTION 6",
+                                    {"shoot_name": "O-SIX", "trusted_clock": "DJI Osmo Action 6"})
+        assert p == root / oc.MANIFEST_NAME and p.exists()
+        # a real Health-Report read of the written file yields the trusted clock
+        import health_report as hr
+        assert hr.load_trusted_clock(str(p)) == "DJI Osmo Action 6"
+
+
+def test_empty_manifest_only_written_when_fields_given():
+    # parse of an empty string is empty; render of empty data has no field lines
+    assert oc.parse_manifest("") == {}
+    body = oc.render_manifest({})
+    assert "trusted_clock" not in body and "cameras" not in body

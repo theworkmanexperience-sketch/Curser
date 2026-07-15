@@ -117,6 +117,25 @@ def test_detect_cards_finds_dcim_and_guesses():
         assert c["camera"] == "DJI" and c["video_count"] == 1 and c["bytes"] == 100
 
 
+def test_detect_flags_mislabeled_card_conflict():
+    """The real trap: a card NAMED 'DJIAction6' whose footage serial is the Action 5
+    Pro. detect must resolve to the Action 5 (from metadata) and flag a CONFLICT —
+    never silently trust the misleading volume name."""
+    with tempfile.TemporaryDirectory() as t:
+        vols = Path(t)
+        card = vols / "DJIAction6"; (card / "DCIM").mkdir(parents=True)
+        (card / "DCIM" / "DJI_0001.MP4").write_bytes(b"v" * 100)
+        cards = ns.detect_cards(
+            str(vols),
+            capacity_fn=lambda m: 256 * 1024 ** 3,               # 256 GB card
+            metadata_fn=lambda mount, files: {"serial": "82JXN4500BW1VE"})  # Action 5 Pro
+        assert len(cards) == 1
+        c = cards[0]
+        assert c["camera"] == "DJI Osmo Action 5 Pro"            # footage, not the label
+        assert c["conflict"] is True and c["confidence"] == "low"
+        assert c["must_confirm"] is True
+
+
 # ── pre-flight space ─────────────────────────────────────────────────────────
 def test_preflight_ok_on_real_dir():
     with tempfile.TemporaryDirectory() as t:
@@ -142,6 +161,31 @@ def test_manifest_write_and_read_roundtrip():
         assert got["name"] == "O-SIX: Community"          # colon survives quoting
         assert got["trusted_clock"] == "DJI Osmo Action 6"
         assert got["cameras"] == [{"label": "Insta360 X5", "source": "/Volumes/CARD"}]
+
+
+def test_manifest_persists_identity_provenance():
+    # P3: the manifest records HOW each camera_id was derived, and it round-trips.
+    with tempfile.TemporaryDirectory() as t:
+        m = ns.ShootManifest(name="O-SIX", cameras=[
+            {"label": "DJI Osmo Action 5 Pro", "source": "/Volumes/DJIAction6",
+             "identified_by": "metadata-serial", "identity_status": "conflict"}])
+        got = ns.read_manifest(m.write(t))
+        cam = got["cameras"][0]
+        assert cam["identified_by"] == "metadata-serial" and cam["identity_status"] == "conflict"
+
+
+def test_identity_provenance_flags_human_override():
+    # footage said Action 5 Pro, human forced Action 6 → recorded as an override.
+    auto = ns.identity_provenance({"camera": "DJI Osmo Action 5 Pro",
+                                   "camera_derived": "DJI Osmo Action 5 Pro",
+                                   "mount": "/V/x", "identity_source": "metadata-serial",
+                                   "identity_status": "verified"})
+    assert auto["identity_status"] == "verified" and auto["identified_by"] == "metadata-serial"
+    override = ns.identity_provenance({"camera": "DJI Osmo Action 6",
+                                       "camera_derived": "DJI Osmo Action 5 Pro",
+                                       "mount": "/V/x", "identity_source": "metadata-serial",
+                                       "identity_status": "verified"})
+    assert override["identity_status"] == "overridden" and override["identified_by"] == "user-override"
 
 
 # ── plan ─────────────────────────────────────────────────────────────────────

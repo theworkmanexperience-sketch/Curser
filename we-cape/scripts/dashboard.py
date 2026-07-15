@@ -351,6 +351,21 @@ def health_row(db_path, run_id):
     anoms = [a for a in data.get("anomalies", []) if a.get("anomalous")]
     if sk.get("no_timestamps"):
         return ""
+
+    def _tc_nudge():
+        """When there's a clock issue but no ground truth, nudge toward declaring a
+        trusted clock (mirrors the Health Report prompt) — suggests an AGREEING camera."""
+        if data.get("ground_truth") is not None:
+            return ""
+        pick = None
+        try:
+            pick = hr._clock_suggestion_camera(data)
+        except Exception:
+            pick = None
+        example = pick or "your GPS-anchored camera"
+        return (" <span class='muted'>Tip: add <code>trusted_clock: "
+                f"{esc(example)}</code> to shoot.yaml to name the culprit definitively.</span>")
+
     if anoms:
         a = anoms[0]
         files = a.get("off_files") or []                  # dashboard is local — name the clips
@@ -360,13 +375,14 @@ def health_row(db_path, run_id):
         return ("<div class='t2row warn-txt'>🩺 <b>Health:</b> "
                 f"{esc(a['camera'])} — {esc(a['off_clips'])} clip(s) dated wrong{flist} "
                 f"(span {esc(hr._fmt_date(a['min']))}→{esc(hr._fmt_date(a['max']))}). "
-                "Set that camera's clock before the next shoot.</div>")
+                "Set that camera's clock before the next shoot." + _tc_nudge() + "</div>")
     if sk.get("outlier"):
         mode = data.get("ground_truth")
         who = "culprit" if mode else "likely clock outlier"
         return (f"<div class='t2row warn-txt'>🩺 <b>Health:</b> {who} "
                 f"{esc(sk['outlier'])}"
-                + ("" if mode else " — confirm which clock is correct") + ".</div>")
+                + ("" if mode else " — confirm which clock is correct") + "."
+                + _tc_nudge() + "</div>")
     return "<div class='t2row'>🩺 <b>Health:</b> clocks agree — no clock error detected.</div>"
 
 

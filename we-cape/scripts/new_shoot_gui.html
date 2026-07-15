@@ -26,6 +26,10 @@
   .badge{ flex:0 0 auto; font-size:11px; font-weight:700; padding:2px 8px; border-radius:20px; }
   .b-high{ background:#e5f5ec; color:var(--good); } .b-med{ background:#fbf1de; color:var(--warn); }
   .b-low{ background:#fbe6e3; color:var(--bad); }
+  .b-conflict{ background:#8a2318; color:#fff; }
+  .card.conflict{ border:1px solid #e6b4ab; background:#fdf3f1; }
+  .card .why{ flex:1 1 100%; font-size:12px; color:var(--muted); margin-top:4px; }
+  .card .why.bad{ color:#8a2318; font-weight:600; }
   .card .meta{ flex:1 1 auto; min-width:0; }
   .card .meta .mount{ font:12px ui-monospace,Menlo,monospace; color:var(--muted);
                       white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -153,15 +157,29 @@
   function renderCards(){
     const box = $("cards"), note = $("cardsNote");
     if (!CARDS.length){ box.innerHTML = '<p class="sub">No cards found. Plug one in and press Detect.</p>'; return; }
+    // Badge is driven by the footage-first STATUS, not the card name. A conflict
+    // (label contradicts the footage) is loud + red; the card can't proceed until
+    // the human confirms. Identity comes from the files — the name is a weak hint.
+    const BADGE = {
+      conflict:  ["b-conflict", "conflict"],
+      verified:  ["b-high",     "verified"],
+      ambiguous: ["b-med",      "pick body"],
+      label_only:["b-low",      "confirm"],
+      unknown:   ["b-low",      "choose"],
+    };
     box.innerHTML = CARDS.map((c,i) => {
-      const cls = c.confidence==="high"?"b-high":c.confidence==="medium"?"b-med":"b-low";
-      const tag = c.confidence==="high"?"name":c.confidence==="medium"?"guess":"choose";
+      const st = c.identity_status || (c.conflict ? "conflict" : (c.confidence==="high"?"verified":"unknown"));
+      const [cls, tag] = BADGE[st] || ["b-low", "confirm"];
       const opts = ['<option value="">— choose camera —</option>']
         .concat(CAMERAS.map(m => `<option ${m===c.camera?"selected":""}>${esc(m)}</option>`)).join("");
-      return `<div class="card"><span class="badge ${cls}">${tag}</span>
+      const why = c.conflict
+        ? `<div class="why bad">⚠ ${esc(c.prompt || c.detail || "Card name disagrees with the footage — confirm the body.")}</div>`
+        : (c.must_confirm ? `<div class="why">${esc(c.detail || "Confirm the camera below.")}</div>` : "");
+      return `<div class="card ${c.conflict?"conflict":""}"><span class="badge ${cls}">${tag}</span>
         <div class="meta"><b>${esc(c.camera||"unlabeled")}</b> · ${c.video_count} video · ${human(c.bytes)}
         <div class="mount">${esc(c.mount)}</div></div>
-        <select data-i="${i}" onchange="CARDS[this.dataset.i].camera=this.value; checkLabels();">${opts}</select></div>`;
+        <select data-i="${i}" onchange="CARDS[this.dataset.i].camera=this.value; checkLabels();">${opts}</select>
+        ${why}</div>`;
     }).join("");
     checkLabels();
   }
@@ -182,7 +200,12 @@
       dest: $("dest").value.trim(), dest2: $("dest2").value.trim() || null,
       output: $("output").value.trim(), proxy: $("proxy").checked,
       stills: stills ? [stills] : null,
-      cards: CARDS.map(c => ({mount:c.mount, camera:c.camera||null, bytes:c.bytes, video_count:c.video_count})),
+      // carry the identity provenance through so run_new_shoot can audit HOW each
+      // camera_id was derived — and flag it if the human overrode the footage.
+      cards: CARDS.map(c => ({mount:c.mount, camera:c.camera||null, bytes:c.bytes,
+        video_count:c.video_count, camera_derived:c.camera_derived,
+        identity_source:c.identity_source, identity_status:c.identity_status,
+        conflict:c.conflict})),
     };
   }
 
@@ -216,6 +239,12 @@
   function run(){
     const p = payload(); const err = validate(p); if (err) return alert(err);
     if (p.cards.some(c => !c.camera)) return alert("Every card needs a camera before Start.");
+    // confirm on mismatch: a card whose name disagrees with its footage must be
+    // explicitly acknowledged before we proceed (the footage value is the default).
+    const conflicts = CARDS.filter(c => c.conflict);
+    if (conflicts.length && !confirm("⚠ "+conflicts.length+" card(s) have a name/footage conflict:\n"
+        + conflicts.map(c => ` • ${c.mount}\n   using "${c.camera}" (from the footage)`).join("\n")
+        + "\n\nThe footage is authoritative. Proceed with these cameras?")) return;
     if (!confirm(`Start "${p.name}"?\nThis copies each card (verified), runs CAPTURE, and exports to Final Cut.`)) return;
     ["btnDetect","btnPreview","btnRun"].forEach(id => $(id).disabled = true);
     $("runTitle").innerHTML = '<span class="spin"></span> Running…';

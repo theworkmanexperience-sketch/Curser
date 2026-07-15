@@ -1,0 +1,15 @@
+# W.E. C.A.P.E. — priority footage folders to back up (one path per line).
+# Read by backup_footage.sh --list. Blank lines and # comments ignored.
+# Order = priority. Start with what fits the current target; the big masters
+# (June 2024 2.7 TB, etc.) wait for the ≥12 TB drive.
+#
+# Verified against the live 10TB on 2026-07-05 (du output).
+
+/Volumes/10TB/O-SIX RYDERZ MC Community Service
+/Volumes/10TB/O-SIX RYDER MC 12TH ANNIVERSARY
+/Volumes/10TB/Harley-Davidson Bagger World Cup
+# /Volumes/10TB/O-SIX RYDERZ            # 777 GB — enable when target has room
+# /Volumes/10TB/2026 Harley-Davidson Chronicles   # 1.1 TB
+# /Volumes/10TB/June 2024               # 2.7 TB — needs the ≥12 TB drive
+#
+# NOTE: WE_FLOW_OUTPUT is regenerable proxies (CAPTURE output) — not a backup priority.
