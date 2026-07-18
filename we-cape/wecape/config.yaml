@@ -103,7 +103,6 @@ classification:
     GoPro:
       extensions:
       - .mp4
-      - .lrv
       - .thm
       - .jpg
       patterns:
@@ -192,6 +191,7 @@ classification:
   - .flv
   - .webm
   reference_extensions:
+  - .lrv
   - .pdf
   - .docx
   - .xlsx
