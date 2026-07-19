@@ -1061,3 +1061,33 @@ Payoff:    Drift-free timestamps address the clock-skew root cause behind
            test grouping at RFQ-original ±5s window on SRT-equipped shoots.
 Tests:     wecape/tests/test_srt_timestamp_gate.py — 4 cases
            (present / absent / malformed / gate-off).
+
+
+---
+
+## Registry Anomalies — July 18-19, 2026 (AlphaRoundUp intake)
+
+WEF_20260718_131502_D3396B  aborted at Measure-2 (126 eligible — LRV
+                            misclassification, caught pre-transcode)
+WEF_20260719_040129_25F16B  CONTAMINATED: output-inside-input — ingested
+                            own prior output (658 files, 39 false groups,
+                            62 proxies overwritten by proxies-of-proxies).
+                            Output tree deleted+rebuilt; run record stands
+                            (append-only). EXCLUDE from analytics.
+WEF_20260719_095346_454ACB  aborted at attestation (tty wedge)
+WEF_20260719_172839_E82E8A  CLEAN authoritative AlphaRoundUp run:
+                            389 files · 1 group · 150/151 proxies ·
+                            clip 0023 corrupt-at-source (see shoot.yaml)
+
+## Backlog additions — from AlphaRoundUp intake
+1. GUARD: refuse/warn when --output is a child of --input (root cause
+   of the contaminated run; five-line check in preflight)
+2. Attestation prompt tty/EOF fix — wedged 3x in one session
+3. Estimator: duration-based (source_hours x rate / workers) — 27min
+   estimate vs 55min actual on X5 run; pre-flight already scans durations
+4. offload_cards: write _offload_manifest.json OUTSIDE media tree
+   (created phantom 2026-07-18 date folder)
+5. offload_cards: probe first file metadata, warn if contradicts
+   --camera (card labels lie — Action5Pro/Action6 swap caught by hand)
+6. Review .lrf/.thm/.scr classification (DJI sidecars) — .lrv fix
+   precedent; verify they route reference, not camera-eligible
