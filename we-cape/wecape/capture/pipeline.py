@@ -174,7 +174,47 @@ class Pipeline:
         except OSError:
             return False
 
+    def _guard_output_geometry(self, input_path, output_path):
+        """Deliverable 2 guard: refuse when --output is inside --input.
+        Root cause of contaminated run WEF_20260719_040129_25F16B —
+        the pipeline ingested its own prior output. Fail fast, clear
+        diagnostic, before any stage runs."""
+        from pathlib import Path as _P
+        try:
+            _in = _P(input_path).resolve()
+            _out = _P(output_path).resolve()
+        except Exception:
+            return  # unresolvable paths fail later with their own errors
+        if _out == _in or _in in _out.parents:
+            raise RuntimeError(
+                "REFUSED: output folder is inside the input folder.\n"
+                f"  input:  {_in}\n  output: {_out}\n"
+                "  The pipeline would ingest its own output "
+                "(see WEF_20260719_040129_25F16B). Use a SIBLING "
+                "output folder, e.g. <shoot>/SOURCES + <shoot>/CAPTURE.")
+
+    def _guard_output_geometry(self, input_path, output_path):
+        """Deliverable 2 guard: refuse when --output is inside --input.
+        Root cause of contaminated run WEF_20260719_040129_25F16B —
+        the pipeline ingested its own prior output. Fail fast, clear
+        diagnostic, before any stage runs."""
+        from pathlib import Path as _P
+        try:
+            _in = _P(input_path).resolve()
+            _out = _P(output_path).resolve()
+        except Exception:
+            return  # unresolvable paths fail later with their own errors
+        if _out == _in or _in in _out.parents:
+            raise RuntimeError(
+                "REFUSED: output folder is inside the input folder.\n"
+                f"  input:  {_in}\n  output: {_out}\n"
+                "  The pipeline would ingest its own output "
+                "(see WEF_20260719_040129_25F16B). Use a SIBLING "
+                "output folder, e.g. <shoot>/SOURCES + <shoot>/CAPTURE.")
+
     def _preflight_check(self, input_path, output_path):
+        self._guard_output_geometry(input_path, output_path)
+        self._guard_output_geometry(input_path, output_path)
         import os
         if os.environ.get('WECAPE_TEST_MODE') == '1':
             return  # Skip interactive prompts in automated test runs

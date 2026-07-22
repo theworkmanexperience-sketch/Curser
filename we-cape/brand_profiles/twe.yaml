@@ -1,0 +1,12 @@
+brand_id: twe
+display_name: "The Workman Experience"
+locked_header:
+  filename: brand_assets/TWE_PROGRESSIONS_MASTER_HEADER_OFFICIAL_v3.0.png
+  sha256: c8fb182e55d5fd4e3df17907e5cc8b28fae1f24d51f1a3164f7014ebe414afba
+  width: 1983
+  height: 793
+  placement: top_center
+canvas:
+  width: 2048
+  height: 2560
+  background: "#0E0E0E"
