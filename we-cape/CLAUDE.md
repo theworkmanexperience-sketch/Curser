@@ -1091,3 +1091,11 @@ WEF_20260719_172839_E82E8A  CLEAN authoritative AlphaRoundUp run:
    --camera (card labels lie — Action5Pro/Action6 swap caught by hand)
 6. Review .lrf/.thm/.scr classification (DJI sidecars) — .lrv fix
    precedent; verify they route reference, not camera-eligible
+
+
+## Criterion 2 Baseline — RWP (Riding With Purpose) — FILED 2026-07-21
+64 hrs total (55-75 bracket, medium confidence) — curation 12 · review 12 ·
+edit 30 · graphics 5 · publish 5. Evidence: CapCut draft lineage (0621 x2,
+0706, 0706_FINAL Jul 12, 0706-copy Jul 15 publication master). Measured:
+calendar/session structure. Inferred: within-session hours. AlphaRoundUp
+target: <=32 hrs. Deliverable 1 of 3 (Board directive) COMPLETE.
