@@ -1099,3 +1099,13 @@ edit 30 · graphics 5 · publish 5. Evidence: CapCut draft lineage (0621 x2,
 0706, 0706_FINAL Jul 12, 0706-copy Jul 15 publication master). Measured:
 calendar/session structure. Inferred: within-session hours. AlphaRoundUp
 target: <=32 hrs. Deliverable 1 of 3 (Board directive) COMPLETE.
+
+
+## Deliverable 3 — Studio Session #1 — Curation Phase COMPLETE 2026-07-26
+X5 curation: 139 exports (93 ProRes .mov + 46 .mp4, 557 GB) + 10 Clip Anchor
+GPX + 54 screenshots. MEASURED curation clock: ~38 hrs (34-42) across 5
+sessions Jul 22-26, derived from export mtimes. CRITERION-2 FLAG: curation
+alone exceeds the 32-hr total target — deep-curation strategy (3.3x RWP
+export volume); ratio-based restatement deferred to W.E.I.C.P. post-edit.
+GPS CORRECTION: X5 GPS was sparse (anchor-grade), not absent. Telemetry
+Correlation Standard adopted as policy (ADR-003 candidate), build deferred.
