@@ -1,0 +1,283 @@
+# Pilot PDR under WET-SPEC-002 v0.2 — populated from primary artifacts on ts-mac-studio-3
+# rev 2, 2026-08-06: timeline resolved from fresh FCPXML (ER-1 CLOSED); rights registry data filed (EV-META-001).
+# rev 3, 2026-08-06: EV-FCP-001..004 (FCP visual corroboration) and EV-SUB-001..004 (subscription/entitlement
+#   evidence) filed from EV-FCP-001 Evidence Collection; EV-FCP-003 timecode discrepancy resolved (playhead vs in-point).
+# IDs provisional pending PRS-001. All hashes computed by the independent reviewer (SHA-256).
+# rev 4, 2026-08-07: EV-SUB-007 (full 8-track ISRC registry), EV-SUB-008/009 (Suno Pro billing evidence,
+#   Feb 1 2026) filed — Suno tier evidence upgraded from 2-day inference to bracketed coverage (Feb 1 → Aug 6).
+# rev 5, 2026-08-07: EV-SUB-010 (Suno billing anchor: Annual, next billing 2026-12-07) filed —
+#   Suno Pro coverage of generation dates CONFIRMED by term arithmetic; ER-5 evidence question CLOSED.
+pdr:
+  id: PDR-000003
+  schema_version: "0.2"
+  record_revision: 5
+  created_at: "2026-08-06T21:00:00Z"
+  updated_at: "2026-08-07T00:50:00Z"
+
+  production: "Alpha RoundUp Part 1"
+  production_unit: "PU-003"
+
+  decision_artifact:
+    type: "soundtrack"
+    identifier: "BLACKTOP HYPNOSIS v3"
+    description: "Cue bridging fuel stop into sustained highway rhythm. v3 is the accepted timeline artifact (resolved by EV-FCPXML-002 media-rep)."
+
+  timeline:
+    timebase: { fps: 24, drop_frame: false }   # Sequence r1: FFVideoFormat3840x2160p24 (VERIFIED_PRIMARY, EV-FCPXML-002)
+    in: "00:13:59:16"     # DERIVED from OBSERVED rational 50381/60 s (839.683s); audio-sample-aligned edit, not frame-aligned
+    out: "00:16:38:02"    # DERIVED from OBSERVED rational 11977/12 s (998.083s)
+    duration: "158.400s"  # OBSERVED rational 7603200/48000 s
+
+  objective: "Transition from fuel stop into highway rhythm while maintaining documentary authenticity and avoiding generic biker tropes."
+
+  evidence:
+    - id: "EV-REVIEW-001"
+      type: "review_mp4"
+      classification: "DERIVED"
+      confidence: "HIGH"
+      reference: "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/AlphaRoundUp_2026 Snapshot Jul 29, 2026 at 2:11:35 PM.m4v"
+      content_hash: "fc0a8b6d3e431faf145fe2b66b3ca68bb61c87a019d9ecb3ac4130e21ba83aeb"
+      custody: "WE_CAPE_OUTPUT volume (registry ingestion pending — ER-3)"
+    - id: "EV-VO-001"
+      type: "voice_over"
+      classification: "DERIVED"
+      confidence: "HIGH"
+      reference: "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/FCP srt/AlphaRoundUp_2026 Snapshot Jul 29, 2026 at 2:11:35 PM.m4a"
+      content_hash: "4fb41eda49a7ad3341c1a83f506962ec58fbe50a93db9149512b6c4ffed631d6"
+      custody: "WE_CAPE_OUTPUT volume (ER-3)"
+    - id: "EV-SRT-001"
+      type: "srt"
+      classification: "DERIVED"
+      confidence: "HIGH"
+      reference: "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/FCP srt/AlphaRoundUp_2026 Snapshot Jul 29, 2026 at 2:11:35 PM_SRT_English (United States).srt"
+      content_hash: "c78ac4c34a70d5b2ef59080a361bd2cc16767b9f3822db29085c9544163dcebf"
+      custody: "WE_CAPE_OUTPUT volume; duplicate copy verified hash-identical in 'SRT And HandBrake files/'"
+    - id: "EV-CUE-001"
+      type: "other"
+      classification: "GENERATED"
+      confidence: "HIGH"
+      reference: "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/Soundtrack/BLACKTOP HYPNOSIS.wav"
+      content_hash: "1f5b8c19f749a027226e6426e910c23d9ace1aeca9f1d8b5359e53043ee29de5"
+      custody: "WE_CAPE_OUTPUT volume (ER-3); ISRC QT6G22684014 (released, not the timeline artifact)"
+      notes: "Base version, 28,208,812 B, Suno v5.5, generated 2026-08-03 22:07 CT. Superseded by v3 for timeline use."
+    - id: "EV-CUE-002"
+      type: "other"
+      classification: "GENERATED"
+      confidence: "HIGH"
+      reference: "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/Soundtrack/BLACKTOP HYPNOSIS v3.wav"
+      content_hash: "1e75c76258186e83dbe27bb233e6e44af473528dfdcb1d919b72c380575baa22"
+      custody: "WE_CAPE_OUTPUT volume (ER-3); ISRC QT6G22684016"
+      notes: "ACCEPTED TIMELINE ARTIFACT (EV-FCPXML-002 media-rep sig 6D04787BFAB723FCD5B16E5582534CF2). 30,412,972 B. Conversation-upload copy verified hash-identical 2026-08-06."
+    - id: "EV-MANIFEST-001"
+      type: "document"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/shoot.yaml"
+      content_hash: "7ab4d1865d6a287360b9e3b19d1e6ffb265435c4e975c26f258b9e891cdcfccc"
+      custody: "WE_CAPE_OUTPUT volume (dual-mirror per spec)"
+      notes: "CONTRADICTION OPEN (ER-4): music_rights still reads 'no music placed yet' vs. evidenced placement."
+    - id: "EV-FCPXML-001"
+      type: "document"
+      classification: "DERIVED"
+      confidence: "HIGH"
+      reference: "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/AlphaRoundUp_2026 Snapshot Jul 29, 2026 at 2:11:35 PM.fcpxmld/Info.fcpxml"
+      content_hash: "b0f5962d105188bc0b30b9d84ff959a87b4d90d4387b470e075c958342ce6d99"
+      custody: "WE_CAPE_OUTPUT volume"
+      notes: "Superseded for placement purposes by EV-FCPXML-002; retained as negative evidence (pre-decision state)."
+    - id: "EV-FCPXML-002"
+      type: "document"
+      classification: "DERIVED"
+      confidence: "HIGH"
+      reference: "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/XML/AlphaRoundUp_2026 Snapshot Jul 29, 2026 at 2:11:35 PM.fcpxmld/Info.fcpxml"
+      content_hash: "f274a2840465e8b9dcf1d88c146dc799133de918d6b5fb1ef37d31ac8c258c22"
+      custody: "WE_CAPE_OUTPUT volume /XML/"
+      notes: "Current-timeline export containing cue placements. Source of timeline in/out and accepted-version resolution. CLOSES ER-1."
+    - id: "EV-SESSION-001"
+      type: "session_record"
+      classification: "GENERATED"
+      reference: "we-cape/records/pdr/evidence/EV-META-001_soundtrack_rights_generation.md"
+      content_hash: "5a53898a89ccc922780f8ae005aa48b3e221a9333c9a3e17d01de00844f9b320"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "PARTIAL session record: Suno style prompt, lyrics, generation timestamps, release registry (operator-supplied, filed 2026-08-06). Full Suno session export still requested (ER-2, narrowed)."
+    - id: "EV-FCP-001"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-FCP-001_project_overview.png"
+      content_hash: "38a7afc2280c3b685d0586fa0f36905282af16338bef5e5a7920cd6a1e7331f4"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "SECONDARY corroboration. Full FCP window, captured 2026-08-06 18:16 CT (menu bar visible). Shows BLACKTOP HYPNOSIS v3 on timeline ~00:14, SLAB TALK, OUT HERE, KICKSTANDS UP variants. NOTE: project duration indicator reads 33:58:23 vs. EV-FCPXML-002 sequence duration 43:22 — see ER-6."
+    - id: "EV-FCP-002"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-FCP-002_soundtrack_lanes_detail.png"
+      content_hash: "486eabf555a93caa5cb2558e3b364f720f544a5aab508197ea84eaae49f39e2b"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "SECONDARY corroboration. Timeline detail: BLACKTOP HYPNOSIS v3 and SLAB TALK lanes near 00:14:00:00 ruler."
+    - id: "EV-FCP-003"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-FCP-003_blacktop_placement_verification.png"
+      content_hash: "11cd10e6c9ebc97fac09db10cd29c9b26a46343463c987bb73e30cacbff982a0"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "SECONDARY corroboration. Viewer timecode 00:14:05:16 is the PLAYHEAD position parked inside the cue's span — NOT the clip in-point. Clip left edge visible just before the 00:14:00:00 ruler mark, consistent with the authoritative in-point 00:13:59:16 (EV-FCPXML-002). Discrepancy raised in the EV-FCP-001 collection inventory is RESOLVED."
+    - id: "EV-FCP-004"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-FCP-004_project_window_soundtrack_event.png"
+      content_hash: "d343d8273a832bedb74d0b412e005b68f3e87a75610baa695472ddc24746256f"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "SECONDARY corroboration. Captured 2026-08-06 18:22 CT. Browser Soundtrack collection, event 'Aug 3, 2026 (4)': BLACKTOP HYPNOSIS v3, KICKSTANDS UP v1 (Remastered), SLAB TALK, Yo KICKSTANDS UP (Remastered) — corroborates cue import dates and reveals additional placed cues without PDRs (see coverage note in metadata)."
+    - id: "EV-SUB-001"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-SUB-001_suno_pro_current_plan.png"
+      content_hash: "8a490e2a1f63a158753b940409f57f4c6e612321d939a81110c83dee76f4427a"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "Suno account page captured 2026-08-06: Pro Plan is CURRENT PLAN, annual billing indicated, features include 'Commercial use rights for new songs made' and v5.5 model access; account the_workman_e…. COVERAGE LIMIT: proves tier on 2026-08-06, not on generation dates 2026-08-03/04 (2-day inference gap). Residual ER-5 item: Suno billing receipt whose coverage period includes 2026-08-03/04."
+    - id: "EV-SUB-002"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-SUB-002_distrokid_ultimate_current_plan.png"
+      content_hash: "de84937fd1be4bd18026711ba6c0640064c368d37f4d7e8df817374c569cb107"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "DistroKid plan page: Current Plan 'Ultimate - 5 artists' (current-state evidence)."
+    - id: "EV-SUB-003"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-SUB-003_distrokid_receipts.png"
+      content_hash: "e0dbe4317a36a59fa6d9a8d64084982d20d464c26f3405c5ecaf70f8613359dd"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "DistroKid receipts (userid 11005619): receipt 643312259 dated 2025-12-09, 'DistroKid Ultimate (Annual) - 5 Artists', $95.75. Annual coverage from 2025-12-09 INCLUDES the 2026-08-04 upload/release date → DistroKid entitlement coverage CONFIRMED for the release."
+    - id: "EV-SUB-004"
+      type: "document"
+      classification: "OBSERVED"
+      confidence: "MODERATE"
+      reference: "we-cape/records/pdr/evidence/EV-SUB-004_distrokid_earnings_report.csv"
+      content_hash: "2f61f3b6381bd93862a6c824e648088097f84a8808798443d58e5b1635245fa7"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "DistroKid earnings report (catalog sales through 2026-06). Corroborates ongoing commercial distribution under T. Work/The Workman Experience; contains no rows for the Alpha RoundUp X album (released 2026-08-04, no sales reported yet) — relevance to this PDR is contextual only."
+    - id: "EV-SUB-007"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-SUB-007_distrokid_album_detail_full_isrc_list.png"
+      content_hash: "f23f65aa1dbe30910d808fc6623bac85bc15be1c13a4790a47236a1bb036f9ab"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "DistroKid album detail: 'successfully processed and delivered to stores' (23 platforms). COMPLETE 8-track ISRC registry: KICKSTANDS UP v1 QT6G22684011 · Yo KICKSTANDS UP …012 · SLAB TALK …013 · BLACKTOP HYPNOSIS …014 · BLACKTOP HYPNOSIS v3 …016 · OUT HERE …017 · The Piney Woods Transition …018 · HOME BASE …019. Confirms all 8 Soundtrack-folder cues are commercially released (coverage note: 2 of 8 have PDRs)."
+    - id: "EV-SUB-008"
+      type: "document"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-SUB-008_suno_invoice_GEDDPIPY-0002.pdf"
+      content_hash: "098db98b51066965005f25d286a3c21ef6530333f04fb6501d054b8ace4af70a"
+      custody: "we-cape repository, records/pdr/evidence/ — PERSONAL DATA PRESENT (billing name/address); handle per confidentiality plan"
+      notes: "Suno invoice GEDDPIPY-0002, 2026-02-01: 'Suno Pro - 2000 Credits' $17.32. This is a CREDIT PURCHASE, not a subscription-period invoice — it evidences Pro status on 2026-02-01, not coverage of the generation dates. Invoice numbering implies a -0001 exists (likely the subscription invoice) — that is the conclusive residual ER-5 object. Billing identity: Antonio F. D. Workman (personal), the.workman.experience@gmail.com."
+    - id: "EV-SUB-009"
+      type: "document"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-SUB-009_suno_receipt_2778-4899.pdf"
+      content_hash: "52ae2a2520f0888c42496097e22121f09f363f741698c2ccceb7753f5ac9fa5f"
+      custody: "we-cape repository, records/pdr/evidence/ — PERSONAL DATA PRESENT; handle per confidentiality plan"
+      notes: "Suno receipt 2778-4899 confirming payment of GEDDPIPY-0002 (Visa-2929, 2026-02-01)."
+    - id: "EV-SUB-010"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-SUB-010_suno_billing_anchor_annual_term.png"
+      content_hash: "eee74b32725251c3c4ea725a161596d2c42d99a7d4519408188cbf974739ea9f"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "Suno account billing panel (captured 2026-08-07): Current Plan Pro, Billing Period ANNUAL, Next Billing Date 2026-12-07, Credits Remaining 3618. COVERAGE CONCLUSION (DERIVED, HIGH): an annual term with next billing 2026-12-07 necessarily began 2025-12-07 — a term ending 2026-12-07 cannot have started after the generation dates — therefore the Pro term CONTAINS 2026-08-03/04. Corroborated by mid-term credit purchase (EV-SUB-008, 2026-02-01). CLOSES the ER-5 coverage question; the GEDDPIPY-0001 subscription invoice remains a nice-to-have primary corroborant, no longer required."
+
+  decision_analysis:
+    selected:
+      identifier: "BLACKTOP HYPNOSIS v3"
+      selection_basis: "OPERATOR-STATED (partially corroborated by EV-META-001 and placement evidence): matched narration gap, geography, and editorial pacing; supported highway transition without generic tropes. v3 selected over base version for timeline use."
+    rejected:
+      - identifier: "HIGHWAY GHOSTS"
+        rejection_basis: "OPERATOR-STATED (pending full session export, ER-2): overlapped narration; poor documentary fit."
+      - identifier: "BLACKTOP HYPNOSIS (base version)"
+        rejection_basis: "Superseded by v3 for timeline placement (EV-FCPXML-002 references v3 only). Both versions were commercially released with separate ISRCs; rejection applies to timeline use only."
+
+  decision_rationale:
+    primary_factors: ["narration_gap", "highway_transition", "geography", "editorial_pacing"]
+    rejected_factors: ["generic_biker_theme", "repeated_hook"]
+
+  generation:
+    method: "Hybrid"
+    tools: ["Suno v5.5"]
+    session_evidence: ["EV-SESSION-001"]
+
+  validation:
+    methods: ["Final Cut Pro timeline placement (EV-FCPXML-002)", "Human Approval"]
+    result: "Passed"
+    notes: "Placement independently verified from FCPXML. Memorandum ERB-RM-001 timecodes (13:59:19 / 16:37:02) were imprecise vs. primary evidence (00:13:59:16 / 00:16:38:02) — recorded as demonstration of memoranda-vs-records accuracy."
+
+  provenance:
+    class: "GENERATED"
+    confidence: "HIGH"
+    sources: ["EV-REVIEW-001", "EV-VO-001", "EV-SRT-001", "EV-SESSION-001"]
+
+  rights:
+    generator: "Suno v5.5"
+    account: "Suno Pro, Annual term 2025-12-07 → 2026-12-07 (EV-SUB-010) — COVERAGE OF GENERATION DATES CONFIRMED (2026-08-03/04 within term; corroborated by EV-SUB-008/009 and EV-SUB-001). NOTE retained: Suno account bills to the individual (A. Workman) while the label/rights holder is The Workman Experience LLC — individual-to-LLC assignment is a specialist-review item."
+    license_basis: "Suno Pro 'Commercial use rights for new songs made' (EV-SUB-001) + DistroKid Ultimate Annual coverage confirmed for release date (EV-SUB-003). REQUIRES_SPECIALIST_REVIEW retained for terms interpretation; evidentiary basis now substantially filed."
+    attribution: "T. Work / The Workman Experience · The Workman Experience LLC"
+    commercial_use: true
+    restrictions: "PENDING (ER-5)"
+    gate_clearance_ref: ""
+    notes: "Album: Alpha RoundUp X (Original Motion Picture Soundtrack). DistroKid UPC 882436051388. ISRC (v3): QT6G22684016. Release 2026-08-04. Manifest rights line still required (ER-4)."
+
+  outcome:
+    status: "Applied"
+    artifact_reference: "Part 1 timeline, lane -4, 00:13:59:16–00:16:38:02 @24fps (EV-FCPXML-002)"
+    notes: ""
+
+  approvals:
+    - actor: "Antonio Workman"
+      role: "Producer / Editor"
+      decision: "Approved"
+      timestamp: "2026-08-06T00:00:00Z"
+      gate: ""
+      independence_note: "Approver is also ratifying authority (single-operator condition; §7 Rule 6). Approval date approximate pending session records."
+      notes: "Terminal human gate."
+
+  status: "Draft"   # Advancement gated on ER-2 (full session export), ER-4 (manifest rights line), ER-5 (license basis).
+
+  relationships:
+    - pdr_id: "PDR-000004"
+      relation: "informs"
+
+  extensions: {}
+
+  metadata:
+    tags: ["soundtrack", "highway", "transition", "pilot"]
+    notes: >-
+      Pilot record 1 of 2 under WET-SPEC-002 v0.2, revision 3.
+      ER STATUS: ER-1 CLOSED (EV-FCPXML-002). ER-2 NARROWED (generation parameters
+      filed as EV-META-001; full Suno session export outstanding). ER-3 OPEN
+      (Soundtrack assets not in registry). ER-4 OPEN (manifest contradiction).
+      ER-5 EVIDENCE CLOSED (DistroKid CONFIRMED via EV-SUB-003; Suno Pro annual-term
+      coverage CONFIRMED via EV-SUB-010 billing anchor). Residual items are review,
+      not evidence: specialist terms interpretation + individual-vs-LLC assignment.
+      ER-6 NEW: EV-FCP-001 shows project duration 33:58:23 vs EV-FCPXML-002 sequence
+      43:22 — the XML may predate trims. Early placements visually corroborated;
+      re-export FCPXML at terminal approval / Gate 3 to reconcile.
+      COVERAGE NOTE: EV-FCP-001/004 evidence at least four additional placed cues
+      (SLAB TALK, KICKSTANDS UP v1, Yo KICKSTANDS UP, The Piney Woods Transition)
+      with no PDRs and no manifest rights lines — record coverage is 2 of ≥6 cue
+      decisions; Gate 2/3 requires rights lines for ALL placed cues.
+      ID MAPPING (EV-FCP-001 collection → records): collection 'EV-FCPXML-001' =
+      records EV-FCPXML-002; 'EV-MEDIA-001' = EV-CUE-001/002/003; collection
+      screenshots filed under the IDs above.
+      PILOT FINDINGS for v0.3: PF-1 temporal-scope requirement should bind at Locked,
+      not Draft. PF-2 (from PDR-000004) timeline block assumes a single placement;
+      schema needs placements[]. PF-3 timecodes derived from audio-sample-aligned
+      edits are not frame-exact; record rational time as the observed value.

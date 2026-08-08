@@ -1,0 +1,182 @@
+# Pilot PDR under WET-SPEC-002 v0.2 — populated from primary artifacts on ts-mac-studio-3
+# rev 2, 2026-08-06: three timeline placements resolved from fresh FCPXML; rights registry data filed (EV-META-001).
+# rev 3, 2026-08-06: visual corroboration (EV-FCP-001) and subscription/entitlement evidence (EV-SUB-001..003) filed.
+# IDs provisional pending PRS-001.
+# rev 4, 2026-08-07: EV-SUB-007/008/009 filed — full ISRC registry; Suno tier bracketed Feb 1 → Aug 6.
+# rev 5, 2026-08-07: EV-SUB-010 filed — Suno Pro annual-term coverage of generation date CONFIRMED.
+pdr:
+  id: PDR-000004
+  schema_version: "0.2"
+  record_revision: 5
+  created_at: "2026-08-06T21:00:00Z"
+  updated_at: "2026-08-07T00:50:00Z"
+
+  production: "Alpha RoundUp Part 1"
+  production_unit: "PU-004"
+
+  decision_artifact:
+    type: "soundtrack"
+    identifier: "OUT HERE"
+    description: "Recurring cue placed three times across Part 1 (see PF-2: schema assumes single placement)."
+
+  timeline:
+    timebase: { fps: 24, drop_frame: false }   # Sequence r1 (VERIFIED_PRIMARY, EV-FCPXML-002)
+    in: "00:16:55:07"     # FIRST placement only — schema limitation PF-2. DERIVED from OBSERVED 1015299/1000 s
+    out: "00:17:56:14"    # DERIVED from OBSERVED 1614911/1500 s
+    duration: "61.308s"
+    # ALL PLACEMENTS (OBSERVED, EV-FCPXML-002):
+    #   P1 lane -3: 1015.299s–1076.607s  (00:16:55:07–00:17:56:14, 61.308s)
+    #   P2 lane -1: 1086.668s–1144.960s  (00:18:06:16–00:19:04:23, 58.292s)
+    #   P3 lane -1: 1396.917s–1476.475s  (00:23:16:22–00:24:36:11, 79.558s)
+
+  objective: "PENDING (ER-2): objective statement to be populated from the cue-strategy session record, not reconstructed. EV-META-001 documents design intent ('built for documentary editing, long instrumental passages') and the observational bridge (helicopter moment)."
+
+  evidence:
+    - id: "EV-CUE-003"
+      type: "other"
+      classification: "GENERATED"
+      confidence: "HIGH"
+      reference: "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/Soundtrack/OUT HERE.wav"
+      content_hash: "ebf3aebfaab994d93bf2d34529d86a3630670e00437409d84b70d90345bec718"
+      custody: "WE_CAPE_OUTPUT volume (ER-3); ISRC QT6G22684017"
+      notes: "22,963,372 B, Suno v5.5, generated 2026-08-04 00:35 CT. Conversation-upload copy verified hash-identical 2026-08-06. Timeline media-rep sig 49F645C889BF5BE0033CB0D1B2A3B77C."
+    - id: "EV-REVIEW-001"
+      type: "review_mp4"
+      classification: "DERIVED"
+      confidence: "HIGH"
+      reference: "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/AlphaRoundUp_2026 Snapshot Jul 29, 2026 at 2:11:35 PM.m4v"
+      content_hash: "fc0a8b6d3e431faf145fe2b66b3ca68bb61c87a019d9ecb3ac4130e21ba83aeb"
+      custody: "WE_CAPE_OUTPUT volume (shared evidence with PDR-000003)"
+    - id: "EV-SRT-001"
+      type: "srt"
+      classification: "DERIVED"
+      confidence: "HIGH"
+      reference: "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/FCP srt/AlphaRoundUp_2026 Snapshot Jul 29, 2026 at 2:11:35 PM_SRT_English (United States).srt"
+      content_hash: "c78ac4c34a70d5b2ef59080a361bd2cc16767b9f3822db29085c9544163dcebf"
+      custody: "WE_CAPE_OUTPUT volume"
+    - id: "EV-FCPXML-002"
+      type: "document"
+      classification: "DERIVED"
+      confidence: "HIGH"
+      reference: "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/XML/AlphaRoundUp_2026 Snapshot Jul 29, 2026 at 2:11:35 PM.fcpxmld/Info.fcpxml"
+      content_hash: "f274a2840465e8b9dcf1d88c146dc799133de918d6b5fb1ef37d31ac8c258c22"
+      custody: "WE_CAPE_OUTPUT volume /XML/"
+      notes: "Source of all three placements. CLOSES ER-1 for this record."
+    - id: "EV-SESSION-002"
+      type: "session_record"
+      classification: "GENERATED"
+      reference: "we-cape/records/pdr/evidence/EV-META-001_soundtrack_rights_generation.md"
+      content_hash: "5a53898a89ccc922780f8ae005aa48b3e221a9333c9a3e17d01de00844f9b320"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "PARTIAL session record (style prompt, lyrics, generation timestamp, release registry). Full Suno session export outstanding (ER-2, narrowed)."
+    - id: "EV-FCP-001"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-FCP-001_project_overview.png"
+      content_hash: "38a7afc2280c3b685d0586fa0f36905282af16338bef5e5a7920cd6a1e7331f4"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "SECONDARY corroboration, captured 2026-08-06 18:16 CT: OUT HERE visible on timeline near ~00:18 and ~00:24 regions, consistent with placements P2/P3 (EV-FCPXML-002). Shared evidence with PDR-000003."
+    - id: "EV-SUB-001"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-SUB-001_suno_pro_current_plan.png"
+      content_hash: "8a490e2a1f63a158753b940409f57f4c6e612321d939a81110c83dee76f4427a"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "Suno Pro current plan (2026-08-06); commercial-use rights feature shown; player shows 'OUT HERE by the_W.E.'. Coverage limit: 2-day inference gap to generation date 2026-08-04 (ER-5 residual)."
+    - id: "EV-SUB-003"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-SUB-003_distrokid_receipts.png"
+      content_hash: "e0dbe4317a36a59fa6d9a8d64084982d20d464c26f3405c5ecaf70f8613359dd"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "DistroKid Ultimate (Annual) receipt 2025-12-09 → coverage includes 2026-08-04 release: DistroKid entitlement CONFIRMED."
+    - id: "EV-SUB-007"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-SUB-007_distrokid_album_detail_full_isrc_list.png"
+      content_hash: "f23f65aa1dbe30910d808fc6623bac85bc15be1c13a4790a47236a1bb036f9ab"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "Album detail: OUT HERE is track 6, ISRC QT6G22684017, delivered to 23 platforms. Complete 8-track ISRC registry recorded in PDR-000003 EV-SUB-007 entry."
+    - id: "EV-SUB-008"
+      type: "document"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-SUB-008_suno_invoice_GEDDPIPY-0002.pdf"
+      content_hash: "098db98b51066965005f25d286a3c21ef6530333f04fb6501d054b8ace4af70a"
+      custody: "we-cape repository, records/pdr/evidence/ — PERSONAL DATA PRESENT"
+      notes: "Suno Pro credit purchase 2026-02-01 — brackets the 2026-08-04 generation date; superseded as coverage proof by EV-SUB-010."
+    - id: "EV-SUB-010"
+      type: "other"
+      classification: "OBSERVED"
+      confidence: "HIGH"
+      reference: "we-cape/records/pdr/evidence/EV-SUB-010_suno_billing_anchor_annual_term.png"
+      content_hash: "eee74b32725251c3c4ea725a161596d2c42d99a7d4519408188cbf974739ea9f"
+      custody: "we-cape repository, records/pdr/evidence/"
+      notes: "Suno annual term 2025-12-07 → 2026-12-07 (billing anchor) — CONTAINS generation date 2026-08-04 00:35 CT. Coverage CONFIRMED (derivation recorded in PDR-000003 EV-SUB-010 entry)."
+
+  decision_analysis:
+    selected:
+      identifier: "OUT HERE"
+      selection_basis: "Placement evidenced (3 instances, EV-FCPXML-002); selection reasoning PENDING full session export (ER-2). Design intent per EV-META-001: conversational observational cue built for documentary editing with long instrumental passages."
+    rejected: []    # Unknown pending ER-2 — absence recorded, not asserted as 'no alternatives considered'.
+
+  decision_rationale:
+    primary_factors: ["observational_storytelling", "instrumental_passages_for_editing"]   # From EV-META-001 design intent
+    rejected_factors: []
+
+  generation:
+    method: "Hybrid"
+    tools: ["Suno v5.5"]
+    session_evidence: ["EV-SESSION-002"]
+
+  validation:
+    methods: ["Final Cut Pro timeline placement (EV-FCPXML-002)"]
+    result: "Conditional"
+    notes: "Placement independently verified (3 instances). Human approval not yet evidenced — PU-004 was 'In Progress' per ERB-RM-001; no terminal-gate record exists."
+
+  provenance:
+    class: "GENERATED"
+    confidence: "HIGH"
+    sources: ["EV-SESSION-002", "EV-SRT-001"]
+
+  rights:
+    generator: "Suno v5.5"
+    account: "Suno Pro, Annual term 2025-12-07 → 2026-12-07 (EV-SUB-010) — coverage of generation date CONFIRMED. Individual-vs-LLC account note per PDR-000003."
+    license_basis: "Suno Pro 'Commercial use rights for new songs made' (EV-SUB-001) + DistroKid Ultimate Annual coverage confirmed (EV-SUB-003). REQUIRES_SPECIALIST_REVIEW retained for terms interpretation."
+    attribution: "T. Work / The Workman Experience · The Workman Experience LLC"
+    commercial_use: true
+    restrictions: "PENDING (ER-5)"
+    gate_clearance_ref: ""
+    notes: "Album: Alpha RoundUp X (Original Motion Picture Soundtrack). DistroKid UPC 882436051388. ISRC: QT6G22684017. Release 2026-08-04. Manifest rights line required (ER-4)."
+
+  outcome:
+    status: "Applied"
+    artifact_reference: "Part 1 timeline, 3 placements: 00:16:55:07, 00:18:06:16, 00:23:16:22 @24fps (EV-FCPXML-002)"
+    notes: "Applied to draft cut; terminal human approval not yet recorded."
+
+  approvals: []     # None claimed — no terminal-gate record exists for PU-004 yet.
+
+  status: "Draft"
+
+  relationships:
+    - pdr_id: "PDR-000003"
+      relation: "depends_on"
+
+  extensions: {}
+
+  metadata:
+    tags: ["soundtrack", "pilot", "multi-placement"]
+    notes: >-
+      Pilot record 2 of 2 under WET-SPEC-002 v0.2, revision 3.
+      PF-2 (spec finding): this cue is placed three times; the v0.2 timeline block
+      models a single span. v0.3 needs timeline.placements[] with per-placement
+      lane/in/out. The in/out above records only the first placement.
+      ER STATUS mirrors PDR-000003: ER-1 CLOSED, ER-2 NARROWED, ER-3/ER-4 OPEN,
+      ER-5 SUBSTANTIALLY NARROWED (DistroKid confirmed; Suno receipt for 2026-08-04
+      outstanding), ER-6 NEW (project duration 33:58:23 vs XML 43:22 — re-export at
+      terminal approval; P2/P3 placements visually corroborated by EV-FCP-001).
+      STILL BLOCKING for this record: terminal human approval (approvals list empty).
