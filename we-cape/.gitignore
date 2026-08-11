@@ -19,3 +19,6 @@ _new_shoot_session*.jsonl
 *.db
 
 .trash_junk/
+
+# Generated dashboard output (regenerable)
+wecape_dashboard.html
