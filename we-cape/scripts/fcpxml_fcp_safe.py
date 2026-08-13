@@ -6,7 +6,7 @@ the exporter filters at generation (ENG-F-20260812B)."""
 import sys, argparse, pathlib
 import xml.etree.ElementTree as ET
 ap = argparse.ArgumentParser()
-ap.add_argument("fcpxml"); ap.add_argument("--exclude", nargs="*", default=[".insv"])
+ap.add_argument("fcpxml"); ap.add_argument("--exclude", nargs="*", default=[".insv", ".orf"])
 args = ap.parse_args()
 src = pathlib.Path(args.fcpxml)
 dst = src.with_name(src.stem + "_FCP_SAFE.fcpxml")
