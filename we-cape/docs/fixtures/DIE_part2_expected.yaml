@@ -1,0 +1,16 @@
+# DIE Founding Fixture — Part 2 Expected Values (structural; validates, never defines)
+fixture: alpha_roundup_part2_canonical_srt
+ground_truth:
+  grade: GT-2
+  local_path: "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/Alpha RoundUp Part 2 /XML retry/Thursday Aug 20th/SRT PART 2_SRT_English (United States).srt"
+  sha256: PENDING_FIRST_RUN_RECORD
+  cues: 2290
+  span: "00:00:00-01:20:40"
+expected:
+  rider_interviews: 75
+  civic_speakers: 5
+  registries_populated: 9
+  temporal_sets: 14
+  unconfirmed_discipline: exercised_on_asr_suspect_proper_nouns
+extraction_of_record: 2026-08-20
+comparison_tolerance: "WET-SPEC-DIE-001 §9 V-7 categorized-explanation"
