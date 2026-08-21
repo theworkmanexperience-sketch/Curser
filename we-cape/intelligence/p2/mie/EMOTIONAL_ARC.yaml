@@ -1,0 +1,12 @@
+document_id: DOCUMENTARY_EMOTIONAL_ARC
+version: 1.0.0
+class: executive-artifact  # the emotional contract binding composer and editor (Chairman addition, Executive Review)
+arc:
+  - {beat: Arrival,      segs: [S01, S02],        audience_emotion: Curiosity,  music_responsibility: Invite}
+  - {beat: Interviews,   segs: [S03],             audience_emotion: Listening,  music_responsibility: Yield}
+  - {beat: Brotherhood,  segs: [S05],             audience_emotion: Unity,      music_responsibility: Lift}
+  - {beat: Service,      segs: [S06, S07, S08, S09, S10], audience_emotion: Respect, music_responsibility: "Support (here: silence IS support)"}
+  - {beat: Deepening,    segs: [S11, S12],        audience_emotion: "Empathy -> Reverence", music_responsibility: "Yield, then absent"}
+  - {beat: Celebration,  segs: [S13, S14, S15, S16, S18], audience_emotion: Joy, music_responsibility: Celebrate}
+  - {beat: Ride_Home,    segs: [S19],             audience_emotion: Completion, music_responsibility: Resolve}
+contract: "Every cue decision cites its beat; a cue that cannot name its emotion and responsibility does not generate."

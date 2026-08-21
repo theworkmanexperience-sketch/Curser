@@ -1,0 +1,38 @@
+document_id: MIE_CUE_SHEET
+version: 1.1.0  # Executive Review incorporated: reason_for_existing per cue; families renamed; staged passes
+families: {CONVERSATION: former-A, MOTION: former-B, CELEBRATION: former-C, REFLECTION: former-D, LEGACY: former-E}
+status: ARCHITECTURE APPROVED (Chairman, 2026-08-21); generation gated on MIE-PROD-001
+cues:
+  - {id: CUE-01, name: ARRIVAL_AMBIENT, family: REFLECTION, pass: 2, span: "00:00-01:13", energy: 2,
+     reason: "Exists to invite — open a private door before the event announces itself; the audience arrives as a guest, not a spectator."}
+  - {id: CUE-02a, name: GAUNTLET_BED_I, family: CONVERSATION, pass: 1, span: "01:51-10:30", energy: 3,
+     reason: "Exists to yield — hold a floor under 45 voices so listening feels effortless and no answer competes with music."}
+  - {id: CUE-02b, name: GAUNTLET_BED_II, family: CONVERSATION, pass: 1, span: "10:30-18:45", energy: 3,
+     reason: "Exists to renew attention — same room, new color, so 25 minutes of testimony never flattens."}
+  - {id: CUE-02c, name: GAUNTLET_BED_III, family: CONVERSATION, pass: 1, span: "18:45-27:02", energy: 3,
+     reason: "Exists to lean forward — a slight build that quietly promises the ride is coming."}
+  - {id: CUE-03, name: ESCORT_ANTHEM, family: MOTION, pass: 3, span: "27:40-29:10", energy: 5,
+     reason: "Exists to transition the audience from arrival into shared momentum before the community story begins — the film's first full statement of unity in motion."}
+  - {id: SIL-01, name: CIVIC_SILENCE, span: "31:43-38:52", mode: MANDATORY_SILENCE,
+     reason: "Exists as absence — the town's own words (librarian, council, two proclamations, a first ride) must carry their full civic weight unassisted."}
+  - {id: CUE-04, name: GAUNTLET_TWO_BED, family: CONVERSATION, pass: 1, span: "38:55-52:00", energy: 3,
+     carve_out: "FULL OUT 39:07-39:59 (R46)",
+     reason: "Exists to warm the return — testimony deepens after the town has spoken; the bed matures with it, and steps out entirely where one rider's honesty deserves the room."}
+  - {id: SIL-02, name: HONORS_SILENCE, span: "52:04-53:49", mode: MANDATORY_SILENCE,
+     reason: "Exists as reverence — the honors and the moment of silence are the film's sacred minute; nothing plays."}
+  - {id: CUE-05, name: PHOTO_LIFT, family: REFLECTION, pass: 2, span: "53:50-54:35", energy: 3,
+     reason: "Exists to exhale — after the sacred minute, community warmth returns gently, teaching the audience how to come back."}
+  - {id: CUE-06, name: DAY_WRAP_BRIDGE, family: REFLECTION, pass: 2, span: "54:36-55:24", energy: 3,
+     reason: "Exists to close the day and promise the night — a hinge, not a destination."}
+  - {id: CUE-07, name: RIDE_PASSAGE, family: MOTION, pass: 3, span: "56:10-58:43", energy: 4,
+     reason: "Exists to breathe — pure road between chapters; the audience rides instead of watching."}
+  - {id: CUE-08, name: NIGHT_ARRIVALS, family: CELEBRATION, pass: 4, span: "58:43-66:48", energy: 4,
+     reason: "Exists to gather — the groove opens the door to the night and lets engines and greetings play through it; carries the audience CTA."}
+  - {id: CUE-09a, name: BIKE_NIGHT_PEAK_I, family: CELEBRATION, pass: 4, span: "69:25-74:30", energy: 5,
+     reason: "Exists to celebrate — the joy the whole day earned, unapologetic."}
+  - {id: CUE-09b, name: BIKE_NIGHT_PEAK_II, family: CELEBRATION, pass: 4, span: "74:30-79:40", energy: 5,
+     reason: "Exists to sustain — a second color at the apex so the party crests rather than repeats."}
+  - {id: CUE-10, name: VICTORY_CLOSE, family: LEGACY, pass: 5, span: "79:44-80:46", energy: 4,
+     reason: "Exists to resolve — one unbroken cue carries the triple-080 run to black: therapy became brotherhood became legacy, and the thesis lands as a promise (Part 3)."}
+reconciliation: keep/replace/adjust per existing 16 audio elements (unchanged; APPROVED)
+silence_law: [SIL-01, SIL-02, R46-carve-out]  # covenant text unchanged; APPROVED as written

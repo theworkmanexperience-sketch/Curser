@@ -1,0 +1,11 @@
+document_id: MIE_GENERATION_PLAN
+version: 1.0.0
+strategy: staged (Chairman, Executive Review) — establish sonic language before statement pieces
+passes:
+  - {pass: 1, family: CONVERSATION, cues: [CUE-02a, CUE-02b, CUE-02c, CUE-04], purpose: "establish the documentary's sonic language", gate: "EP approves bed family before pass 2"}
+  - {pass: 2, family: REFLECTION, cues: [CUE-01, CUE-05, CUE-06], purpose: "validate the silence philosophy at its edges"}
+  - {pass: 3, family: MOTION, cues: [CUE-03, CUE-07], purpose: "energy aligned to locked timeline; hard-out discipline proven"}
+  - {pass: 4, family: CELEBRATION, cues: [CUE-08, CUE-09a, CUE-09b], purpose: "night identity; lyric direction may color here"}
+  - {pass: 5, family: LEGACY, cues: [CUE-10], purpose: "the finale authored LAST, after the soundtrack knows itself"}
+per_generation_custody: "style prompt hash + lyric hash + job id logged; selection = cue PDR (keep/replace/adjust vs existing element, silence compliance, consent check, EP approval)"
+authorization_gate: MIE-PROD-001 (not yet issued)
