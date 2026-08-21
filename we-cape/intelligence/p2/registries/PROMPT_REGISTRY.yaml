@@ -1,0 +1,10 @@
+registry_id: PROMPT_REGISTRY
+registry_version: 1.0.0
+registry_schema_version: 1.0
+prompts:
+  - {id: Q1, class: interview_question, canonical: "Who you riding with?", variants: ["Who you out with?","Who you ride with?"]}
+  - {id: Q2, class: interview_question, canonical: "What do they call you?", variants: ["What's your name on the set?"]}
+  - {id: Q3, class: interview_question, canonical: "When and where did you pledge?", variants: ["[ASR: quench/catch/clutch/fetch/fret/press/punch]"]}
+  - {id: Q4, class: interview_question, canonical: "What are you riding today?", variants: ["What do you ride?","What you rock?"]}
+  - {id: Q5, class: interview_question, canonical: "Why do you ride?", host_flag: "the main question / last question"}
+  - {id: CTA1, class: production, canonical: "Audience: why you ride + what you ride + who you're with -> comments", cues: ["#2214 66:26","#2284 80:22"]}

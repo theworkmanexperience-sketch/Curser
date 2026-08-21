@@ -1,0 +1,15 @@
+registry_id: QUOTE_REGISTRY
+registry_version: 1.0.0
+quotes:
+  - {speaker: host, t: "01:17", context: agenda, text: "Over 500 backpacks to 5 local schools... 2 proclamations... We got bike night."}
+  - {speaker: host, t: "28:44", context: police_tribute, text: "Shout out to the police. It is safe for us to travel in this whole town... they are part of our experience."}
+  - {speaker: C01_librarian, t: "31:56", context: community, text: "What you guys are doing for our community is absolutely amazing... from the bottom of Smyrna's hearts."}
+  - {speaker: first_timer, t: "36:15", text: "Today was the 1st time I had ever been on a motorcycle... Remember the ride, I always."}
+  - {speaker: C05_council, t: "37:17", text: "Ran for office about 18 months ago, and accidentally got elected.", tone: levity}
+  - {speaker: C05_council, t: "37:24", text: "Thank you for coming to Smyrna and spending your hard earned money here."}
+  - {speaker: C03_mayor, t: "33:51-35:56", context: TOWN_PROCLAMATION, text: "...2016, with the charter group of 27 dedicated riders... more than 170 riders nationwide... proclaim June the 25th through the 28th of 2026 as [Alpha RoundUp] homecoming days."}
+  - {speaker: state_proclamation, t: "38:23", text: "I, Cameron Sexton, Speaker of the House... at the request of Representative Mike [Sparks]... recognize [the organization] for their tremendous service."}
+  - {speaker: organizer, t: "52:06", text: "There is the select team that have been to every single roundup."}
+  - {speaker: organizer, t: "53:34", context: moment_of_silence, text: "[name shout: Momo Sax]", sensitivity: SILENCE-ZONE}
+  - {speaker: host, t: "54:48", text: "Brothers knocked it down here in Tennessee... excellently run event."}
+  - {speaker: host, t: "80:38", text: "Stay tuned for part three."}

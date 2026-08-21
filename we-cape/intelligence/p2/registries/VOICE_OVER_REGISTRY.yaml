@@ -1,0 +1,10 @@
+registry_id: VOICE_OVER_REGISTRY
+class: EXTENSION  # not in frozen nine; spec-extension candidate per Sprint-2 ruling
+registry_version: 0.1.0
+basis: "host-speech boundaries observed in GT-2; VO authoring itself = MIE-AUTHOR/NIE scope"
+host_speech_segments:
+  - {id: VO01, span: "01:13-01:51", type: day_brief, vo_candidate: bridge-open}
+  - {id: VO02, span: "27:02-29:10", type: ride_narration, vo_candidate: lead-in-to-civic}
+  - {id: VO03, span: "54:36-55:24", type: service_wrap, vo_candidate: transition-to-night}
+  - {id: VO04, span: "79:44-80:46", type: wrap_tease, vo_candidate: close}
+vo_placement_boundaries: "silence zones (S12, R46, proclamations) EXCLUDED from VO per Director's Notes"

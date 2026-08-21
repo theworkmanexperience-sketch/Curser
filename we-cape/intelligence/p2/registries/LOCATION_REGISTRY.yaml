@@ -1,0 +1,12 @@
+registry_id: LOCATION_REGISTRY
+registry_version: 1.0.0
+locations:
+  - {id: L01, name: "Smyrna TN", role: host_town, facts: {population_spoken: "63,000", airport: "3rd largest TN, busiest general aviation", industry: "Nissan plant"}}
+  - {id: L02, name: "Nashville TN", role: origin, fact: "roundup birthplace 2016"}
+  - {id: L03, name: "Hilton Garden Inn, Smyrna", role: staging, route: "4 mi / 13 min to Event Center"}
+  - {id: L04, name: "Smyrna Event Center [rendering]", role: venue}
+  - {id: L05, name: "five Rutherford County elementary schools", renderings: ["John Coleman","Smyrna Elementary","Kittrell","Walter Hill","Rock Springs"], note: "5 claimed; first-two split UNCONF"}
+  - {id: L06, name: "bike night venue", renderings: ["Bar Rocky [UNCONF]","cigar bar and the wedge - 2 venues one vibe [UNCONF]"]}
+  - {id: L07, name: "Kansas City", role: host_2027}
+  - {id: L08, role: roundup_history, cities: [Atlanta, "Washington DC", Charlotte, Miami, Houston, Milwaukee, Cincinnati, Jackson]}
+rider_origins: [Michigan, Baltimore, Detroit, "Farmington Hills MI", Toledo, Youngstown, Dallas, "Petersburg VA", "Prince William Cty VA", "Brandywine MD", "Springfield TN", Cincinnati, Chicago, Milwaukee, "Kansas City", Ohio, "Honolulu [UNCONF]", "Stuttgart Germany", "Alaska (return trip)"]

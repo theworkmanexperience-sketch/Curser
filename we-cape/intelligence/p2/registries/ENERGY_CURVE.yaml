@@ -1,0 +1,18 @@
+registry_id: ENERGY_CURVE
+class: EXTENSION
+registry_version: 1.0.0
+derivation: "DERIVED from interview density (SRT) + music_present + activity class + ETC pacing; NO sentiment inference (out of scope per frozen spec §11)"
+scale: 1-5
+curve:
+  - {seg: S01, energy: 2, basis: music-bed open}
+  - {seg: S02, energy: 2, basis: single-voice brief}
+  - {seg: S03, energy: 3, basis: high interview density (45 in 25min), rhythmic}
+  - {seg: S05, energy: 5, basis: mass ride + police escort}
+  - {seg: S06-S10, energy: 2, basis: civic speech, low motion, high gravity}
+  - {seg: S11, energy: 3, basis: interview rhythm, warmer}
+  - {seg: S12, energy: 1, basis: honors + moment of silence (mandatory quiet)}
+  - {seg: S13-S14, energy: 3, basis: group photo lift + wrap}
+  - {seg: S15, energy: 4, basis: pure ride passage}
+  - {seg: S16, energy: 4, basis: night arrivals, engines + crowd}
+  - {seg: S18, energy: 5, basis: bike night peak ambience}
+  - {seg: S19, energy: 4, basis: victory close, triple-080 run}

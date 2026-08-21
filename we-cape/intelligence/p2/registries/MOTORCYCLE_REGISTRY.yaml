@@ -1,0 +1,19 @@
+registry_id: MOTORCYCLE_REGISTRY
+registry_version: 1.0.0
+registry_schema_version: 1.0
+evidence_model: "spoken_/visual_/verified_ triplets per WET-SPEC-DIE-001 §7; visual_* NULL pending MP4 census (documented limitation)"
+spoken_make_tally:
+  Harley-Davidson: {explicit: 5, model_pattern_unconf_make: ~20, cues: ["#280","#776","#1420","#1471","#2031"]}
+  Indian: {count: 4, models: ["Pursuit x2","Chieftain 2025","Pursuit Darkhorse 2023"]}
+  Honda: {count: "4-6", models: ["VTX 1300","Gold Wing F6B 2016","Goldwing 23","[3 UNCONF renderings]"]}
+  Victory: {count: "3-4", models: ["Victory x2","Cross Country","[1 UNCONF]"]}
+  BMW: {count: "1-2", models: ["K 1600 Grand America","[BNWKC UNCONF]"]}
+  Suzuki: {count: 1, models: ["GSX 1000 GT"]}
+spoken_model_families:
+  road_glide_family: {count: ~14, note: "11+ ASR renderings incl. road ride/roadlide/World Glide", conf: MEDIUM-pattern}
+  street_glide_family: {count: ~6}
+  ultra_family: {count: ~6}
+  cvo: {count: ~5, renderings: ["CVO x2","CBO x3"]}
+  vrod_2003_anniversary: {count: 1, cue: "#2029"}
+visual_make: NULL
+verified_make: NULL

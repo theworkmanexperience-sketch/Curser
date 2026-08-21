@@ -1,0 +1,74 @@
+registry_id: WHY_RIDE_REGISTRY
+class: STRATEGIC_REGISTRY  # elevated per WET-SPEC-DIE-001 §7 / M12
+registry_version: 1.0.0
+registry_schema_version: 1.0
+research_use_consent: NOT_OBTAINED  # distinct from appearance consent; production use only
+note: verbatim-of-transcript (GT-2); [brackets] = ASR-suspect readings, preserved not corrected
+answers:
+  - {id: R04, t: "03:50", text: "To support this organization, what we do in the community, and to make an effective change in the areas that we visit."}
+  - {id: R05, t: "04:24", text: "It's my blood. It's my blood.", theme: legacy}
+  - {id: R06, t: "04:55", text: "I love the camaraderie, being on 2s... I've met so many different people, and I love them. I've never, ever stopped riding.", theme: brotherhood}
+  - {id: R07, t: "05:33", text: "Freedom. Fellowship.", theme: freedom}
+  - {id: R08, t: "06:13", text: "I love the thrill, a little the freedom... Wind therapy is the best thing in the world.", theme: therapy}
+  - {id: R09, t: "06:49", text: "I ride for the third wind therapy. I love to be on the open road, meeting new people.", theme: therapy}
+  - {id: R10, t: "07:37", text: "These brothers, community service, and I call it [bottle] therapy.", theme: therapy}
+  - {id: R11, t: "08:06", text: "Love for the sport, man... my heart, man."}
+  - {id: R12, t: "08:46", text: "So many reasons, man, the freedom... nothing like being out on that open road, getting that what they call wind therapy.", theme: therapy}
+  - {id: R13, t: "09:32", text: "Wind therapy. I get out there on the road, and it just ease all the pressure that's out there.", theme: therapy}
+  - {id: R14, t: "10:22", text: "Because it's cheaper than psychotherapy and I'm not awful.", theme: therapy, note: high-value-phrase}
+  - {id: R15, t: "10:56", text: "I've been around since I was 10, 11 years old. That's all I know how to do.", theme: legacy}
+  - {id: R16, t: "11:33", text: "Therapy... It's a friend, you can't cry.", theme: therapy}
+  - {id: R17, t: "12:17", text: "I love ride. It's good for the soul."}
+  - {id: R18, t: "12:42", text: "Because it makes my feel good."}
+  - {id: R19, t: "13:08", text: "We on that road and... relax."}
+  - {id: R20, t: "13:46", text: "I love the ride. Retired. I love it."}
+  - {id: R21, t: "14:20", text: "I just love the ride, hey, be my free time."}
+  - {id: R22, t: "14:48", text: "Peace of mind, relaxation, meditation.", theme: therapy}
+  - {id: R23, t: "15:15", text: "It's good therapy for me, bro... get to [ride with] the bros.", theme: therapy}
+  - {id: R24, t: "15:46", text: "I just love to get out there, get the wind in my face."}
+  - {id: R26, t: "16:52", text: "I ride because I love it up the road... Love being in the wind."}
+  - {id: R27, t: "17:22", text: "For the thrill, the freedom of the ride, seeing the world on 2 wheels. There's nothing better.", theme: freedom, note: high-value-phrase}
+  - {id: R28, t: "17:47", text: "It's exhilarating, open air. Good conversation, riding down the road."}
+  - {id: R29, t: "18:20", text: "Same reason open air... the canopy of the blue skies, sometimes rainy skies over top of your head.", note: high-value-phrase}
+  - {id: R30, t: "19:10", text: "Get on the road and feel it... It's a beautiful thing."}
+  - {id: R31, t: "19:52", text: "[I ride for another game] and I get away for my kids.", theme: family, note: ASR-heavy}
+  - {id: R33, t: "20:10", text: "I love to be in the wind. It's my place of comfort, not only comfort, but my place of peace.", theme: therapy, note: high-value-phrase}
+  - {id: R34, t: "20:30", text: "I don't know what not riding is. I've been riding for 37 years. [Mic drop.]", theme: legacy, note: high-value-phrase}
+  - {id: R35, t: "21:08", text: "Ain't nothing like [riding] the motorcycle. Win therapy, baby.", theme: therapy}
+  - {id: R36, t: "21:34", text: "It's therapy and it's a good thing to do.", theme: therapy}
+  - {id: R37, t: "22:12", text: "Just therapy, man... Fellowship... [Riding] is about living in life.", theme: therapy}
+  - {id: R38, t: "22:55", text: "I do so much for me and my family, this is my time... to do what I need to do.", theme: therapy}
+  - {id: R39, t: "23:24", text: "For the love of the culture, man. I was raised around it. 40 plus years.", theme: legacy}
+  - {id: R40, t: "23:51", text: "Love it. Relaxing."}
+  - {id: R41, t: "24:19", text: "The camaraderie... fellowship of [riding] with Brothers... how beautiful life is... how blessed I am to be here.", theme: brotherhood}
+  - {id: R42, t: "25:03", text: "The [wind], man. The freedom, the peace. Nothing like being on two.", theme: freedom}
+  - {id: R43, t: "25:34", text: "I've been riding since I was 13 years old. It's just in my soul... I'm 68 now.", theme: legacy, note: high-value-phrase}
+  - {id: R44, t: "26:05", text: "There ain't no other way to be.", note: high-value-phrase}
+  - {id: R45, t: "26:42", text: "It's all about the brotherhood.", theme: brotherhood}
+  - {id: R46, t: "39:39", text: "I ride because I have PTSD. So this is my therapy right here... this open road man, there's nothing like it.", theme: therapy, sensitivity: SILENCE-ZONE-no-scoring}
+  - {id: R47, t: "40:17", text: "Keep me alive.", theme: therapy, note: high-value-phrase}
+  - {id: R48, t: "40:47", text: "Pleasure. Ease your mind. Relaxation.", theme: therapy}
+  - {id: R49, t: "41:36", text: "Riding is freedom... ride like a fish swim, like a bird flies, you run that on 2 wheels.", theme: freedom, note: high-value-phrase}
+  - {id: R50, t: "42:45", text: "For my kids. For my kids, I go home.", theme: family}
+  - {id: R51, t: "43:23", text: "For the brotherhood. I ride for the open [wind] and I ride for the community... 10 years... very near and dear to my heart.", theme: brotherhood}
+  - {id: R53, t: "44:34", text: "The brotherhood, the community, the fellowship... I'm riding bikes before I can even learn how to walk.", theme: legacy}
+  - {id: R54, t: "45:07", text: "Freedom. The wind therapy, the joy, the excitement, fellowship with brothers.", theme: therapy}
+  - {id: R56, t: "46:06", text: "I ride because this is where I can be alone in my thoughts.", theme: therapy, note: high-value-phrase}
+  - {id: R57, t: "46:40", text: "I just love to ride."}
+  - {id: R58, t: "47:21", text: "For this. Literally for this. It's the brotherhood, man.", theme: brotherhood}
+  - {id: R59, t: "47:47", text: "For the Brotherhood.", theme: brotherhood}
+  - {id: R60, t: "48:14", text: "Wind therapy. The relaxation of it all... not worry about work. [Riding] since I was 16.", theme: therapy}
+  - {id: R61, t: "48:50", text: "Love for motorcycles."}
+  - {id: R62, t: "49:25", text: "Because I love it. Love [fraternizing] and the brothers.", theme: brotherhood}
+  - {id: R64, t: "50:28", text: "Just for the fun of it. But now, more for my brother.", theme: grief-legacy, note: high-value-phrase}
+  - {id: R65, t: "50:57", text: "It's ingrained in me, my father rides. My brothers ride... It's just part of.", theme: legacy}
+  - {id: R66, t: "51:40", text: "I love it. [Riding] since 92. It's my life, man.", theme: legacy}
+  - {id: R68, t: "59:31", text: "That's just my personality... been on my own for a while now, that's all me."}
+  - {id: R69, t: "60:17", text: "I've been riding since 1982... I learned how to fix them before I actually [rode].", theme: legacy}
+  - {id: R70, t: "61:03", text: "[gestures to partner] ...the best ever in the world. I love him.", theme: family}
+  - {id: R71, t: "61:57", text: "My 1st bike I bought when I came out of [deployment]. I called it my Iraqi Freedom.", theme: therapy-veteran, note: high-value-phrase}
+  - {id: R72, t: "63:00", text: "The brotherhood and the sisterhood... the respect of the community... because of my older brother... I always have to acknowledge him.", theme: grief-legacy}
+  - {id: R73, t: "64:35", text: "For freedom, the enjoyment, the clear head this bike gives me... clear your mind and come back and be rejuvenated.", theme: therapy, note: high-value-phrase}
+  - {id: R74, t: "65:38", text: "Because I love open air, baby."}
+  - {id: R75, t: "66:16", text: "I just love [wind in] my face."}
+theme_tally: {therapy: 17, brotherhood: 13, freedom: 11, legacy: 9, family: 4, grief: 2}

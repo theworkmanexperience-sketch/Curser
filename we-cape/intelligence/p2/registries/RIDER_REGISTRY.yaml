@@ -1,0 +1,88 @@
+registry_id: RIDER_REGISTRY
+registry_version: 1.0.0
+registry_schema_version: 1.0
+run: {date: 2026-08-21, operator: editorial-channel, spec: WET-SPEC-DIE-001 v0.2 frozen, source: canonical SRT GT-2 (founding extraction of record 2026-08-20), lock_reconciliation: deferred-documented}
+consent_default: event_context_appearance  # per DIE-CONFORM-001 §11; publication rights NOT inferred
+note: names are verbatim-of-transcript; UNCONF = UNCONFIRMED per R-3/R-4 (ASR-suspect, single evidence class)
+riders:
+  - {id: R01, name: Clutch, affil: "road captain, 9th roundup", cue: "#31 01:51", conf: MEDIUM, visual_evidence: CLUTCH.jpeg-pending}
+  - {id: R02, name: Hollywood, affil: "president [org UNCONF]", cue: "#46 02:16", conf: MEDIUM}
+  - {id: R03, name: "Mark Tillman", affil: "general president [UNCONF], 20+ yrs", cue: "#60 02:45", conf: MEDIUM, visual_evidence: Bro_Tillman.PNG-pending, consent: cleared-batch2}
+  - {id: R04, name: UNCONF, note: "rides solo, Michigan annual", cue: "#78 03:37"}
+  - {id: R05, name: "Rose [UNCONF]", affil: "06 Riders", cue: "#95 04:08"}
+  - {id: R06, name: KC, note: "Indian Pursuit 2023", cue: "#107 04:29", conf: MEDIUM}
+  - {id: R07, name: "Buckeye [UNCONF]", affil: UNCONF, cue: "#136 05:10"}
+  - {id: R08, name: UNCONF, note: "pledged 2015", cue: "#160 05:43"}
+  - {id: R09, name: Fish, affil: "Baltimore [UNCONF]", cue: "#187 06:25", conf: MEDIUM}
+  - {id: R10, name: UNCONF, note: "rides solo", cue: "#215 07:05"}
+  - {id: R11, name: Razor, affil: "OC [UNCONF]", cue: "#243 07:47", conf: MEDIUM}
+  - {id: R12, name: UNCONF, note: "pledged 1996, military chapel [UNCONF]", cue: "#272 08:24"}
+  - {id: R13, name: "Magic Man", affil: "Buffalo Soldiers", cue: "#301 09:04", conf: HIGH}
+  - {id: R14, name: Iceberg, affil: "founder [org rendering UNCONF]", cue: "#335 09:47", conf: MEDIUM}
+  - {id: R15, name: Sam, affil: "independent", cue: "#362 10:32", conf: MEDIUM}
+  - {id: R16, name: "Brother Mike Dixon", cue: "#397 11:13", conf: MEDIUM}
+  - {id: R17, name: "William Kennedy", affil: "Ohio, independent, charter member sp.1980", cue: "#423 11:48", conf: MEDIUM}
+  - {id: R18, name: UNCONF, note: "pledged spring 18 DC", cue: "#453 12:29"}
+  - {id: R19, name: Scrib, affil: "independent, spring 88", cue: "#479 13:00", conf: MEDIUM}
+  - {id: R20, name: "Laid Back", affil: "[org UNCONF], pledged 82", cue: "#503 13:33", conf: MEDIUM}
+  - {id: R21, name: Chris, affil: independent, cue: "#519 13:53", conf: MEDIUM}
+  - {id: R22, name: Ryan, cue: "#544 14:32", conf: LOW}
+  - {id: R23, name: "Slow-mo", affil: "06 Riders since Jan 24; pledged fall 12", cue: "#559 14:59", conf: MEDIUM}
+  - {id: R24, name: Broadcast, note: "pledged Dallas TX", cue: "#588 15:38", conf: MEDIUM}
+  - {id: R25, name: Anubis, affil: "[org UNCONF], youngest", cue: "#597 15:53", conf: MEDIUM}
+  - {id: R26, name: "Lady Lee", affil: "Baltimore Tipsy Ryder; sorority sp.2026", cue: "#627 16:25", conf: HIGH}
+  - {id: R27, name: Jax, affil: "Gypsy Riders founder & president", cue: "#648 17:02", conf: HIGH}
+  - {id: R28, name: "G Man", cue: "#673 17:42", conf: MEDIUM}
+  - {id: R29, name: UNCONF, note: "independent, rides with her man", cue: "#688 18:01"}
+  - {id: R30, name: Truck, cue: "#717 18:47", conf: MEDIUM}
+  - {id: R31, name: UNCONF, note: "Detroit 313, HFCC", cue: "#744 19:26"}
+  - {id: R32, name: UNCONF, affil: "HFC Hawks [UNCONF]", cue: "#761 19:47"}
+  - {id: R33, name: Snapshot, note: "spring 1986", cue: "#771 20:00", conf: MEDIUM}
+  - {id: R34, name: UNCONF, note: "37 yrs riding; mic-drop", cue: "#788 20:22"}
+  - {id: R35, name: UNCONF, affil: "06 Riders; Morgan State sp.1994 centennial", cue: "#803 20:43"}
+  - {id: R36, name: Logic, affil: "06 Riders Baltimore chapter president; UMD sp.87", cue: "#829 21:18", conf: HIGH}
+  - {id: R37, name: Cowboy, affil: "independent; pledged 12/4/1986; Alaska return", cue: "#840 21:42", conf: HIGH}
+  - {id: R38, name: Ritz, note: "pledged 2000", cue: "#871 22:32", conf: MEDIUM}
+  - {id: R39, name: Chaotic, note: "Kansas City", cue: "#898 23:08", conf: MEDIUM}
+  - {id: R40, name: Chris, note: "Detroit, independent", cue: "#921 23:37", conf: MEDIUM}
+  - {id: R41, name: UNCONF, affil: "Gamma Chapter [UNCONF]", cue: "#946 24:00"}
+  - {id: R42, name: Corleone, affil: "06 Riders Toledo OH; U.Toledo 96", cue: "#972 24:44", conf: HIGH}
+  - {id: R43, name: UNCONF, affil: "[org UNCONF]; age 68", cue: "#994 25:17"}
+  - {id: R44, name: UNCONF, note: "Chicago; brother from Milwaukee", cue: "#1019 25:48"}
+  - {id: R45, name: UNCONF, affil: "Buffalo Soldiers; Alabama A&M sp.1978", cue: "#1040 26:17"}
+  - {id: R46, name: Grip, affil: "Petersburg VA [role UNCONF]", cue: "#1253 39:07", conf: MEDIUM, sensitivity: PTSD-disclosure-silence-zone}
+  - {id: R47, name: Crownbreaker, note: "pledged 1971", cue: "#1289 40:00", conf: MEDIUM}
+  - {id: R48, name: UNCONF, affil: UNCONF, cue: "#1311 40:28"}
+  - {id: R49, name: Juggernaut, affil: "rides w/ 06 Riders; Clark Atlanta 87; channel Black History on Twos", cue: "#1346 41:10", conf: HIGH}
+  - {id: R50, name: "Slow poke", cue: "#1388 42:18", conf: MEDIUM}
+  - {id: R51, name: Shorty, affil: "06 Riders FOUNDER; sp.95 Prince William Cty VA", cue: "#1411 43:02", conf: HIGH}
+  - {id: R52, name: Action, note: "Alabama State 77", cue: "#1444 43:53", conf: MEDIUM}
+  - {id: R53, name: Thor, affil: "06 Riders; pledged 2006", cue: "#1462 44:17", conf: HIGH}
+  - {id: R54, name: UNCONF, affil: "06 Riders MC; fall 2002", cue: "#1484 44:48"}
+  - {id: R55, name: Animal, note: "spring 99", cue: "#1510 45:24", conf: MEDIUM}
+  - {id: R56, name: Bones, affil: "[org UNCONF]; ULM sp.86", cue: "#1530 45:49", conf: MEDIUM}
+  - {id: R57, name: "Biggie/Big E", note: "Arizona State 2000", cue: "#1552 46:16", conf: MEDIUM}
+  - {id: R58, name: "[UNCONF name]", note: "fall 15", cue: "#1582 46:51"}
+  - {id: R59, name: "Keith Graham", affil: independent, cue: "#1607 47:37", conf: MEDIUM}
+  - {id: R60, name: Iceman, note: "Savannah State sp.96", cue: "#1628 48:01", conf: MEDIUM}
+  - {id: R61, name: Ghost, note: "Jacksonville State 89", cue: "#1652 48:31", conf: MEDIUM}
+  - {id: R62, name: Zeus, note: "spring 1980", cue: "#1671 49:00", conf: MEDIUM}
+  - {id: R63, name: Easy, cue: "#1707 49:40", conf: MEDIUM}
+  - {id: R64, name: X-Men, affil: "president [org UNCONF]", cue: "#1723 50:00", conf: MEDIUM}
+  - {id: R65, name: Smooth, affil: "[org UNCONF], Brandywine MD", cue: "#1756 50:39", conf: MEDIUM}
+  - {id: R66, name: "Cynthia Rogers", note: "Farmington Hills MI, w/ husband", cue: "#1788 51:18", conf: HIGH}
+  - {id: R67, name: Will, cue: "#1814 51:49", conf: MEDIUM}
+  - {id: R68, name: "UNCONF (Big Rock)", affil: "[org UNCONF], Dallas", cue: "#1912 59:05"}
+  - {id: R69, name: UNCONF, note: "Youngstown OH sp.1990", cue: "#1944 59:44"}
+  - {id: R70, name: UNCONF, note: "Cincinnati, w/ partner R69", cue: "#1977 60:33"}
+  - {id: R71, name: Lupas, affil: "independent; Fall 13 Stuttgart; Springfield TN; veteran", cue: "#2010 61:20", conf: HIGH}
+  - {id: R72, name: Arkansas, note: "Cincinnati; UAPB 1976; 5th roundup; brother tribute", cue: "#2054 62:33", conf: HIGH}
+  - {id: R73, name: Skills, affil: "06 Riders MC Baltimore; sp.15", cue: "#2113 64:14", conf: HIGH}
+  - {id: R74, name: UNCONF, note: "Ohio no club; Bowling Green sp.89", cue: "#2139 65:04"}
+  - {id: R75, name: UNCONF, affil: UNCONF, note: "Dallas 23", cue: "#2192 66:04"}
+civic_speakers:
+  - {id: C01, role: librarian, name: UNNAMED, cue: "#1112 31:43"}
+  - {id: C02, role: town_council, name: "Marshall Feebles [spelling UNCONF]", cue: "#1134 32:48"}
+  - {id: C03, role: mayor, name: "Mary Esther Reed", cue: "#1177 35:14", conf: HIGH}
+  - {id: C04, role: town_manager, name: David, cue: "#1205 36:59", conf: MEDIUM}
+  - {id: C05, role: council_member, note: "retired civil engineer; read state proclamation", cue: "#1211 37:13"}

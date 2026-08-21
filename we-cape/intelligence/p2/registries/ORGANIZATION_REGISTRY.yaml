@@ -1,0 +1,15 @@
+registry_id: ORGANIZATION_REGISTRY
+registry_version: 1.0.0
+resolution_note: canonical naming requires GT-3 or 2+ evidence classes (R-3); most entries UNCONFIRMED pending
+entities:
+  - {id: ORG01, canonical: UNCONFIRMED, renderings: ["06 riders","06 Rogers MC","0 6 by the MC","6 rounders","Don't 6 fighters"], affiliations: ~20, chapters: [Baltimore, Toledo], founders_on_camera: [R14-Iceberg, R51-Shorty], conf: pattern-HIGH name-UNCONF}
+  - {id: ORG02, canonical: UNCONFIRMED, role: host_organization, renderings: ["Alpha Zoom 2","Alphas on 2s","Alpha's on twos","Alpha Zone 2's","Ayota's on too"], proclamation_facts: {founded: 2016 Nashville, charter: 27, current: "170+ nationwide"}}
+  - {id: ORG03, canonical: "Buffalo Soldiers", cues: ["#303","#1047"], conf: HIGH}
+  - {id: ORG04, canonical: "Gypsy Riders", founder: R27-Jax, conf: HIGH}
+  - {id: ORG05, canonical: "Baltimore Tipsy Ryder [UNCONF]", member: R26}
+  - {id: ORG06-10, canonical: UNCONFIRMED, renderings: ["Mona City Peacekeepers","Snake Riders","Nerd South Riders","King's Nice Brandywine","Space Riders"]}
+  - {id: CIV01, canonical: "Smyrna Police Department", context: escort_tribute}
+  - {id: CIV02, canonical: "Nissan Motor Company", cue: "#1148"}
+  - {id: CIV03, canonical: "Rutherford County Schools", context: backpack_beneficiaries}
+  - {id: CIV04, canonical: "TN House of Representatives (114th GA)", context: state_proclamation}
+universities_mentioned: [MTSU, "Youngstown St", "Bowling Green St", "Morgan St", "Clark Atlanta", "Alabama St", "Alabama A&M", "Savannah St", "Jacksonville St", "U Illinois", "U Maryland CP", "U Toledo", "UAPB", "Northwestern St", "ULM", "Arizona St", "HFCC"]

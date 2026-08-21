@@ -1,0 +1,43 @@
+package_id: MIE_INPUT_PACKAGE
+version: 1.0.0
+date: 2026-08-21
+governed_by: [WET-SPEC-DIE-001-frozen, G2-MIR-006, MIE_DIRECTOR_NOTES-2309710, PDR-2026-08-20-ETC-001]
+constraint: "NO lyrics, music, or Suno prompts in this package (G2-MIR-006); phrases only"
+theme_clusters:
+  therapy: {count: 17, anchor_ids: [R08,R13,R14,R33,R46,R47,R60,R71,R73], apex: R46-PTSD}
+  brotherhood: {count: 13, anchor_ids: [R06,R41,R45,R51,R58,R59,R72]}
+  freedom_openair: {count: 11, anchor_ids: [R07,R27,R29,R42,R49,R74]}
+  legacy_family: {count: 13, anchor_ids: [R05,R15,R34,R39,R43,R53,R65,R69,R50,R70]}
+  grief_remembrance: {count: 3, anchor_ids: [R64,R72,S12-moment-of-silence]}
+quote_clusters: {civic_pride: [C01,C05], proclamation_gravitas: [C03,state], host_energy: [agenda,wrap], levity: [C05-accidentally-elected, R14]}
+prompt_clusters: {template: Q1-Q5, audience_mirror: CTA1}
+organization_clusters: {dominant_club: ORG01(~20 riders), host_org: ORG02, independents: significant, civic: [police,schools,town]}
+motorcycle_clusters: {harley_family_dominant_spoken: true, road_glide_motif: ~14 mentions, note: visual census pending}
+timeline_interview_density: {S03: "45/25min HIGH", S11: "22/13min HIGH", S16: "8/8min MED", elsewhere: 0}
+voice_over_boundaries: [VO01, VO02, VO03, VO04]  # silence zones excluded
+caption_boundaries: {policy: CAPTION_REGISTRY, lower_thirds: 75-candidates}
+music_opportunity_boundaries:
+  leads: [{S05: escort_ride}, {S15: ride_passage}, {S16-S18: bike_night}, {S19: victory_close_single_cue_62s}]
+  supports_ducked: [S03, S11, S13, S14]
+  silence_mandatory: [{S12: honors_moment_of_silence}, {R46: "39:07-39:59 PTSD"}, {S08: town_proclamation}, {S10: state_proclamation}, {S09: first_ride_beat}]
+cue_boundaries_existing: {audio_lane_elements_in_lock: 16, note: "existing cue set w/ exact in/outs in ETC JSON; MIE-AUTHOR reconciles proposals against these"}
+natural_silence_opportunities: [pre-S08 handoff, post-S12 exhale, S09]
+high_energy_ride_sequences: [S05, S15, S18]
+victory_moments: [S08-proclamation-climax, S13-group-photo, S19-triple-080-close]
+high_value_lyric_phrases:  # phrases only, verbatim-of-transcript
+  - "wind therapy"
+  - "cheaper than psychotherapy"
+  - "it's my blood"
+  - "seeing the world on 2 wheels"
+  - "canopy of the blue skies"
+  - "my place of peace"
+  - "I don't know what not riding is"
+  - "keep me alive"
+  - "ride like a fish swim, like a bird flies"
+  - "there ain't no other way to be"
+  - "now, more for my brother"
+  - "I called it my Iraqi Freedom"
+  - "clear your mind and come back rejuvenated"
+  - "alone in my thoughts"
+  - "homecoming days"
+consent_note: "phrases feeding MIE internally = governed derived use; any phrase surviving into published lyric quoting an identifiable person routes through cue PDR + Gate 2 (Sprint-2 ruling)"

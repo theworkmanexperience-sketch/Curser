@@ -1,0 +1,7 @@
+registry_id: CAPTION_REGISTRY
+class: EXTENSION
+registry_version: 0.1.0
+basis: "ETC reports 40 title elements on connected lanes; per-title positions require full ETC JSON pass (documented limitation — stats-level only in this run)"
+observed: {title_elements: 40, source: "P2_LOCK_timing.json connected_by_type"}
+caption_boundaries_policy: "lower-third naming at each rider first-cue (75 candidates from RIDER_REGISTRY); proclamation text NOT captioned over speakers (silence-zone dignity rule)"
+status: PARTIAL — position enrichment deferred to local ETC pass

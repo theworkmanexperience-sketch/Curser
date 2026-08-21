@@ -1,0 +1,9 @@
+document_id: DOCUMENTARY_PROGRESSION
+version: 1.0.0
+basis: MIE_DIRECTOR_NOTES (2309710) + TIMELINE_REGISTRY + ENERGY_CURVE
+progressions:
+  - {id: P1, name: ARRIVAL, span: "00:00-01:51", purpose: "intimacy before scale", energy: 2, interviews: 0, vo: 1, music: minimal-or-silent}
+  - {id: P2, name: GAUNTLET_ONE, span: "01:51-27:02", purpose: "the question establishes itself; 45 voices converge", energy: 3, interviews: 45, vo: 0, music: supports-ducked}
+  - {id: P3, name: RIDE_AND_TOWN, span: "27:02-38:52", purpose: "energy statement then civic gravity", energy: "5 then 2", interviews: 0, vo: 1, music: "LEADS escort then FULL SILENCE proclamations"}
+  - {id: P4, name: GAUNTLET_TWO_HONORS, span: "38:55-55:24", purpose: "deepening: PTSD, founders, grief, honors", energy: "3 then 1 then 3", interviews: 22, vo: 1, music: "supports; ABSOLUTE SILENCE at S12"}
+  - {id: P5, name: BIKE_NIGHT_WRAP, span: "55:24-80:46", purpose: "victory + community joy + Part 3 promise", energy: "4-5", interviews: 8, vo: 1, music: "LEADS; single unbroken cue for final 62s"}
