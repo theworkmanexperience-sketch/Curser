@@ -1,0 +1,24 @@
+document_id: MIE_CUE_SHEET
+version: 1.0.0
+authorized_by: "Chairman — Gate 2 acceptance + MIE-AUTHOR-001 authorization (2026-08-21)"
+governed_by: [MIE_INPUT_PACKAGE-67fcd91, MIE_DIRECTOR_NOTES-2309710, ETC-2bf06853, SEM-001/EA-001-custody]
+status: PROPOSED — all cues advisory until individual cue PDRs (Human Editorial Authority)
+reconciliation: "lock timeline carries 16 existing audio elements; at placement each proposed cue is reconciled against existing in/outs from ETC JSON — keep/replace/adjust recorded per cue PDR"
+timing_tolerance: "±6s pending lock-SRT pass; final in/outs verified against ETC locally"
+cues:
+  - {id: CUE-01, name: ARRIVAL_AMBIENT, span: "00:00-01:13", prog: P1, mode: minimal, energy: 2, direction: "sparse ambient ride-in under cold open; intimacy before scale; no vocal"}
+  - {id: CUE-02a, name: GAUNTLET_BED_I, span: "01:51-10:30", prog: P2, mode: supports_ducked, energy: 3, direction: "rhythmic low-profile groove bed; the Q1-Q5 cadence is the percussion; instrumental"}
+  - {id: CUE-02b, name: GAUNTLET_BED_II, span: "10:30-18:45", prog: P2, mode: supports_ducked, energy: 3, direction: "bed rotation to avoid 25-min monotony; same family, new color"}
+  - {id: CUE-02c, name: GAUNTLET_BED_III, span: "18:45-27:02", prog: P2, mode: supports_ducked, energy: 3, direction: "third rotation, slight build toward the ride"}
+  - {id: CUE-03, name: ESCORT_ANTHEM, span: "27:40-29:10", prog: P3, mode: LEADS, energy: 5, direction: "the film's first full-energy statement; hard in at wheels-rolling, OUT COLD before librarian"}
+  - {id: SIL-01, name: CIVIC_SILENCE, span: "31:43-38:52", mode: MANDATORY_SILENCE, note: "librarian, council, BOTH proclamations, first-ride beat — words carry their own weight"}
+  - {id: CUE-04, name: GAUNTLET_TWO_BED, span: "38:55-52:00", prog: P4, mode: supports_ducked, energy: 3, direction: "warmer return of interview rhythm", carve_out: "FULL OUT 39:07-39:59 (R46 PTSD disclosure — silence, non-negotiable)"}
+  - {id: SIL-02, name: HONORS_SILENCE, span: "52:04-53:49", mode: MANDATORY_SILENCE, note: "organizer honors + moment of silence — the film's one absolute quiet"}
+  - {id: CUE-05, name: PHOTO_LIFT, span: "53:50-54:35", prog: P4, mode: supports, energy: 3, direction: "gentle swell out of silence; communal warmth, no vocal"}
+  - {id: CUE-06, name: DAY_WRAP_BRIDGE, span: "54:36-55:24", prog: P5, mode: supports, energy: 3, direction: "transitional; daylight closing, night promised"}
+  - {id: CUE-07, name: RIDE_PASSAGE, span: "56:10-58:43", prog: P5, mode: LEADS, energy: 4, direction: "second anthem class; open road, golden hour"}
+  - {id: CUE-08, name: NIGHT_ARRIVALS, span: "58:43-66:48", prog: P5, mode: leads_breathing, energy: 4, direction: "night groove; let engines and crowd breathe through it; carries the CTA"}
+  - {id: CUE-09a, name: BIKE_NIGHT_PEAK_I, span: "69:25-74:30", prog: P5, mode: LEADS, energy: 5, direction: "party apex; celebratory"}
+  - {id: CUE-09b, name: BIKE_NIGHT_PEAK_II, span: "74:30-79:40", prog: P5, mode: LEADS, energy: 5, direction: "sustain the apex with a second color"}
+  - {id: CUE-10, name: VICTORY_CLOSE, span: "79:44-80:46", prog: P5, mode: LEADS, energy: 4, direction: "ONE UNBROKEN CUE for the final 62s (triple-080 run) to black + Part 3 tease; the thesis lands here; vocal permitted"}
+totals: {scored_cues: 13, mandatory_silence_zones: 2, carve_outs: 1}
