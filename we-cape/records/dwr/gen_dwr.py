@@ -237,7 +237,7 @@ RESOLUTIONS = {
                   "and all future platform health reporting. Percentages permitted only for directly "
                   "measurable quantities; no opaque aggregation without explicit Executive approval. "
                   "Supersedable only by an ADR that explicitly does so."),
-   "resolution_artifact": "docs/specs/WET-SPEC-REPORT-001_v1.0_Platform_Reporting_Standard.md",
+   "resolution_artifact": "docs/specs/WET-SPEC-REPORT-001_Platform_Reporting_Standard.md",
    "resolution_date": "2026-08-22",
    "resolution_authority": "Executive Producer"},
 }

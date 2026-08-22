@@ -1,7 +1,9 @@
 # CAR-004 Appendix B — Acquisition Readiness Report: Alpha RoundUp Part 2
 ## Governance Status
 Document Type: CAR Appendix — Worked Example · Status: FOR EXECUTIVE REVIEW · Date: 2026-08-22
-Conforms to: **WET-SPEC-REPORT-001 v1.0** (Component Metrics → Objective Percentages → Executive Verdict)
+Conforms to: **WET-SPEC-REPORT-001 v1.1** (Component Metrics → Objective Percentages → Executive Verdict)
+
+**Processing Status: `READY`** — every precondition for editorial synchronization is present: locked FCPXML, canonical SRT, Editorial Timing Contract and master video all exist and are hash-pinned.
 
 > **This is a worked example, not a platform artifact.** It demonstrates the reporting standard against
 > real evidence so the Executive Team can see the pattern before authorizing anything that produces it.
@@ -31,9 +33,15 @@ Evidence base: `ffprobe` against Alpha RoundUp 2026 source media · `cameras.yam
 | Insta360 X5 timecode | **✗** | — | — | **ABSENT** | `.insv` probe: no timecode track, no data streams. The device emits none |
 | Insta360 X5 telemetry | **✗** *(via ffprobe)* | — | — | **ABSENT** | proprietary container; not surfaced. **UNVERIFIED**, not disproven |
 
-**Nothing in this table is BLOCKED.** Every gap is either a setting (ATTENTION) or value already paid
-for and not collected (OPPORTUNITY). That distinction is the point of the standard — and it is exactly
-what a single number would have destroyed.
+**No row here blocks anything.** Every gap is either a setting (`ATTENTION`) or value already paid for
+and not collected (`OPPORTUNITY`). The one `ABSENT` pair — Insta360 X5 timecode and telemetry — blocks
+nothing at all, which is precisely why component status and **Processing Status** are separate concerns
+under v1.1 §3.4: this production's Processing Status is `READY` while five component rows are imperfect.
+
+**Capability built and wasted: 5 of 15 rows** (embedded timecode · telemetry stream · camera-native
+proxies · 4K master · offload manifests). That count is the executive finding of this report — per
+v1.1 §3.5 it is reported as a count with its denominator and is **not** inverted into a utilization
+percentage.
 
 ## 2. Objective Percentages
 Each carries its numerator, denominator and source, per WET-SPEC-REPORT-001 §5.

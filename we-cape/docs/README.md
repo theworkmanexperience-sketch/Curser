@@ -81,7 +81,12 @@ comparable on evidence-bounded fields only when their context rows match.
 Every readiness, health or intelligence report follows one pattern, governed by
 WET-SPEC-REPORT-001: Component Metrics -> Objective Percentages -> Executive
 Verdict. Component rows carry Available / Enabled / Consumed plus a required
-evidence reference, and a status of PASS, OPPORTUNITY, ATTENTION or ABSENT.
+evidence reference, and a status of PASS, OPPORTUNITY, ATTENTION or ABSENT. Component status describes
+EVIDENCE; workflow is described separately by a Processing Status header field
+(READY / WAITING / BLOCKED / COMPLETE) which must NAME its unmet precondition and
+must never be derived by aggregating component rows - an aggregated status word is
+a composite score without the number. OPPORTUNITY (available, enabled, not
+consumed) is the standard's named executive finding: capability built and wasted.
 Composite readiness, health, quality, maturity or intelligence scores are
 PROHIBITED, and that prohibition may be superseded only by an ADR that
 explicitly does so. Percentages are permitted only for directly measurable

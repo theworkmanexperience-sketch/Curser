@@ -150,7 +150,7 @@ Offered so reviewers have something specific to disagree with. **None is propose
 
 **S-5 is settled in form, open in scope.** The Executive Ruling of 2026-08-22 extended GAP-03: a
 Capture Readiness **Score** is prohibited; a Capture Readiness **Report** is the required shape.
-`WET-SPEC-REPORT-001 v1.0` is in force and supersedable only by an ADR that explicitly says so. What
+`WET-SPEC-REPORT-001` (v1.1) is in force and supersedable only by an ADR that explicitly says so. What
 remains for this review is *when* the report is produced and *what collects its component evidence* —
 not whether it may be a number.
 
@@ -181,7 +181,7 @@ not whether it may be a number.
 5. **Per-production profile** — does `PRODUCTION_CAPTURE_PROFILE.yaml` earn its regeneration cost?
 6. **Mode vocabulary** — is capture mode observation or interpretation? Which engine owns it?
 7. ~~**Score** — extend or overturn GAP-03's no-composite-score ruling?~~ **RESOLVED 2026-08-22 by
-   Executive Ruling: EXTEND.** See `WET-SPEC-REPORT-001 v1.0`. Residual question for reviewers: what
+   Executive Ruling: EXTEND.** See `WET-SPEC-REPORT-001` (v1.1). Residual question for reviewers: what
    collects the component evidence in §1 of Appendix B, and is the report generated per production or
    on demand?
 8. **Telemetry sequencing** — parse Tier 3 telemetry, or first exhaust Tiers 0–1 and measure what is
@@ -230,5 +230,5 @@ recommendation traces to documented evidence.
 `SPEC_Production_Health_Report.md` · `UI_Dashboard_Design_Guidelines_v2.md` ·
 `CAPE-RAT-20260813` clauses 9–15 · `ADR-009` (engine boundaries) · `DOC-001`, `DOC-002` ·
 **Appendix A — Capture Capability Matrix** · **Appendix B — Acquisition Readiness Report (worked
-example under `WET-SPEC-REPORT-001`)** · `WET-SPEC-REPORT-001 v1.0` (Platform Reporting Standard) ·
+example under `WET-SPEC-REPORT-001`)** · `WET-SPEC-REPORT-001` v1.1 (Platform Reporting Standard) · `DOC-003` (explainable decisions over automation) ·
 `DWR-010` (Completed, 2026-08-22).
