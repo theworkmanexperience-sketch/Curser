@@ -101,4 +101,15 @@ repository. It is retained so any observation in this run can be re-inspected at
 
 ## Commit
 
-Recorded below after commit; see repository history for authoritative values.
+| # | hash | subject |
+|---|---|---|
+| 1 | `3fe7365382118c71dcdf43d013c321f58dddb81a` | feat(ess): Step 0 timing closure — ±6s tolerance CLOSED, offset model = 0.000s |
+| 2 | `8f70dee88b6d281ec01ca4edafeb9a523c40bf61` | feat(ess): DIE-V visual registry, Editorial Synchronization, Conductor's Score, validation, seed |
+| 3 | *(this commit)* | chore(ess): record commit hashes in the execution log |
+
+Branch: `main` (repository convention — every prior sprint artifact is on `main`).
+Remote: `origin` → `git@github.com:theworkmanexperience-sketch/Curser.git`.
+
+**Housekeeping item for a human:** `_to_delete/` at the repository root holds git lock and temp-object
+files this run had to move aside because `rm` is not permitted on the mounted volume. It is untracked
+and safe to delete by hand.
