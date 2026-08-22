@@ -1,0 +1,637 @@
+# Deferred Work Register — produced by CAR-003 Platform Hygiene Review (PHI-001)
+# FOR EXECUTIVE REVIEW. Recommendations only. No implementation authorized.
+register_id: DEFERRED_WORK_REGISTER
+conforms_to: DWR-001 Deferred Work Register Standard v1.0
+version: 1.0.0
+status: FOR EXECUTIVE REVIEW — recommendations only, no implementation authorized
+produced_by: CAR-003 Platform Hygiene Review (PHI-001)
+date: '2026-08-22'
+identifier_note: Entry identifiers DWR-NNN collide with the standard's own document ID (DWR-001). This
+  review recommends renaming the standard to WET-SPEC-DWR-001, matching the named-series convention already
+  used by WET-SPEC-DIE-001 and WET-SPEC-GATE-001, which frees the DWR-NNN space for entries. Flagged rather
+  than silently resolved.
+class_definitions:
+  DECISION: A question still requiring an Executive or Chairman ruling. Cannot be scheduled as engineering
+    work until answered.
+  IMPLEMENTATION: A decision already made and intentionally postponed. Can be scheduled; needs capacity,
+    not authority.
+counts:
+  total: 36
+  deferred_decisions: 13
+  deferred_implementations: 23
+entries:
+- dwr_id: DWR-001
+  title: 'Define MANDATORY_SILENCE scope: no score vs no sound'
+  category: D — Governance Debt
+  class: DECISION
+  origin: Sprint 3A / RE-001 finding SLF-01
+  discussion_reference: PDR-2026-08-22-ESS-004; CONDUCTOR_SCORE.yaml silence_law_integrity_findings
+  date_identified: '2026-08-22'
+  reason_deferred: Content of the audio element inside SIL-01 was never inspected; source media offline
+    (delta D-22). Classified UNCERTAIN and escalated rather than judged.
+  executive_context: 'Executive Team named this the highest-consequence of the four PDRs: it defines a
+    platform rule, not only a production fact.'
+  dependencies: 62-second human listen to 00:33:37.708-00:34:39.667 of the locked cut
+  trigger_event: Audio inspection completed and content classified
+  estimated_value: HIGH — resolves years of ambiguity in one ruling
+  estimated_complexity: LOW (one listen + one ruling)
+  recommended_priority: P1
+  current_status: Deferred
+- dwr_id: DWR-002
+  title: S16 segment label vs observed illumination
+  category: D — Production
+  class: DECISION
+  origin: Sprint 3A conflict VCONF-01
+  discussion_reference: PDR-2026-08-22-ESS-001
+  date_identified: '2026-08-22'
+  reason_deferred: Registries outrank visual observation; DIE-V recorded CONFLICTED and stopped.
+  executive_context: Reaches CUE-08 (Pass 4 CELEBRATION). Boundary is correct to 0.5s; only the label
+    disagrees.
+  dependencies: None
+  trigger_event: Executive disposition of the four Sprint 3A PDRs
+  estimated_value: MEDIUM
+  estimated_complexity: LOW
+  recommended_priority: P2
+  current_status: Deferred
+- dwr_id: DWR-003
+  title: Escort ride duration vs CUE-03 span
+  category: D — Production
+  class: DECISION
+  origin: Sprint 3A conflict VCONF-02
+  discussion_reference: PDR-2026-08-22-ESS-002
+  date_identified: '2026-08-22'
+  reason_deferred: Cue sheet is ARCHITECTURE APPROVED; extending a cue is musical intent, not measurement.
+  executive_context: ~150s of escort ride carries no cue; SIL-01 opens over moving ride footage.
+  dependencies: DWR-001 (same silence zone)
+  trigger_event: Executive disposition; should be taken with DWR-001
+  estimated_value: MEDIUM-HIGH
+  estimated_complexity: LOW-MEDIUM
+  recommended_priority: P1
+  current_status: Deferred
+- dwr_id: DWR-004
+  title: Caption policy vs zero rider lower-thirds (consent dimension)
+  category: D — Production
+  class: DECISION
+  origin: Sprint 3A conflict VCONF-03
+  discussion_reference: PDR-2026-08-22-ESS-003
+  date_identified: '2026-08-22'
+  reason_deferred: Absence of an artifact is not proof the intent was abandoned; deciding is editorial.
+  executive_context: 'Carries a consent and rights dimension: RIDER_REGISTRY names are largely UNCONFIRMED
+    under R-3.'
+  dependencies: RIDER_REGISTRY resolution status; consent ledger
+  trigger_event: Executive disposition
+  estimated_value: MEDIUM
+  estimated_complexity: LOW (option A) to HIGH (option C reopens picture lock)
+  recommended_priority: P3
+  current_status: Deferred
+- dwr_id: DWR-005
+  title: Reconcile the two PDR numbering schemes
+  category: D — Governance Debt
+  class: DECISION
+  origin: PDR-2026-08-20-ETC-001 header, self-flagged
+  discussion_reference: 'PDR-2026-08-20-ETC-001 ''Numbering: date-typed scheme, as-issued (reconcile w/
+    pilot sequence in docs/README)'''
+  date_identified: '2026-08-20'
+  reason_deferred: Recorded as-issued to avoid blocking the ETC ruling; reconciliation explicitly postponed
+    to docs/README.
+  executive_context: 'Two live schemes and two storage trees: docs/pdr/PDR-YYYY-MM-DD-TYPE-NNN (markdown)
+    and records/pdr/PDR-00000N (YAML). Never reconciled.'
+  dependencies: docs/README numbering policy
+  trigger_event: Next PDR issued, or PHI-001 disposition
+  estimated_value: HIGH — ambiguity in the platform's most-used record class
+  estimated_complexity: LOW (a ruling + a migration note)
+  recommended_priority: P1
+  current_status: Deferred
+- dwr_id: DWR-006
+  title: Separate 'Workman Experience Technologies LLC' formation
+  category: D — Business/Entity
+  class: DECISION
+  origin: WET-WF-001 Gap Register GAP-01 (AMENDED, Ruling 3)
+  discussion_reference: docs/reports/WET-WF-001_Gap_Register_Addendum_v1.1.md GAP-01
+  date_identified: '2026-08-11'
+  reason_deferred: 'DBA-instead decision: DBA filed under Workman Experience, LLC (TX 804929409, 2026-07-21).'
+  executive_context: Explicitly recorded as deliberately deferred. Resume claims referencing only the
+    DBA are accurate; claims implying a standalone WET LLC remain inaccurate until formed.
+  dependencies: None
+  trigger_event: Business need for a standalone entity
+  estimated_value: LOW (platform) / MEDIUM (positioning)
+  estimated_complexity: MEDIUM (legal, external)
+  recommended_priority: P4
+  current_status: Deferred
+- dwr_id: DWR-007
+  title: Cue-boundary reconciliation as a pre-generation gate
+  category: D — Architecture
+  class: DECISION
+  origin: Sprint 3A engineering reflection; carried as AI-02
+  discussion_reference: DOC-SRC-001 section 1 bullet 9; G3-ESS-001_EXECUTIVE_CONFIRMATION AI-02
+  date_identified: '2026-08-22'
+  reason_deferred: Raised at run completion; no authority to change the MIE pipeline during Sprint 3A.
+  executive_context: Would prevent writing beds against spans that end 2.5 minutes before the action does
+    (VCONF-02 class of error).
+  dependencies: DWR-003 outcome
+  trigger_event: Next MIE pass planning
+  estimated_value: HIGH — prevents a whole error class
+  estimated_complexity: LOW-MEDIUM
+  recommended_priority: P2
+  current_status: Deferred
+- dwr_id: DWR-008
+  title: Chairman countersignature on platform-scope artifacts
+  category: D — Governance Debt
+  class: DECISION
+  origin: PHI-001 predecessor work; carried as AI-06
+  discussion_reference: G3-ESS-001_EXECUTIVE_CONFIRMATION section 4.7
+  date_identified: '2026-08-22'
+  reason_deferred: Ratified on Executive Producer authority; every prior platform-scope artifact carries
+    Chairman acceptance.
+  executive_context: Affects WET-SPEC-GATE-001, DOC-001, DOC-002. Flagged rather than assumed.
+  dependencies: None
+  trigger_event: Chairman review session
+  estimated_value: MEDIUM — authority consistency
+  estimated_complexity: LOW
+  recommended_priority: P2
+  current_status: Deferred
+- dwr_id: DWR-009
+  title: Ratify remaining doctrine candidates DC-02 through DC-10
+  category: D — Governance
+  class: DECISION
+  origin: DOC-SRC-001 section 2; carried as AI-03
+  discussion_reference: docs/doctrine/DOC-SRC-001 section 3 AI-03
+  date_identified: '2026-08-22'
+  reason_deferred: Ratification is a separate act from preservation; only DC-01 was promoted.
+  executive_context: Nine candidates remain explicitly NON-NORMATIVE.
+  dependencies: None
+  trigger_event: Chairman review session
+  estimated_value: MEDIUM
+  estimated_complexity: LOW
+  recommended_priority: P3
+  current_status: Deferred
+- dwr_id: DWR-010
+  title: Confirm whether 'Production Intelligence Score' is already decided
+  category: D — Governance Debt
+  class: DECISION
+  origin: PHI-001 special review request vs WET-WF-001 GAP-03
+  discussion_reference: 'GAP-03 locked design decision: ''No single 0-100 health score; component metrics
+    + plain-English verdict only'''
+  date_identified: '2026-08-11'
+  reason_deferred: A locked design decision already rejects a single composite score for the Production
+    Health Report. Whether that ruling extends to a 'Production Intelligence Score' has never been stated.
+  executive_context: The Executive Team listed Production Intelligence Score as a topic of interest; the
+    governed record may already answer it.
+  dependencies: None
+  trigger_event: PHI-001 disposition
+  estimated_value: HIGH — prevents re-litigating a settled decision
+  estimated_complexity: VERY LOW (one clarifying ruling)
+  recommended_priority: P1
+  current_status: Deferred
+- dwr_id: DWR-011
+  title: CURATED as a ratification candidate in the provenance vocabulary
+  category: D — Governance
+  class: DECISION
+  origin: Part 1 governance pilot vocabulary rulings
+  discussion_reference: docs/reports/PMR-001_Pilot_Metrics_Report.md 'CURATED admitted as ratification
+    candidate (human-authorship/copyright rationale)'
+  date_identified: '2026-08-08'
+  reason_deferred: Admitted as a candidate, never ratified. APPROVED was rejected as a provenance class
+    twice.
+  executive_context: Touches ADR-003 harmonization and the OBSERVED/DERIVED/INTERPOLATED/ENRICHED/GENERATED
+    vocabulary.
+  dependencies: ADR-003 (referenced, absent from this repository)
+  trigger_event: Provenance vocabulary revision
+  estimated_value: MEDIUM
+  estimated_complexity: LOW
+  recommended_priority: P3
+  current_status: Deferred
+- dwr_id: DWR-012
+  title: 'WET-SPEC-002 v0.3 consolidations: rights-ledger primacy and timeline.format'
+  category: D — Governance Debt
+  class: DECISION
+  origin: WET-REV-002 required consolidations
+  discussion_reference: docs/reviews/WET-REV-002_PDR_Disposition.md items 2 and 4; PMR-001 '2 outstanding
+    for v0.3'
+  date_identified: '2026-08-07'
+  reason_deferred: Two of four consolidations landed in v0.2; two were carried to v0.3.
+  executive_context: records/specs/WETSPEC002_v0.3 exists in the other governance tree - conformance to
+    the two outstanding items is unverified by this review.
+  dependencies: PDR numbering reconciliation (DWR-005)
+  trigger_event: v0.3 ratification
+  estimated_value: MEDIUM-HIGH
+  estimated_complexity: LOW-MEDIUM
+  recommended_priority: P2
+  current_status: Under Review
+- dwr_id: DWR-013
+  title: Independence disclosure for WET-SPEC-002 v0.3
+  category: D — Governance Debt
+  class: DECISION
+  origin: WET-GAP-001 finding adopted under Ruling 2
+  discussion_reference: 'WET-WF-001 Gap Register: ''v0.2 author = v0.1 reviewer -> v0.3 needs a different
+    reviewer'''
+  date_identified: '2026-08-11'
+  reason_deferred: Single-operator condition; CAR-001 A4 later formalised independence disclosure.
+  executive_context: PDR-000003 already records the single-operator condition explicitly (section 7 Rule
+    6).
+  dependencies: CAR-001 Rev A independence disclosure form
+  trigger_event: v0.3 review
+  estimated_value: MEDIUM
+  estimated_complexity: LOW
+  recommended_priority: P3
+  current_status: Deferred
+- dwr_id: DWR-014
+  title: DJI / Insta360 telemetry parser (Pillar 2)
+  category: G — Future Capability
+  class: IMPLEMENTATION
+  origin: we_capture Phase 1 planning
+  discussion_reference: we_capture/PHASE1_PLANNING.md Pillar 2 (DEFERRED - evidence-driven)
+  date_identified: 2026-07 (approx)
+  reason_deferred: 'Evidence-driven deferral: on 103 real files the 9 timestamp fallbacks were .crdownload
+    partials and a PDF, not DJI files. DJI_YYYYMMDDHHMMSS names already parse at fallback_level=0.'
+  executive_context: Explicit trigger recorded in the source document. PI-04 compliance remains open;
+    GPS redaction not required until GPS is actually extracted.
+  dependencies: None
+  trigger_event: A production run shows DJI files at fallback_level=2
+  estimated_value: LOW until triggered
+  estimated_complexity: MEDIUM
+  recommended_priority: P4
+  current_status: Deferred
+- dwr_id: DWR-015
+  title: Camera Identity Robustness - full multi-layer system
+  category: C — Architectural Debt
+  class: IMPLEMENTATION
+  origin: WET-WF-001 Gap Register GAP-04
+  discussion_reference: GAP-04 'Elevated to foundational priority in engineering channel; not a polish
+    item'
+  date_identified: '2026-08-11'
+  reason_deferred: Content-based correction of mislabeled cards is proven in production; the full layered
+    system was not built.
+  executive_context: 'Target: metadata/serial -> cameras.yaml mapping -> structure-based brand -> label
+    as weakest hint -> conflict stop -> confirmation prompts. THIS IS THE SUBSTANCE OF THE ''CAPTURE DEVICE
+    REGISTRY'' TOPIC.'
+  dependencies: cameras.yaml governance (DWR-016)
+  trigger_event: Next capture-side development cycle
+  estimated_value: HIGH — novice-safety and identity correctness
+  estimated_complexity: MEDIUM-HIGH
+  recommended_priority: P2
+  current_status: Deferred
+- dwr_id: DWR-016
+  title: Bring cameras.yaml under governance as a named registry
+  category: B — Naming Hygiene
+  class: IMPLEMENTATION
+  origin: PHI-001 review finding
+  discussion_reference: cameras.yaml at repository root; self-described 'Camera Identity Registry ...
+    SOURCE OF TRUTH'
+  date_identified: '2026-08-22'
+  reason_deferred: Grew organically as a config file alongside the capture engine; never enrolled as a
+    governed registry.
+  executive_context: It is the substance of the 'Capture Device Registry' the Executive Team remembers.
+    It carries no registry_id, no registry_version, no schema version, and sits at repository root outside
+    every governance tree.
+  dependencies: DIE spec registry framework F-1..F-5
+  trigger_event: PHI-001 disposition
+  estimated_value: HIGH — closes a memory-only topic with an artifact that already exists
+  estimated_complexity: LOW
+  recommended_priority: P1
+  current_status: Deferred
+- dwr_id: DWR-017
+  title: SRT telemetry unit tests before promotion to VALIDATED
+  category: E — Technical Debt
+  class: IMPLEMENTATION
+  origin: WET-WF-001 Gap Register GAP-02
+  discussion_reference: GAP-02 'Unit tests for present / absent / malformed / gate-off required before
+    promotion to VALIDATED'
+  date_identified: '2026-08-11'
+  reason_deferred: Integration complete and config-gated (default false); promotion criteria stated but
+    not met.
+  executive_context: Status is BUILT, not VALIDATED. GPS deliberately excluded from the pipeline path
+    (privacy separation via telemetry.db).
+  dependencies: None
+  trigger_event: Before enabling timestamp.enable_srt_telemetry in production
+  estimated_value: MEDIUM
+  estimated_complexity: LOW
+  recommended_priority: P2
+  current_status: Deferred
+- dwr_id: DWR-018
+  title: Production Health Report - full feature
+  category: F — Platform Opportunity
+  class: IMPLEMENTATION
+  origin: WET-WF-001 Gap Register GAP-03
+  discussion_reference: 'GAP-03 status: EXERCISED (basic clock audit) / DESIGN-COMPLETE (full feature);
+    SPEC_Production_Health_Report.md'
+  date_identified: '2026-08-11'
+  reason_deferred: Design locked; only the basic clock audit was exercised in production.
+  executive_context: Design decisions already locked, including the rejection of a single 0-100 score.
+    This is the nearest governed relative of the 'Production Intelligence Dashboard' topic.
+  dependencies: DWR-010 (score decision clarity)
+  trigger_event: Next production cycle
+  estimated_value: HIGH
+  estimated_complexity: MEDIUM
+  recommended_priority: P2
+  current_status: Deferred
+- dwr_id: DWR-019
+  title: Full external-drive encryption execution
+  category: E — Technical Debt
+  class: IMPLEMENTATION
+  origin: WET-WF-001 Gap Register GAP-06
+  discussion_reference: 'GAP-06 status: ADOPTED (decisions) / OPEN (full external-drive encryption execution);
+    SECURITY_RISK_ANALYSIS.md'
+  date_identified: '2026-08-11'
+  reason_deferred: Decisions D1-D4 adopted; execution across drives that leave the building not completed.
+  executive_context: FileVault on internal is in place. The gap is selective encryption for travelling
+    drives.
+  dependencies: None
+  trigger_event: Before media leaves the building at scale
+  estimated_value: HIGH (risk reduction)
+  estimated_complexity: MEDIUM
+  recommended_priority: P2
+  current_status: Deferred
+- dwr_id: DWR-020
+  title: STAGING_P2 closure path - grouping intelligence into edit usage
+  category: C — Architectural Debt
+  class: IMPLEMENTATION
+  origin: WET-WF-001 Gap Register GAP-05
+  discussion_reference: GAP-05 'Grouping engine is ready; edit usage of that intelligence was bypassed.
+    Closure remains via STAGING_P2 path.'
+  date_identified: '2026-08-11'
+  reason_deferred: Suite-validated engine; never production-used for the Part 1 edit.
+  executive_context: A built capability that has never delivered production value - the highest-leverage
+    kind of deferred work.
+  dependencies: None
+  trigger_event: Part 3 edit planning
+  estimated_value: HIGH — value already built, not yet realised
+  estimated_complexity: LOW-MEDIUM
+  recommended_priority: P1
+  current_status: Deferred
+- dwr_id: DWR-021
+  title: Packaged, signed dashboard application (.dmg path)
+  category: F — Platform Opportunity
+  class: IMPLEMENTATION
+  origin: Dashboard prototype under custody
+  discussion_reference: scripts/README_dashboard.md 'prototype / reference implementation ... not the
+    packaged, signed app - that is the future .dmg path'
+  date_identified: '2026-06-30'
+  reason_deferred: Prototype proves the 100% local, zero-CDN, zero-network mandate is achievable; packaging
+    deferred.
+  executive_context: A working local read-only dashboard ALREADY EXISTS over the capture registry. This
+    is the nearest governed relative of the 'Executive Dashboard' topic.
+  dependencies: Code signing / notarization (DWR-030)
+  trigger_event: Operational deployment need
+  estimated_value: MEDIUM-HIGH
+  estimated_complexity: MEDIUM-HIGH
+  recommended_priority: P3
+  current_status: Deferred
+- dwr_id: DWR-022
+  title: CAR_ROADMAP.md - the CAR pipeline document
+  category: D — Governance Debt
+  class: IMPLEMENTATION
+  origin: CAR-001 Rev A engineering amendment A1
+  discussion_reference: 'CAR-001 A1 ''CAR numbers identify review EVENTS ... never pre-allocated (pipeline:
+    CAR_ROADMAP.md)'''
+  date_identified: '2026-08-21'
+  reason_deferred: The amendment was ratified referencing a pipeline document that was never created.
+  executive_context: A ratified governance instrument points at a file that does not exist. The eight
+    planned reviews currently live in a single table cell in CAR_INDEX.md.
+  dependencies: None
+  trigger_event: PHI-001 disposition
+  estimated_value: HIGH — a ratified reference must resolve
+  estimated_complexity: VERY LOW
+  recommended_priority: P1
+  current_status: Deferred
+- dwr_id: DWR-023
+  title: INTERVIEW_REGISTRY - spec-required, absent from disk
+  category: D — Governance Debt
+  class: IMPLEMENTATION
+  origin: WET-SPEC-DIE-001 v0.2 section 7
+  discussion_reference: Spec names nine registries; INTERVIEW_REGISTRY exists only in the specification
+    text
+  date_identified: '2026-08-20'
+  reason_deferred: Not created during Sprint 2 registry population; no empty-registry report was filed
+    either.
+  executive_context: DIE spec V-5 requires populating all nine registries OR reporting each empty registry
+    with a reason. Neither was done. The Sprint 3A communique named 'Interview Registry' as an ESS fusion
+    input.
+  dependencies: DIE spec V-5
+  trigger_event: PHI-001 disposition
+  estimated_value: HIGH — a frozen spec requirement is silently unmet
+  estimated_complexity: LOW (create, or file the empty-registry report)
+  recommended_priority: P1
+  current_status: Deferred
+- dwr_id: DWR-024
+  title: Cue custody rows in the registry
+  category: E — Technical Debt
+  class: IMPLEMENTATION
+  origin: WET-GAP-001 finding adopted under Ruling 2
+  discussion_reference: 'WET-WF-001 Gap Register: ''Registry = 726 camera rows, ZERO cue rows. Ungoverned-intelligence-layer
+    risk is proven.'''
+  date_identified: '2026-08-11'
+  reason_deferred: The registry models the capture domain; the intelligence/cue domain was never given
+    custody rows.
+  executive_context: Two BLACKTOP versions exist on disk without custody of which was accepted. The risk
+    is described in the record as proven, not theoretical.
+  dependencies: PRS-001 (deferred)
+  trigger_event: Next intelligence-layer development cycle
+  estimated_value: HIGH
+  estimated_complexity: MEDIUM
+  recommended_priority: P2
+  current_status: Deferred
+- dwr_id: DWR-025
+  title: ER-2 full session export, ER-4 manifest rights line, ER-5 license basis
+  category: D — Governance Debt
+  class: IMPLEMENTATION
+  origin: WET-GAP-001 / Ruling 2 evidence requests
+  discussion_reference: WET-WF-001 Gap Register ER list; PDR-000003 shows restrictions 'PENDING (ER-5)'
+    and empty gate_clearance_ref
+  date_identified: '2026-08-11'
+  reason_deferred: ER-1 (fresh FCPXML) was the convergent next action and is now satisfied for Part 2;
+    ER-2/4/5 were not tracked to closure.
+  executive_context: ER-4 had a ready-to-run fix script in the Gap Register. Current status of all three
+    is unverified by this review.
+  dependencies: None
+  trigger_event: Before GATE 2/3 on any release
+  estimated_value: HIGH (publication-blocking)
+  estimated_complexity: LOW
+  recommended_priority: P1
+  current_status: Under Review
+- dwr_id: DWR-026
+  title: Rights-line coverage for KICKSTANDS UP v1 and other placed cues
+  category: D — Governance Debt
+  class: IMPLEMENTATION
+  origin: PHI-001 predecessor finding; carried as AI-05
+  discussion_reference: 'PDR-000003 coverage note: ''at least four additional placed cues (SLAB TALK,
+    KICKSTANDS UP v1, Yo KICKSTANDS UP, The Piney Woods Transition) with no PDRs and no manifest rights
+    lines''; ''record coverage is 2 of >=6 cue decisions'''
+  date_identified: '2026-08-22'
+  reason_deferred: Raised during the Sprint 3A confirmation but not created as a fifth PDR - the Executive
+    Team had accepted a set of four.
+  executive_context: KICKSTANDS UP v1 is the single score asset in the Part 2 lock (00:00:00.000-00:01:16.417).
+    GATE 2/3 require rights lines for ALL placed cues. Does not block MIE; blocks publication.
+  dependencies: DWR-025
+  trigger_event: Before GATE 2 on Part 2
+  estimated_value: VERY HIGH — publication-blocking and currently unowned
+  estimated_complexity: LOW-MEDIUM
+  recommended_priority: P1
+  current_status: Deferred
+- dwr_id: DWR-027
+  title: Eight planned Collaborative Architecture Reviews
+  category: G — Future Capability
+  class: IMPLEMENTATION
+  origin: CAR_INDEX row 3
+  discussion_reference: 'CAR_INDEX.md: Production Intelligence Review · Digital Provenance & Asset Lineage
+    · PBOM · Executive Dashboard & Analytics · Road Soul Lexicon · Conductor''s Score Evolution · Platform
+    Metrics · AI Governance Evolution'
+  date_identified: '2026-08-21'
+  reason_deferred: Listed as Planned (unnumbered per A1) - CAR numbers are assigned when a review convenes.
+  executive_context: This single table cell is the platform's entire forward review pipeline and holds
+    five of the topics the Executive Team asked this review to find, including DPAL spelled out in full.
+  dependencies: DWR-022 (CAR_ROADMAP.md)
+  trigger_event: Each review convening
+  estimated_value: VERY HIGH — this cell IS the institutional memory of the roadmap
+  estimated_complexity: LOW to expand into a roadmap document
+  recommended_priority: P1
+  current_status: Deferred
+- dwr_id: DWR-028
+  title: Retroactive Part 1 PDRs (8-10 records)
+  category: D — Governance Debt
+  class: IMPLEMENTATION
+  origin: WET-REV-002 exercise-first order
+  discussion_reference: 'WET-REV-002: ''Populate 8-10 retroactive PDRs from Part 1 decisions ... BEFORE
+    v0.2 refinement'''
+  date_identified: '2026-08-07'
+  reason_deferred: Two pilots were authored (PDR-000003, PDR-000004); the remaining 6+ were not.
+  executive_context: 'PMR-001 records ''PDRs piloted: 2; pending: 6+''. The exercise-first order also
+    gated PRS-001 and WET-SPEC-003.'
+  dependencies: DWR-005 (numbering)
+  trigger_event: v0.3 refinement, or Part 1 archival
+  estimated_value: MEDIUM-HIGH
+  estimated_complexity: MEDIUM
+  recommended_priority: P2
+  current_status: Deferred
+- dwr_id: DWR-029
+  title: Complete the two PDR pilots (BLACKTOP HYPNOSIS, OUT HERE)
+  category: D — Governance Debt
+  class: IMPLEMENTATION
+  origin: WET-GAP-001 finding
+  discussion_reference: Both recorded EXERCISED-INCOMPLETE (Draft); validator fails timeline.in/out because
+    the Jul 29 FCPXML predates both cue decisions
+  date_identified: '2026-08-11'
+  reason_deferred: Blocked on evidence (fresh FCPXML), which ER-1 has since produced for Part 2 but not
+    for Part 1.
+  executive_context: PDR-000003 status is 'Draft', advancement gated on ER-2, ER-4, ER-5.
+  dependencies: DWR-025
+  trigger_event: Part 1 FCPXML re-export
+  estimated_value: MEDIUM
+  estimated_complexity: LOW-MEDIUM
+  recommended_priority: P3
+  current_status: Deferred
+- dwr_id: DWR-030
+  title: Automated CI/CD, code signing/notarization, external security audit
+  category: E — Technical Debt
+  class: IMPLEMENTATION
+  origin: MILESTONES.md honest verdict
+  discussion_reference: 'MILESTONES.md: ''no automated CI/CD (tests are run on demand), no code signing/notarization,
+    no external security audit'''
+  date_identified: '2026-07-07'
+  reason_deferred: Solo-developed, single-machine operating envelope; explicitly named as the gap between
+    engineered-like-production and shipped-audited-deployed.
+  executive_context: The document is unusually candid about this and treats it as a known envelope, not
+    an oversight.
+  dependencies: None
+  trigger_event: Contract deployment or external distribution
+  estimated_value: HIGH for external deployment; LOW while single-operator
+  estimated_complexity: HIGH
+  recommended_priority: P3
+  current_status: Deferred
+- dwr_id: DWR-031
+  title: Machine-readable GATE 1/2/3
+  category: D — Governance Debt
+  class: IMPLEMENTATION
+  origin: Gate Ledger Standard conformance table; carried as AI-04
+  discussion_reference: 'WET-SPEC-GATE-001 section 9: publication gates are ''prose-only in SOP-06 - not
+    yet machine-readable'''
+  date_identified: '2026-08-22'
+  reason_deferred: Re-expressing ratified gate law (CAPE clauses 17-19) is a Chairman act, not an implementation
+    convenience.
+  executive_context: The gates with real consequences are the ones a dashboard currently cannot read.
+  dependencies: DWR-008 (Chairman session)
+  trigger_event: Chairman review session
+  estimated_value: HIGH — observability of release authority
+  estimated_complexity: LOW-MEDIUM
+  recommended_priority: P2
+  current_status: Deferred
+- dwr_id: DWR-032
+  title: Full-resolution unwatermarked proxy for DIE-V
+  category: F — Platform Opportunity
+  class: IMPLEMENTATION
+  origin: Sprint 3A delta D-24; carried as AI-01
+  discussion_reference: RE-001 section 7; DOC-SRC-001 section 1 bullet 8
+  date_identified: '2026-08-22'
+  reason_deferred: Sprint 3A was supplied a 320x180 watermarked proxy as visual ground truth.
+  executive_context: Caps every visual observation. Formation geometry, flag identification and camera-motion
+    separation are unavailable at this resolution - a better proxy, not a better method.
+  dependencies: None
+  trigger_event: Before Sprint 4 DIE-V work
+  estimated_value: HIGH
+  estimated_complexity: LOW (supply an export)
+  recommended_priority: P1
+  current_status: Deferred
+- dwr_id: DWR-033
+  title: RE-002 - regeneration after PDR disposition
+  category: F — Platform Opportunity
+  class: IMPLEMENTATION
+  origin: Gate on_open.required_actions
+  discussion_reference: intelligence/p2/ess/DOWNSTREAM_AUTHORIZATION_GATE.yaml on_open
+  date_identified: '2026-08-22'
+  reason_deferred: Cannot occur until the four Sprint 3A PDRs are dispositioned.
+  executive_context: 'Closes Level 7 (Continuous Improvement): a scorecard index with one row is a baseline,
+    not a trend.'
+  dependencies: DWR-001..DWR-004
+  trigger_event: All four Sprint 3A PDRs dispositioned
+  estimated_value: HIGH — makes platform evolution measurable
+  estimated_complexity: LOW (mechanism already armed)
+  recommended_priority: P1
+  current_status: Deferred
+- dwr_id: DWR-034
+  title: PRS-001 storage internals specification
+  category: G — Future Capability
+  class: IMPLEMENTATION
+  origin: WET-REV-002 deferral
+  discussion_reference: 'WET-REV-002: ''PRS-001 and WET-SPEC-003 remain deferred until then'' (after retroactive
+    PDRs)'
+  date_identified: '2026-08-07'
+  reason_deferred: Deferred behind the exercise-first order.
+  executive_context: 'PMR-001 owes ''exact registry count: TBD (A2/PRS-001)'' to this specification.'
+  dependencies: DWR-028
+  trigger_event: Retroactive PDR exercise complete
+  estimated_value: MEDIUM
+  estimated_complexity: MEDIUM-HIGH
+  recommended_priority: P4
+  current_status: Deferred
+- dwr_id: DWR-035
+  title: WET-SPEC-003 (platform-core, number reserved)
+  category: G — Future Capability
+  class: IMPLEMENTATION
+  origin: WET-REV-002 deferral
+  discussion_reference: WET-REV-002; docs/README sequential platform-core series
+  date_identified: '2026-08-07'
+  reason_deferred: Deferred behind the exercise-first order; the number remains unallocated.
+  executive_context: 'Relevant to numbering hygiene: WET-SPEC-GATE-001 deliberately used the named series
+    to avoid taking this reserved number.'
+  dependencies: DWR-028
+  trigger_event: Exercise-first order satisfied
+  estimated_value: LOW until scoped
+  estimated_complexity: UNKNOWN
+  recommended_priority: P4
+  current_status: Deferred
+- dwr_id: DWR-036
+  title: Transmit 5 local commits to origin/main
+  category: E — Technical Debt
+  class: IMPLEMENTATION
+  origin: Sprint 3A / PHI-001 execution environment; carried as AI-07
+  discussion_reference: G3-ESS-001_EXECUTIVE_CONFIRMATION AI-07
+  date_identified: '2026-08-22'
+  reason_deferred: The execution sandbox has no network egress and no SSH credentials; push fails host
+    key verification.
+  executive_context: Environmental, not architectural. The commits exist and are complete; they need transmitting.
+  dependencies: Operator with repository credentials
+  trigger_event: Next operator session at the machine
+  estimated_value: HIGH — unpushed governance is unshared governance
+  estimated_complexity: VERY LOW (one command)
+  recommended_priority: P1
+  current_status: Deferred
