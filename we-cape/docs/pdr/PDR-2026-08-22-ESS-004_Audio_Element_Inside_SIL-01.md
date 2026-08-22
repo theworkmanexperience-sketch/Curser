@@ -180,3 +180,110 @@ competing speech, not merely competing music — a materially stronger concern t
 and one that reads on the covenant's own terms regardless of which definition is adopted.
 
 Status remains **OPEN — AWAITING EXECUTIVE RULING** on definitions 1 / 2 / 3.
+
+---
+
+# EXECUTIVE DISPOSITION — 2026-08-22 · ESS-004 · **CLOSED**
+
+**Authority:** Executive Producer · **Session:** ELS-001 · **Ruling ID:** `ESS-004-RULING`
+**Status transition:** OPEN — AWAITING EXECUTIVE RULING → **DISPOSITIONED / CLOSED**
+
+## D.1 The ruling as issued
+
+> ELS-001 confirms that the evaluated span contains a composite production soundscape. The available
+> proxy does not conclusively distinguish the provenance of the musical content, and that distinction
+> is not required for this ruling.
+>
+> **`MANDATORY_SILENCE` is hereby defined as prohibiting WE CAPE-added non-diegetic score only.
+> Existing production audio — including speech, ambience, engine noise, wind, and any source audio
+> captured as part of the documentary record — shall remain permissible unless otherwise directed by
+> an Executive PDR.**
+
+**Definition selected:** 1 — no WE CAPE-added non-diegetic score.
+**Disposition of the element (`NOTOR1OUS_CARAVAN_2_`, 2017.708–2079.667 s):** **PERMITTED — covenant intact.**
+No removal, no move, no re-cut. `SLF-01` → **RESOLVED**.
+
+## D.2 What the ruling changed that the engineering record did not anticipate
+
+The engineering record (Amendment 3, and ELS-001 §6.1) argued that definition 1 was *"currently
+unrulable"* because it required a diegesis judgement the proxy could not support. **That argument was
+incomplete, and this disposition supersedes it.**
+
+Amendment 3 assumed the test for definition 1 had to be **acoustic** — decide from the sound whether
+the music is scored or in-world. On that assumption the conclusion held. The Executive did not accept
+the assumption. The ruling relocates the test to **provenance**: an element breaches a silence zone
+if and only if **WE CAPE added it as score**. That is not a listening question at all. It is a
+question the locked FCPXML already answers, in writing, for every element in the timeline.
+
+The lesson is recorded here because it generalizes: *the engineering record correctly identified that
+the question as posed was undecidable, and then wrongly treated the posing as fixed.* A definition
+that is undecidable under one test may be trivially decidable under another. Reframing the test is an
+Executive prerogative that engineering analysis should surface as an option rather than foreclose.
+
+## D.3 The test, as now implemented (machine-checkable, no listener required)
+
+Read the `media-rep` source path of each audio-lane element intersecting a silence zone:
+
+| path signature | classification | verdict |
+|---|---|---|
+| `…/Soundtrack/…` | `SCORE_ASSET` — WE CAPE-added | **BREACH** |
+| `…/Original Media/…` (P2_CHRONO_SETS) | `PRODUCTION_ORIGINAL_MEDIA_AUDIO` | PERMITTED |
+| contributed video asset | `CONTRIBUTED_VIDEO_AUDIO` | PERMITTED |
+
+This check runs from the locked FCPXML alone. It requires neither the master audio, nor the offline
+`/Volumes/10TB` camera originals, nor a human listener — which **retires delta D-22 as a dependency**
+for silence-zone adjudication (D-22 itself remains CLOSED-AS-NOTED for content inspection).
+
+## D.4 Result of the regeneration under this definition
+
+| zone | span | intersecting audio elements | breaches | state |
+|---|---|---|---|---|
+| SIL-01 | 00:31:43.000–00:38:52.000 | 2 — `NOTOR1OUS_CARAVAN_2_` (CONTRIBUTED_VIDEO_AUDIO) · `Map traavel to Smyrna Event Center-26` (PRODUCTION_ORIGINAL_MEDIA_AUDIO) | **0** | INTACT |
+| SIL-02 | 00:52:04.000–00:53:49.000 | 0 | **0** | INTACT |
+| R46 carve-out | 00:39:07.000–00:39:59.000 | 0 | **0** | INTACT |
+
+**TOTAL BREACHES: 0 · COVENANT: INTACT.** The lock's only WE CAPE-added score asset,
+`KICKSTANDS UP v1` (00:00:00.000–00:01:16.417), lies outside every silence zone.
+
+## D.5 The observation that survives the ruling, unresolved
+
+Amendment 3 noted that the finding names **vocals**, and that SIL-01's stated reason is that *"the
+town's own words must carry their full civic weight unassisted."* Under this ruling those vocals are
+**permitted**, because they are documentary record rather than WE CAPE-added score. The covenant is
+intact as written.
+
+This is nonetheless a place where the covenant's **letter** and its **stated intent** can diverge: an
+audible vocal under a civic proclamation competes for the audience's attention whatever its
+provenance. The ruling's own closing clause — *"unless otherwise directed by an Executive PDR"* — is
+the mechanism for closing that gap element by element if the Executive later wishes to. **No such
+direction is issued here, and none is implied.** It is recorded so that a future reader does not
+mistake silence on the point for absence of the point.
+
+## D.6 Artifacts regenerated under this disposition
+
+Regeneration run `WECAPE-AR2-ESS004-REGEN-20260822-174500`. Per DOC-002 — regenerate, never patch —
+no artifact was hand-edited; all outputs come from `intelligence/p2/ess/scripts/gen_artifacts.py`
+re-run against the unchanged four authoritative inputs.
+
+| artifact | version | note |
+|---|---|---|
+| `CONDUCTOR_SCORE.yaml` | 1.0.0 → **1.1.0** | silence law re-encoded as provenance behavior; `silence_law_definition` + `silence_law_compliance` blocks added |
+| `EDITORIAL_SYNCHRONIZATION.yaml` | 1.0.0 → **1.1.0** | audio-element provenance classification carried on sync rows |
+| `ESS_VALIDATION_REPORT.md` | regenerated | D-18 CLOSED by ruling · D-22 dependency retired · **D-26 added** |
+| `PRODUCTION_INTELLIGENCE_SEED.yaml` | regenerated | seed reflects intact covenant |
+| `CAPTION_REGISTRY.yaml` | 0.2.0 → **0.2.1** | **serialization only** (D-26); zero content change |
+| `VISUAL_EVENT_REGISTRY.yaml` | 1.0.0 → **1.0.1** | **serialization only** (D-26); zero event-content change |
+
+**D-26 — `YAML_SEXAGESIMAL_TIMECODE`:** a defect found *during* this regeneration, unrelated to the
+ruling. Under YAML 1.1, a bare `start_tc: 00:31:43.000` parses as the float `1903.0`, not the string
+`"00:31:43.000"`. It was present in **every YAML artifact of the RE-001 baseline**. All timecodes are
+now quoted at write time. The RE-001 archived copies retain the defect **by design** — an archived
+reference execution is immutable, and its scorecard now carries the finding.
+
+## D.7 Gate consequence
+
+`DOWNSTREAM_AUTHORIZATION_GATE.yaml`: ESS-004 → `DISPOSITIONED`. **The gate REMAINS CLOSED.**
+Three PDRs — ESS-001, ESS-002, ESS-003 — are still open, and `on_open` requires all four.
+Next in the confirmed disposition order: **ESS-002**.
+
+**Ruled by:** Executive Producer · **Date:** 2026-08-22 · **Recorded by:** Implementation Engineer

@@ -228,6 +228,18 @@ ROWS = [
  "Environmental, not architectural. The commits exist and are complete; they need transmitting.",
  "Operator with repository credentials","Next operator session at the machine",
  "HIGH — unpushed governance is unshared governance","VERY LOW (one command)","P1","Completed"),
+("DWR-037","Reference Executions archive no artifact snapshot; their scorecards derive from mutable live paths","F — Governance Debt",I,
+ "ESS-004 regeneration, 2026-08-22","PDR-2026-08-22-ESS-004 section D.6; scripts/re_scorecard.py argv[1]","2026-08-22",
+ "Discovered while regenerating under the ESS-004 ruling. RE-001 is declared immutable, but docs/reference_executions/ holds only META, SCORECARD and the narrative - no copy of the artifacts the scorecard describes. re_scorecard.py takes the seed path as an argument and was run against the LIVE intelligence/p2/ess/PRODUCTION_INTELLIGENCE_SEED.yaml. That path has now been overwritten by the ESS-004 regeneration, so re-running the generator for RE-001 today would stamp post-ruling numbers onto a pre-ruling archive.",
+ "The archive is currently recoverable but not self-contained: RE-001's artifacts survive only in git history (commit b197e74 / 8033dc5). An archive whose immutability depends on nobody re-running its own generator is not immutable, it is merely undisturbed. Two candidate remedies: copy the artifact set into docs/reference_executions/RE-001_artifacts/ and repoint the generator at the copies, or have re_scorecard.py resolve its inputs through a git ref recorded in META. NOT implemented - flagged, because RE-002 will inherit the same defect on the same day it is created.",
+ "Executive authorization; RE-002 archival is the natural moment","RE-002 archival (gate on_open action)",
+ "HIGH — this is the archive's load-bearing property","LOW (a copy step plus a generator argument)","P1","Deferred"),
+("DWR-038","No YAML load-and-assert-types lint gate on generated artifacts","E — Technical Debt",I,
+ "D-26, found during the ESS-004 regeneration","PDR-2026-08-22-ESS-004 section D.6; STEP0_TIMING_CLOSURE delta D-26","2026-08-22",
+ "Every YAML artifact of the RE-001 baseline serialized timecodes bare. Under YAML 1.1 a bare 00:31:43.000 loads as the float 1903.0, not the string. The defect survived a full validation pass because validation checked that the files PARSE, never that the loaded values have the types the schema intends.",
+ "The write side is fixed (all timecodes are quoted at write time). The class of defect is not: any future field whose text happens to look like a YAML 1.1 scalar - sexagesimals, y/n/on/off, leading-zero integers, unquoted version strings - will fail the same way and pass the same validation. A round-trip assertion (load the artifact, assert every *_tc is a str and matches the timecode pattern) belongs in the generator's own validation step. Parsing is not validation.",
+ "None — engineering capacity only","Next artifact-generating sprint",
+ "MEDIUM — prevents a silent data-type corruption class","LOW (a dozen assertions in gen_artifacts.py)","P2","Deferred"),
 ]
 
 RESOLUTIONS = {

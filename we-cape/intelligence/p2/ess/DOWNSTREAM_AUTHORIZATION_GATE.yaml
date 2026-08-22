@@ -9,7 +9,7 @@ gate_class: EXECUTION_GATE
 gate_kind: PROGRESSION
 gate_id: GATE-2026-08-22-MIE-DOWNSTREAM
 schema_version: WET-SPEC-GATE-001-v1.0
-version: 1.1.0            # 1.0.0 -> 1.1.0: conformed to the Gate Ledger Standard
+version: 1.2.0            # 1.1.0 -> 1.2.0: ESS-004 DISPOSITIONED (ELS-001 ruling); 3 of 4 blocking items remain OPEN
 scope: PRODUCTION
 subject: downstream Musical Intelligence Engine work for Alpha RoundUp Part 2
 
@@ -80,25 +80,54 @@ blocking_items:
     conflict_id: SLF-01
     related_deltas: [D-18, D-22]
     subject: audio element inside SIL-01 (silence-law integrity)
-    status: OPEN
-    blocks_specifically: [ALL_MIE, SIL-01, CUE-03, CUE-04]
-    regenerates_on_disposition: [CONDUCTOR_SCORE.yaml, EDITORIAL_SYNCHRONIZATION.yaml]
-    prerequisite_human_action: >-
-      ELS-001 Executive Listening Session. Listen to 00:33:37.708-00:34:39.667 of the locked
-      cut and rule on the semantics of MANDATORY_SILENCE. Brief, three ruling options and
-      objective measurements: docs/reviews/ELS-001_MANDATORY_SILENCE_LISTENING_BRIEF.md.
-      Prepared 2026-08-22; session status READY. RE-001 did not determine the content: the
-      source media (/Volumes/10TB/.../NOTOR1OUS_CARAVAN_2_.mp4) was offline (delta D-22).
+    status: DISPOSITIONED
+    dispositioned_date: 2026-08-22
+    dispositioned_by: Executive Producer
     session_ref: ELS-001
-    ruling_options: ["1 no non-diegetic score", "2 no music of any kind", "3 no sound but speech"]
-    narrowing_evidence: >-
-      SOP-06 GATE 1 records NOTOR1OUS x2 as the cleared CONTRIBUTED custody exception.
-      The element's PRESENCE in the timeline is therefore already gate-cleared; the open
-      question is narrower than first stated - it is only whether the audio content is
-      musical for silence-law purposes. See PDR Amendment 1 (2026-08-22).
+    ruling_id: ESS-004-RULING
+    ruling: >-
+      MANDATORY_SILENCE prohibits WE CAPE-ADDED NON-DIEGETIC SCORE only. Existing production
+      audio - speech, ambience, engine noise, wind, and any source audio captured as part of
+      the documentary record - remains permissible unless otherwise directed by an Executive PDR.
+    ruling_option_selected: "1 no non-diegetic score"
+    element_disposition: PERMITTED_COVENANT_INTACT
+    test_basis: PROVENANCE_NOT_ACOUSTICS
+    test_note: >-
+      An element breaches a silence zone if and only if WE CAPE added it as score. Read from the
+      FCPXML asset media-rep path: /Soundtrack/ = WE CAPE-added score (BREACH); Original Media or
+      CONTRIBUTED = documentary record (PERMITTED). Machine-checkable from the locked FCPXML alone;
+      no master audio, no camera originals, no listener required.
+    resolved_conflicts: [SLF-01]
+    closed_deltas: [D-18]
+    retired_dependencies:
+      - delta: D-22
+        note: >-
+          The offline /Volumes/10TB source media was the stated reason D-18 could not be resolved
+          in RE-001. The provenance test does not need it. D-22 remains CLOSED-AS-NOTED for content
+          inspection, but no longer blocks silence-zone adjudication.
+    compliance_result: {total_breaches: 0, covenant_state: INTACT,
+                        SIL-01: "2 elements, both PERMITTED", SIL-02: "0 elements",
+                        R46-CARVE-OUT: "0 elements"}
+    regenerated_on_disposition:
+      - {artifact: CONDUCTOR_SCORE.yaml, version: 1.1.0}
+      - {artifact: EDITORIAL_SYNCHRONIZATION.yaml, version: 1.1.0}
+      - {artifact: ESS_VALIDATION_REPORT.md, version: regenerated}
+      - {artifact: PRODUCTION_INTELLIGENCE_SEED.yaml, version: regenerated}
+      - {artifact: CAPTION_REGISTRY.yaml, version: 0.2.1, change: "D-26 serialization only"}
+      - {artifact: VISUAL_EVENT_REGISTRY.yaml, version: 1.0.1, change: "D-26 serialization only"}
+    regeneration_run_id: WECAPE-AR2-ESS004-REGEN-20260822-174500
+    new_delta_raised:
+      id: D-26
+      name: YAML_SEXAGESIMAL_TIMECODE
+      note: >-
+        Found during this regeneration, unrelated to the ruling. YAML 1.1 parses a bare
+        00:31:43.000 as the float 1903.0. Present in every YAML artifact of the RE-001 baseline.
+        Fixed at write time (all timecodes quoted). RE-001's archived copies retain it by design.
     precedent_value: >-
-      The disposition defines whether MANDATORY_SILENCE means "no score" or "no sound"
-      for the platform, not only for this element.
+      MANDATORY_SILENCE now has a platform definition and, more importantly, a platform TEST:
+      provenance, answerable from the locked FCPXML. Applies to all future silence zones.
+    still_blocking: false
+    blocks_specifically: []   # cleared by disposition; formerly [ALL_MIE, SIL-01, CUE-03, CUE-04]
 
 pre_existing_gates_still_in_force:
   - {id: GATE-1, kind: PUBLICATION, source: SOP-06 Phase A4, effect: timeline custody audit}
@@ -108,10 +137,26 @@ pre_existing_gates_still_in_force:
   - {id: PASS_GATE, kind: PROGRESSION, source: PDR-2026-08-21-MIE-001_RevA,
      effect: "passes 1-5 in sequence; all four Conversation beds PDR'd before Pass 2 unlocks"}
 
+blocking_summary:
+  total_items: 4
+  dispositioned: 1     # ESS-004
+  open: 3              # ESS-001, ESS-002, ESS-003
+  gate_opens_at: 4
+  note: >-
+    Partial disposition does not partially open this gate (see unblock_condition). RE-002 archival
+    is an on_open action and is NOT performed after a single disposition.
+
 recommended_disposition_order:
-  - {step: 1, items: [PDR-2026-08-22-ESS-004], reason: "ELS-001 - the semantic ruling the rest inherit"}
-  - {step: 2, items: [PDR-2026-08-22-ESS-002],
-     reason: "same silence zone, its left boundary; the silence ruling informs the escort-ride discussion"}
+  - {step: 1, items: [PDR-2026-08-22-ESS-004], status: DONE,
+     reason: "ELS-001 - the semantic ruling the rest inherit", dispositioned: 2026-08-22}
+  - step: 2
+    items: [PDR-2026-08-22-ESS-002]
+    status: NEXT
+    reason: "same silence zone, its left boundary; the silence ruling informs the escort-ride discussion"
+    inherited_from_ESS_004: >-
+      Under the issued ruling the escort ride's own production audio (engines, wind, ambience)
+      CONTINUES through SIL-01 and is permitted. The APPROACH state therefore hands the ride from
+      score to engines, not from score to absence. This materially changes the ESS-002 options.
   - {step: 3, items: [PDR-2026-08-22-ESS-001], reason: "reaches CUE-08 (Pass 4)"}
   - {step: 4, items: [PDR-2026-08-22-ESS-003], reason: "independent of music; carries a consent dimension"}
 
@@ -135,3 +180,8 @@ status_history:
   - {date: 2026-08-22, state: CLOSED, authority: Executive Producer,
      note: "ESS-004 reframed as ELS-001 Executive Listening Session; ruling options corrected from
             binary to ternary (diegetic case); disposition order confirmed 004 -> 002 -> 001 -> 003"}
+  - {date: 2026-08-22, state: CLOSED, authority: Executive Producer,
+     note: "ESS-004 DISPOSITIONED via ELS-001 ruling (option 1, provenance test). SLF-01 RESOLVED,
+            D-18 CLOSED, D-22 dependency retired, 0 breaches, covenant INTACT. Artifacts regenerated
+            at run WECAPE-AR2-ESS004-REGEN-20260822-174500. GATE REMAINS CLOSED: 3 of 4 blocking
+            items still OPEN. Next: ESS-002."}

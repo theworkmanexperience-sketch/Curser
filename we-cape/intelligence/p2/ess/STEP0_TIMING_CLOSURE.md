@@ -141,13 +141,14 @@ Provenance is decisive here and it is read from the FCPXML asset paths, not gues
 | D-19 | CUE_SHEET_COVERAGE_GAPS | 445.625 s across 11 spans | CLOSED-AS-ENUMERATED (each span listed in CONDUCTOR_SCORE.uncovered_spans) |
 | D-20 | REGISTRY_SEGMENT_GAPS | 434.625 s across 13 spans | CLOSED-AS-ENUMERATED (each span listed in EDITORIAL_SYNCHRONIZATION.unsegmented_spans) |
 | D-21 | TITLE_TEXT_LETTER_SPACING | cosmetic | CLOSED - verbatim preserved per DIE-X rule X-2 (zero interpretation at extraction) |
-| D-22 | OFFLINE_MEDIA_REFERENCE | 1 asset | CLOSED-AS-NOTED - affects content inspection only, not timing; recorded as a reason D-18 could not be resolved here |
+| D-22 | OFFLINE_MEDIA_REFERENCE | 1 asset | CLOSED-AS-NOTED - affects content inspection only, not timing. It was the stated reason D-18 could not be resolved in RE-001; the ESS-004 ruling retired that dependency by making the test provenance rather than content, so the offline volume no longer blocks any decision |
 | D-23 | DIE_V_SAMPLING_UNCERTAINTY | +/-0.5 sample | CLOSED - frame-accuracy claims rest on the ETC and on the 1.000 s probe grid, never on the 3.000 s survey grid |
 | D-24 | PROXY_RESOLUTION_CEILING | 320x180 vs 3840x2160 master | CLOSED-AS-DECLARED - every affected observation is capped at MEDIUM or UNCERTAIN; no observation claims detail the proxy cannot carry |
+| D-26 | YAML_SEXAGESIMAL_TIMECODE | 4 artifacts, all *_tc fields | FIXED in the regeneration - all timecodes are now quoted at write time and load as strings. The RE-001 archived copies retain the defect by design (immutable); RE-002 will carry the fix |
 | D-25 | DIE_V_SHEET_SAMPLING | 20 of 54 sheets read in full | CLOSED-AS-DECLARED - gauntlet spans carry span-level classifications only, never per-event claims outside a read sheet |
 
 Full descriptions are carried in ESS_VALIDATION_REPORT.md section 6.
 
 ### 8. Closure statement
 
-With offset = 0.000 s and drift within [-0.541, +1.909] s of zero over 4846.625 s, and with 25 deltas each carrying a category and a disposition, the +/-6 s tolerance is **CLOSED**. Frame-accurate claims downstream of this report are licensed against the ETC and the 24 fps sequence timebase - not against the 320x180 proxy and not against the 3.000 s DIE-V survey grid.
+With offset = 0.000 s and drift within [-0.541, +1.909] s of zero over 4846.625 s, and with 26 deltas each carrying a category and a disposition, the +/-6 s tolerance is **CLOSED**. Frame-accurate claims downstream of this report are licensed against the ETC and the 24 fps sequence timebase - not against the 320x180 proxy and not against the 3.000 s DIE-V survey grid.

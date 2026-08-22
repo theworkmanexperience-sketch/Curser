@@ -8,12 +8,17 @@
 #   Alpha RoudUp Part 2_SRT__SRT 2_...srt   89d61f965aa17e4d3dade14173869b34efb0c09d689b1c347d3c9c8f6eca1c6b
 #   P2_LOCK_timing.json                     e91318a6719c81e448e6c57267dff7a807076cb9aded822a459fb6353e80010d
 # Editorial lock: 4846.625 s (01:20:46:14 @ 24 fps, NDF) - offset model: ZERO
+# REGENERATED WECAPE-AR2-ESS004-REGEN-20260822-174500 under Executive Ruling ESS-004 (2026-08-22, session ELS-001):
+#   MANDATORY_SILENCE prohibits WE CAPE-added non-diegetic score ONLY.
+#   Supersedes the pre-ruling state archived at RE-001. Regenerate, never patch (DOC-002).
 # Repository commit at launch: ff0c45f77b2fb612606e1d5b8ef86641822e5e4a
 # ============================================================================
 artifact_id: EDITORIAL_SYNCHRONIZATION
 artifact_class: FIFTH_AUTHORITATIVE_PRODUCTION_ARTIFACT   # per ADR-009 section 2
-version: 1.0.0
+version: 1.1.0   # regenerated under Executive Ruling ESS-004
 run_id: WECAPE-AR2-SPRINT3A-20260822-114028
+regeneration_run_id: WECAPE-AR2-ESS004-REGEN-20260822-174500
+regenerated_under_ruling: ESS-004-RULING (2026-08-22, session ELS-001)
 regeneration_policy: >-
   Never hand-edited. Regenerate on any source-hash mismatch. This artifact is a fusion of things that already exist under governance; it creates no new authority.
 timebase:
@@ -40,7 +45,7 @@ conflict_policy: >-
 rows:
   - row_id: ESS-001
     segment_ref: S01
-    WHEN: {start_s: 0, end_s: 73, start_tc: 00:00:00.000, end_tc: 00:01:13.000, duration_s: 73, timebase: CLOSED}
+    WHEN: {start_s: 0, end_s: 73, start_tc: "00:00:00.000", end_tc: "00:01:13.000", duration_s: 73, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: cold_open, authority: TIMELINE_REGISTRY, progression: "P1 ARRIVAL", energy: 2, energy_authority: ENERGY_CURVE}
@@ -62,7 +67,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-002
     segment_ref: S02
-    WHEN: {start_s: 73, end_s: 111, start_tc: 00:01:13.000, end_tc: 00:01:51.000, duration_s: 38, timebase: CLOSED}
+    WHEN: {start_s: 73, end_s: 111, start_tc: "00:01:13.000", end_tc: "00:01:51.000", duration_s: 38, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "host", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: host_day_brief, authority: TIMELINE_REGISTRY, progression: "P1 ARRIVAL", energy: 2, energy_authority: ENERGY_CURVE}
@@ -82,7 +87,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-003
     segment_ref: S03
-    WHEN: {start_s: 111, end_s: 1622, start_tc: 00:01:51.000, end_tc: 00:27:02.000, duration_s: 1511, timebase: CLOSED}
+    WHEN: {start_s: 111, end_s: 1622, start_tc: "00:01:51.000", end_tc: "00:27:02.000", duration_s: 1511, timebase: CLOSED}
     WHERE: {location_ref: "L03-staging", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "R01-R45", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: interview_gauntlet_1, authority: TIMELINE_REGISTRY, progression: "P2 GAUNTLET_ONE", energy: 3, energy_authority: ENERGY_CURVE}
@@ -116,7 +121,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-004
     segment_ref: S04
-    WHEN: {start_s: 1622, end_s: 1643, start_tc: 00:27:02.000, end_tc: 00:27:23.000, duration_s: 21, timebase: CLOSED}
+    WHEN: {start_s: 1622, end_s: 1643, start_tc: "00:27:02.000", end_tc: "00:27:23.000", duration_s: 21, timebase: CLOSED}
     WHERE: {location_ref: "L03", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: ride_brief, authority: TIMELINE_REGISTRY, progression: "P3 RIDE_AND_TOWN", energy: None, energy_authority: ENERGY_CURVE}
@@ -134,7 +139,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-005
     segment_ref: GAP-27:23
-    WHEN: {start_s: 1643, end_s: 1660, start_tc: 00:27:23.000, end_tc: 00:27:40.000, duration_s: 17, timebase: CLOSED}
+    WHEN: {start_s: 1643, end_s: 1660, start_tc: "00:27:23.000", end_tc: "00:27:40.000", duration_s: 17, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: unsegmented_in_TIMELINE_REGISTRY, authority: TIMELINE_REGISTRY, progression: "P3 RIDE_AND_TOWN", energy: NULL, energy_authority: ENERGY_CURVE}
@@ -152,7 +157,7 @@ rows:
     state: UNSEGMENTED
   - row_id: ESS-006
     segment_ref: S05
-    WHEN: {start_s: 1660, end_s: 1750, start_tc: 00:27:40.000, end_tc: 00:29:10.000, duration_s: 90, timebase: CLOSED}
+    WHEN: {start_s: 1660, end_s: 1750, start_tc: "00:27:40.000", end_tc: "00:29:10.000", duration_s: 90, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: escort_ride, authority: TIMELINE_REGISTRY, progression: "P3 RIDE_AND_TOWN", energy: 5, energy_authority: ENERGY_CURVE}
@@ -174,7 +179,7 @@ rows:
     authoritative_value: registry
   - row_id: ESS-007
     segment_ref: GAP-29:10
-    WHEN: {start_s: 1750, end_s: 1903, start_tc: 00:29:10.000, end_tc: 00:31:43.000, duration_s: 153, timebase: CLOSED}
+    WHEN: {start_s: 1750, end_s: 1903, start_tc: "00:29:10.000", end_tc: "00:31:43.000", duration_s: 153, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: unsegmented_in_TIMELINE_REGISTRY, authority: TIMELINE_REGISTRY, progression: "P3 RIDE_AND_TOWN", energy: NULL, energy_authority: ENERGY_CURVE}
@@ -193,7 +198,7 @@ rows:
     state: UNSEGMENTED
   - row_id: ESS-008
     segment_ref: S06
-    WHEN: {start_s: 1903, end_s: 1953, start_tc: 00:31:43.000, end_tc: 00:32:33.000, duration_s: 50, timebase: CLOSED}
+    WHEN: {start_s: 1903, end_s: 1953, start_tc: "00:31:43.000", end_tc: "00:32:33.000", duration_s: 50, timebase: CLOSED}
     WHERE: {location_ref: "L04", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "C01", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: librarian_speech, authority: TIMELINE_REGISTRY, progression: "P3 RIDE_AND_TOWN", energy: 2, energy_authority: ENERGY_CURVE}
@@ -208,7 +213,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-009
     segment_ref: GAP-32:33
-    WHEN: {start_s: 1953, end_s: 1965, start_tc: 00:32:33.000, end_tc: 00:32:45.000, duration_s: 12, timebase: CLOSED}
+    WHEN: {start_s: 1953, end_s: 1965, start_tc: "00:32:33.000", end_tc: "00:32:45.000", duration_s: 12, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: unsegmented_in_TIMELINE_REGISTRY, authority: TIMELINE_REGISTRY, progression: "P3 RIDE_AND_TOWN", energy: NULL, energy_authority: ENERGY_CURVE}
@@ -223,7 +228,7 @@ rows:
     state: UNSEGMENTED
   - row_id: ESS-010
     segment_ref: S07
-    WHEN: {start_s: 1965, end_s: 2030, start_tc: 00:32:45.000, end_tc: 00:33:50.000, duration_s: 65, timebase: CLOSED}
+    WHEN: {start_s: 1965, end_s: 2030, start_tc: "00:32:45.000", end_tc: "00:33:50.000", duration_s: 65, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "C02", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: council_profile, authority: TIMELINE_REGISTRY, progression: "P3 RIDE_AND_TOWN", energy: 2, energy_authority: ENERGY_CURVE}
@@ -248,7 +253,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-011
     segment_ref: GAP-33:50
-    WHEN: {start_s: 2030, end_s: 2031, start_tc: 00:33:50.000, end_tc: 00:33:51.000, duration_s: 1, timebase: CLOSED}
+    WHEN: {start_s: 2030, end_s: 2031, start_tc: "00:33:50.000", end_tc: "00:33:51.000", duration_s: 1, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: unsegmented_in_TIMELINE_REGISTRY, authority: TIMELINE_REGISTRY, progression: "P3 RIDE_AND_TOWN", energy: NULL, energy_authority: ENERGY_CURVE}
@@ -268,7 +273,7 @@ rows:
     state: UNSEGMENTED
   - row_id: ESS-012
     segment_ref: S08
-    WHEN: {start_s: 2031, end_s: 2156, start_tc: 00:33:51.000, end_tc: 00:35:56.000, duration_s: 125, timebase: CLOSED}
+    WHEN: {start_s: 2031, end_s: 2156, start_tc: "00:33:51.000", end_tc: "00:35:56.000", duration_s: 125, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "C03-mayor", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: town_proclamation, authority: TIMELINE_REGISTRY, progression: "P3 RIDE_AND_TOWN", energy: 2, energy_authority: ENERGY_CURVE}
@@ -293,7 +298,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-013
     segment_ref: GAP-35:56
-    WHEN: {start_s: 2156, end_s: 2163, start_tc: 00:35:56.000, end_tc: 00:36:03.000, duration_s: 7, timebase: CLOSED}
+    WHEN: {start_s: 2156, end_s: 2163, start_tc: "00:35:56.000", end_tc: "00:36:03.000", duration_s: 7, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: unsegmented_in_TIMELINE_REGISTRY, authority: TIMELINE_REGISTRY, progression: "P3 RIDE_AND_TOWN", energy: NULL, energy_authority: ENERGY_CURVE}
@@ -310,7 +315,7 @@ rows:
     state: UNSEGMENTED
   - row_id: ESS-014
     segment_ref: S09
-    WHEN: {start_s: 2163, end_s: 2190, start_tc: 00:36:03.000, end_tc: 00:36:30.000, duration_s: 27, timebase: CLOSED}
+    WHEN: {start_s: 2163, end_s: 2190, start_tc: "00:36:03.000", end_tc: "00:36:30.000", duration_s: 27, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: first_ride_moment, authority: TIMELINE_REGISTRY, progression: "P3 RIDE_AND_TOWN", energy: 2, energy_authority: ENERGY_CURVE}
@@ -327,7 +332,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-015
     segment_ref: GAP-36:30
-    WHEN: {start_s: 2190, end_s: 2219, start_tc: 00:36:30.000, end_tc: 00:36:59.000, duration_s: 29, timebase: CLOSED}
+    WHEN: {start_s: 2190, end_s: 2219, start_tc: "00:36:30.000", end_tc: "00:36:59.000", duration_s: 29, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: unsegmented_in_TIMELINE_REGISTRY, authority: TIMELINE_REGISTRY, progression: "P3 RIDE_AND_TOWN", energy: NULL, energy_authority: ENERGY_CURVE}
@@ -345,7 +350,7 @@ rows:
     state: UNSEGMENTED
   - row_id: ESS-016
     segment_ref: S10
-    WHEN: {start_s: 2219, end_s: 2332, start_tc: 00:36:59.000, end_tc: 00:38:52.000, duration_s: 113, timebase: CLOSED}
+    WHEN: {start_s: 2219, end_s: 2332, start_tc: "00:36:59.000", end_tc: "00:38:52.000", duration_s: 113, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "C04, C05", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: state_proclamation, authority: TIMELINE_REGISTRY, progression: "P3 RIDE_AND_TOWN", energy: 2, energy_authority: ENERGY_CURVE}
@@ -368,7 +373,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-017
     segment_ref: GAP-38:52
-    WHEN: {start_s: 2332, end_s: 2335, start_tc: 00:38:52.000, end_tc: 00:38:55.000, duration_s: 3, timebase: CLOSED}
+    WHEN: {start_s: 2332, end_s: 2335, start_tc: "00:38:52.000", end_tc: "00:38:55.000", duration_s: 3, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: unsegmented_in_TIMELINE_REGISTRY, authority: TIMELINE_REGISTRY, progression: "UNASSIGNED", energy: NULL, energy_authority: ENERGY_CURVE}
@@ -385,7 +390,7 @@ rows:
     state: UNSEGMENTED
   - row_id: ESS-018
     segment_ref: S11
-    WHEN: {start_s: 2335, end_s: 3120, start_tc: 00:38:55.000, end_tc: 00:52:00.000, duration_s: 785, timebase: CLOSED}
+    WHEN: {start_s: 2335, end_s: 3120, start_tc: "00:38:55.000", end_tc: "00:52:00.000", duration_s: 785, timebase: CLOSED}
     WHERE: {location_ref: "L04", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "R46-R67", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: interview_gauntlet_2, authority: TIMELINE_REGISTRY, progression: "P4 GAUNTLET_TWO_HONORS", energy: 3, energy_authority: ENERGY_CURVE}
@@ -419,7 +424,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-019
     segment_ref: GAP-52:00
-    WHEN: {start_s: 3120, end_s: 3124, start_tc: 00:52:00.000, end_tc: 00:52:04.000, duration_s: 4, timebase: CLOSED}
+    WHEN: {start_s: 3120, end_s: 3124, start_tc: "00:52:00.000", end_tc: "00:52:04.000", duration_s: 4, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: unsegmented_in_TIMELINE_REGISTRY, authority: TIMELINE_REGISTRY, progression: "P4 GAUNTLET_TWO_HONORS", energy: NULL, energy_authority: ENERGY_CURVE}
@@ -438,7 +443,7 @@ rows:
     state: UNSEGMENTED
   - row_id: ESS-020
     segment_ref: S12
-    WHEN: {start_s: 3124, end_s: 3236, start_tc: 00:52:04.000, end_tc: 00:53:56.000, duration_s: 112, timebase: CLOSED}
+    WHEN: {start_s: 3124, end_s: 3236, start_tc: "00:52:04.000", end_tc: "00:53:56.000", duration_s: 112, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: organizer_honors_and_silence, authority: TIMELINE_REGISTRY, progression: "P4 GAUNTLET_TWO_HONORS", energy: 1, energy_authority: ENERGY_CURVE}
@@ -454,7 +459,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-021
     segment_ref: S13
-    WHEN: {start_s: 3230, end_s: 3275, start_tc: 00:53:50.000, end_tc: 00:54:35.000, duration_s: 45, timebase: CLOSED}
+    WHEN: {start_s: 3230, end_s: 3275, start_tc: "00:53:50.000", end_tc: "00:54:35.000", duration_s: 45, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: group_photo, authority: TIMELINE_REGISTRY, progression: "P4 GAUNTLET_TWO_HONORS", energy: 3, energy_authority: ENERGY_CURVE}
@@ -471,7 +476,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-022
     segment_ref: GAP-54:35
-    WHEN: {start_s: 3275, end_s: 3276, start_tc: 00:54:35.000, end_tc: 00:54:36.000, duration_s: 1, timebase: CLOSED}
+    WHEN: {start_s: 3275, end_s: 3276, start_tc: "00:54:35.000", end_tc: "00:54:36.000", duration_s: 1, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: unsegmented_in_TIMELINE_REGISTRY, authority: TIMELINE_REGISTRY, progression: "P4 GAUNTLET_TWO_HONORS", energy: NULL, energy_authority: ENERGY_CURVE}
@@ -486,7 +491,7 @@ rows:
     state: UNSEGMENTED
   - row_id: ESS-023
     segment_ref: S14
-    WHEN: {start_s: 3276, end_s: 3324, start_tc: 00:54:36.000, end_tc: 00:55:24.000, duration_s: 48, timebase: CLOSED}
+    WHEN: {start_s: 3276, end_s: 3324, start_tc: "00:54:36.000", end_tc: "00:55:24.000", duration_s: 48, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: service_wrap_preview, authority: TIMELINE_REGISTRY, progression: "P4 GAUNTLET_TWO_HONORS", energy: 3, energy_authority: ENERGY_CURVE}
@@ -504,7 +509,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-024
     segment_ref: GAP-55:24
-    WHEN: {start_s: 3324, end_s: 3370, start_tc: 00:55:24.000, end_tc: 00:56:10.000, duration_s: 46, timebase: CLOSED}
+    WHEN: {start_s: 3324, end_s: 3370, start_tc: "00:55:24.000", end_tc: "00:56:10.000", duration_s: 46, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: unsegmented_in_TIMELINE_REGISTRY, authority: TIMELINE_REGISTRY, progression: "P5 BIKE_NIGHT_WRAP", energy: NULL, energy_authority: ENERGY_CURVE}
@@ -522,7 +527,7 @@ rows:
     state: UNSEGMENTED
   - row_id: ESS-025
     segment_ref: S15
-    WHEN: {start_s: 3370, end_s: 3523, start_tc: 00:56:10.000, end_tc: 00:58:43.000, duration_s: 153, timebase: CLOSED}
+    WHEN: {start_s: 3370, end_s: 3523, start_tc: "00:56:10.000", end_tc: "00:58:43.000", duration_s: 153, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: riding_music_passage, authority: TIMELINE_REGISTRY, progression: "P5 BIKE_NIGHT_WRAP", energy: 4, energy_authority: ENERGY_CURVE}
@@ -538,7 +543,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-026
     segment_ref: S16
-    WHEN: {start_s: 3523, end_s: 3985, start_tc: 00:58:43.000, end_tc: 01:06:25.000, duration_s: 462, timebase: CLOSED}
+    WHEN: {start_s: 3523, end_s: 3985, start_tc: "00:58:43.000", end_tc: "01:06:25.000", duration_s: 462, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "R68-R75", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: bike_night_arrivals, authority: TIMELINE_REGISTRY, progression: "P5 BIKE_NIGHT_WRAP", energy: 4, energy_authority: ENERGY_CURVE}
@@ -559,7 +564,7 @@ rows:
     authoritative_value: registry
   - row_id: ESS-027
     segment_ref: S17
-    WHEN: {start_s: 3985, end_s: 4008, start_tc: 01:06:25.000, end_tc: 01:06:48.000, duration_s: 23, timebase: CLOSED}
+    WHEN: {start_s: 3985, end_s: 4008, start_tc: "01:06:25.000", end_tc: "01:06:48.000", duration_s: 23, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: audience_cta, authority: TIMELINE_REGISTRY, progression: "P5 BIKE_NIGHT_WRAP", energy: None, energy_authority: ENERGY_CURVE}
@@ -576,7 +581,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-028
     segment_ref: GAP-66:48
-    WHEN: {start_s: 4008, end_s: 4165, start_tc: 01:06:48.000, end_tc: 01:09:25.000, duration_s: 157, timebase: CLOSED}
+    WHEN: {start_s: 4008, end_s: 4165, start_tc: "01:06:48.000", end_tc: "01:09:25.000", duration_s: 157, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: unsegmented_in_TIMELINE_REGISTRY, authority: TIMELINE_REGISTRY, progression: "P5 BIKE_NIGHT_WRAP", energy: NULL, energy_authority: ENERGY_CURVE}
@@ -594,7 +599,7 @@ rows:
     state: UNSEGMENTED
   - row_id: ESS-029
     segment_ref: S18
-    WHEN: {start_s: 4165, end_s: 4780, start_tc: 01:09:25.000, end_tc: 01:19:40.000, duration_s: 615, timebase: CLOSED}
+    WHEN: {start_s: 4165, end_s: 4780, start_tc: "01:09:25.000", end_tc: "01:19:40.000", duration_s: 615, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: bike_night_ambience, authority: TIMELINE_REGISTRY, progression: "P5 BIKE_NIGHT_WRAP", energy: 5, energy_authority: ENERGY_CURVE}
@@ -611,7 +616,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-030
     segment_ref: GAP-79:40
-    WHEN: {start_s: 4780, end_s: 4784, start_tc: 01:19:40.000, end_tc: 01:19:44.000, duration_s: 4, timebase: CLOSED}
+    WHEN: {start_s: 4780, end_s: 4784, start_tc: "01:19:40.000", end_tc: "01:19:44.000", duration_s: 4, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: unsegmented_in_TIMELINE_REGISTRY, authority: TIMELINE_REGISTRY, progression: "P5 BIKE_NIGHT_WRAP", energy: NULL, energy_authority: ENERGY_CURVE}
@@ -625,7 +630,7 @@ rows:
     state: UNSEGMENTED
   - row_id: ESS-031
     segment_ref: S19
-    WHEN: {start_s: 4784, end_s: 4846, start_tc: 01:19:44.000, end_tc: 01:20:46.000, duration_s: 62, timebase: CLOSED}
+    WHEN: {start_s: 4784, end_s: 4846, start_tc: "01:19:44.000", end_tc: "01:20:46.000", duration_s: 62, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: friday_wrap_part3_tease, authority: TIMELINE_REGISTRY, progression: "P5 BIKE_NIGHT_WRAP", energy: 4, energy_authority: ENERGY_CURVE}
@@ -651,7 +656,7 @@ rows:
     state: CONFIRMED
   - row_id: ESS-032
     segment_ref: GAP-80:46
-    WHEN: {start_s: 4846, end_s: 4846.625, start_tc: 01:20:46.000, end_tc: 01:20:46.625, duration_s: 0.625, timebase: CLOSED}
+    WHEN: {start_s: 4846, end_s: 4846.625, start_tc: "01:20:46.000", end_tc: "01:20:46.625", duration_s: 0.625, timebase: CLOSED}
     WHERE: {location_ref: "UNSPECIFIED_IN_REGISTRY", authority: LOCATION_REGISTRY}
     WHO: {registry_ids: "NONE_ASSERTED", authority: RIDER_REGISTRY/ORGANIZATION_REGISTRY, identification_method: registry_reference_only_no_biometrics}
     WHAT: {activity: unsegmented_in_TIMELINE_REGISTRY, authority: TIMELINE_REGISTRY, progression: "P5 BIKE_NIGHT_WRAP", energy: NULL, energy_authority: ENERGY_CURVE}
@@ -669,19 +674,19 @@ rows:
     state: UNSEGMENTED
 
 unsegmented_spans:
-  - {start_s: 1643, end_s: 1660, duration_s: 17, start_tc: 00:27:23.000, end_tc: 00:27:40.000, state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
-  - {start_s: 1750, end_s: 1903, duration_s: 153, start_tc: 00:29:10.000, end_tc: 00:31:43.000, state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
-  - {start_s: 1953, end_s: 1965, duration_s: 12, start_tc: 00:32:33.000, end_tc: 00:32:45.000, state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
-  - {start_s: 2030, end_s: 2031, duration_s: 1, start_tc: 00:33:50.000, end_tc: 00:33:51.000, state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
-  - {start_s: 2156, end_s: 2163, duration_s: 7, start_tc: 00:35:56.000, end_tc: 00:36:03.000, state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
-  - {start_s: 2190, end_s: 2219, duration_s: 29, start_tc: 00:36:30.000, end_tc: 00:36:59.000, state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
-  - {start_s: 2332, end_s: 2335, duration_s: 3, start_tc: 00:38:52.000, end_tc: 00:38:55.000, state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
-  - {start_s: 3120, end_s: 3124, duration_s: 4, start_tc: 00:52:00.000, end_tc: 00:52:04.000, state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
-  - {start_s: 3275, end_s: 3276, duration_s: 1, start_tc: 00:54:35.000, end_tc: 00:54:36.000, state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
-  - {start_s: 3324, end_s: 3370, duration_s: 46, start_tc: 00:55:24.000, end_tc: 00:56:10.000, state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
-  - {start_s: 4008, end_s: 4165, duration_s: 157, start_tc: 01:06:48.000, end_tc: 01:09:25.000, state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
-  - {start_s: 4780, end_s: 4784, duration_s: 4, start_tc: 01:19:40.000, end_tc: 01:19:44.000, state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
-  - {start_s: 4846, end_s: 4846.625, duration_s: 0.625, start_tc: 01:20:46.000, end_tc: 01:20:46.625, state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
+  - {start_s: 1643, end_s: 1660, duration_s: 17, start_tc: "00:27:23.000", end_tc: "00:27:40.000", state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
+  - {start_s: 1750, end_s: 1903, duration_s: 153, start_tc: "00:29:10.000", end_tc: "00:31:43.000", state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
+  - {start_s: 1953, end_s: 1965, duration_s: 12, start_tc: "00:32:33.000", end_tc: "00:32:45.000", state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
+  - {start_s: 2030, end_s: 2031, duration_s: 1, start_tc: "00:33:50.000", end_tc: "00:33:51.000", state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
+  - {start_s: 2156, end_s: 2163, duration_s: 7, start_tc: "00:35:56.000", end_tc: "00:36:03.000", state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
+  - {start_s: 2190, end_s: 2219, duration_s: 29, start_tc: "00:36:30.000", end_tc: "00:36:59.000", state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
+  - {start_s: 2332, end_s: 2335, duration_s: 3, start_tc: "00:38:52.000", end_tc: "00:38:55.000", state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
+  - {start_s: 3120, end_s: 3124, duration_s: 4, start_tc: "00:52:00.000", end_tc: "00:52:04.000", state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
+  - {start_s: 3275, end_s: 3276, duration_s: 1, start_tc: "00:54:35.000", end_tc: "00:54:36.000", state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
+  - {start_s: 3324, end_s: 3370, duration_s: 46, start_tc: "00:55:24.000", end_tc: "00:56:10.000", state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
+  - {start_s: 4008, end_s: 4165, duration_s: 157, start_tc: "01:06:48.000", end_tc: "01:09:25.000", state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
+  - {start_s: 4780, end_s: 4784, duration_s: 4, start_tc: "01:19:40.000", end_tc: "01:19:44.000", state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
+  - {start_s: 4846, end_s: 4846.625, duration_s: 0.625, start_tc: "01:20:46.000", end_tc: "01:20:46.625", state: UNSEGMENTED_IN_TIMELINE_REGISTRY}
 coverage:
   rows: 32
   segment_covered_s: 4418

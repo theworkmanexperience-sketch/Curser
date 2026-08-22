@@ -177,7 +177,7 @@ Title text extracted from FCPXML carries kinetic letter-spacing (for example 'W 
 
 **D-22 - OFFLINE_MEDIA_REFERENCE** *(magnitude: 1 asset)*  
 FCPXML asset r95 (NOTOR1OUS_CARAVAN_2_) resolves to /Volumes/10TB/..., a volume not mounted for this run.  
-*Disposition:* CLOSED-AS-NOTED - affects content inspection only, not timing; recorded as a reason D-18 could not be resolved here
+*Disposition:* CLOSED-AS-NOTED - affects content inspection only, not timing. It was the stated reason D-18 could not be resolved in RE-001; the ESS-004 ruling retired that dependency by making the test provenance rather than content, so the offline volume no longer blocks any decision
 
 **D-23 - DIE_V_SAMPLING_UNCERTAINTY** *(magnitude: +/-0.5 sample)*  
 Contact-sheet evidence timestamps sit on a 3.000 s grid and probe sheets on a 1.000 s grid.  
@@ -186,6 +186,10 @@ Contact-sheet evidence timestamps sit on a 3.000 s grid and probe sheets on a 1.
 **D-24 - PROXY_RESOLUTION_CEILING** *(magnitude: 320x180 vs 3840x2160 master)*  
 The visual ground truth supplied is a 320x180 proxy carrying a 'Filmage Editor' trial watermark. Formation geometry, flag identification, and camera-motion class are limited by this.  
 *Disposition:* CLOSED-AS-DECLARED - every affected observation is capped at MEDIUM or UNCERTAIN; no observation claims detail the proxy cannot carry
+
+**D-26 - YAML_SEXAGESIMAL_TIMECODE** *(magnitude: 4 artifacts, all *_tc fields)*  
+Bare timecode values (start_tc / end_tc) are parsed by YAML 1.1 loaders as sexagesimal numbers - 00:31:43.000 loads as the float 1903.0 - silently converting a human-readable string field into a number. Present in every YAML artifact of the RE-001 baseline; found during the ESS-004 regeneration.  
+*Disposition:* FIXED in the regeneration - all timecodes are now quoted at write time and load as strings. The RE-001 archived copies retain the defect by design (immutable); RE-002 will carry the fix
 
 **D-25 - DIE_V_SHEET_SAMPLING** *(magnitude: 20 of 54 sheets read in full)*  
 54 survey contact sheets were generated at 3.000 s cadence covering 100% of runtime; 20 sheets were read frame-by-frame in full, chosen to cover every non-gauntlet span completely and the two homogeneous interview gauntlets by systematic sample.  

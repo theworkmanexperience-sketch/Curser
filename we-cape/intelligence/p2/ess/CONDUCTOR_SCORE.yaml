@@ -8,12 +8,17 @@
 #   Alpha RoudUp Part 2_SRT__SRT 2_...srt   89d61f965aa17e4d3dade14173869b34efb0c09d689b1c347d3c9c8f6eca1c6b
 #   P2_LOCK_timing.json                     e91318a6719c81e448e6c57267dff7a807076cb9aded822a459fb6353e80010d
 # Editorial lock: 4846.625 s (01:20:46:14 @ 24 fps, NDF) - offset model: ZERO
+# REGENERATED WECAPE-AR2-ESS004-REGEN-20260822-174500 under Executive Ruling ESS-004 (2026-08-22, session ELS-001):
+#   MANDATORY_SILENCE prohibits WE CAPE-added non-diegetic score ONLY.
+#   Supersedes the pre-ruling state archived at RE-001. Regenerate, never patch (DOC-002).
 # Repository commit at launch: ff0c45f77b2fb612606e1d5b8ef86641822e5e4a
 # ============================================================================
 artifact_id: CONDUCTOR_SCORE
 engine: MIE   # remains under MIE per ADR-009 section 3 - musical intent made executable
-version: 1.0.0
+version: 1.1.0   # regenerated under Executive Ruling ESS-004
 run_id: WECAPE-AR2-SPRINT3A-20260822-114028
+regeneration_run_id: WECAPE-AR2-ESS004-REGEN-20260822-174500
+regenerated_under_ruling: ESS-004-RULING (2026-08-22, session ELS-001)
 status: ADVISORY_UNTIL_CUE_PDRS   # Human Editorial Authority; nothing here is a verdict
 scope_declaration: >-
   This artifact defines musical BEHAVIOUR, not musical CONTENT. No music was generated, no audio was synthesised, and no candidate was selected. Every reconciliation verdict below is a CANDIDATE for a human PDR.
@@ -35,7 +40,7 @@ global_behaviour_law:
     Any cue whose family is CONVERSATION is a bed under speech and must yield. Ducking target -18 dB under dialogue, carried forward from CUE-02A_SPEC, which is the only PDR-adjacent figure in evidence. Between answers a bed may breathe upward no more than +3 dB and must return before the next question lands. Fail condition: at -18 dB under two minutes of gauntlet audio, any word requiring effort fails the candidate regardless of musical merit.
   speech_band_rule: keep approximately 1-4 kHz uncluttered in every cue that runs under speech
   silence_law: >-
-    SIL-01, SIL-02 and the R46 carve-out are CONDUCTED SILENCES, not gaps in the score. They carry behaviour states of their own - an approach, a floor, and a return - and the conductor is responsible for the shape of the exit and the re-entry either side of them.
+    SIL-01, SIL-02 and the R46 carve-out are CONDUCTED SILENCES, not gaps in the score. They carry behaviour states of their own - an approach, a floor, and a return - and the conductor is responsible for the shape of the exit and the re-entry either side of them. DEFINITION (Executive Ruling ESS-004, 2026-08-22): MANDATORY_SILENCE prohibits WE CAPE-ADDED NON-DIEGETIC SCORE only. Existing production audio - speech, ambience, engine noise, wind, and any source audio captured as part of the documentary record - remains permissible unless otherwise directed by an Executive PDR. The compliance test is PROVENANCE, not acoustics - PROVENANCE, not acoustics. An element breaches a silence zone if and only if WE CAPE added it as score. Read from the FCPXML asset media-rep path: /Soundtrack/ = WE CAPE-added score; Original Media or CONTRIBUTED = documentary record. No listening judgement is required, and none is permitted as the basis of a compliance verdict.
   vo_rule: >-
     Voice-over windows (VOICE_OVER_REGISTRY VO01-VO04) duck like dialogue. VO is excluded by the Director's Notes from every silence zone, so no cue needs to plan for VO inside SIL-01, SIL-02 or the R46 carve-out.
 
@@ -45,7 +50,7 @@ cues:
     reason_for_existing: "Exists to invite"
     road_soul_family: REFLECTION
     energy_target: 2
-    boundaries: {start_s: 0.000, end_s: 73.000, start_tc: 00:00:00.000, end_tc: 00:01:13.000, duration_s: 73.000, timebase: CLOSED}
+    boundaries: {start_s: 0.000, end_s: 73.000, start_tc: "00:00:00.000", end_tc: "00:01:13.000", duration_s: 73.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 16, speech_coverage: 0.537, inter_cue_gaps: 10, median_gap_s: 0.604, tight_gap_s_p10: 0.041}
     behaviour_states:
       - {state: ENTER, action: "fade-in <=3s; the audience is being taught how to come back"}
@@ -60,8 +65,8 @@ cues:
       tonality: "warm major or dorian"
       prohibited: "no percussion transients that read as an event; no builds"
     lyric_opportunity_windows:   # measured: no SRT cue present for >=8.0 s
-      - {start_s: 2.833, end_s: 15.083, duration_s: 12.25, start_tc: 00:00:02.833}
-      - {start_s: 60.666, end_s: 73, duration_s: 12.334, start_tc: 00:01:00.666}
+      - {start_s: 2.833, end_s: 15.083, duration_s: 12.25, start_tc: "00:00:02.833"}
+      - {start_s: 60.666, end_s: 73, duration_s: 12.334, start_tc: "00:01:00.666"}
     visual_events_in_span: "VE-005, VE-006"
     existing_audio_elements_in_span: 1
     reconciliation_candidates:
@@ -73,7 +78,7 @@ cues:
     reason_for_existing: "Exists to yield"
     road_soul_family: CONVERSATION
     energy_target: 3
-    boundaries: {start_s: 111.000, end_s: 630.000, start_tc: 00:01:51.000, end_tc: 00:10:30.000, duration_s: 519.000, timebase: CLOSED}
+    boundaries: {start_s: 111.000, end_s: 630.000, start_tc: "00:01:51.000", end_tc: "00:10:30.000", duration_s: 519.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 319, speech_coverage: 0.852, inter_cue_gaps: 307, median_gap_s: 0.084, tight_gap_s_p10: 0.042}
     behaviour_states:
       - {state: ENTER, action: "fade-in <=2s under the preceding handoff; never a downbeat announcement"}
@@ -99,7 +104,7 @@ cues:
     reason_for_existing: "Exists to renew attention"
     road_soul_family: CONVERSATION
     energy_target: 3
-    boundaries: {start_s: 630.000, end_s: 1125.000, start_tc: 00:10:30.000, end_tc: 00:18:45.000, duration_s: 495.000, timebase: CLOSED}
+    boundaries: {start_s: 630.000, end_s: 1125.000, start_tc: "00:10:30.000", end_tc: "00:18:45.000", duration_s: 495.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 344, speech_coverage: 0.864, inter_cue_gaps: 339, median_gap_s: 0.083, tight_gap_s_p10: 0.042}
     behaviour_states:
       - {state: ENTER, action: "fade-in <=2s under the preceding handoff; never a downbeat announcement"}
@@ -125,7 +130,7 @@ cues:
     reason_for_existing: "Exists to lean forward"
     road_soul_family: CONVERSATION
     energy_target: 3
-    boundaries: {start_s: 1125.000, end_s: 1622.000, start_tc: 00:18:45.000, end_tc: 00:27:02.000, duration_s: 497.000, timebase: CLOSED}
+    boundaries: {start_s: 1125.000, end_s: 1622.000, start_tc: "00:18:45.000", end_tc: "00:27:02.000", duration_s: 497.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 362, speech_coverage: 0.913, inter_cue_gaps: 342, median_gap_s: 0.083, tight_gap_s_p10: 0.042}
     behaviour_states:
       - {state: ENTER, action: "fade-in <=2s under the preceding handoff; never a downbeat announcement"}
@@ -153,7 +158,7 @@ cues:
     reason_for_existing: "Exists to transition arrival into shared momentum"
     road_soul_family: MOTION
     energy_target: 5
-    boundaries: {start_s: 1660.000, end_s: 1750.000, start_tc: 00:27:40.000, end_tc: 00:29:10.000, duration_s: 90.000, timebase: CLOSED}
+    boundaries: {start_s: 1660.000, end_s: 1750.000, start_tc: "00:27:40.000", end_tc: "00:29:10.000", duration_s: 90.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 20, speech_coverage: 0.566, inter_cue_gaps: 17, median_gap_s: 0.084, tight_gap_s_p10: 0.042}
     behaviour_states:
       - {state: ENTER, action: "enter under picture on a movement, not on a cut; <=2s"}
@@ -168,7 +173,7 @@ cues:
       tonality: "major with modal brightness"
       prohibited: "no lyric content over law-enforcement escort imagery; no stingers on cuts"
     lyric_opportunity_windows:   # measured: no SRT cue present for >=8.0 s
-      - {start_s: 1691.208, end_s: 1724.875, duration_s: 33.667, start_tc: 00:28:11.208}
+      - {start_s: 1691.208, end_s: 1724.875, duration_s: 33.667, start_tc: "00:28:11.208"}
     visual_events_in_span: "VE-012, VE-013, VE-014"
     existing_audio_elements_in_span: 2
     reconciliation_candidates:
@@ -181,18 +186,18 @@ cues:
     reason_for_existing: "Exists as absence"
     road_soul_family: NONE   # conducted silence
     energy_target: 0
-    boundaries: {start_s: 1903.000, end_s: 2332.000, start_tc: 00:31:43.000, end_tc: 00:38:52.000, duration_s: 429.000, timebase: CLOSED}
+    boundaries: {start_s: 1903.000, end_s: 2332.000, start_tc: "00:31:43.000", end_tc: "00:38:52.000", duration_s: 429.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 134, speech_coverage: 0.823, inter_cue_gaps: 96, median_gap_s: 0.083, tight_gap_s_p10: 0.041}
     behaviour_states:
       - {state: APPROACH, window_s: 6.0, action: "reduce to floor before the boundary; the last musical event must land clear of the first word inside the zone"}
       - {state: FLOOR, action: "absolute silence - no bed, no pad, no tail, no reverb return bleeding across the boundary"}
       - {state: RETURN, window_s: 4.0, action: "re-entry begins only after the last word of the zone; enter under picture, never on a cut"}
     lyric_opportunity_windows:   # measured: no SRT cue present for >=8.0 s
-      - {start_s: 2156.291, end_s: 2165.375, duration_s: 9.084, start_tc: 00:35:56.291}
+      - {start_s: 2156.291, end_s: 2165.375, duration_s: 9.084, start_tc: "00:35:56.291"}
     visual_events_in_span: "VE-013, VE-015, VE-016, VE-017, VE-018, VE-019, VE-020, VE-021, VE-022, VE-023"
     existing_audio_elements_in_span: 2
     reconciliation_candidates:
-      - {element: "NOTOR1OUS_CARAVAN_2_", in_s: 2017.708333, out_s: 2079.666667, classification: CONTRIBUTED_VIDEO_AUDIO, verdict: ESCALATE_UNCERTAIN, basis: "audio of a contributed video lying entirely inside a mandatory-silence window; whether its content is musical was NOT determined by this run and its media is offline on this machine - see delta D-18/D-22", authority: HUMAN_PDR_REQUIRED}
+      - {element: "NOTOR1OUS_CARAVAN_2_", in_s: 2017.708333, out_s: 2079.666667, classification: CONTRIBUTED_VIDEO_AUDIO, verdict: KEEP_PERMITTED, basis: "audio of a contributed video - part of the documentary record, NOT a WE CAPE-added score asset. Under Executive Ruling ESS-004 (2026-08-22) it is PERMITTED inside a mandatory-silence window: the test is provenance, not acoustics. ELS-001 confirmed the span is a composite production soundscape; that finding does not change the verdict because diegesis is not the test. Previously ESCALATE_UNCERTAIN (D-18) - now resolved", authority: HUMAN_PDR_REQUIRED}
       - {element: "Map traavel to Smyrna Event Center-26", in_s: 2331.866117, out_s: 2334.125, classification: PRODUCTION_ORIGINAL_MEDIA_AUDIO, verdict: KEEP_CANDIDATE, basis: "detached production audio from P2_CHRONO_SETS Original Media, not score; the route-map animation audio whose picture is observed at 00:27:12-00:27:21; a music cue must sit under it, not replace it", authority: HUMAN_PDR_REQUIRED}
     transition_out: >-
       Crossfade at a phrase boundary unless the next entry is a conducted silence, in which case the APPROACH state governs and nothing may tail across the boundary.
@@ -201,7 +206,7 @@ cues:
     reason_for_existing: "Exists to warm the return"
     road_soul_family: CONVERSATION
     energy_target: 3
-    boundaries: {start_s: 2335.000, end_s: 3120.000, start_tc: 00:38:55.000, end_tc: 00:52:00.000, duration_s: 785.000, timebase: CLOSED}
+    boundaries: {start_s: 2335.000, end_s: 3120.000, start_tc: "00:38:55.000", end_tc: "00:52:00.000", duration_s: 785.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 588, speech_coverage: 0.894, inter_cue_gaps: 567, median_gap_s: 0.083, tight_gap_s_p10: 0.042}
     behaviour_states:
       - {state: ENTER, action: "fade-in <=2s under the preceding handoff; never a downbeat announcement"}
@@ -230,14 +235,14 @@ cues:
     reason_for_existing: "Exists as reverence"
     road_soul_family: NONE   # conducted silence
     energy_target: 0
-    boundaries: {start_s: 3124.000, end_s: 3229.000, start_tc: 00:52:04.000, end_tc: 00:53:49.000, duration_s: 105.000, timebase: CLOSED}
+    boundaries: {start_s: 3124.000, end_s: 3229.000, start_tc: "00:52:04.000", end_tc: "00:53:49.000", duration_s: 105.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 35, speech_coverage: 0.719, inter_cue_gaps: 32, median_gap_s: 0.084, tight_gap_s_p10: 0.042}
     behaviour_states:
       - {state: APPROACH, window_s: 6.0, action: "reduce to floor before the boundary; the last musical event must land clear of the first word inside the zone"}
       - {state: FLOOR, action: "absolute silence - no bed, no pad, no tail, no reverb return bleeding across the boundary"}
       - {state: RETURN, window_s: 4.0, action: "re-entry begins only after the last word of the zone; enter under picture, never on a cut"}
     lyric_opportunity_windows:   # measured: no SRT cue present for >=8.0 s
-      - {start_s: 3219.708, end_s: 3229, duration_s: 9.292, start_tc: 00:53:39.708}
+      - {start_s: 3219.708, end_s: 3229, duration_s: 9.292, start_tc: "00:53:39.708"}
     visual_events_in_span: "VE-027, VE-028"
     existing_audio_elements_in_span: 0
     transition_out: >-
@@ -247,7 +252,7 @@ cues:
     reason_for_existing: "Exists to exhale"
     road_soul_family: REFLECTION
     energy_target: 3
-    boundaries: {start_s: 3230.000, end_s: 3275.000, start_tc: 00:53:50.000, end_tc: 00:54:35.000, duration_s: 45.000, timebase: CLOSED}
+    boundaries: {start_s: 3230.000, end_s: 3275.000, start_tc: "00:53:50.000", end_tc: "00:54:35.000", duration_s: 45.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 13, speech_coverage: 0.441, inter_cue_gaps: 13, median_gap_s: 0.083, tight_gap_s_p10: 0.042}
     behaviour_states:
       - {state: ENTER, action: "fade-in <=3s; the audience is being taught how to come back"}
@@ -262,8 +267,8 @@ cues:
       tonality: "warm major or dorian"
       prohibited: "no percussion transients that read as an event; no builds"
     lyric_opportunity_windows:   # measured: no SRT cue present for >=8.0 s
-      - {start_s: 3249.75, end_s: 3258.416, duration_s: 8.666, start_tc: 00:54:09.750}
-      - {start_s: 3260.291, end_s: 3275, duration_s: 14.709, start_tc: 00:54:20.291}
+      - {start_s: 3249.75, end_s: 3258.416, duration_s: 8.666, start_tc: "00:54:09.750"}
+      - {start_s: 3260.291, end_s: 3275, duration_s: 14.709, start_tc: "00:54:20.291"}
     visual_events_in_span: "VE-028, VE-029, VE-030"
     existing_audio_elements_in_span: 0
     transition_out: >-
@@ -273,7 +278,7 @@ cues:
     reason_for_existing: "Exists to close the day and promise the night"
     road_soul_family: REFLECTION
     energy_target: 3
-    boundaries: {start_s: 3276.000, end_s: 3324.000, start_tc: 00:54:36.000, end_tc: 00:55:24.000, duration_s: 48.000, timebase: CLOSED}
+    boundaries: {start_s: 3276.000, end_s: 3324.000, start_tc: "00:54:36.000", end_tc: "00:55:24.000", duration_s: 48.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 20, speech_coverage: 0.819, inter_cue_gaps: 19, median_gap_s: 0.083, tight_gap_s_p10: 0.042}
     behaviour_states:
       - {state: ENTER, action: "fade-in <=3s; the audience is being taught how to come back"}
@@ -300,7 +305,7 @@ cues:
     reason_for_existing: "Exists to breathe"
     road_soul_family: MOTION
     energy_target: 4
-    boundaries: {start_s: 3370.000, end_s: 3523.000, start_tc: 00:56:10.000, end_tc: 00:58:43.000, duration_s: 153.000, timebase: CLOSED}
+    boundaries: {start_s: 3370.000, end_s: 3523.000, start_tc: "00:56:10.000", end_tc: "00:58:43.000", duration_s: 153.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 1, speech_coverage: 0.000, inter_cue_gaps: 0, median_gap_s: NULL, tight_gap_s_p10: NULL}
     behaviour_states:
       - {state: ENTER, action: "enter under picture on a movement, not on a cut; <=2s"}
@@ -325,7 +330,7 @@ cues:
     reason_for_existing: "Exists to gather"
     road_soul_family: CELEBRATION
     energy_target: 4
-    boundaries: {start_s: 3523.000, end_s: 4008.000, start_tc: 00:58:43.000, end_tc: 01:06:48.000, duration_s: 485.000, timebase: CLOSED}
+    boundaries: {start_s: 3523.000, end_s: 4008.000, start_tc: "00:58:43.000", end_tc: "01:06:48.000", duration_s: 485.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 340, speech_coverage: 0.893, inter_cue_gaps: 327, median_gap_s: 0.083, tight_gap_s_p10: 0.042}
     behaviour_states:
       - {state: ENTER, action: "enter under picture on a movement, not on a cut; <=2s"}
@@ -352,7 +357,7 @@ cues:
     reason_for_existing: "Exists to celebrate"
     road_soul_family: CELEBRATION
     energy_target: 5
-    boundaries: {start_s: 4165.000, end_s: 4470.000, start_tc: 01:09:25.000, end_tc: 01:14:30.000, duration_s: 305.000, timebase: CLOSED}
+    boundaries: {start_s: 4165.000, end_s: 4470.000, start_tc: "01:09:25.000", end_tc: "01:14:30.000", duration_s: 305.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 35, speech_coverage: 0.241, inter_cue_gaps: 31, median_gap_s: 0.5, tight_gap_s_p10: 0.042}
     behaviour_states:
       - {state: ENTER, action: "enter under picture on a movement, not on a cut; <=2s"}
@@ -367,11 +372,11 @@ cues:
       tonality: "major, bright"
       prohibited: "no ballad turns; must not swamp ambient engine and crowd sound"
     lyric_opportunity_windows:   # measured: no SRT cue present for >=8.0 s
-      - {start_s: 4239.375, end_s: 4275.333, duration_s: 35.958, start_tc: 01:10:39.375}
-      - {start_s: 4305.208, end_s: 4339.25, duration_s: 34.042, start_tc: 01:11:45.208}
-      - {start_s: 4345.791, end_s: 4366.625, duration_s: 20.834, start_tc: 01:12:25.791}
-      - {start_s: 4382.958, end_s: 4414.291, duration_s: 31.333, start_tc: 01:13:02.958}
-      - {start_s: 4424.958, end_s: 4470, duration_s: 45.042, start_tc: 01:13:44.958}
+      - {start_s: 4239.375, end_s: 4275.333, duration_s: 35.958, start_tc: "01:10:39.375"}
+      - {start_s: 4305.208, end_s: 4339.25, duration_s: 34.042, start_tc: "01:11:45.208"}
+      - {start_s: 4345.791, end_s: 4366.625, duration_s: 20.834, start_tc: "01:12:25.791"}
+      - {start_s: 4382.958, end_s: 4414.291, duration_s: 31.333, start_tc: "01:13:02.958"}
+      - {start_s: 4424.958, end_s: 4470, duration_s: 45.042, start_tc: "01:13:44.958"}
     visual_events_in_span: "VE-035, VE-036"
     existing_audio_elements_in_span: 0
     transition_out: >-
@@ -381,7 +386,7 @@ cues:
     reason_for_existing: "Exists to sustain"
     road_soul_family: CELEBRATION
     energy_target: 5
-    boundaries: {start_s: 4470.000, end_s: 4780.000, start_tc: 01:14:30.000, end_tc: 01:19:40.000, duration_s: 310.000, timebase: CLOSED}
+    boundaries: {start_s: 4470.000, end_s: 4780.000, start_tc: "01:14:30.000", end_tc: "01:19:40.000", duration_s: 310.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 5, speech_coverage: 0.044, inter_cue_gaps: 5, median_gap_s: 6.25, tight_gap_s_p10: 0.042}
     behaviour_states:
       - {state: ENTER, action: "enter under picture on a movement, not on a cut; <=2s"}
@@ -396,8 +401,8 @@ cues:
       tonality: "major, bright"
       prohibited: "no ballad turns; must not swamp ambient engine and crowd sound"
     lyric_opportunity_windows:   # measured: no SRT cue present for >=8.0 s
-      - {start_s: 4548.291, end_s: 4560.166, duration_s: 11.875, start_tc: 01:15:48.291}
-      - {start_s: 4572.708, end_s: 4780, duration_s: 207.292, start_tc: 01:16:12.708}
+      - {start_s: 4548.291, end_s: 4560.166, duration_s: 11.875, start_tc: "01:15:48.291"}
+      - {start_s: 4572.708, end_s: 4780, duration_s: 207.292, start_tc: "01:16:12.708"}
     visual_events_in_span: "VE-036, VE-037"
     existing_audio_elements_in_span: 0
     transition_out: >-
@@ -407,7 +412,7 @@ cues:
     reason_for_existing: "Exists to resolve"
     road_soul_family: LEGACY
     energy_target: 4
-    boundaries: {start_s: 4784.000, end_s: 4846.000, start_tc: 01:19:44.000, end_tc: 01:20:46.000, duration_s: 62.000, timebase: CLOSED}
+    boundaries: {start_s: 4784.000, end_s: 4846.000, start_tc: "01:19:44.000", end_tc: "01:20:46.000", duration_s: 62.000, timebase: CLOSED}
     speech_context: {srt_cues_in_span: 24, speech_coverage: 0.819, inter_cue_gaps: 22, median_gap_s: 0.084, tight_gap_s_p10: 0.042}
     behaviour_states:
       - {state: ENTER, action: "fade-in <=3s; the audience is being taught how to come back"}
@@ -439,15 +444,28 @@ audio_elements_outside_any_cue_or_silence:
   - {element: "Map traavel to Smyrna Event Center-7", in_s: 1630.000458, out_s: 1644.610005, classification: PRODUCTION_ORIGINAL_MEDIA_AUDIO, verdict: KEEP_CANDIDATE, basis: "detached production audio in a span carrying no cue and no conducted silence; nothing to reconcile against until a cue is written there", authority: HUMAN_PDR_REQUIRED}
   - {element: "Map traavel to Smyrna Event Center-11", in_s: 1756.791667, out_s: 1789.467041, classification: PRODUCTION_ORIGINAL_MEDIA_AUDIO, verdict: KEEP_CANDIDATE, basis: "detached production audio in a span carrying no cue and no conducted silence; nothing to reconcile against until a cue is written there", authority: HUMAN_PDR_REQUIRED}
 audio_elements_addressed: 16
+silence_law_definition:
+  ruling: ESS-004-RULING
+  date: 2026-08-22
+  authority: Executive Producer
+  session: ELS-001
+  prohibits: WE_CAPE_ADDED_NON_DIEGETIC_SCORE
+  permits: [speech, ambience, engine_noise, wind, source_audio_of_the_documentary_record]
+  statement: >-
+    MANDATORY_SILENCE prohibits WE CAPE-ADDED NON-DIEGETIC SCORE only. Existing production audio - speech, ambience, engine noise, wind, and any source audio captured as part of the documentary record - remains permissible unless otherwise directed by an Executive PDR.
+  compliance_test: >-
+    PROVENANCE, not acoustics. An element breaches a silence zone if and only if WE CAPE added it as score. Read from the FCPXML asset media-rep path: /Soundtrack/ = WE CAPE-added score; Original Media or CONTRIBUTED = documentary record. No listening judgement is required, and none is permitted as the basis of a compliance verdict.
+  override: an Executive PDR may direct otherwise for a specific element
+
 silence_law_encoding:
-  - {id: SIL-01, name: CIVIC_SILENCE, start_s: 1903.000, end_s: 2332.000, start_tc: 00:31:43.000, end_tc: 00:38:52.000, mode: MANDATORY_SILENCE, states: [APPROACH, FLOOR, RETURN], conducted: true}
-  - {id: SIL-02, name: HONORS_SILENCE, start_s: 3124.000, end_s: 3229.000, start_tc: 00:52:04.000, end_tc: 00:53:49.000, mode: MANDATORY_SILENCE, states: [APPROACH, FLOOR, RETURN], conducted: true}
+  - {id: SIL-01, name: CIVIC_SILENCE, start_s: 1903.000, end_s: 2332.000, start_tc: "00:31:43.000", end_tc: "00:38:52.000", mode: MANDATORY_SILENCE, states: [APPROACH, FLOOR, RETURN], conducted: true}
+  - {id: SIL-02, name: HONORS_SILENCE, start_s: 3124.000, end_s: 3229.000, start_tc: "00:52:04.000", end_tc: "00:53:49.000", mode: MANDATORY_SILENCE, states: [APPROACH, FLOOR, RETURN], conducted: true}
   - id: R46-CARVE-OUT
     name: R46_FULL_OUT
     start_s: 2347.000
     end_s: 2399.000
-    start_tc: 00:39:07.000
-    end_tc: 00:39:59.000
+    start_tc: "00:39:07.000"
+    end_tc: "00:39:59.000"
     mode: FULL_OUT_WITHIN_CUE
     parent_cue: CUE-04
     states: [APPROACH, FLOOR, RETURN]
@@ -458,25 +476,56 @@ silence_law_encoding:
 silence_law_integrity_findings:
   - id: SLF-01
     finding: >-
-      One existing audio-lane element, NOTOR1OUS_CARAVAN_2_, occupies 00:33:37.708-00:34:39.667 - 61.958 s lying entirely inside SIL-01. Its provenance is a contributed video's audio track, not a score asset, so it is not prima facie a silence-law breach. Whether its content is musical was not determined: the source media is on a volume not mounted for this run. Classified UNCERTAIN and escalated rather than resolved.
-    state: OPEN_TO_PDR
+      One existing audio-lane element, NOTOR1OUS_CARAVAN_2_, occupies 00:33:37.708-00:34:39.667 - 61.958 s lying entirely inside SIL-01. RE-001 classified it UNCERTAIN and escalated it rather than judging it. ELS-001 (2026-08-22) determined by listening that the span is a composite production soundscape including music/vocals, engine rumble, wind and speech, and expressly declined to conclude that the musical content is exclusively editorial.
+    resolution: >-
+      RESOLVED by Executive Ruling ESS-004, 2026-08-22. The element's provenance is a contributed video - part of the documentary record, not a WE CAPE-added score asset - and the ruling makes provenance the test. The element is PERMITTED and SIL-01 is INTACT. The diegesis question that blocked RE-001 is not merely answered, it is retired: it was never the right question.
+    state: RESOLVED
   - id: SLF-02
     finding: >-
       SIL-01 opens at 00:31:43 while the mass ride is still on screen. Picture observation places continuous public-road riding from 00:28:15 to approximately 00:33:00 and law-enforcement escort presence recurring to 00:31:48. The conducted silence therefore begins over motion, not over civic speech, and its APPROACH state has to bring the escort energy down while the ride is still visibly running. That is a conducting problem worth naming before a cue is written against it.
     state: OPEN_TO_PDR
 
+silence_law_compliance:   # machine-checked under ESS-004; no acoustic judgement involved
+  method: >-
+    For each silence zone, every audio-lane element intersecting it is classified by the FCPXML asset media-rep path. A breach requires classification SCORE_ASSET. This check is reproducible from the locked FCPXML alone and needs neither the master audio nor a listener.
+  zones:
+    - id: SIL-01
+      span: {start_s: 1903.0, end_s: 2332.0, start_tc: "00:31:43.000", end_tc: "00:38:52.000"}
+      audio_elements_intersecting: 2
+      elements:
+        - {element: "NOTOR1OUS_CARAVAN_2_", in_s: 2017.708333, out_s: 2079.666667, classification: CONTRIBUTED_VIDEO_AUDIO, verdict: PERMITTED}
+        - {element: "Map traavel to Smyrna Event Center-26", in_s: 2331.866117, out_s: 2334.125, classification: PRODUCTION_ORIGINAL_MEDIA_AUDIO, verdict: PERMITTED}
+      breaches: 0
+      state: INTACT
+    - id: SIL-02
+      span: {start_s: 3124.0, end_s: 3229.0, start_tc: "00:52:04.000", end_tc: "00:53:49.000"}
+      audio_elements_intersecting: 0
+      elements: []
+      breaches: 0
+      state: INTACT
+    - id: R46-CARVE-OUT
+      span: {start_s: 2347.0, end_s: 2399.0, start_tc: "00:39:07.000", end_tc: "00:39:59.000"}
+      audio_elements_intersecting: 0
+      elements: []
+      breaches: 0
+      state: INTACT
+  total_breaches: 0
+  covenant_state: INTACT
+  note: >-
+    Every audio-lane element sitting inside a mandatory-silence zone in this lock is documentary-record audio. The lock's only WE CAPE-added score asset, KICKSTANDS UP v1 (00:00:00.000-00:01:16.417), lies outside every silence zone. The silence law is intact as cut.
+
 uncovered_spans:   # carrying neither a cue nor a mandatory silence
-  - {start_s: 73, end_s: 111, duration_s: 38, start_tc: 00:01:13.000, end_tc: 00:01:51.000, visual_events: "MAIN_TITLE_CARD"}
-  - {start_s: 1622, end_s: 1660, duration_s: 38, start_tc: 00:27:02.000, end_tc: 00:27:40.000, visual_events: "MOUNT_UP_STAGING_AREA, MAP_TRAVEL_GRAPHIC_INSERT"}
-  - {start_s: 1750, end_s: 1903, duration_s: 153, start_tc: 00:29:10.000, end_tc: 00:31:43.000, visual_events: "MASS_RIDE_PUBLIC_ROAD, LAW_ENFORCEMENT_ESCORT_PRESENCE"}
-  - {start_s: 2332, end_s: 2335, duration_s: 3, start_tc: 00:38:52.000, end_tc: 00:38:55.000, visual_events: "NONE"}
-  - {start_s: 3120, end_s: 3124, duration_s: 4, start_tc: 00:52:00.000, end_tc: 00:52:04.000, visual_events: "KINETIC_TEXT_CARD_SEQUENCE_2"}
-  - {start_s: 3229, end_s: 3230, duration_s: 1, start_tc: 00:53:49.000, end_tc: 00:53:50.000, visual_events: "BANQUET_ROOM_WIDE_HIGH_DENSITY"}
-  - {start_s: 3275, end_s: 3276, duration_s: 1, start_tc: 00:54:35.000, end_tc: 00:54:36.000, visual_events: "MASS_GROUP_PHOTOGRAPH_EXTERIOR"}
-  - {start_s: 3324, end_s: 3370, duration_s: 46, start_tc: 00:55:24.000, end_tc: 00:56:10.000, visual_events: "MOUNT_UP_VENUE_LOT, ROAD_RIDE_DAY_CLEAR_SKY"}
-  - {start_s: 4008, end_s: 4165, duration_s: 157, start_tc: 01:06:48.000, end_tc: 01:09:25.000, visual_events: "NIGHT_RIDE_DEPARTURE, NIGHT_VENUE_LOT_GATHERING"}
-  - {start_s: 4780, end_s: 4784, duration_s: 4, start_tc: 01:19:40.000, end_tc: 01:19:44.000, visual_events: "NONE"}
-  - {start_s: 4846, end_s: 4846.625, duration_s: 0.625, start_tc: 01:20:46.000, end_tc: 01:20:46.625, visual_events: "NIGHT_RIDE_CLOSE, CLOSING_CARD_SEQUENCE"}
+  - {start_s: 73, end_s: 111, duration_s: 38, start_tc: "00:01:13.000", end_tc: "00:01:51.000", visual_events: "MAIN_TITLE_CARD"}
+  - {start_s: 1622, end_s: 1660, duration_s: 38, start_tc: "00:27:02.000", end_tc: "00:27:40.000", visual_events: "MOUNT_UP_STAGING_AREA, MAP_TRAVEL_GRAPHIC_INSERT"}
+  - {start_s: 1750, end_s: 1903, duration_s: 153, start_tc: "00:29:10.000", end_tc: "00:31:43.000", visual_events: "MASS_RIDE_PUBLIC_ROAD, LAW_ENFORCEMENT_ESCORT_PRESENCE"}
+  - {start_s: 2332, end_s: 2335, duration_s: 3, start_tc: "00:38:52.000", end_tc: "00:38:55.000", visual_events: "NONE"}
+  - {start_s: 3120, end_s: 3124, duration_s: 4, start_tc: "00:52:00.000", end_tc: "00:52:04.000", visual_events: "KINETIC_TEXT_CARD_SEQUENCE_2"}
+  - {start_s: 3229, end_s: 3230, duration_s: 1, start_tc: "00:53:49.000", end_tc: "00:53:50.000", visual_events: "BANQUET_ROOM_WIDE_HIGH_DENSITY"}
+  - {start_s: 3275, end_s: 3276, duration_s: 1, start_tc: "00:54:35.000", end_tc: "00:54:36.000", visual_events: "MASS_GROUP_PHOTOGRAPH_EXTERIOR"}
+  - {start_s: 3324, end_s: 3370, duration_s: 46, start_tc: "00:55:24.000", end_tc: "00:56:10.000", visual_events: "MOUNT_UP_VENUE_LOT, ROAD_RIDE_DAY_CLEAR_SKY"}
+  - {start_s: 4008, end_s: 4165, duration_s: 157, start_tc: "01:06:48.000", end_tc: "01:09:25.000", visual_events: "NIGHT_RIDE_DEPARTURE, NIGHT_VENUE_LOT_GATHERING"}
+  - {start_s: 4780, end_s: 4784, duration_s: 4, start_tc: "01:19:40.000", end_tc: "01:19:44.000", visual_events: "NONE"}
+  - {start_s: 4846, end_s: 4846.625, duration_s: 0.625, start_tc: "01:20:46.000", end_tc: "01:20:46.625", visual_events: "NIGHT_RIDE_CLOSE, CLOSING_CARD_SEQUENCE"}
 uncovered_total_s: 445.625
 uncovered_note: >-
   The two largest uncovered spans are 00:29:10-00:31:43 (153 s) and 01:06:48-01:09:25 (157 s). Both carry continuous riding in picture. Enumerated, not filled: writing cues into them is a human editorial decision, not an automation output.

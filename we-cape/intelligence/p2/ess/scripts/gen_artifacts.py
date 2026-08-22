@@ -12,6 +12,22 @@ U="/mnt/user-data/uploads/WE_CAPE_OUTPUT/AlphaRoundUp_2026/SPRINT3A_WORK/"
 W="/home/claude/work/out/"
 
 RUN_ID="WECAPE-AR2-SPRINT3A-20260822-114028"
+REGEN_RUN_ID="WECAPE-AR2-ESS004-REGEN-20260822-174500"
+RULING = dict(
+  id="ESS-004-RULING",
+  date="2026-08-22",
+  authority="Executive Producer",
+  session="ELS-001",
+  definition=("MANDATORY_SILENCE prohibits WE CAPE-ADDED NON-DIEGETIC SCORE only. Existing production "
+              "audio - speech, ambience, engine noise, wind, and any source audio captured as part of "
+              "the documentary record - remains permissible unless otherwise directed by an Executive PDR."),
+  test=("PROVENANCE, not acoustics. An element breaches a silence zone if and only if WE CAPE added it "
+        "as score. Read from the FCPXML asset media-rep path: /Soundtrack/ = WE CAPE-added score; "
+        "Original Media or CONTRIBUTED = documentary record. No listening judgement is required, and "
+        "none is permitted as the basis of a compliance verdict."),
+  finding=("ELS-001: the span is a composite production soundscape - music/vocals, engine rumble, wind, "
+           "speech. The proxy does not conclusively distinguish the provenance of the musical content, "
+           "and that distinction is NOT required under this ruling."))
 SHA=dict(
  mp4="a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8",
  fcpxml="2bf0685373d6963bc151b982fd8b16b072d47ca88bb36f3c4dcd4cf5563858e7",
@@ -350,8 +366,9 @@ LEDGER=[
    "spacing is the designed on-screen treatment and was not normalised.","cosmetic","CLOSED - verbatim "
    "preserved per DIE-X rule X-2 (zero interpretation at extraction)"),
  D(22,"OFFLINE_MEDIA_REFERENCE","FCPXML asset r95 (NOTOR1OUS_CARAVAN_2_) resolves to /Volumes/10TB/..., "
-   "a volume not mounted for this run.","1 asset","CLOSED-AS-NOTED - affects content inspection only, "
-   "not timing; recorded as a reason D-18 could not be resolved here"),
+   "a volume not mounted for this run.","1 asset","CLOSED-AS-NOTED - affects content inspection only, not timing. It was the stated reason "
+   "D-18 could not be resolved in RE-001; the ESS-004 ruling retired that dependency by making the "
+   "test provenance rather than content, so the offline volume no longer blocks any decision"),
  D(23,"DIE_V_SAMPLING_UNCERTAINTY","Contact-sheet evidence timestamps sit on a 3.000 s grid and probe "
    "sheets on a 1.000 s grid.","+/-0.5 sample","CLOSED - frame-accuracy claims rest on the ETC and on the "
    "1.000 s probe grid, never on the 3.000 s survey grid"),
@@ -359,12 +376,25 @@ LEDGER=[
    "'Filmage Editor' trial watermark. Formation geometry, flag identification, and camera-motion class "
    "are limited by this.","320x180 vs 3840x2160 master","CLOSED-AS-DECLARED - every affected observation "
    "is capped at MEDIUM or UNCERTAIN; no observation claims detail the proxy cannot carry"),
+ D(26,"YAML_SEXAGESIMAL_TIMECODE","Bare timecode values (start_tc / end_tc) are parsed by YAML 1.1 "
+   "loaders as sexagesimal numbers - 00:31:43.000 loads as the float 1903.0 - silently converting a "
+   "human-readable string field into a number. Present in every YAML artifact of the RE-001 baseline; "
+   "found during the ESS-004 regeneration.","4 artifacts, all *_tc fields",
+   "FIXED in the regeneration - all timecodes are now quoted at write time and load as strings. The "
+   "RE-001 archived copies retain the defect by design (immutable); RE-002 will carry the fix"),
  D(25,"DIE_V_SHEET_SAMPLING","54 survey contact sheets were generated at 3.000 s cadence covering 100% "
    "of runtime; 20 sheets were read frame-by-frame in full, chosen to cover every non-gauntlet span "
    "completely and the two homogeneous interview gauntlets by systematic sample.",
    "20 of 54 sheets read in full","CLOSED-AS-DECLARED - gauntlet spans carry span-level classifications "
    "only, never per-event claims outside a read sheet"),
 ]
+
+_TC_RE = re.compile(r'((?:start_tc|end_tc):\s*)(\d{2}:\d{2}:\d{2}\.\d{3})(?=[,}\s])')
+def yamlsafe(text):
+    """Quote bare timecodes. YAML 1.1 parses 00:31:43.000 as sexagesimal (=1903.0),
+    silently turning a human-readable string field into a float. Found during the
+    ESS-004 regeneration; fixed here rather than left in the new baseline."""
+    return _TC_RE.sub(r'\1"\2"', text)
 
 def y(s):
     """Always quote scalars - YAML indicator characters (? : - # etc) are common
@@ -385,6 +415,9 @@ HDR=f"""# ======================================================================
 #   Alpha RoudUp Part 2_SRT__SRT 2_...srt   {SHA['srt']}
 #   P2_LOCK_timing.json                     {SHA['etc']}
 # Editorial lock: 4846.625 s (01:20:46:14 @ 24 fps, NDF) - offset model: ZERO
+# REGENERATED WECAPE-AR2-ESS004-REGEN-20260822-174500 under Executive Ruling ESS-004 (2026-08-22, session ELS-001):
+#   MANDATORY_SILENCE prohibits WE CAPE-added non-diegetic score ONLY.
+#   Supersedes the pre-ruling state archived at RE-001. Regenerate, never patch (DOC-002).
 # Repository commit at launch: {GIT}
 # ============================================================================
 """
@@ -503,7 +536,7 @@ print("wrote STEP0_TIMING_CLOSURE.md")
 C=[]
 C.append("registry_id: CAPTION_REGISTRY")
 C.append("class: EXTENSION")
-C.append("registry_version: 0.2.0   # 0.1.0 -> 0.2.0: position enrichment completed")
+C.append("registry_version: 0.2.1   # 0.1.0 -> 0.2.0: position enrichment completed | 0.2.0 -> 0.2.1: D-26 serialization fix only (timecodes quoted); ZERO content change - byte diff is the quoting and this header")
 C.append("registry_schema_version: 1.0")
 C.append(f"enriched_by_run: {RUN_ID}")
 C.append("enrichment_note: >-")
@@ -563,14 +596,14 @@ C.append(blk("SUPERSEDED-BY-EVIDENCE. The Sprint 2 policy line anticipated lower
              "readings themselves. Recorded as an observation of the lock, not as a change of policy - "
              "any decision to add rider lower-thirds is a human editorial decision.", 2))
 C.append("status: COMPLETE - position enrichment closed by Sprint 3A Step 0")
-open(OUT+"/CAPTION_REGISTRY.yaml","w").write(HDR+"\n".join(C)+"\n")
+open(OUT+"/CAPTION_REGISTRY.yaml","w").write(yamlsafe(HDR+"\n".join(C)+"\n"))
 print("wrote CAPTION_REGISTRY.yaml", len(titles_d1)+len(titles_d2), "captions")
 
 # ---------------------------------------------------- VISUAL_EVENT_REGISTRY --
 V=[]
 V.append("registry_id: VISUAL_EVENT_REGISTRY")
 V.append("module: DIE-V   # module of DIE per ADR-009; NOT an engine")
-V.append("registry_version: 1.0.0")
+V.append("registry_version: 1.0.1   # 1.0.0 -> 1.0.1: D-26 serialization fix only (timecodes quoted); ZERO event-content change")
 V.append("registry_schema_version: 1.0   # canonical sync_event schema")
 V.append(f"run_id: {RUN_ID}")
 V.append("evidence_class: OBSERVED")
@@ -679,7 +712,7 @@ V.append("    resolution: policy line marked SUPERSEDED-BY-EVIDENCE in the enric
 V.append(f"\nevent_count: {len(E)}")
 V.append(f"runtime_covered_s: {LOCK}")
 V.append("status: COMPLETE")
-open(OUT+"/VISUAL_EVENT_REGISTRY.yaml","w").write(HDR+"\n".join(V)+"\n")
+open(OUT+"/VISUAL_EVENT_REGISTRY.yaml","w").write(yamlsafe(HDR+"\n".join(V)+"\n"))
 print("wrote VISUAL_EVENT_REGISTRY.yaml", len(E), "events")
 
 # --------------------------------------------- EDITORIAL_SYNCHRONIZATION -----
@@ -701,8 +734,10 @@ def cue_of(s,e):
 S=[]
 S.append("artifact_id: EDITORIAL_SYNCHRONIZATION")
 S.append("artifact_class: FIFTH_AUTHORITATIVE_PRODUCTION_ARTIFACT   # per ADR-009 section 2")
-S.append("version: 1.0.0")
+S.append("version: 1.1.0   # regenerated under Executive Ruling ESS-004")
 S.append(f"run_id: {RUN_ID}")
+S.append(f"regeneration_run_id: {REGEN_RUN_ID}")
+S.append(f"regenerated_under_ruling: {RULING['id']} ({RULING['date']}, session {RULING['session']})")
 S.append("regeneration_policy: >-")
 S.append(blk("Never hand-edited. Regenerate on any source-hash mismatch. This artifact is a fusion of "
              "things that already exist under governance; it creates no new authority.", 2))
@@ -798,7 +833,7 @@ S.append(f"  unsegmented_s: {round(gap_total,3)}")
 S.append(f"  total_s: {LOCK}")
 S.append(f"  coverage_fraction: {round(seg_cov/LOCK,4)}")
 S.append("status: COMPLETE")
-open(OUT+"/EDITORIAL_SYNCHRONIZATION.yaml","w").write(HDR+"\n".join(S)+"\n")
+open(OUT+"/EDITORIAL_SYNCHRONIZATION.yaml","w").write(yamlsafe(HDR+"\n".join(S)+"\n"))
 print("wrote EDITORIAL_SYNCHRONIZATION.yaml", rown, "rows;", round(gap_total,1),"s unsegmented")
 
 # ------------------------------------------------------- CONDUCTOR_SCORE -----
@@ -876,8 +911,10 @@ CUEMETA={
 K=[]
 K.append("artifact_id: CONDUCTOR_SCORE")
 K.append("engine: MIE   # remains under MIE per ADR-009 section 3 - musical intent made executable")
-K.append("version: 1.0.0")
+K.append("version: 1.1.0   # regenerated under Executive Ruling ESS-004")
 K.append(f"run_id: {RUN_ID}")
+K.append(f"regeneration_run_id: {REGEN_RUN_ID}")
+K.append(f"regenerated_under_ruling: {RULING['id']} ({RULING['date']}, session {RULING['session']})")
 K.append("status: ADVISORY_UNTIL_CUE_PDRS   # Human Editorial Authority; nothing here is a verdict")
 K.append("scope_declaration: >-")
 K.append(blk("This artifact defines musical BEHAVIOUR, not musical CONTENT. No music was generated, "
@@ -907,7 +944,9 @@ K.append("  speech_band_rule: keep approximately 1-4 kHz uncluttered in every cu
 K.append("  silence_law: >-")
 K.append(blk("SIL-01, SIL-02 and the R46 carve-out are CONDUCTED SILENCES, not gaps in the score. They "
              "carry behaviour states of their own - an approach, a floor, and a return - and the "
-             "conductor is responsible for the shape of the exit and the re-entry either side of them.", 4))
+             "conductor is responsible for the shape of the exit and the re-entry either side of them. "
+             "DEFINITION (Executive Ruling ESS-004, 2026-08-22): " + RULING['definition'] + " "
+             "The compliance test is PROVENANCE, not acoustics - " + RULING['test'], 4))
 K.append("  vo_rule: >-")
 K.append(blk("Voice-over windows (VOICE_OVER_REGISTRY VO01-VO04) duck like dialogue. VO is excluded by "
              "the Director's Notes from every silence zone, so no cue needs to plan for VO inside "
@@ -1002,10 +1041,13 @@ for cid,c0,c1 in CUES:
                      "boundary of 01:13 - the cue in/out binds to the closed ETC, so either the cue "
                      "boundary or the element out-point must move")
             elif cl=="CONTRIBUTED_VIDEO_AUDIO":
-                verdict="ESCALATE_UNCERTAIN"
-                why=("audio of a contributed video lying entirely inside a mandatory-silence window; "
-                     "whether its content is musical was NOT determined by this run and its media is "
-                     "offline on this machine - see delta D-18/D-22")
+                verdict="KEEP_PERMITTED"
+                why=("audio of a contributed video - part of the documentary record, NOT a WE CAPE-added "
+                     "score asset. Under Executive Ruling ESS-004 (2026-08-22) it is PERMITTED inside a "
+                     "mandatory-silence window: the test is provenance, not acoustics. ELS-001 confirmed "
+                     "the span is a composite production soundscape; that finding does not change the "
+                     "verdict because diegesis is not the test. Previously ESCALATE_UNCERTAIN (D-18) - "
+                     "now resolved")
             else:
                 verdict="KEEP_CANDIDATE"
                 why=("detached production audio from P2_CHRONO_SETS Original Media, not score; the "
@@ -1035,6 +1077,19 @@ for x in _out:
              f"basis: {y('detached production audio in a span carrying no cue and no conducted silence; nothing to reconcile against until a cue is written there')}, "
              f"authority: HUMAN_PDR_REQUIRED}}")
 K.append(f"audio_elements_addressed: {len(audio16)}")
+K.append("silence_law_definition:")
+K.append("  ruling: " + RULING['id'])
+K.append("  date: " + RULING['date'])
+K.append("  authority: " + RULING['authority'])
+K.append("  session: " + RULING['session'])
+K.append("  prohibits: WE_CAPE_ADDED_NON_DIEGETIC_SCORE")
+K.append("  permits: [speech, ambience, engine_noise, wind, source_audio_of_the_documentary_record]")
+K.append("  statement: >-")
+K.append(blk(RULING['definition'], 4))
+K.append("  compliance_test: >-")
+K.append(blk(RULING['test'], 4))
+K.append("  override: an Executive PDR may direct otherwise for a specific element")
+K.append("")
 K.append("silence_law_encoding:")
 K.append("  - {id: SIL-01, name: CIVIC_SILENCE, start_s: 1903.000, end_s: 2332.000, "
          "start_tc: 00:31:43.000, end_tc: 00:38:52.000, mode: MANDATORY_SILENCE, "
@@ -1063,11 +1118,17 @@ K.append("silence_law_integrity_findings:")
 K.append("  - id: SLF-01")
 K.append("    finding: >-")
 K.append(blk("One existing audio-lane element, NOTOR1OUS_CARAVAN_2_, occupies 00:33:37.708-00:34:39.667 "
-             "- 61.958 s lying entirely inside SIL-01. Its provenance is a contributed video's audio "
-             "track, not a score asset, so it is not prima facie a silence-law breach. Whether its "
-             "content is musical was not determined: the source media is on a volume not mounted for "
-             "this run. Classified UNCERTAIN and escalated rather than resolved.", 6))
-K.append("    state: OPEN_TO_PDR")
+             "- 61.958 s lying entirely inside SIL-01. RE-001 classified it UNCERTAIN and escalated it "
+             "rather than judging it. ELS-001 (2026-08-22) determined by listening that the span is a "
+             "composite production soundscape including music/vocals, engine rumble, wind and speech, "
+             "and expressly declined to conclude that the musical content is exclusively editorial.", 6))
+K.append("    resolution: >-")
+K.append(blk("RESOLVED by Executive Ruling ESS-004, 2026-08-22. The element's provenance is a contributed "
+             "video - part of the documentary record, not a WE CAPE-added score asset - and the ruling "
+             "makes provenance the test. The element is PERMITTED and SIL-01 is INTACT. The diegesis "
+             "question that blocked RE-001 is not merely answered, it is retired: it was never the "
+             "right question.", 6))
+K.append("    state: RESOLVED")
 K.append("  - id: SLF-02")
 K.append("    finding: >-")
 K.append(blk("SIL-01 opens at 00:31:43 while the mass ride is still on screen. Picture observation "
@@ -1077,6 +1138,37 @@ K.append(blk("SIL-01 opens at 00:31:43 while the mass ride is still on screen. P
              "energy down while the ride is still visibly running. That is a conducting problem worth "
              "naming before a cue is written against it.", 6))
 K.append("    state: OPEN_TO_PDR")
+K.append("")
+SILENCE_ZONES=[("SIL-01",1903.0,2332.0),("SIL-02",3124.0,3229.0),("R46-CARVE-OUT",2347.0,2399.0)]
+K.append("silence_law_compliance:   # machine-checked under ESS-004; no acoustic judgement involved")
+K.append("  method: >-")
+K.append(blk("For each silence zone, every audio-lane element intersecting it is classified by the "
+             "FCPXML asset media-rep path. A breach requires classification SCORE_ASSET. This check is "
+             "reproducible from the locked FCPXML alone and needs neither the master audio nor a "
+             "listener.", 4))
+_tot_b=0
+K.append("  zones:")
+for zid,z0,z1 in SILENCE_ZONES:
+    inside=[x for x in audio16 if overlaps(z0,z1,x['abs_in_s'],x['abs_out_s'])]
+    breach=[x for x in inside if aud_class(x['name'])=="SCORE_ASSET"]
+    _tot_b+=len(breach)
+    K.append(f"    - id: {zid}")
+    K.append(f"      span: {{start_s: {z0}, end_s: {z1}, start_tc: {tc(z0)}, end_tc: {tc(z1)}}}")
+    K.append(f"      audio_elements_intersecting: {len(inside)}")
+    K.append("      elements:" + ("" if inside else " []"))
+    for x in inside:
+        K.append(f"        - {{element: {y(x['name'])}, in_s: {x['abs_in_s']}, out_s: {x['abs_out_s']}, "
+                 f"classification: {aud_class(x['name'])}, "
+                 f"verdict: {'BREACH' if aud_class(x['name'])=='SCORE_ASSET' else 'PERMITTED'}}}")
+    K.append(f"      breaches: {len(breach)}")
+    K.append(f"      state: {'BREACHED' if breach else 'INTACT'}")
+K.append(f"  total_breaches: {_tot_b}")
+K.append(f"  covenant_state: {'BREACHED' if _tot_b else 'INTACT'}")
+K.append("  note: >-")
+K.append(blk("Every audio-lane element sitting inside a mandatory-silence zone in this lock is "
+             "documentary-record audio. The lock's only WE CAPE-added score asset, KICKSTANDS UP v1 "
+             "(00:00:00.000-00:01:16.417), lies outside every silence zone. The silence law is intact "
+             "as cut.", 4))
 K.append("")
 K.append("uncovered_spans:   # carrying neither a cue nor a mandatory silence")
 for a,b in cue_gaps:
@@ -1097,7 +1189,7 @@ K.append(f"coverage_fraction: {round(cue_cov/LOCK,4)}")
 K.append("music_generated: false")
 K.append("candidates_selected: false")
 K.append("status: COMPLETE_AS_ADVISORY")
-open(OUT+"/CONDUCTOR_SCORE.yaml","w").write(HDR+"\n".join(K)+"\n")
+open(OUT+"/CONDUCTOR_SCORE.yaml","w").write(yamlsafe(HDR+"\n".join(K)+"\n"))
 print("wrote CONDUCTOR_SCORE.yaml", len(CUES), "cues; uncovered", round(cue_gap_total,1),"s")
 
 # ------------------------------------------------- ESS_VALIDATION_REPORT -----

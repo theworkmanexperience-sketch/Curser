@@ -8,6 +8,9 @@
 #   Alpha RoudUp Part 2_SRT__SRT 2_...srt   89d61f965aa17e4d3dade14173869b34efb0c09d689b1c347d3c9c8f6eca1c6b
 #   P2_LOCK_timing.json                     e91318a6719c81e448e6c57267dff7a807076cb9aded822a459fb6353e80010d
 # Editorial lock: 4846.625 s (01:20:46:14 @ 24 fps, NDF) - offset model: ZERO
+# REGENERATED WECAPE-AR2-ESS004-REGEN-20260822-174500 under Executive Ruling ESS-004 (2026-08-22, session ELS-001):
+#   MANDATORY_SILENCE prohibits WE CAPE-added non-diegetic score ONLY.
+#   Supersedes the pre-ruling state archived at RE-001. Regenerate, never patch (DOC-002).
 # Repository commit at launch: ff0c45f77b2fb612606e1d5b8ef86641822e5e4a
 # ============================================================================
 seed_id: PRODUCTION_INTELLIGENCE_SEED
@@ -67,7 +70,7 @@ metrics:
   srt_cues_parsed: 2291
   etc_elements_resolved: 1025
   etc_spine_offsets_validated: "191/191"
-  deltas_logged: 25
+  deltas_logged: 26
   deltas_uncategorized: 0
   conflicts_recorded: 3
   items_escalated_to_human: 2

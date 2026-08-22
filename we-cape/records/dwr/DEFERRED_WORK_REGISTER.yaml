@@ -16,9 +16,9 @@ class_definitions:
   IMPLEMENTATION: A decision already made and intentionally postponed. Can be scheduled; needs capacity,
     not authority.
 counts:
-  total: 36
+  total: 38
   deferred_decisions: 13
-  deferred_implementations: 23
+  deferred_implementations: 25
 entries:
 - dwr_id: DWR-001
   title: 'Define MANDATORY_SILENCE scope: no score vs no sound'
@@ -652,3 +652,51 @@ entries:
     has no network egress and no SSH credentials, so every future session will accrue local commits requiring
     an operator push. Recorded here rather than opened as a standing register entry - raise one if the
     Executive Team wants it tracked as a permanent operational constraint rather than a closed item.
+- dwr_id: DWR-037
+  title: Reference Executions archive no artifact snapshot; their scorecards derive from mutable live
+    paths
+  category: F — Governance Debt
+  class: IMPLEMENTATION
+  origin: ESS-004 regeneration, 2026-08-22
+  discussion_reference: PDR-2026-08-22-ESS-004 section D.6; scripts/re_scorecard.py argv[1]
+  date_identified: '2026-08-22'
+  reason_deferred: Discovered while regenerating under the ESS-004 ruling. RE-001 is declared immutable,
+    but docs/reference_executions/ holds only META, SCORECARD and the narrative - no copy of the artifacts
+    the scorecard describes. re_scorecard.py takes the seed path as an argument and was run against the
+    LIVE intelligence/p2/ess/PRODUCTION_INTELLIGENCE_SEED.yaml. That path has now been overwritten by
+    the ESS-004 regeneration, so re-running the generator for RE-001 today would stamp post-ruling numbers
+    onto a pre-ruling archive.
+  executive_context: 'The archive is currently recoverable but not self-contained: RE-001''s artifacts
+    survive only in git history (commit b197e74 / 8033dc5). An archive whose immutability depends on nobody
+    re-running its own generator is not immutable, it is merely undisturbed. Two candidate remedies: copy
+    the artifact set into docs/reference_executions/RE-001_artifacts/ and repoint the generator at the
+    copies, or have re_scorecard.py resolve its inputs through a git ref recorded in META. NOT implemented
+    - flagged, because RE-002 will inherit the same defect on the same day it is created.'
+  dependencies: Executive authorization; RE-002 archival is the natural moment
+  trigger_event: RE-002 archival (gate on_open action)
+  estimated_value: HIGH — this is the archive's load-bearing property
+  estimated_complexity: LOW (a copy step plus a generator argument)
+  recommended_priority: P1
+  current_status: Deferred
+- dwr_id: DWR-038
+  title: No YAML load-and-assert-types lint gate on generated artifacts
+  category: E — Technical Debt
+  class: IMPLEMENTATION
+  origin: D-26, found during the ESS-004 regeneration
+  discussion_reference: PDR-2026-08-22-ESS-004 section D.6; STEP0_TIMING_CLOSURE delta D-26
+  date_identified: '2026-08-22'
+  reason_deferred: Every YAML artifact of the RE-001 baseline serialized timecodes bare. Under YAML 1.1
+    a bare 00:31:43.000 loads as the float 1903.0, not the string. The defect survived a full validation
+    pass because validation checked that the files PARSE, never that the loaded values have the types
+    the schema intends.
+  executive_context: 'The write side is fixed (all timecodes are quoted at write time). The class of defect
+    is not: any future field whose text happens to look like a YAML 1.1 scalar - sexagesimals, y/n/on/off,
+    leading-zero integers, unquoted version strings - will fail the same way and pass the same validation.
+    A round-trip assertion (load the artifact, assert every *_tc is a str and matches the timecode pattern)
+    belongs in the generator''s own validation step. Parsing is not validation.'
+  dependencies: None — engineering capacity only
+  trigger_event: Next artifact-generating sprint
+  estimated_value: MEDIUM — prevents a silent data-type corruption class
+  estimated_complexity: LOW (a dozen assertions in gen_artifacts.py)
+  recommended_priority: P2
+  current_status: Deferred

@@ -8,11 +8,14 @@
 #   Alpha RoudUp Part 2_SRT__SRT 2_...srt   89d61f965aa17e4d3dade14173869b34efb0c09d689b1c347d3c9c8f6eca1c6b
 #   P2_LOCK_timing.json                     e91318a6719c81e448e6c57267dff7a807076cb9aded822a459fb6353e80010d
 # Editorial lock: 4846.625 s (01:20:46:14 @ 24 fps, NDF) - offset model: ZERO
+# REGENERATED WECAPE-AR2-ESS004-REGEN-20260822-174500 under Executive Ruling ESS-004 (2026-08-22, session ELS-001):
+#   MANDATORY_SILENCE prohibits WE CAPE-added non-diegetic score ONLY.
+#   Supersedes the pre-ruling state archived at RE-001. Regenerate, never patch (DOC-002).
 # Repository commit at launch: ff0c45f77b2fb612606e1d5b8ef86641822e5e4a
 # ============================================================================
 registry_id: VISUAL_EVENT_REGISTRY
 module: DIE-V   # module of DIE per ADR-009; NOT an engine
-registry_version: 1.0.0
+registry_version: 1.0.1   # 1.0.0 -> 1.0.1: D-26 serialization fix only (timecodes quoted); ZERO event-content change
 registry_schema_version: 1.0   # canonical sync_event schema
 run_id: WECAPE-AR2-SPRINT3A-20260822-114028
 evidence_class: OBSERVED
@@ -58,7 +61,7 @@ camera_device_families_from_etc:
 
 events:
   - id: VE-001
-    span: {start_s: 0.0, end_s: 31.0, start_tc: 00:00:00.000, end_tc: 00:00:31.000}
+    span: {start_s: 0.0, end_s: 31.0, start_tc: "00:00:00.000", end_tc: "00:00:31.000"}
     event_class: ILLUMINATION_DAY_OR_LIT_INTERIOR
     confidence: HIGH
     derivation: INSTRUMENT_DERIVED_LUMA
@@ -68,7 +71,7 @@ events:
       mean luma 116.6 (grid 2 fps, 64x36 luma)
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-002
-    span: {start_s: 31.0, end_s: 69.5, start_tc: 00:00:31.000, end_tc: 00:01:09.500}
+    span: {start_s: 31.0, end_s: 69.5, start_tc: "00:00:31.000", end_tc: "00:01:09.500"}
     event_class: ILLUMINATION_LOW_LIGHT_NIGHT
     confidence: HIGH
     derivation: INSTRUMENT_DERIVED_LUMA
@@ -78,7 +81,7 @@ events:
       sustained luma <70 for 38.5 s; night material inside the cold-open montage
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-003
-    span: {start_s: 69.5, end_s: 3984.5, start_tc: 00:01:09.500, end_tc: 01:06:24.500}
+    span: {start_s: 69.5, end_s: 3984.5, start_tc: "00:01:09.500", end_tc: "01:06:24.500"}
     event_class: ILLUMINATION_DAY_OR_LIT_INTERIOR
     confidence: HIGH
     derivation: INSTRUMENT_DERIVED_LUMA
@@ -88,7 +91,7 @@ events:
       mean luma 118.5; continuous day / lit-interior block spanning 65 min
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-004
-    span: {start_s: 3984.5, end_s: 4846.5, start_tc: 01:06:24.500, end_tc: 01:20:46.500}
+    span: {start_s: 3984.5, end_s: 4846.5, start_tc: "01:06:24.500", end_tc: "01:20:46.500"}
     event_class: ILLUMINATION_LOW_LIGHT_NIGHT
     confidence: HIGH
     derivation: INSTRUMENT_DERIVED_LUMA
@@ -98,7 +101,7 @@ events:
       sustained luma <70 to end of runtime; mean luma 47.2; warm ratio R/B 1.32 (artificial amber street/venue lighting, NOT golden hour)
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-005
-    span: {start_s: 0.0, end_s: 73.0, start_tc: 00:00:00.000, end_tc: 00:01:13.000}
+    span: {start_s: 0.0, end_s: 73.0, start_tc: "00:00:00.000", end_tc: "00:01:13.000"}
     event_class: COLD_OPEN_MONTAGE
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -108,7 +111,7 @@ events:
       Rapid montage: club back-patch inserts; highway riding formation; marked police vehicle; massed motorcycles in a lot; interior ceremony with US flag and standards; night street/venue material. Shot-change density 25.5 cuts/min (highest in the film).
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-006
-    span: {start_s: 69.375, end_s: 76.417, start_tc: 00:01:09.375, end_tc: 00:01:16.417}
+    span: {start_s: 69.375, end_s: 76.417, start_tc: "00:01:09.375", end_tc: "00:01:16.417"}
     event_class: MAIN_TITLE_CARD
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -118,7 +121,7 @@ events:
       On-screen title 'ALPHA ROUNDUP II'; ETC title element in/out reproduced in picture.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-007
-    span: {start_s: 111.0, end_s: 1622.0, start_tc: 00:01:51.000, end_tc: 00:27:02.000}
+    span: {start_s: 111.0, end_s: 1622.0, start_tc: "00:01:51.000", end_tc: "00:27:02.000"}
     event_class: INTERVIEW_STAGING_AREA_STATIC_DAY
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -128,7 +131,7 @@ events:
       Hotel parking lot, overcast sky, wet pavement, densely parked touring motorcycles, one or two subjects addressing camera. Camera is body/stick-mounted, near-static with slow reframes. Crowd density band: MODERATE (individuals distinguishable, lot not full-frame packed).
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-008
-    span: {start_s: 111.333, end_s: 335.695, start_tc: 00:01:51.333, end_tc: 00:05:35.695}
+    span: {start_s: 111.333, end_s: 335.695, start_tc: "00:01:51.333", end_tc: "00:05:35.695"}
     event_class: QUESTION_CARD_SEQUENCE_1
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -138,7 +141,7 @@ events:
       Recurring on-screen question cards (Who You Rid'n Wit? / Initiated? / Why Do You Ride? / What's Your Name / What RU Rid'n?) plus 'One Question... Many Answers'. 22 ETC title elements.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-009
-    span: {start_s: 380.75, end_s: 537.557, start_tc: 00:06:20.750, end_tc: 00:08:57.557}
+    span: {start_s: 380.75, end_s: 537.557, start_tc: "00:06:20.750", end_tc: "00:08:57.557"}
     event_class: KINETIC_TEXT_CARD_SEQUENCE_1
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -148,7 +151,7 @@ events:
       Nested (compound-clip) kinetic text cards: 'One Question... Many Answers', 'W i n d T h e r a p h y', 'T h r o t t l e h e r a p h y'. Not counted in the ETC 40-title census.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-010
-    span: {start_s: 1620.0, end_s: 1660.0, start_tc: 00:27:00.000, end_tc: 00:27:40.000}
+    span: {start_s: 1620.0, end_s: 1660.0, start_tc: "00:27:00.000", end_tc: "00:27:40.000"}
     event_class: MOUNT_UP_STAGING_AREA
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -158,7 +161,7 @@ events:
       Riders returning to machines, helmets on, column forming in the staging lot.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-011
-    span: {start_s: 1630.0, end_s: 1644.6, start_tc: 00:27:10.000, end_tc: 00:27:24.600}
+    span: {start_s: 1630.0, end_s: 1644.6, start_tc: "00:27:10.000", end_tc: "00:27:24.600"}
     event_class: MAP_TRAVEL_GRAPHIC_INSERT
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -168,7 +171,7 @@ events:
       Picture-in-picture route-map animation (origin to Smyrna Event Center) visible in frame; co-located with ETC audio element 'Map traavel to Smyrna Event Center-7' (27:10.000-27:24.610).
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-012
-    span: {start_s: 1660.0, end_s: 1695.0, start_tc: 00:27:40.000, end_tc: 00:28:15.000}
+    span: {start_s: 1660.0, end_s: 1695.0, start_tc: "00:27:40.000", end_tc: "00:28:15.000"}
     event_class: ESCORT_DEPARTURE_COLUMN
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -178,7 +181,7 @@ events:
       Machines leaving the lot in single/double column onto the public road. PROBE-1 window.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-013
-    span: {start_s: 1695.0, end_s: 1990.0, start_tc: 00:28:15.000, end_tc: 00:33:10.000}
+    span: {start_s: 1695.0, end_s: 1990.0, start_tc: "00:28:15.000", end_tc: "00:33:10.000"}
     event_class: MASS_RIDE_PUBLIC_ROAD
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -188,7 +191,7 @@ events:
       Continuous mass ride on public roads in two-abreast formation, POV from within the column. Uninterrupted from 00:28:15 to approx 00:33:00. Crowd/vehicle density band: HIGH (column fills frame).
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-014
-    span: {start_s: 1746.0, end_s: 1851.0, start_tc: 00:29:06.000, end_tc: 00:30:51.000}
+    span: {start_s: 1746.0, end_s: 1851.0, start_tc: "00:29:06.000", end_tc: "00:30:51.000"}
     event_class: LAW_ENFORCEMENT_ESCORT_PRESENCE
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -198,7 +201,7 @@ events:
       Marked police vehicles and an officer positioned at road intersections along the route (observed at 00:29:06, 00:30:03, 00:30:21, 00:30:51, 00:31:33, 00:31:48).
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-015
-    span: {start_s: 1974.0, end_s: 1980.0, start_tc: 00:32:54.000, end_tc: 00:33:00.000}
+    span: {start_s: 1974.0, end_s: 1980.0, start_tc: "00:32:54.000", end_tc: "00:33:00.000"}
     event_class: CARTOGRAPHIC_REVEAL
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -208,7 +211,7 @@ events:
       Full-frame map graphic: state outline labelled TENNESSEE with NASHVILLE and SMYRNA placed.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-016
-    span: {start_s: 1980.0, end_s: 1990.0, start_tc: 00:33:00.000, end_tc: 00:33:10.000}
+    span: {start_s: 1980.0, end_s: 1990.0, start_tc: "00:33:00.000", end_tc: "00:33:10.000"}
     event_class: AERIAL_OR_ELEVATED_ESTABLISHING_VIEW
     confidence: MEDIUM
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -218,7 +221,7 @@ events:
       High-angle wide view of the town/venue approach with an emblem overlay. UNCERTAIN whether captured from an aerial platform or an elevated position: at 320x180 the parallax cue is not resolvable, and camera-device family in the ETC does not establish capture mode.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-017
-    span: {start_s: 1987.25, end_s: 1994.958, start_tc: 00:33:07.250, end_tc: 00:33:14.958}
+    span: {start_s: 1987.25, end_s: 1994.958, start_tc: "00:33:07.250", end_tc: "00:33:14.958"}
     event_class: VENUE_IDENTIFICATION_CARD
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -228,7 +231,7 @@ events:
       On-screen card 'Smyrna Event Center / 100 Sam Ridley Parkway East, Smyrna, TN 37167'.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-018
-    span: {start_s: 1995.0, end_s: 2100.0, start_tc: 00:33:15.000, end_tc: 00:35:00.000}
+    span: {start_s: 1995.0, end_s: 2100.0, start_tc: "00:33:15.000", end_tc: "00:35:00.000"}
     event_class: VENUE_ARRIVAL_PROCESSION
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -238,7 +241,7 @@ events:
       Machines arriving at the venue frontage in procession; riders raising fists; civic speech carried as a picture-in-picture inset over the arrival picture rather than full frame.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-019
-    span: {start_s: 2022.458, end_s: 2331.542, start_tc: 00:33:42.458, end_tc: 00:38:51.542}
+    span: {start_s: 2022.458, end_s: 2331.542, start_tc: "00:33:42.458", end_tc: "00:38:51.542"}
     event_class: CIVIC_LOWER_THIRD_SEQUENCE
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -248,7 +251,7 @@ events:
       Named civic lower-thirds: Racquel Peebles (Council Member), Mayor Mary Esther Reed, David Santucci (Town Manager), Jerome Dempsey (Council Member). 9 ETC title elements. Person linkage deferred to human confirmation against ORGANIZATION/RIDER registries; no biometric identification performed - text was read from the title elements, not from faces.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-020
-    span: {start_s: 2106.0, end_s: 2109.0, start_tc: 00:35:06.000, end_tc: 00:35:09.000}
+    span: {start_s: 2106.0, end_s: 2109.0, start_tc: "00:35:06.000", end_tc: "00:35:09.000"}
     event_class: OBSERVED_BLACK_FRAME
     confidence: MEDIUM
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -258,7 +261,7 @@ events:
       A fully black sampled frame at 00:35:06 between two picture-bearing samples. Classified as OBSERVED, not diagnosed: at a 3.000 s sampling grid a dip-to-black transition and a black-frame defect are indistinguishable. Requires human inspection of 00:35:04-00:35:09.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-021
-    span: {start_s: 2116.333, end_s: 2133.958, start_tc: 00:35:16.333, end_tc: 00:35:33.958}
+    span: {start_s: 2116.333, end_s: 2133.958, start_tc: "00:35:16.333", end_tc: "00:35:33.958"}
     event_class: PROCLAMATION_DOCUMENT_INSERT_TOWN
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -268,7 +271,7 @@ events:
       'OFFICE OF THE MAYOR / Proclamation' document shown full-height beside a speaker inset.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-022
-    span: {start_s: 2190.0, end_s: 2220.0, start_tc: 00:36:30.000, end_tc: 00:37:00.000}
+    span: {start_s: 2190.0, end_s: 2220.0, start_tc: "00:36:30.000", end_tc: "00:37:00.000"}
     event_class: INTERIOR_PRESENTATION_FULL_FRAME
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -278,7 +281,7 @@ events:
       Interior presentation: podium area, US flag and a second standard, presenter with microphone, club members receiving. Camera near-static. Crowd density band: LOW-to-MODERATE in frame.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-023
-    span: {start_s: 2277.0, end_s: 2325.0, start_tc: 00:37:57.000, end_tc: 00:38:45.000}
+    span: {start_s: 2277.0, end_s: 2325.0, start_tc: "00:37:57.000", end_tc: "00:38:45.000"}
     event_class: PROCLAMATION_DOCUMENT_INSERT_STATE
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -288,7 +291,7 @@ events:
       'STATE OF TENNESSEE / PROCLAMATION' document shown full-height with two officials as inset, over parking-lot picture.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-024
-    span: {start_s: 2335.0, end_s: 3120.0, start_tc: 00:38:55.000, end_tc: 00:52:00.000}
+    span: {start_s: 2335.0, end_s: 3120.0, start_tc: "00:38:55.000", end_tc: "00:52:00.000"}
     event_class: INTERVIEW_STAGING_AREA_STATIC_DAY_2
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -298,7 +301,7 @@ events:
       Second interview gauntlet, visibly a different location from the first: venue parking lot with a low brick building behind, dry pavement, denser machine parking. Crowd density band: HIGH.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-025
-    span: {start_s: 2337.708, end_s: 2382.583, start_tc: 00:38:57.708, end_tc: 00:39:42.583}
+    span: {start_s: 2337.708, end_s: 2382.583, start_tc: "00:38:57.708", end_tc: "00:39:42.583"}
     event_class: QUESTION_CARD_SEQUENCE_2
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -308,7 +311,7 @@ events:
       Question cards resume for the second gauntlet (5 ETC title elements) inside the R46 carve-out window.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-026
-    span: {start_s: 2566.917, end_s: 3120.042, start_tc: 00:42:46.917, end_tc: 00:52:00.042}
+    span: {start_s: 2566.917, end_s: 3120.042, start_tc: "00:42:46.917", end_tc: "00:52:00.042"}
     event_class: KINETIC_TEXT_CARD_SEQUENCE_2
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -318,7 +321,7 @@ events:
       Nested kinetic text cards: 'For My P E A C E', 'TEN YEARS WE RIDE AS ONE BROTHERHOOD!', 'Be Alone, In My T h o u g h t s', 'I Love R i d i n g', 'For the B r o t h e r h o o d', 'The Ride Is Only The Beginning', 'Brotherhood Beyond The Miles', 'The Journey Reveals The Why'.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-027
-    span: {start_s: 3124.0, end_s: 3210.0, start_tc: 00:52:04.000, end_tc: 00:53:30.000}
+    span: {start_s: 3124.0, end_s: 3210.0, start_tc: "00:52:04.000", end_tc: "00:53:30.000"}
     event_class: INTERIOR_HONORS_CEREMONY
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -328,7 +331,7 @@ events:
       Interior hall: podium with venue plate, US flag and standards, framed plaques presented and raised, line of recipients holding awards. Camera near-static, low frame-difference energy. PROBE-2 window.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-028
-    span: {start_s: 3210.0, end_s: 3232.0, start_tc: 00:53:30.000, end_tc: 00:53:52.000}
+    span: {start_s: 3210.0, end_s: 3232.0, start_tc: "00:53:30.000", end_tc: "00:53:52.000"}
     event_class: BANQUET_ROOM_WIDE_HIGH_DENSITY
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -338,7 +341,7 @@ events:
       Wide views of a seated banquet room, round tables fully occupied. Crowd density band: HIGH.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-029
-    span: {start_s: 3240.0, end_s: 3262.0, start_tc: 00:54:00.000, end_tc: 00:54:22.000}
+    span: {start_s: 3240.0, end_s: 3262.0, start_tc: "00:54:00.000", end_tc: "00:54:22.000"}
     event_class: VENUE_EGRESS_WALKOUT
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -348,7 +351,7 @@ events:
       Members walking out through interior corridors and lobby to the exterior.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-030
-    span: {start_s: 3264.0, end_s: 3282.0, start_tc: 00:54:24.000, end_tc: 00:54:42.000}
+    span: {start_s: 3264.0, end_s: 3282.0, start_tc: "00:54:24.000", end_tc: "00:54:42.000"}
     event_class: MASS_GROUP_PHOTOGRAPH_EXTERIOR
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -358,7 +361,7 @@ events:
       Several hundred members assembled in ranks under the venue portico for a group photograph, shot from across the lawn. Crowd density band: VERY HIGH.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-031
-    span: {start_s: 3285.0, end_s: 3330.0, start_tc: 00:54:45.000, end_tc: 00:55:30.000}
+    span: {start_s: 3285.0, end_s: 3330.0, start_tc: "00:54:45.000", end_tc: "00:55:30.000"}
     event_class: MOUNT_UP_VENUE_LOT
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -368,7 +371,7 @@ events:
       Mass mount-up in the venue lot; machines packed nose-in across the frame.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-032
-    span: {start_s: 3328.0, end_s: 3520.0, start_tc: 00:55:28.000, end_tc: 00:58:40.000}
+    span: {start_s: 3328.0, end_s: 3520.0, start_tc: "00:55:28.000", end_tc: "00:58:40.000"}
     event_class: ROAD_RIDE_DAY_CLEAR_SKY
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -378,7 +381,7 @@ events:
       Sustained multi-lane road riding in formation under clear blue sky - a visibly different sky state from the overcast staging block earlier in the day.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-033
-    span: {start_s: 3520.0, end_s: 3984.5, start_tc: 00:58:40.000, end_tc: 01:06:24.500}
+    span: {start_s: 3520.0, end_s: 3984.5, start_tc: "00:58:40.000", end_tc: "01:06:24.500"}
     event_class: DAYLIGHT_LOT_GATHERING_AND_INTERVIEWS
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -388,7 +391,7 @@ events:
       Hotel parking lot in bright daylight with blue sky: arrivals, machines being parked, individual riders addressing camera. Measured mean luma 130.7. This span carries the registry label 'bike_night_arrivals'; the picture in this span is daylight. Recorded as an observation only - the registry value remains authoritative.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-034
-    span: {start_s: 3984.5, end_s: 4100.0, start_tc: 01:06:24.500, end_tc: 01:08:20.000}
+    span: {start_s: 3984.5, end_s: 4100.0, start_tc: "01:06:24.500", end_tc: "01:08:20.000"}
     event_class: NIGHT_RIDE_DEPARTURE
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -398,7 +401,7 @@ events:
       Transition to night within one sampling interval: 01:06:21 is daylight, 01:06:24 is night. Instrument cross-check places the sustained night onset at 3984.5 s. Night ride departure follows, handlebar/dashboard POV with headlamps and tail lights.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-035
-    span: {start_s: 4140.0, end_s: 4400.0, start_tc: 01:09:00.000, end_tc: 01:13:20.000}
+    span: {start_s: 4140.0, end_s: 4400.0, start_tc: "01:09:00.000", end_tc: "01:13:20.000"}
     event_class: NIGHT_VENUE_LOT_GATHERING
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -408,7 +411,7 @@ events:
       Night venue lot: machines parked with coloured accent lighting, people moving between them, storefront frontage lit behind. Crowd density band: MODERATE-to-HIGH.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-036
-    span: {start_s: 4410.0, end_s: 4490.0, start_tc: 01:13:30.000, end_tc: 01:14:50.000}
+    span: {start_s: 4410.0, end_s: 4490.0, start_tc: "01:13:30.000", end_tc: "01:14:50.000"}
     event_class: INTERIOR_NIGHT_VENUE_CROWD
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -418,7 +421,7 @@ events:
       Interior of a night venue: multiple screens, string lighting, standing and seated crowd. Crowd density band: HIGH.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-037
-    span: {start_s: 4490.0, end_s: 4780.0, start_tc: 01:14:50.000, end_tc: 01:19:40.000}
+    span: {start_s: 4490.0, end_s: 4780.0, start_tc: "01:14:50.000", end_tc: "01:19:40.000"}
     event_class: NIGHT_ROAD_RIDING
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -428,7 +431,7 @@ events:
       Night road and highway riding in formation; lowest measured frame-difference energy of the film (mean 12.6) and lowest shot-change density (0.56 cuts/min) - long unbroken takes.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-038
-    span: {start_s: 4784.0, end_s: 4846.5, start_tc: 01:19:44.000, end_tc: 01:20:46.500}
+    span: {start_s: 4784.0, end_s: 4846.5, start_tc: "01:19:44.000", end_tc: "01:20:46.500"}
     event_class: NIGHT_RIDE_CLOSE
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION
@@ -438,7 +441,7 @@ events:
       Final night ride into a lit portico arrival, then the closing card run. PROBE-3 window.
     enrichment: {nie: {}, mie: {}, pie: {}}
   - id: VE-039
-    span: {start_s: 4827.75, end_s: 4846.042, start_tc: 01:20:27.750, end_tc: 01:20:46.042}
+    span: {start_s: 4827.75, end_s: 4846.042, start_tc: "01:20:27.750", end_tc: "01:20:46.042"}
     event_class: CLOSING_CARD_SEQUENCE
     confidence: HIGH
     derivation: MODEL_MEDIATED_FRAME_OBSERVATION

@@ -1,9 +1,9 @@
 # ELS-001 — Executive Listening Session: the semantics of `MANDATORY_SILENCE`
 ## Governance Status
-Document Type: Executive Listening Session — Brief · Status: **SESSION HELD 2026-08-22 — FINDING RECORDED, RULING PENDING**
+Document Type: Executive Listening Session — Brief · Status: **SESSION CLOSED 2026-08-22 — RULING ISSUED**
 Date: 2026-08-22 · Authority: Executive Producer · Resolves: `PDR-2026-08-22-ESS-004` (SLF-01, D-18)
 Reporting conformance: `WET-SPEC-REPORT-001` v1.1 — component metrics and objective percentages are
-supplied below; **the Executive Verdict is deliberately blank. It is the output of the session.**
+supplied below; the Executive Verdict was the output of the session and is recorded at §6.2.
 
 | field | value |
 |---|---|
@@ -11,7 +11,7 @@ supplied below; **the Executive Verdict is deliberately blank. It is the output 
 | **Media span** | `00:33:37.708 – 00:34:39.667` (61.958 s) of the locked cut |
 | **Deliverable** | One Executive ruling |
 | **Expected duration** | ~5 minutes including discussion |
-| **Processing Status** | `READY` — media, controls and measurements are all in place |
+| **Processing Status** | `COMPLETE` — session held, ruling issued, artifacts regenerated |
 
 ---
 
@@ -129,11 +129,59 @@ faithful and the least automatable; option 2 is the most automatable and may be 
 **Decidability note:** definition 1 cannot be applied to this finding — it requires the diegesis
 judgement the Executive declined to make. Definitions 2 and 3 can. See PDR Amendment 3.
 
-### 6.2 Ruling — PENDING
-**`MANDATORY_SILENCE` shall mean:** ☐ 1 no non-diegetic score ☐ 2 no music of any kind ☐ 3 no sound but speech ☐ other: ______
-**Disposition of this element:** ☐ permitted, covenant intact ☐ remove ☐ move out of the zone ☐ re-cut so picture and audio coincide
-**Rationale:** ______
-**Ruled by / date:** ______
+### 6.2 Ruling — **ISSUED 2026-08-22**
+**`MANDATORY_SILENCE` shall mean:** ☒ **1 — no WE CAPE-added non-diegetic score** ☐ 2 no music of any kind ☐ 3 no sound but speech
+
+> *"`MANDATORY_SILENCE` is hereby defined as prohibiting WE CAPE-added non-diegetic score only.
+> Existing production audio — including speech, ambience, engine noise, wind, and any source audio
+> captured as part of the documentary record — shall remain permissible unless otherwise directed by
+> an Executive PDR."*
+
+**Disposition of this element:** ☒ **permitted, covenant intact** ☐ remove ☐ move out of the zone ☐ re-cut
+
+**Rationale, as issued:** the proxy does not conclusively distinguish the provenance of the musical
+content, **and that distinction is not required for this ruling.** The prohibition attaches to what
+WE CAPE *adds*, not to what the documentary record *contains*.
+
+**Ruled by / date:** Executive Producer / 2026-08-22
+
+---
+
+### 6.3 How the ruling defeated the decidability objection
+§6.1 and PDR Amendment 3 recorded an engineering conclusion that definition 1 was *"currently
+unrulable."* **The ruling shows that conclusion was scoped too narrowly, and it is corrected here.**
+
+The objection assumed the test for "non-diegetic score" had to be **acoustic** — decide by ear or by
+spectrum whether music is scored or in-world. Under that assumption the objection was sound: the
+proxy cannot separate a scored bed from a bed that was playing in the room.
+
+The ruling does not answer that question. It **replaces the test**. An element breaches a silence zone
+if and only if **WE CAPE added it as score** — a *provenance* question, which the locked FCPXML
+answers for every element in writing, via the asset `media-rep` path. Nothing needs to be heard.
+
+Two things follow, and both are worth carrying forward:
+
+1. **An undecidable question is sometimes an ill-posed question.** Engineering analysis should present
+   a decidability failure as *"this test cannot decide it — here are tests that could"*, not as
+   *"this definition cannot be ruled."* The second forecloses an Executive option that was available.
+2. **The platform already held the evidence.** The provenance classification used by the ruling was
+   produced during Sprint 3A — 1 score asset, 14 production-original, 1 contributed — and sat in the
+   record for a day before anyone recognised it as the adjudication instrument. This is the same
+   *discoverability* finding CAR-003 raised, appearing a second time in a different guise.
+
+### 6.4 Result
+Silence-law compliance under the issued definition, computed from the locked FCPXML alone:
+
+| zone | intersecting audio elements | breaches | state |
+|---|---|---|---|
+| SIL-01 | 2 — both PERMITTED (contributed video audio · production original media audio) | 0 | INTACT |
+| SIL-02 | 0 | 0 | INTACT |
+| R46 carve-out | 0 | 0 | INTACT |
+
+**TOTAL BREACHES: 0 · COVENANT: INTACT** · `SLF-01` → RESOLVED · D-18 → CLOSED BY RULING.
+
+Regeneration run `WECAPE-AR2-ESS004-REGEN-20260822-174500`; `CONDUCTOR_SCORE.yaml` and
+`EDITORIAL_SYNCHRONIZATION.yaml` are at **v1.1.0**. Full disposition: `PDR-2026-08-22-ESS-004` §D.
 
 ---
 
@@ -144,10 +192,10 @@ Confirmed disposition order — the silence decision informs the escort-ride dis
 ESS-004  →  ESS-002  →  ESS-001  →  ESS-003
 ```
 
-On ruling, `CONDUCTOR_SCORE.yaml` and `EDITORIAL_SYNCHRONIZATION.yaml` **regenerate** from the disposed
-values (DOC-002 — never hand-edited), and the run is archived as **RE-002** with its delta against
-RE-001 categorized. The gate's `on_open.required_actions` already specifies this; the mechanism is
-armed and waiting on four decisions.
+**Done for ESS-004:** `CONDUCTOR_SCORE.yaml` and `EDITORIAL_SYNCHRONIZATION.yaml` regenerated from the
+disposed values (DOC-002 — never hand-edited). **Still pending:** RE-002 archival, which the gate's
+`on_open.required_actions` requires only once **all four** PDRs are dispositioned. One down, three to
+go — the gate remains **CLOSED**. Next: **ESS-002**.
 
 ## 8. Session materials
 `SPRINT3A_WORK/ess004/target.wav` · `control_music.wav` · `control_speech.wav` (62 s each, on the
