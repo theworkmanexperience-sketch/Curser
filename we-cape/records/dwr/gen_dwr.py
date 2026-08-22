@@ -273,6 +273,35 @@ ROWS = [
 ]
 
 RESOLUTIONS = {
+ "DWR-040": {
+   "resolution": ("PARTIALLY RULED, 2026-08-22, Executive Producer. The taxonomy is ADOPTED and the "
+                  "unit of classification is settled: classify CRITERIA, not states. A single behaviour "
+                  "may carry criteria of different classes - ENTER carries '<=2 s' (Type A) and 'never a "
+                  "downbeat announcement' (Type C) simultaneously. "
+                  "TYPE A machine-measurable. TYPE B observable now, measurable eventually. "
+                  "TYPE C Executive judgement. "
+                  "TYPE C GUARDRAIL, ruled constitutional in intent: every Type C criterion SHALL record "
+                  "(1) why measurement is currently inappropriate, and (2) WHAT EVIDENCE WOULD JUSTIFY "
+                  "RECONSIDERING THAT CLASSIFICATION. Requirement (2) strengthens the engineer's proposed "
+                  "'re-review trigger': a trigger is a date, whereas named evidence is falsifiable - the "
+                  "classification can be overturned by something specific rather than merely revisited on "
+                  "a schedule. Type C is therefore PROVISIONAL BY DEFAULT and permanent only by decision. "
+                  "STILL OPEN: which criteria land in which class. That is the drafting work, and it "
+                  "remains sequenced behind CUE-03 and CUE-07 per DWR-041 and behind a transition model "
+                  "per DWR-042."),
+   "resolution_artifact": "docs/reviews/RSB-AUDIT-001_Road_Soul_Behavior_Vocabulary.md Amendment 1; Executive Review of commit 47f5268",
+   "resolution_date": "2026-08-22",
+   "resolution_authority": "Executive Producer"},
+ "DWR-043": {
+   "resolution": ("APPROVED AND DEFERRED, 2026-08-22, Executive Producer. The finding is accepted: "
+                  "CONDUCTOR_SCORE carries behaviour AND expression, and they do not belong in the same "
+                  "artifact indefinitely. The remedy is NOT actioned now - ESS-002 is open against this "
+                  "artifact and changing its structure under an open decision would violate the platform's "
+                  "own governance. Remains DECISION-class: which remedy (split, mark advisory, or accept a "
+                  "pointer) is not engineering's to pick."),
+   "resolution_artifact": "Executive Review of commit 47f5268",
+   "resolution_date": "2026-08-22",
+   "resolution_authority": "Executive Producer"},
  "DWR-010": {
    "resolution": ("EXTEND GAP-03. Executive Ruling, 2026-08-22. The prohibition on composite "
                   "readiness/health scores is extended to Capture Readiness, Acquisition Intelligence "
