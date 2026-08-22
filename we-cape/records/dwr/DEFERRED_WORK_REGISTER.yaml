@@ -839,14 +839,31 @@ entries:
   estimated_complexity: LOW to flag, UNKNOWN to remedy (depends which remedy)
   recommended_priority: P2
   current_status: Deferred
-  resolution: 'APPROVED AND DEFERRED, 2026-08-22, Executive Producer. The finding is accepted: CONDUCTOR_SCORE
-    carries behaviour AND expression, and they do not belong in the same artifact indefinitely. The remedy
-    is NOT actioned now - ESS-002 is open against this artifact and changing its structure under an open
-    decision would violate the platform''s own governance. Remains DECISION-class: which remedy (split,
-    mark advisory, or accept a pointer) is not engineering''s to pick.'
-  resolution_artifact: Executive Review of commit 47f5268
+  resolution: 'ESCALATED 2026-08-22 and now BLOCKING. Executive Clarification 2 makes the finding sharper
+    than when it was raised: instrumentation_guidance on 13 of 15 cues of CONDUCTOR_SCORE is PALETTE content,
+    which the platform may reference but not author. The clarification is prospective, so the current
+    artifact and RE-001 are NOT retroactively non-conforming. BUT CONDUCTOR_SCORE regenerates on the ESS-002
+    disposition, and gen_artifacts.py would re-author that content at that moment - knowingly emitting
+    a non-conforming artifact. Three options recorded at EC-N2: (A) retain, marked ADVISORY and NON-NORMATIVE,
+    awaiting palette ratification; (B) strip and replace with a palette reference - BLOCKED, no palette
+    exists; (C) freeze the field and emit it verbatim as inherited content rather than re-deriving it.
+    NO RECOMMENDATION - this is the palette-ownership decision and it is Executive. RULED 2026-08-22:
+    OPTION C. ''Until Executive-approved Road Soul Palettes exist, instrumentation guidance inherited
+    from previously governed artifacts shall be preserved verbatim and explicitly identified as inherited
+    content. The platform shall neither author nor extend expressive guidance during regeneration.'' IMPLEMENTED
+    in intelligence/p2/ess/scripts/gen_artifacts.py the same day: the field is renamed inherited_expressive_guidance
+    and now emits governance_class, normative: false, authored_by: NOT_THE_PLATFORM, status AWAITING_EXECUTIVE_PALETTE_RATIFICATION,
+    its ruling_ref, its provenance chain, and an on_palette_approval instruction to DELETE the block and
+    replace it with a palette reference by governed regeneration. Values are carried forward verbatim,
+    never re-derived. A SHA-256 digest guard over the frozen table stops generation with a NOTICE if any
+    value is edited - the ruling is checkable rather than merely intended (NO SILENT RECOVERY). Guard
+    verified in both directions: silent when frozen, fires on mutation. 13 of 15 cues carry the block;
+    the two conducted silences correctly do not. NO LONGER BLOCKING. The artifact itself is NOT regenerated
+    here - regeneration belongs to the ESS-002 disposition, and regenerating outside a governed trigger
+    would be the defect this entry exists to prevent.'
+  resolution_artifact: docs/rulings/EXECUTIVE_RULINGS.yaml EC-N2; intelligence/p2/ess/scripts/gen_artifacts.py
   resolution_date: '2026-08-22'
-  resolution_authority: Executive Producer
+  resolution_authority: Executive Producer / Chairman
 - dwr_id: DWR-044
   title: Palette ownership is unallocated - it is neither behaviour nor any layer of the Road Soul stack
   category: F — Governance Debt

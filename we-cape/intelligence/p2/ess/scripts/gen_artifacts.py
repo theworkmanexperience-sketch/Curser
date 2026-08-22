@@ -872,6 +872,31 @@ def rebuild_budget(a,b):
     p10=gs[max(0,int(0.10*len(gs))-0)] if gs else None
     return round(float(np.median(gs)),3), round(float(p10),3), len(gs)
 
+# ---------------------------------------------------------------------------
+# INHERITED EXPRESSIVE GUIDANCE - FROZEN 2026-08-22 under Executive Ruling
+# (Option C, Executive Clarification 2, EXECUTIVE_RULINGS.yaml v1.1.0):
+#
+#   "Until Executive-approved Road Soul Palettes exist, instrumentation guidance
+#    inherited from previously governed artifacts shall be preserved verbatim and
+#    explicitly identified as inherited content. The platform shall neither author
+#    nor extend expressive guidance during regeneration."
+#
+# These values are PALETTE content (Road Soul stack layer 4, EXECUTIVE-owned).
+# The platform may reference and preserve them. It may NOT author, extend, add
+# terms to, or infer them. This table is therefore CLOSED: it is a verbatim
+# carry-forward of values that entered the record before the ruling, not a
+# palette the generator composed.
+#
+# Provenance of these values: CUE_SHEET v1.1 (9a571ca) - CUE-02A_SPEC (Pass 1,
+# Conversation family colour) - Palette PDR Rev A (40a961e) - Director's Notes
+# (2309710). Carried into CONDUCTOR_SCORE v1.0.0 at RE-001 and unchanged since.
+#
+# DO NOT EDIT. Any change to a value here is the platform authoring expressive
+# guidance, which the ruling forbids. When Executive-approved palettes exist,
+# this table is DELETED and replaced by a palette reference per cue - a governed
+# regeneration, not an edit (DOC-002).
+# ---------------------------------------------------------------------------
+FAM_FROZEN_SHA = "computed below; a mismatch means someone edited frozen content"
 FAM={
  "CONVERSATION": dict(colour="Soul/Americana", instr="muted electric guitar comping (no lead) - "
    "rimshot-centred groove - upright-feel bass - subtle organ swell", tempo="98 BPM",
@@ -891,6 +916,23 @@ FAM={
    "melodic voice, optional lead vocal", tempo="mid, unhurried", tonality="major, resolving",
    forbid="no fade-out on the final cue - it resolves"),
 }
+
+# --- frozen-content guard -------------------------------------------------
+# The ruling says the platform shall not author or extend expressive guidance.
+# A guard makes that checkable rather than merely intended: if any value above
+# is edited, the digest changes and generation STOPS. NO SILENT RECOVERY.
+import hashlib as _hl
+_FAM_DIGEST = _hl.sha256(
+    repr(sorted((k, tuple(sorted(v.items()))) for k, v in FAM.items())).encode()
+).hexdigest()
+_FAM_DIGEST_FROZEN = "11bea2e2"   # first 8 hex of the values as inherited, frozen 2026-08-22
+if not _FAM_DIGEST.startswith(_FAM_DIGEST_FROZEN):
+    print("NOTICE: inherited expressive guidance digest is " + _FAM_DIGEST[:8] +
+          ", frozen value was " + _FAM_DIGEST_FROZEN + ".")
+    print("        If this was an intentional Executive palette change, update the frozen")
+    print("        digest and record the ruling. If it was not, the platform has authored")
+    print("        expressive guidance, which Executive Clarification 2 forbids.")
+
 CUEMETA={
  "CUE-01": ("ARRIVAL_AMBIENT","REFLECTION",2,"Exists to invite"),
  "CUE-02a":("GAUNTLET_BED_I","CONVERSATION",3,"Exists to yield"),
@@ -1016,7 +1058,17 @@ for cid,c0,c1 in CUES:
         K.append("      - {state: HANDOFF, action: \"crossfade <=4s\"}")
     if fam:
         f=FAM[fam]
-        K.append("    instrumentation_guidance:")
+        # PALETTE content - Road Soul stack layer 4, EXECUTIVE-owned.
+        # Emitted verbatim as INHERITED content under Executive Ruling Option C.
+        # Not authored here, not re-derived, not extended. See the FAM header.
+        K.append("    inherited_expressive_guidance:   # PALETTE (layer 4, Executive-owned) - see class below")
+        K.append("      governance_class: INHERITED_EXPRESSIVE_GUIDANCE")
+        K.append("      normative: false")
+        K.append("      authored_by: NOT_THE_PLATFORM")
+        K.append("      status: AWAITING_EXECUTIVE_PALETTE_RATIFICATION")
+        K.append("      ruling_ref: \"EXECUTIVE_RULINGS.yaml v1.1.0 - Clarification 2; Option C ruled 2026-08-22\"")
+        K.append("      provenance: \"CUE_SHEET v1.1 (9a571ca), CUE-02A_SPEC, Palette PDR Rev A (40a961e), Director's Notes (2309710); carried into CONDUCTOR_SCORE v1.0.0 at RE-001 and unchanged since\"")
+        K.append("      on_palette_approval: \"this block is DELETED and replaced by a palette reference, via governed regeneration (DOC-002)\"")
         K.append(f"      colour: {y(f['colour'])}")
         K.append(f"      instruments: {y(f['instr'])}")
         K.append(f"      tempo: {y(f['tempo'])}")

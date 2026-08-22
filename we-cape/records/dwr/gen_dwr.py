@@ -311,8 +311,25 @@ RESOLUTIONS = {
                   "(B) strip and replace with a palette reference - BLOCKED, no palette exists; "
                   "(C) freeze the field and emit it verbatim as inherited content rather than "
                   "re-deriving it. NO RECOMMENDATION - this is the palette-ownership decision and it "
-                  "is Executive. NEEDS A RULING BEFORE THE ESS-002 DISPOSITION TRIGGERS REGENERATION."),
-   "resolution_artifact": "docs/rulings/EXECUTIVE_RULINGS.yaml notes_raised_by_this_clarification EC-N2",
+                  "is Executive. "
+                  "RULED 2026-08-22: OPTION C. 'Until Executive-approved Road Soul Palettes exist, "
+                  "instrumentation guidance inherited from previously governed artifacts shall be "
+                  "preserved verbatim and explicitly identified as inherited content. The platform "
+                  "shall neither author nor extend expressive guidance during regeneration.' "
+                  "IMPLEMENTED in intelligence/p2/ess/scripts/gen_artifacts.py the same day: the field "
+                  "is renamed inherited_expressive_guidance and now emits governance_class, "
+                  "normative: false, authored_by: NOT_THE_PLATFORM, status "
+                  "AWAITING_EXECUTIVE_PALETTE_RATIFICATION, its ruling_ref, its provenance chain, and "
+                  "an on_palette_approval instruction to DELETE the block and replace it with a palette "
+                  "reference by governed regeneration. Values are carried forward verbatim, never "
+                  "re-derived. A SHA-256 digest guard over the frozen table stops generation with a "
+                  "NOTICE if any value is edited - the ruling is checkable rather than merely intended "
+                  "(NO SILENT RECOVERY). Guard verified in both directions: silent when frozen, fires "
+                  "on mutation. 13 of 15 cues carry the block; the two conducted silences correctly do "
+                  "not. NO LONGER BLOCKING. The artifact itself is NOT regenerated here - regeneration "
+                  "belongs to the ESS-002 disposition, and regenerating outside a governed trigger "
+                  "would be the defect this entry exists to prevent."),
+   "resolution_artifact": "docs/rulings/EXECUTIVE_RULINGS.yaml EC-N2; intelligence/p2/ess/scripts/gen_artifacts.py",
    "resolution_date": "2026-08-22",
    "resolution_authority": "Executive Producer / Chairman"},
  "DWR-040": {
@@ -332,16 +349,6 @@ RESOLUTIONS = {
                   "remains sequenced behind CUE-03 and CUE-07 per DWR-041 and behind a transition model "
                   "per DWR-042."),
    "resolution_artifact": "docs/reviews/RSB-AUDIT-001_Road_Soul_Behavior_Vocabulary.md Amendment 1; Executive Review of commit 47f5268",
-   "resolution_date": "2026-08-22",
-   "resolution_authority": "Executive Producer"},
- "DWR-043": {
-   "resolution": ("APPROVED AND DEFERRED, 2026-08-22, Executive Producer. The finding is accepted: "
-                  "CONDUCTOR_SCORE carries behaviour AND expression, and they do not belong in the same "
-                  "artifact indefinitely. The remedy is NOT actioned now - ESS-002 is open against this "
-                  "artifact and changing its structure under an open decision would violate the platform's "
-                  "own governance. Remains DECISION-class: which remedy (split, mark advisory, or accept a "
-                  "pointer) is not engineering's to pick."),
-   "resolution_artifact": "Executive Review of commit 47f5268",
    "resolution_date": "2026-08-22",
    "resolution_authority": "Executive Producer"},
  "DWR-010": {
