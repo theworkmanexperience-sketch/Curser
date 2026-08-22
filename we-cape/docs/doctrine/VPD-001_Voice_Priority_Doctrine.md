@@ -1,11 +1,14 @@
 # VPD-001 — Voice Priority Doctrine
 ## Governance Status
-Document Type: **Doctrine (governed artifact)** · Status: **v0.1 — TRANSCRIPTION, INCOMPLETE**
+Document Type: **Doctrine (governed artifact)** · Status: **v0.2 — TRANSCRIPTION + Executive Dispositions**
 Authorized: Executive, 2026-08-22, Phase 3 Continuation communiqué item 2
 Instruction of record: *"VPD-001 is hereby authorized as a governed artifact using the
 Executive-approved language developed during this session. **Engineering shall transcribe only. No
 synthesis or expansion.**"*
 Prepared by: Music Systems Engineer · Custody: `MACHINE` transcription of `EXECUTIVE`-custody sources
+
+**v0.1 → v0.2:** Executive Dispositions of 2026-08-22 (EMB-CUE-03 Continuation) recorded at §5.
+Three of the four `AWAITING_EXECUTIVE_INPUT` fields are resolved; two new questions are raised.
 
 > **This document contains no engineering-authored doctrine.** Every provision below is quoted
 > verbatim from a governed artifact or an Executive statement, with its citation. Where the record is
@@ -195,3 +198,117 @@ per `DOC-CAND-001`: the platform prepares decisions; it does not make artistic o
 *Transcribed 2026-08-22. Sources: `CONDUCTOR_SCORE.yaml` v1.1.0 · `CUE_SHEET v1.1` ·
 `VOICE_OVER_REGISTRY.yaml` v0.1.0 · Executive Ruling ESS-004 · Phase 3 Continuation communiqué ·
 EVS-001 Pass 1 observation. Measurement: `VOICE_PRIORITY_MAP.yaml` v1.0.0.*
+
+
+---
+
+## 5. Executive Dispositions — 2026-08-22, EMB-CUE-03 Continuation
+
+### D1 — Scope confirmed *(resolves §3.1, §3.3 fields 1 and 2)*
+
+> *"VPD-001 scope is confirmed. It governs the relationship between music and spoken communication
+> only. It does not determine editorial precedence among simultaneous speech sources."*
+
+**The §3.1 gap is closed by exclusion rather than by filling.** Precedence among voices is not a
+missing provision — it is **out of scope**. `voice_priority_order` and `collision_resolution` are
+struck from §3.3 and no longer await input.
+
+**One consequence worth stating, and it is not a music question.** The lock has already resolved
+speech-versus-speech for every voice it contains — the edit decided who speaks when. **Host VO is
+the exception: `VO01–VO04` are not in the lock.** Authoring VO into windows that already carry
+72.6% observed speech (§3.2) will create simultaneity the edit never adjudicated. Under D1 that is
+an **editorial** decision at VO authoring, not a VPD-001 provision. Recorded so it is not mistaken
+for settled.
+
+### D2 — MOTION yields to interviews and narration alike *(resolves §3.3 field 3)*
+
+> *"All Level 1 and Level 2 spoken communication invokes the Voice Priority Doctrine. MOTION cues
+> shall yield to interviews and narration alike. Differences in implementation remain an engineering
+> concern, not a doctrinal one."*
+
+**The artifact contradicted this and has been corrected at the generator.** `CUE-03`'s `DUCK`
+sidechain read *"voice-over and any diegetic announcement only"* — which **excluded interview
+speech**, 58.0% of the cue as measured.
+
+```
+was : sidechain "voice-over and any diegetic announcement only"
+now : sidechain "interviews, narration, voice-over and any diegetic announcement"
+      target_db -12  (UNCHANGED — the ruling extended WHAT is yielded to, not BY HOW MUCH)
+```
+
+Encoded in `gen_artifacts.py` with `doctrine_ref` and the superseded value retained as
+`prior_sidechain`. **The artifact is deliberately not regenerated yet:** `CONDUCTOR_SCORE`
+regenerates on the ESS-002 disposition, which precedes gate-open, which precedes any generation.
+Regenerating now would be a change to a governed artifact outside a governed trigger.
+
+**Term flagged, not guessed.** *"Level 1 and Level 2 spoken communication"* has no definition in the
+record. The platform's only Levels are ER-003's three observation layers — Timeline Mechanics,
+Screen Presentation, Executive Interpretation — which classify **how an observation entered the
+record**, not kinds of speech. The operative clause (*"interviews and narration alike"*) is
+unambiguous and has been implemented; the taxonomy term is recorded as
+`AWAITING_EXECUTIVE_INPUT` and nothing has been inferred from it.
+
+### D3 — P9 applies to every cue *(resolves §3.3 field 4, and raises a new question)*
+
+> *"P9 applies to every Road Soul cue, including CUE-03."*
+
+**Recorded.** And it produces a collision that should be surfaced before composition, not after.
+
+P9 says music should **support orientation rather than lead the scene.** `LEAD` is a behaviour state
+specified as *"music carries the span"*, and it is in the signature of every MOTION and CELEBRATION
+cue. **Applied without condition, P9 and `LEAD` say opposite things.**
+
+**Measured, `BEHAVIORAL_FINGERPRINT` v1.0.0 — where orientation elements actually occur:**
+
+| | orientation-bearing share of span |
+|---|---|
+| CUE-01 · CUE-10 · CUE-06 | 100.0% · 98.4% · 87.5% |
+| **CUE-03** (MOTION) | **64.4%** |
+| CUE-04 · CUE-02c · CUE-08 | 11.6% · 6.9% · 5.7% |
+| **CUE-07** (MOTION) · CUE-09a · CUE-09b · CUE-02b · CUE-05 | **0.0% — five cues** |
+
+**10 of 15 cues carry orientation elements. Five carry none.** The two MOTION cues sit at opposite
+ends — CUE-03 at 64.4%, CUE-07 at **0.0%** — and both carry `LEAD`.
+
+**CUE-07 is the test case.** It runs 153 s with **0.7% speech, no titles, no map elements, no
+graphic overlays, and a 152.5-second speech-free window.** Applied unconditionally, P9 instructs the
+music to support orientation across a span containing nothing to orient to.
+
+Two readings, neither adopted:
+
+| | reading | consequence |
+|---|---|---|
+| **R1** | P9 binds **wherever an orientation element is present** | compatible with `LEAD` elsewhere; CUE-03 bound, CUE-07 not |
+| **R2** | P9 binds **unconditionally** | `LEAD` is superseded wherever it applies — which is a **revision of the behaviour vocabulary**, and **P8 holds the vocabulary unchanged "unless and until formally revised"** |
+
+**R2 cannot be adopted silently without contradicting P8.** No state has been altered.
+
+```yaml
+p9_scope_within_a_cue:   AWAITING_EXECUTIVE_INPUT   # R1 conditional, or R2 unconditional
+p9_vs_lead:              AWAITING_EXECUTIVE_INPUT   # if R2, LEAD requires formal revision (P8)
+```
+
+### D4–D7 — recorded, no engineering action beyond compliance
+
+| | disposition | effect here |
+|---|---|---|
+| **D4** | No gate carve-out. Skeleton may mature; no composition, prompt or realization | `EMB-CUE-03` remains a SKELETON. Nothing generated |
+| **D5** | Palette stays Executive-owned and `AWAITING_EXECUTIVE_INPUT` | §7 of the skeleton unchanged; nothing inferred |
+| **D6** | ESS-002 retains the boundary. No inference, no provisional movement | every artifact continues to cite `00:29:10.000` as the **cue-sheet** value with the boundary marked unresolved |
+| **D7** | Preserve measured transitions as **fingerprints, not arguments** | `BEHAVIORAL_FINGERPRINT.yaml` v1.0.0 — 15 cues, every row a measurement with a method, no row recommending anything |
+
+---
+
+## 6. Status after v0.2
+
+| field | v0.1 | v0.2 |
+|---|---|---|
+| `voice_priority_order` | awaiting | **STRUCK — out of scope (D1)** |
+| `collision_resolution` | awaiting | **STRUCK — out of scope (D1)**, with the VO-authoring note above |
+| `yield_scope_beyond_conversation` | partially stated | **RESOLVED (D2)** — MOTION yields to interviews and narration; family-level rule still open |
+| `p9_scope` | awaiting | **RESOLVED (D3)** — applies to every cue |
+| `level_1_2_taxonomy` | — | **NEW — awaiting** (D2) |
+| `p9_scope_within_a_cue` / `p9_vs_lead` | — | **NEW — awaiting** (D3) |
+
+**Two closed by ruling, one closed by exclusion, three raised.** No doctrine was created in producing
+this version.

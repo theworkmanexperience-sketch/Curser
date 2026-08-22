@@ -1,0 +1,673 @@
+# BEHAVIORAL_FINGERPRINT - measurements, not arguments. Every row carries its method.
+artifact_id: BEHAVIORAL_FINGERPRINT
+version: 1.0.0
+status: FOR EXECUTIVE REVIEW
+authorized_by: Executive Disposition, 2026-08-22, EMB-CUE-03 Continuation item 7
+source_class: MACHINE
+instrument:
+  name: behavioral_fingerprint.py
+  grid_s: 0.5
+purpose: preserve measured behavioural transitions as FINGERPRINTS. Explicitly NOT arguments for boundary changes,
+  per the authorising disposition.
+conformance:
+- ER-001 no ranking, no recommendation, no preference
+- ER-003 mechanics precede meaning; significance is Executive
+- ESS-002 retains ownership of the CUE-03 boundary; nothing here infers movement
+view:
+  source: CONDUCTOR_SCORE.yaml v1.1.0 + Info.fcpxml + lock SRT
+  scope: all 15 governed cue and silence regions
+  filter:
+    has_resolved_boundaries: true
+  coverage:
+    displayed: 15
+    total: 15
+missing_data_policy: propagate_unknown
+p9_scope_measurement:
+  question: VPD-001 P9 - 'music should support orientation rather than lead the scene' - was ruled on 2026-08-22
+    to apply to EVERY Road Soul cue including CUE-03. This block measures where orientation elements actually occur.
+    It poses the scope question; it does not answer it.
+  cues_with_orientation_elements: 10
+  cues_without: 5
+  cues_without_list:
+  - CUE-02b
+  - CUE-05
+  - CUE-07
+  - CUE-09a
+  - CUE-09b
+  motion_family_note: 'the two MOTION cues differ completely on this axis: CUE-03 is 64.4% orientation-bearing,
+    CUE-07 is 0.0%. Both carry LEAD.'
+  unresolved: LEAD is specified as 'music carries the span'. P9 says music should support orientation rather than
+    lead. Where orientation load is 0.0% - CUE-07, CUE-09a, CUE-09b, CUE-02b, CUE-05 - it is unstated what P9 requires,
+    and unstated whether P9 modifies LEAD. P8 holds that the behaviour vocabulary is unchanged 'unless and until
+    formally revised', so no state is altered here. AWAITING_EXECUTIVE_INPUT.
+fingerprints:
+- cue: CUE-01
+  name: ARRIVAL_AMBIENT
+  family: REFLECTION
+  span:
+    start_tc: '00:00:00.000'
+    end_tc: '00:01:13.000'
+    duration_s: 73.0
+  cutting:
+    internal_cuts: 21
+    cuts_per_min: 17.26
+    mean_shot_s: 3.318
+    median_shot_s: 3.666
+    longest_shot_s: 8.333
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 8
+    mean_duration_s: 0.87
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.5306
+    free_total_s: 34.5
+    longest_free_window_s: 13.0
+    free_windows_ge_8s: 2
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 0.5
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 73.5
+    fraction_of_span: 1.0
+    titles: 1
+    map_elements: 0
+    graphic_overlays: 4
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - ENTER
+  - SUSTAIN
+  - DUCK
+  - REBUILD
+  - HANDOFF
+- cue: CUE-02a
+  name: GAUNTLET_BED_I
+  family: CONVERSATION
+  span:
+    start_tc: '00:01:51.000'
+    end_tc: '00:10:30.000'
+    duration_s: 519.0
+  cutting:
+    internal_cuts: 14
+    cuts_per_min: 1.62
+    mean_shot_s: 34.6
+    median_shot_s: 13.625
+    longest_shot_s: 153.666
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 41
+    mean_duration_s: 0.887
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.8855
+    free_total_s: 59.5
+    longest_free_window_s: 3.0
+    free_windows_ge_8s: 0
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 0.5
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 169.0
+    fraction_of_span: 0.3256
+    titles: 28
+    map_elements: 0
+    graphic_overlays: 8
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - ENTER
+  - SUSTAIN
+  - DUCK
+  - BREATHE
+  - REBUILD
+  - HANDOFF
+- cue: CUE-02b
+  name: GAUNTLET_BED_II
+  family: CONVERSATION
+  span:
+    start_tc: '00:10:30.000'
+    end_tc: '00:18:45.000'
+    duration_s: 495.0
+  cutting:
+    internal_cuts: 3
+    cuts_per_min: 0.36
+    mean_shot_s: 123.75
+    median_shot_s: 75.854
+    longest_shot_s: 320.0
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 1
+    mean_duration_s: 1.0
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.89
+    free_total_s: 54.5
+    longest_free_window_s: 4.5
+    free_windows_ge_8s: 0
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 0.0
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 0.0
+    fraction_of_span: 0.0
+    titles: 0
+    map_elements: 0
+    graphic_overlays: 0
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - ENTER
+  - SUSTAIN
+  - DUCK
+  - BREATHE
+  - REBUILD
+  - HANDOFF
+- cue: CUE-02c
+  name: GAUNTLET_BED_III
+  family: CONVERSATION
+  span:
+    start_tc: '00:18:45.000'
+    end_tc: '00:27:02.000'
+    duration_s: 497.0
+  cutting:
+    internal_cuts: 17
+    cuts_per_min: 2.05
+    mean_shot_s: 27.611
+    median_shot_s: 22.0
+    longest_shot_s: 100.584
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 8
+    mean_duration_s: 1.0
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.9387
+    free_total_s: 30.5
+    longest_free_window_s: 4.5
+    free_windows_ge_8s: 0
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 0.5
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 34.5
+    fraction_of_span: 0.0694
+    titles: 0
+    map_elements: 1
+    graphic_overlays: 3
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - ENTER
+  - SUSTAIN
+  - DUCK
+  - BREATHE
+  - REBUILD
+  - HANDOFF
+- cue: CUE-03
+  name: ESCORT_ANTHEM
+  family: MOTION
+  span:
+    start_tc: '00:27:40.000'
+    end_tc: '00:29:10.000'
+    duration_s: 90.0
+  cutting:
+    internal_cuts: 7
+    cuts_per_min: 4.67
+    mean_shot_s: 11.25
+    median_shot_s: 3.979
+    longest_shot_s: 29.458
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 0
+    mean_duration_s: null
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.5801
+    free_total_s: 38.0
+    longest_free_window_s: 34.0
+    free_windows_ge_8s: 1
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 90.5
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 58.0
+    fraction_of_span: 0.6444
+    titles: 0
+    map_elements: 2
+    graphic_overlays: 0
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - ENTER
+  - LEAD
+  - DUCK
+  - REBUILD
+  - HANDOFF
+- cue: SIL-01
+  name: CIVIC_SILENCE
+  family: NONE
+  span:
+    start_tc: '00:31:43.000'
+    end_tc: '00:38:52.000'
+    duration_s: 429.0
+  cutting:
+    internal_cuts: 21
+    cuts_per_min: 2.94
+    mean_shot_s: 19.5
+    median_shot_s: 16.521
+    longest_shot_s: 74.0
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 60
+    mean_duration_s: 0.978
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.8277
+    free_total_s: 74.0
+    longest_free_window_s: 9.0
+    free_windows_ge_8s: 1
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 0.0
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 293.5
+    fraction_of_span: 0.6841
+    titles: 9
+    map_elements: 1
+    graphic_overlays: 24
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - APPROACH
+  - FLOOR
+  - RETURN
+- cue: CUE-04
+  name: GAUNTLET_TWO_BED
+  family: CONVERSATION
+  span:
+    start_tc: '00:38:55.000'
+    end_tc: '00:52:00.000'
+    duration_s: 785.0
+  cutting:
+    internal_cuts: 41
+    cuts_per_min: 3.13
+    mean_shot_s: 18.69
+    median_shot_s: 2.667
+    longest_shot_s: 95.084
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 29
+    mean_duration_s: 0.815
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.9217
+    free_total_s: 61.5
+    longest_free_window_s: 5.0
+    free_windows_ge_8s: 0
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 0.0
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 91.0
+    fraction_of_span: 0.1159
+    titles: 14
+    map_elements: 2
+    graphic_overlays: 5
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - ENTER
+  - SUSTAIN
+  - DUCK
+  - BREATHE
+  - REBUILD
+  - HANDOFF
+- cue: SIL-02
+  name: HONORS_SILENCE
+  family: NONE
+  span:
+    start_tc: '00:52:04.000'
+    end_tc: '00:53:49.000'
+    duration_s: 105.0
+  cutting:
+    internal_cuts: 4
+    cuts_per_min: 2.29
+    mean_shot_s: 21.0
+    median_shot_s: 13.958
+    longest_shot_s: 53.0
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 7
+    mean_duration_s: 0.696
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.7156
+    free_total_s: 30.0
+    longest_free_window_s: 10.0
+    free_windows_ge_8s: 1
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 0.0
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 9.5
+    fraction_of_span: 0.0905
+    titles: 0
+    map_elements: 0
+    graphic_overlays: 2
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - APPROACH
+  - FLOOR
+  - RETURN
+- cue: CUE-05
+  name: PHOTO_LIFT
+  family: REFLECTION
+  span:
+    start_tc: '00:53:50.000'
+    end_tc: '00:54:35.000'
+    duration_s: 45.0
+  cutting:
+    internal_cuts: 0
+    cuts_per_min: 0.0
+    mean_shot_s: 45.0
+    median_shot_s: 45.0
+    longest_shot_s: 45.0
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 3
+    mean_duration_s: 0.708
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.4615
+    free_total_s: 24.5
+    longest_free_window_s: 15.0
+    free_windows_ge_8s: 2
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 0.0
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 0.0
+    fraction_of_span: 0.0
+    titles: 0
+    map_elements: 0
+    graphic_overlays: 0
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - ENTER
+  - SUSTAIN
+  - DUCK
+  - REBUILD
+  - HANDOFF
+- cue: CUE-06
+  name: DAY_WRAP_BRIDGE
+  family: REFLECTION
+  span:
+    start_tc: '00:54:36.000'
+    end_tc: '00:55:24.000'
+    duration_s: 48.0
+  cutting:
+    internal_cuts: 1
+    cuts_per_min: 1.25
+    mean_shot_s: 24.0
+    median_shot_s: 24.0
+    longest_shot_s: 40.958
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 2
+    mean_duration_s: 1.0
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.866
+    free_total_s: 6.5
+    longest_free_window_s: 6.5
+    free_windows_ge_8s: 0
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 48.5
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 42.0
+    fraction_of_span: 0.875
+    titles: 0
+    map_elements: 1
+    graphic_overlays: 0
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - ENTER
+  - SUSTAIN
+  - DUCK
+  - REBUILD
+  - HANDOFF
+- cue: CUE-07
+  name: RIDE_PASSAGE
+  family: MOTION
+  span:
+    start_tc: '00:56:10.000'
+    end_tc: '00:58:43.000'
+    duration_s: 153.0
+  cutting:
+    internal_cuts: 1
+    cuts_per_min: 0.39
+    mean_shot_s: 76.5
+    median_shot_s: 76.5
+    longest_shot_s: 151.667
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 0
+    mean_duration_s: null
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.0065
+    free_total_s: 152.5
+    longest_free_window_s: 152.5
+    free_windows_ge_8s: 1
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 0.0
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 0.0
+    fraction_of_span: 0.0
+    titles: 0
+    map_elements: 0
+    graphic_overlays: 0
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - ENTER
+  - LEAD
+  - DUCK
+  - REBUILD
+  - HANDOFF
+- cue: CUE-08
+  name: NIGHT_ARRIVALS
+  family: CELEBRATION
+  span:
+    start_tc: '00:58:43.000'
+    end_tc: '01:06:48.000'
+    duration_s: 485.0
+  cutting:
+    internal_cuts: 13
+    cuts_per_min: 1.61
+    mean_shot_s: 34.643
+    median_shot_s: 27.104
+    longest_shot_s: 96.792
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 6
+    mean_duration_s: 0.458
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.9186
+    free_total_s: 39.5
+    longest_free_window_s: 3.0
+    free_windows_ge_8s: 0
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 0.0
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 27.5
+    fraction_of_span: 0.0567
+    titles: 0
+    map_elements: 1
+    graphic_overlays: 2
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - ENTER
+  - LEAD
+  - DUCK
+  - REBUILD
+  - HANDOFF
+- cue: CUE-09a
+  name: BIKE_NIGHT_PEAK_I
+  family: CELEBRATION
+  span:
+    start_tc: '01:09:25.000'
+    end_tc: '01:14:30.000'
+    duration_s: 305.0
+  cutting:
+    internal_cuts: 20
+    cuts_per_min: 3.93
+    mean_shot_s: 14.524
+    median_shot_s: 9.125
+    longest_shot_s: 55.708
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 2
+    mean_duration_s: 1.0
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.2439
+    free_total_s: 231.0
+    longest_free_window_s: 45.5
+    free_windows_ge_8s: 6
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 0.0
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 0.0
+    fraction_of_span: 0.0
+    titles: 0
+    map_elements: 0
+    graphic_overlays: 0
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - ENTER
+  - LEAD
+  - DUCK
+  - REBUILD
+  - HANDOFF
+- cue: CUE-09b
+  name: BIKE_NIGHT_PEAK_II
+  family: CELEBRATION
+  span:
+    start_tc: '01:14:30.000'
+    end_tc: '01:19:40.000'
+    duration_s: 310.0
+  cutting:
+    internal_cuts: 3
+    cuts_per_min: 0.58
+    mean_shot_s: 77.5
+    median_shot_s: 52.666
+    longest_shot_s: 175.917
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 0
+    mean_duration_s: null
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.0451
+    free_total_s: 296.5
+    longest_free_window_s: 208.0
+    free_windows_ge_8s: 3
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 0.0
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 0.0
+    fraction_of_span: 0.0
+    titles: 0
+    map_elements: 0
+    graphic_overlays: 0
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - ENTER
+  - LEAD
+  - DUCK
+  - REBUILD
+  - HANDOFF
+- cue: CUE-10
+  name: VICTORY_CLOSE
+  family: LEGACY
+  span:
+    start_tc: '01:19:44.000'
+    end_tc: '01:20:46.000'
+    duration_s: 62.0
+  cutting:
+    internal_cuts: 3
+    cuts_per_min: 2.9
+    mean_shot_s: 15.5
+    median_shot_s: 16.792
+    longest_shot_s: 26.833
+    method: FCPXML primary spine, depth-0, transitions excluded
+  transitions:
+    count: 2
+    mean_duration_s: 0.458
+    method: FCPXML transition elements intersecting the span
+  speech:
+    coverage: 0.84
+    free_total_s: 10.0
+    longest_free_window_s: 5.5
+    free_windows_ge_8s: 0
+    method: lock SRT 89d61f96..a1c6b, 2291 cues, midpoint occupancy on a 0.5 s grid
+  voice_reservation:
+    vo_reserved_overlap_s: 62.5
+    method: VOICE_OVER_REGISTRY v0.1.0 host_speech_segments
+  orientation_load:
+    orientation_bearing_s: 61.0
+    fraction_of_span: 0.9839
+    titles: 5
+    map_elements: 3
+    graphic_overlays: 0
+    method: union of CAPTION_REGISTRY title spans, map elements and non-camera video overlays, at 0.5 s. Counts
+      what is on screen; asserts nothing about why.
+    note: relevant to VPD-001 P9 scope; see the P9 block below. No conclusion drawn here.
+  behaviour_states:
+  - ENTER
+  - SUSTAIN
+  - DUCK
+  - REBUILD
+  - HANDOFF

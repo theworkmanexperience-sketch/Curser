@@ -1044,8 +1044,18 @@ for cid,c0,c1 in CUES:
                  "<=2s\"}")
         K.append("      - {state: LEAD, action: \"music carries the span; ambient engine and crowd sound "
                  "sit under it but must remain audible\"}")
-        K.append("      - {state: DUCK, target_db: -12, sidechain: \"voice-over and any diegetic "
-                 "announcement only\"}")
+        # Executive Disposition, EMB-CUE-03 Continuation item 2, 2026-08-22:
+        #   "All Level 1 and Level 2 spoken communication invokes the Voice Priority
+        #    Doctrine. MOTION cues shall yield to interviews and narration alike."
+        # The previous sidechain named voice-over and diegetic announcements ONLY,
+        # which excluded interview speech - 58.0% of CUE-03 as measured. Corrected
+        # to the operative clause. The -12 dB target is unchanged: the ruling
+        # extended WHAT is yielded to, not BY HOW MUCH.
+        K.append("      - {state: DUCK, target_db: -12, sidechain: \"interviews, narration, "
+                 "voice-over and any diegetic announcement\", "
+                 "doctrine_ref: \"VPD-001 P1/P3; Executive Disposition 2026-08-22 item 2\", "
+                 "prior_sidechain: \"voice-over and any diegetic announcement only - superseded "
+                 "2026-08-22, excluded interview speech\"}")
         K.append(f"      - {{state: REBUILD, budget_s: {p10 if p10 is not None else 'NULL'}}}")
         K.append("      - {state: HANDOFF, action: \"resolve on the last phrase before the boundary; do "
                  "not fade under the following cue's entry\"}")
