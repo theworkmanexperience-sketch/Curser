@@ -2,6 +2,7 @@
 ## Governance Status
 Document Type: **Doctrine Candidate** — NOT doctrine · Status: **PROPOSED 2026-08-22, awaiting a second instance**
 Origin: Executive observation, 2026-08-22, following the ESS-004 disposition
+**Canonical statement supplied by the Executive Producer, 2026-08-22 — see the head of §4.**
 Promotion rule: a candidate becomes doctrine when it has been **exercised twice and held both times**.
 This one has one instance. See §4.
 
@@ -60,6 +61,41 @@ attempt to reason on the judgement axis using fact-axis tools. It was wrong, and
 specific way this doctrine predicts: it foreclosed an option that was the Executive's to take.
 
 ## 4. The candidate, stated for testing
+
+### 4.0 The canonical sentence
+
+> ## *"The platform prepares decisions; it does not make artistic ones."*
+> — Executive Producer, 2026-08-22
+
+**This is the candidate.** Everything below §4.0 was the engineer's longer working statement of the
+same principle, and it is kept as the reasoning rather than the rule. The sentence is better than the
+paragraph in three ways: it says **platform** rather than *engineering*, so it binds registries,
+generators, validators and future models equally; it says **artistic**, which is the specific class of
+decision at stake rather than the general word *judgement*; and it fits in a commit message, which is
+where a rule actually has to survive.
+
+The Executive's chain, recorded with it:
+
+```
+Engineering       measures
+Governance        documents
+Specifications    constrain
+Registries        synchronize
+Conductor Scores  prepare
+Road Soul         performs
+The Chairman      decides
+```
+
+**The promotion gate is unchanged.** A better statement of a candidate does not promote it. This still
+has **one instance** (ESS-004), and `ESS-002` remains its second test — measurements should survive
+Executive review unamended while engineering's judgement-adjacent claims are the ones corrected. If
+that holds, this becomes `DOC-004` with the sentence above as its text. If it does not, the record
+says why.
+
+*Recorded as a ruling, not as a new artifact, under the Executive direction of 2026-08-22 that no
+further governance documents be written before EVS-001.*
+
+### 4.1 The engineer's working statement (retained as reasoning)
 
 > **The Judgement Boundary.** Every governed question has a factual axis and a judgement axis.
 > Engineering owns the factual axis completely and must run it to exhaustion — every measurement
