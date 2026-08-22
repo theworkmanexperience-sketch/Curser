@@ -1,10 +1,12 @@
 # EVS-001 — Executive Viewing Session: how Road Soul breathes with the edit
 ## Governance Status
-Document Type: **Executive Viewing Session — Brief** · Version **1.1** · Status: **PREPARED 2026-08-22 — SESSION NOT YET HELD**
+Document Type: **Executive Viewing Session — Brief** · Version **1.2** · Status: **PREPARED 2026-08-22 — SESSION NOT YET HELD**
 Date: 2026-08-22 · Authority: Executive Producer · Resolves: `PDR-2026-08-22-ESS-002` (VCONF-02, D-15, D-19, SLF-02)
 Precedent: `ELS-001` (Executive Listening Session) · Session class: **EVS** — picture + sound + editorial pacing
-**v1.0 → v1.1:** scope narrowed by Executive direction 2026-08-22 (`ESS-002` Amendment 2). The session
-now answers **one question**. Two questions are struck and registered against `PDR-<date>-CUE-03`.
+**v1.0 → v1.1:** scope narrowed by Executive direction. The session answers **one question**.
+**v1.1 → v1.2:** an editorial-resolution viewing master was located, validated against the lock and
+approved (`DOC-001` Amendment 1). **The session now runs on the 4K master, not the proxy.** The
+§5 limitation *"no editorial-resolution viewing master exists"* is **RETIRED**.
 Reporting conformance: `WET-SPEC-REPORT-001` v1.1 — component metrics and objective percentages below;
 **the Executive Verdict is deliberately blank. It is the output of the session.**
 
@@ -14,7 +16,8 @@ Reporting conformance: `WET-SPEC-REPORT-001` v1.1 — component metrics and obje
 | **Media span** | `00:27:10 – 00:33:30` of the locked cut (380 s), with two close passes |
 | **Deliverable** | One boundary: option A/B/C/D + a timecode to the frame + whether it sits on a cut |
 | **Expected duration** | **~13 minutes** — Passes 1, 2 and 3. Passes 4 and 5 are optional reference |
-| **Processing Status** | `READY` — media cut, measurements complete, verdict blank |
+| **Viewing master** | `Alpha RoudUp Part 2.m4v` · 3840×2160 · **4846.625000 s, exact to the lock** · sha `89e911b1…f8cd46` |
+| **Processing Status** | `READY` — master validated, measurements corroborated on two instruments, verdict blank |
 
 ---
 
@@ -81,19 +84,34 @@ Clean before marked, sound before silence-comparison, whole before close. Marker
 anchor perception; they come *after* the judgement, not before it (DOC-001: validate the instrument
 before the measurement — here, the instrument is you, and priming is the contamination).
 
-| # | file | span | duration | required? | watch for |
-|---|---|---|---|---|---|
-| **1** | `PASS1_clean_27-10_to_33-30.mp4` | 27:10–33:30 | 380 s | **required** | **Nothing in particular. Watch it as an audience.** One question afterwards: **where did the music's job end?** Note the timecode only after it finishes |
-| **2** | `PASS2_muted_27-10_to_33-30.mp4` | 27:10–33:30 | 380 s | **required** | **Muted.** Does the sequence still sustain with no sound at all? This separates *edit* pacing from *engine* pacing — and the boundary is a picture decision, so this is the pass that most directly answers it |
-| **3** | `PASS3_boundary_28-40_to_30-30.mp4` | 28:40–30:30 | 110 s | **required** | The proposed boundary at **29:10**, in context. It sits 18.25 s into a 66.7 s shot. **Does anything happen there?** If nothing does, 29:10 is not a boundary — it is a number |
-| 4 | `PASS4_sil01_31-10_to_32-30.mp4` | 31:10–32:30 | 80 s | optional | The SIL-01 boundary at 31:43, 50.5 s into a 62.9 s shot. Where the mix's own large level event lives (§3.1). Watch if you are considering option B |
-| 5 | `PASS5_marked_reference_27-10_to_33-30.mp4` | 27:10–33:30 | 380 s | **last, if at all** | Burned-in timecode and zone labels. **Reference only.** Use it to convert a Pass-1 instinct into a timecode |
+### The instrument — approved 2026-08-22
 
-**Preferred instrument: Final Cut Pro, on the timeline itself.** These files are 320×180 — the only
-full-length Part 2 render that exists is a proxy (§5). For *pacing* that is sufficient, because pacing
-is a property of time and the cut points are exact. For anything about how the image *looks*, it is
-not. Watch Pass 1 in FCP at full resolution if you can; use these files for Passes 2–5, for
-repeatability, and for watching away from the machine.
+```
+Alpha RoundUp Part 2 /XML retry/Thursday Aug 20th/Alpha RoudUp Part 2.m4v
+3840x2160 h264 · 24/1 fps NDF · AAC 48 kHz stereo · 12,199,752,138 bytes
+duration 4846.625000 s — EXACT match to the editorial lock
+sha256   89e911b1bffe14cefe330f8e4270d467dc06393b622143350ca42de8dbf8cd46
+```
+
+**Play it directly. Nothing needs to be cut.** The master's timeline *is* the lock's timeline, so every
+timecode below is a position you can type into the transport.
+
+> **Do not substitute a different render.** Six other candidates exist on the volume and **three of
+> them are also 12 GB, also 3840×2160, and almost identically named** — and are **not** lock-conformant
+> (`+1.500 s`, `+15.208 s`, `+22.000 s`). Verify the file you open reports **4846.625000 s** before you
+> start. `DOC-001` Amendment 1 §A1.2 carries the full table.
+
+| # | pass | play from → to | duration | required? | watch for |
+|---|---|---|---|---|---|
+| **1** | **clean, whole** | **27:10 → 33:30** | 380 s | **required** | **Nothing in particular. Watch it as an audience.** One question afterwards: **where did the music's job end?** Note the timecode only after it finishes |
+| **2** | **muted, whole** | **27:10 → 33:30**, sound off | 380 s | **required** | Does the sequence still sustain with no sound at all? This separates *edit* pacing from *engine* pacing — and the boundary is a picture decision, so this is the pass that answers it most directly |
+| **3** | **the boundary** | **28:40 → 30:30** | 110 s | **required** | The proposed boundary at **29:10**, in context. It sits 18.250 s into a 66.708 s shot. **Does the picture declare a musical transition there?** If it does not, 29:10 is a spreadsheet value, not an editorial event |
+| 4 | the silence boundary | 31:10 → 32:30 | 80 s | optional | SIL-01 opens at 31:43, 50.458 s into a 62.875 s shot. Where the mix's own large level event lives (§3.1). Watch if you are weighing option B |
+| 5 | marked reference | `PASS5_marked_reference_27-10_to_33-30.mp4` | 380 s | **last, if at all** | The only pass that stays on the proxy — it carries burned-in timecode and zone labels, which is exactly why it must not be watched first. **Reference only.** Use it to convert a Pass-1 instinct into a timecode |
+
+**Final Cut Pro on the timeline is equally valid for Passes 1–4** and is preferable if you want to
+scrub. The proxy cuts in `SPRINT3A_WORK/evs001/` remain for watching away from the machine; they are
+now a **convenience, not the instrument.**
 
 ---
 
@@ -188,16 +206,31 @@ If a boundary moves, these are the real picture events available:
 
 ## 5. Instrument limitations — declared before use, not after
 
-| limitation | effect on this session |
-|---|---|
-| **No editorial-resolution viewing master exists.** The only full-length Part 2 renders are 320×180: `Filmage_Editor.mp4` (4846.747 s, lock-conformant to 0.122 s) and `Reduced_Part_2.mp4` (4850.810 s — **4.19 s longer, NOT lock-conformant; do not use it**) | Pacing judgements are **unaffected** — cut points are exact and time is exact. Judgements about the *image* (composition, grade, detail) are **not supported**. Do not rule on anything image-quality-dependent from these files |
-| The proxy carries a watermark | Cosmetic; does not affect timing |
-| Audio is a 44.1 kHz AAC stereo mixdown | Adequate for relative level and for "what is audible." **Not** adequate for mix decisions — duck depth, EQ, final level all belong to a later pass |
-| Frame-difference energy is computed at 64×36, 2 fps | It is a coarse motion proxy. It ranks regions reliably; it does not measure camera movement as such |
-| §3 audio figures are **total mix energy** | They do not isolate engines from speech from wind |
-| No CUE-03 exists | §0 |
+**Retired in v1.2:** *"No editorial-resolution viewing master exists."* It did exist; it had not been
+located. It is now validated, hashed and approved (`DOC-001` Amendment 1).
 
----
+| limitation | status |
+|---|---|
+| ~~No editorial-resolution master~~ | **RETIRED.** 3840×2160, 4846.625000 s, exact to the lock |
+| ~~Audio is a 44.1 kHz proxy mixdown~~ | **RETIRED for viewing.** The master carries AAC 48 kHz stereo |
+| **Six other renders exist and three are 4K look-alikes that are NOT lock-conformant** | **LIVE — the one real hazard.** Verify 4846.625000 s before starting |
+| §3 metrics were computed on the proxy series | **CORROBORATED, not superseded** — see below |
+| §3 audio figures are **total mix energy** | **LIVE.** They measure whether the film gets louder or quieter, never what is making the sound |
+| Frame-difference energy is computed at 64×36, 2 fps | **LIVE.** A coarse motion proxy: it ranks regions reliably, it does not measure camera movement |
+| No CUE-03 exists | **LIVE.** §0 |
+
+### 5.1 Two instruments, one answer
+`DOC-001` requires that a cheap independent check be taken rather than assumed. The §3 region metrics
+were recomputed from the 4K master's 48 kHz audio and compared with the proxy figures:
+
+| measurement | from the **master** | from the proxy | agreement |
+|---|---|---|---|
+| across CUE-03 out (29:10) | **+0.5565 dB** | +0.5251 dB | **0.031 dB** |
+| across SIL-01 in (31:43) | **−7.6244 dB** | −7.6476 dB | **0.023 dB** |
+
+A 320×180 / 44.1 kHz proxy and a 3840×2160 / 48 kHz master agree to within **0.03 dB** on both deltas
+that carry the finding. **The verdicts are unchanged and now rest on two independent instruments:** no
+audible event at 29:10 (below the ~1 dB JND); a large audible event at 31:43.
 
 ## 6. Executive Verdict
 ### 6.1 Viewing findings — TO BE RECORDED
@@ -255,6 +288,12 @@ CUE-07 *are* the entire evidence base for the MOTION grammar (`RSB-AUDIT-001` §
 | `PASS4_sil01_31-10_to_32-30.mp4` | `5e77a2a8a459eae8a4113ac4523b144398b8d1a16ccda9a74d028c568ba63b2a` |
 | `PASS5_marked_reference_27-10_to_33-30.mp4` | `6edcfd7e3c7b736a11c5ae78cb1e7339e8d8c758d904fc5cb486eaca66a159e3` |
 
-All five cut from `Filmage_Editor.mp4` SHA `a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8`.
-Measurements: `intelligence/p2/ess/scripts/evs001_measure.py` · source series
-`SPRINT3A_WORK/audio_rms_0p25.npy`, `video_obs_2fps.npy`.
+All five cut from `Filmage_Editor.mp4` SHA `a53655fc…0f47e8`. **In v1.2 these are a convenience, not
+the instrument** — Passes 1–4 run on the approved master; only Pass 5 (marked reference) remains proxy-only.
+
+**Approved viewing master:** `Alpha RoundUp Part 2 /XML retry/Thursday Aug 20th/Alpha RoudUp Part 2.m4v`
+· sha256 `89e911b1bffe14cefe330f8e4270d467dc06393b622143350ca42de8dbf8cd46` · 4846.625000 s.
+
+Measurements: `intelligence/p2/ess/scripts/evs001_measure.py` · proxy series
+`SPRINT3A_WORK/audio_rms_0p25.npy`, `video_obs_2fps.npy` · master cross-check excerpt
+`SPRINT3A_WORK/evs001/master_1550_2350_mono8k.wav` (1550–2350 s, mono 8 kHz, for level comparison only).
