@@ -17,3 +17,8 @@ source SHA-256, certification date).
 ### docs/architecture/
 Home of architectural vision documents (repository canonical sources,
 frozen at certification; e.g. AIS-001).
+
+### The Three Improvements Principle (ratified 2026-08-21)
+Every significant improvement to WE CAPE shall improve one of three
+things: the Platform, the Production, or the People. Improvements that
+strengthen all three are considered enduring platform investments.
