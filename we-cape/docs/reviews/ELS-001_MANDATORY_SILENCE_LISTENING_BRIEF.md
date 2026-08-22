@@ -1,6 +1,6 @@
 # ELS-001 — Executive Listening Session: the semantics of `MANDATORY_SILENCE`
 ## Governance Status
-Document Type: Executive Listening Session — Brief · Status: **PREPARED — AWAITING SESSION**
+Document Type: Executive Listening Session — Brief · Status: **SESSION HELD 2026-08-22 — FINDING RECORDED, RULING PENDING**
 Date: 2026-08-22 · Authority: Executive Producer · Resolves: `PDR-2026-08-22-ESS-004` (SLF-01, D-18)
 Reporting conformance: `WET-SPEC-REPORT-001` v1.1 — component metrics and objective percentages are
 supplied below; **the Executive Verdict is deliberately blank. It is the output of the session.**
@@ -118,9 +118,18 @@ faithful and the least automatable; option 2 is the most automatable and may be 
 ---
 
 ## 6. Executive Verdict
-> *Blank by design. This is the session's output, not its input.*
+### 6.1 Listening finding — RECORDED 2026-08-22
+> *"The target span contains a composite production audio bed consisting of multiple audible elements,
+> including music/vocals, engine rumble, wind, and speech. The Executive cannot conclude that the
+> audible musical content is exclusively editorial (non-diegetic) based on the available proxy."*
 
-**Content heard:** ☐ non-diegetic score ☐ diegetic/source music ☐ production sound ☐ inaudible
+**Content heard:** ☒ music **and vocals** ☒ production sound (engine, wind) ☒ speech
+☐ ~~inaudible~~ (struck) · diegesis: **UNDETERMINED on the proxy**
+
+**Decidability note:** definition 1 cannot be applied to this finding — it requires the diegesis
+judgement the Executive declined to make. Definitions 2 and 3 can. See PDR Amendment 3.
+
+### 6.2 Ruling — PENDING
 **`MANDATORY_SILENCE` shall mean:** ☐ 1 no non-diegetic score ☐ 2 no music of any kind ☐ 3 no sound but speech ☐ other: ______
 **Disposition of this element:** ☐ permitted, covenant intact ☐ remove ☐ move out of the zone ☐ re-cut so picture and audio coincide
 **Rationale:** ______

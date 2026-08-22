@@ -131,3 +131,52 @@ establishes one fact and refuses to establish the other:
   `WET-SPEC-REPORT-001` and the run's no-silent-recovery constraint.
 
 Status remains **OPEN — AWAITING EXECUTIVE DISPOSITION**.
+
+---
+
+## Amendment 3 — 2026-08-22: Executive Listening Finding (ELS-001). Content determined; diegesis NOT.
+**Finding, as issued by the Executive Producer after listening:**
+
+> *"The target span contains a composite production audio bed consisting of multiple audible elements,
+> including music/vocals, engine rumble, wind, and speech. The Executive cannot conclude that the
+> audible musical content is exclusively editorial (non-diegetic) based on the available proxy."*
+
+### What this settles
+| question | status |
+|---|---|
+| Is the element audible? | **YES** — confirmed by ear and by measurement (26.59% of energy in 80–250 Hz vs 3.87% in the element-free control). The "muted / inaudible" option is struck |
+| Does the span contain musical content? | **YES** — music **and vocals** |
+| Does it contain non-musical content? | **YES** — engine rumble, wind, speech |
+| Is the musical content editorial (non-diegetic)? | **UNDETERMINED on the available proxy** |
+
+### Instrument/ear agreement
+Every measurement in ELS-001 §4 is consistent with a composite bed and is explained by it:
+low-band energy 26.59% (engine + musical bass), pitch-class concentration 51.1% sitting **between**
+the known-score control (69.9%) and the element-free control (38.5%) — dilution by non-musical
+sources — and beat periodicity 0.04 against the score control's 0.70, because the musical pulse is
+buried under mechanical and ambient content. Two independent methods, one conclusion (DOC-001).
+
+### The consequence the Executive Team should weigh before ruling — **decidability**
+The finding does not block a ruling. It blocks *one* of the three:
+
+| definition | applicable to this evidence? | outcome if chosen |
+|---|---|---|
+| **1 — no non-diegetic score** | **NO.** Requires a diegesis judgement the Executive has expressly declined to make on the proxy | ESS-004 remains OPEN pending `/Volumes/10TB` (delta D-22); the gate stays CLOSED indefinitely |
+| **2 — no music of any kind** | **YES.** Music/vocals are audibly present; diegesis is irrelevant to the test | Covenant breached; element disposition follows |
+| **3 — no sound but the primary speech** | **YES.** Engine, wind and music are all present | Covenant breached; element disposition follows |
+
+**Definition 1 is not wrong — it is currently unrulable.** It asks a question the platform's own governed
+artifacts cannot answer, and would do so again for every future silence-zone element. A definition the
+platform cannot adjudicate from the evidence it holds will keep producing UNDETERMINED. That is a
+property of the definition, not of this element, and it is the strongest practical argument in the
+record for choosing 2 or 3 — or for choosing 1 **and** accepting that silence-zone adjudication
+requires camera-original source media on hand, which is a capture-side commitment (see `DWR-032`,
+`CAR-004` §5 Tier 3).
+
+### One further observation, raised because it strengthens the case rather than the ruling
+The finding names **vocals**. The covenant's stated reason for SIL-01 is that *"the town's own words …
+must carry their full civic weight unassisted."* Audible vocals under a civic proclamation are
+competing speech, not merely competing music — a materially stronger concern than an instrumental bed,
+and one that reads on the covenant's own terms regardless of which definition is adopted.
+
+Status remains **OPEN — AWAITING EXECUTIVE RULING** on definitions 1 / 2 / 3.
