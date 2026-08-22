@@ -294,6 +294,12 @@ ROWS = [
  "Proposed and NOT adopted: a KPI is admissible under ER-003 only if every term is derivable from Layer 1 or an instrumented Layer 2 with no human classification step. Ride-to-information becomes admissible once an Executive-defined shot taxonomy exists - then the classification is Executive-authored and the platform merely counts. Retention correlation is deferred as an external-data-class question, not an editorial-mechanics one. Every KPI carries a frozen definition, a version, and the resolver version that produced it, exactly as registries carry registry_version. This is the measurement-vs-score test applied to production intelligence.",
  "Executive ruling before either KPI is implemented; a shot taxonomy for the first","first KPI implementation",
  "HIGH — an unversioned KPI compared across productions is a composite score by another route","LOW to specify, HIGH to retrofit if skipped","P1","Deferred"),
+("DWR-048","Custody boundaries are ruled but the cycle has five stages, not four","F — Governance Debt",D,
+ "ER-004 engineering note N1","docs/rulings/EXECUTIVE_RULINGS.yaml er_004","2026-08-22",
+ "ER-004 names four custody boundaries: AUTHORITATIVE_SOURCE, DERIVED_VIEW, OBSERVATION, DISPOSITION. Its own closing clause - 'a disposition is not a regeneration' - names a fifth stage the list does not contain. REGENERATION is where a disposition becomes a new artifact, and it is already governed by DOC-002.",
+ "A four-stage model implies the chain terminates at a decision. It does not: every disposition in this platform produces a new source. AUTHORITATIVE_SOURCE -> DERIVED_VIEW -> OBSERVATION -> DISPOSITION -> REGENERATION -> a NEW AUTHORITATIVE_SOURCE at a new hash. A cycle, not a pipeline. ESS-004 traversed it end to end on 2026-08-22: locked FCPXML, a provenance view of the audio lanes, an observation of what intersected SIL-01, the ruling, and a regeneration producing CONDUCTOR_SCORE v1.1.0 at a new hash. The custody boundary that most needs to be explicit is where a DECISION becomes an ARTIFACT, because that is where hand-editing would be undetectable - precisely the boundary DOC-002 exists to guard. Proposed: name REGENERATION as the fifth stage and state that it closes the cycle. A naming completion, not new architecture; no new mechanism is needed.",
+ "Executive confirmation","next platform architecture review",
+ "MEDIUM-HIGH — the unnamed boundary is the one DOC-002 guards","VERY LOW (naming, not mechanism)","P2","Deferred"),
 ]
 
 RESOLUTIONS = {
@@ -351,6 +357,32 @@ RESOLUTIONS = {
    "resolution_date": "2026-08-22",
    "resolution_authority": "Executive Producer / Chairman"},
  "DWR-046": {
+   "resolution": ("RULED 2026-08-22, ER-003 Amendment 2. The Executive replaced the engineer's frame "
+                  "entirely, and the replacement is better. source_class is CUSTODY - who placed this "
+                  "observation into the governed record - not authority, not confidence, not "
+                  "provenance. MACHINE produced automatically from governed instrumentation; HUMAN "
+                  "recorded by a person; EXECUTIVE recorded by the Executive. Authority, confidence "
+                  "and evidence are all derived downstream. CUSTODY IS IMMUTABLE. "
+                  "The engineer had offered three readings and argued R3 (authority). R3 was wrong in "
+                  "what it NAMED: authority is a downstream consequence that can change - a "
+                  "disposition can be superseded, an interpretation revised - whereas who placed a "
+                  "record into the corpus is a historical fact that cannot. Putting the immutable "
+                  "fact in the schema and deriving the mutable ones from it is the correct dependency "
+                  "direction, and it is the same reason registries store renderings permanently and "
+                  "derive canonical names rather than the reverse. "
+                  "TWO NOTES RAISED. ER-003-N7: the class definitions as issued still say EXECUTIVE "
+                  "is 'authoritative when used for governed dispositions' and HUMAN is 'not "
+                  "authoritative' - which is the double duty the custody frame was introduced to "
+                  "remove. Proposed: strip the authority language; a separate rule states which "
+                  "custody classes may ground a disposition. ER-003-N8: MACHINE custody must name its "
+                  "instrument, instrument_version and validation reference, because DOC-001 requires "
+                  "an instrument reproduce a known-good result before its output enters custody - "
+                  "'MACHINE' alone is an adjective, which DOC-001 rule 2 exists to stop. "
+                  "STILL OPEN: no validated Layer 2 instrument exists."),
+   "resolution_artifact": "docs/rulings/EXECUTIVE_RULINGS.yaml er_003_amendment_2.a2_2_custody_not_authority",
+   "resolution_date": "2026-08-22",
+   "resolution_authority": "Executive"},
+ "DWR-046-SUPERSEDED": {
    "resolution": ("PARTIALLY RULED, 2026-08-22, ER-003 Amendment 1. THREE EVIDENCE CLASSES adopted: "
                   "MACHINE_OBSERVED, HUMAN_OBSERVED, EXECUTIVE_OBSERVED. Evidence classes, NOT "
                   "confidence levels. Every observation identifies its provenance so downstream "

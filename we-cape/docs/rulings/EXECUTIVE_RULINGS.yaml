@@ -11,7 +11,7 @@
 #   - Executive Producer, 2026-08-22 (DOC-CAND-001 section 4.0)
 # ============================================================================
 register_id: EXECUTIVE_RULINGS
-register_version: 1.3.0   # ER-003 Amendment 1: collection/presentation split, evidence classes, KPI governance
+register_version: 1.4.0   # ER-003 Amendment 2 (view declaration, custody, coverage, missing_data_policy) + ER-004 Custody Boundaries
 schema_version: 1.0
 authority: Chairman
 date: '2026-08-22'
@@ -652,3 +652,203 @@ er_003:
       Recorded so that no downstream reader mistakes the volume of governance issued during the
       session for progress on the session itself. ESS-002 remains OPEN. Nothing in ER-003 or this
       amendment bears on the boundary question.
+
+# ============================================================================
+# ER-003 AMENDMENT 2 - 2026-08-22
+# ============================================================================
+er_003_amendment_2:
+  date: '2026-08-22'
+  authority: Executive
+  application: PROSPECTIVE
+  resolves: [ER-003-N4, ER-003-N5, ER-003-N6]
+
+  a2_1_derived_view_declaration:
+    ruling: >-
+      Every derived view shall declare its scope, filter criteria, and coverage relative to its
+      authoritative source.
+    supersedes: >-
+      the engineer's narrower proposal ("a filtered presentation must declare its filter"), which was
+      scoped to FCPXML presentations. The Executive's form is dataset-independent and binds any
+      derived view of any governed corpus.
+    resolves: ER-003-N4
+    shape:
+      view:
+        source: <authoritative source id>
+        scope: <human-readable scope>
+        filter: {<predicate>: <value>}
+        coverage: {displayed: <int>, total: <int>}
+    worked_examples:
+      - view: {source: FCPXML, scope: Primary Spine, filter: {lane_depth: 0},
+               coverage: {displayed: 214, total: 1025}}
+      - view: {source: CAPTURE_REGISTRY, filter: {gps_enabled: true},
+               coverage: {displayed: 86, total: 143}}
+    engineering_note: >-
+      The failing view this rule was written for would have rendered as
+      "source: FCPXML, scope: Primary Spine, filter: {lane_depth: 0}, coverage: {displayed: 214,
+      total: 1025}". Four lines. The reader would have seen 811 elements they had not been shown and
+      known to ask. The rule costs nothing and it is retroactively testable against the failure that
+      produced it.
+
+  a2_2_custody_not_authority:
+    ruling: >-
+      Classify HOW the observation entered the record, not who made it. source_class is CUSTODY:
+      who placed this observation into the governed record. Authority comes later. Confidence comes
+      later. Evidence comes later. Custody is immutable.
+    source_class:
+      MACHINE: produced automatically from governed instrumentation
+      HUMAN: recorded by a person
+      EXECUTIVE: recorded by the Executive
+    resolves: ER-003-N5
+    engineer_concession: >-
+      The Executive's frame is better than the engineer's, and it is better in a way worth stating
+      precisely. The engineer offered three readings - identity (R1), layer (R2), authority (R3) -
+      and argued R3. R3 was wrong in what it NAMED. Authority is a downstream consequence that can
+      change: a disposition can be superseded, an interpretation revised, a weighting altered.
+      CUSTODY cannot change - who placed a record into the corpus is a historical fact and is
+      immutable once written. Putting an immutable fact in the schema and deriving the mutable ones
+      from it is the correct dependency direction, and it is the same reason registries store
+      renderings permanently and derive canonical names rather than the reverse.
+
+    engineering_notes:
+      - id: ER-003-N7
+        subject: The source_class definitions leak the authority the frame was designed to exclude
+        status: RAISED_NOT_DECIDED
+        observation: >-
+          The ruling states "this isn't authority ... it's custody", and then defines EXECUTIVE as
+          "authoritative when used for governed dispositions" and HUMAN as "not authoritative". As
+          written, source_class carries both custody AND an authority verdict, which is the double
+          duty the frame was introduced to remove.
+        proposed_remedy: >-
+          Strip the authority language from the class definitions. MACHINE - placed by governed
+          instrumentation. HUMAN - placed by a person. EXECUTIVE - placed by the Executive. Full
+          stop. A SEPARATE rule, living wherever dispositions are governed, states which custody
+          classes may ground a governed disposition. Then authority genuinely does come later, and
+          it can be changed without rewriting immutable custody records.
+        needs: Executive confirmation
+
+      - id: ER-003-N8
+        subject: MACHINE custody needs to name its instrument
+        status: RAISED_NOT_DECIDED
+        observation: >-
+          "Produced automatically from governed instrumentation" does not say WHICH instrumentation.
+          DOC-001 requires an instrument reproduce a known-good result before its novel output enters
+          registry custody - so a MACHINE custody record that does not name its instrument cannot be
+          checked against the doctrine that admits it. "MACHINE" alone is an adjective, and DOC-001
+          rule 2 exists to stop exactly that.
+        proposed_remedy: >-
+          MACHINE custody records carry instrument, instrument_version, and a validation reference -
+          for example instrument fcpx_resolve.py, validation "191/191 vs ETC". HUMAN and EXECUTIVE
+          custody records carry an observer identity and, where an observation protocol applies, its
+          class (the EIO/IEO distinction already ruled for EVS is exactly this field).
+        needs: Executive confirmation
+
+  a2_3_kpi_coverage:
+    ruling: >-
+      Every KPI carries coverage - observed, expected, percentage. 93% coverage is not the same
+      thing as 93% confidence.
+    resolves: ER-003-N6 gap 2 (in part)
+    engineering_notes:
+      - id: ER-003-N9
+        subject: This percentage is permitted, and it is worth recording WHY
+        status: RECORDED
+        observation: >-
+          DWR-010 (EXTEND GAP-03) permits percentages only where they represent directly measurable
+          quantities and prohibits aggregation into opaque composites. Coverage is observed divided
+          by expected - one dimension, no weighting, arguable, and its basis travels with it. It
+          PASSES the measurement-vs-score test. Recorded here so a future reviewer does not flag it
+          as a prohibited percentage, and so the reasoning is available when the next percentage is
+          proposed.
+      - id: ER-003-N10
+        subject: Three stored fields where two are independent
+        status: RAISED_NOT_DECIDED
+        observation: >-
+          percentage is derivable from observed and expected. Storing all three creates a drift
+          surface: an edit to one field leaves the other two disagreeing, silently.
+        proposed_remedy: >-
+          Store observed and expected; derive percentage at read time. Or store all three and
+          validate the identity on load, failing loudly on mismatch. Either is fine. Storing three
+          and checking none is the one option that fails silently, which is the failure mode this
+          platform has ruled against since Sprint 3A.
+        needs: schema decision at first KPI implementation
+
+  a2_4_missing_data_policy:
+    ruling: >-
+      The field is named missing_data_policy, not null_policy - the name tells a future developer
+      exactly what it governs.
+    values_as_ruled: [exclude, propagate_unknown]
+    resolves: ER-003-N6 gap 2 (in part)
+    engineering_note:
+      id: ER-003-N11
+      subject: A third value is worth having
+      status: RAISED_NOT_DECIDED
+      observation: >-
+        exclude and propagate_unknown are both safe ONLY because coverage now travels beside the
+        value - exclude shrinks the denominator, and without coverage that is precisely the silent
+        narrowing this whole thread was raised to prevent. With coverage reported, it is honest.
+        There remains a third case neither value covers: a KPI whose partial answer would MISLEAD
+        regardless of a declared coverage figure. A retention or density figure computed over 40% of
+        a runtime is not a weak answer, it is a different question.
+      proposed_addition: >-
+        fail - refuse to emit the KPI when coverage falls below a stated threshold, and report the
+        threshold breach instead of a number. Optional per KPI, not a default.
+      needs: Executive confirmation
+
+# ============================================================================
+# ER-004 - CUSTODY BOUNDARIES
+# ============================================================================
+er_004:
+  id: ER-004
+  title: Custody Boundaries
+  source: Executive Note, 2026-08-22
+  authority: Executive
+  date: '2026-08-22'
+  status: RULED
+  application: PROSPECTIVE
+  scope: WE CAPE PLATFORM - ALL SUBSYSTEMS
+
+  ruling_verbatim: >-
+    The platform shall distinguish between Authoritative Source, Derived View, Observation, and
+    Disposition. A filtered view is not the authoritative source. An observation is not a
+    disposition. A disposition is not a regeneration. Those four custody boundaries shall remain
+    explicit throughout the platform. The platform's long-term value depends as much on preserving
+    custody as it does on preserving evidence.
+
+  the_four:
+    - {stage: AUTHORITATIVE_SOURCE, is: the governed original, example: "Info.fcpxml at sha 2bf06853...3858e7",
+       custody: pinned by hash, mutable: false}
+    - {stage: DERIVED_VIEW, is: a scoped or filtered rendering of a source, example: "primary spine, 214 of 1025",
+       custody: must declare scope, filter and coverage (ER-003 A2.1), mutable: true}
+    - {stage: OBSERVATION, is: a recorded fact about what a view shows, example: "a map overlay dissolves in at 27:10",
+       custody: source_class MACHINE / HUMAN / EXECUTIVE, mutable: false once written}
+    - {stage: DISPOSITION, is: a decision taken on the evidence, example: "MANDATORY_SILENCE prohibits added score only",
+       custody: Executive authority, dated, cited, mutable: only by supersession}
+
+  engineering_note:
+    id: ER-004-N1
+    subject: The ruling names four boundaries but the platform already runs five stages
+    status: RAISED_NOT_DECIDED
+    observation: >-
+      The ruling's own final clause - "a disposition is not a regeneration" - names a fifth stage
+      that the list of four does not contain. REGENERATION is where a disposition becomes a new
+      artifact, and it is already governed: DOC-002 says regenerate, never patch. It is also where
+      the chain closes rather than ends, because a regenerated artifact becomes a new Authoritative
+      Source at a new hash, which future views derive from and future observations describe.
+    the_cycle: >-
+      AUTHORITATIVE_SOURCE -> DERIVED_VIEW -> OBSERVATION -> DISPOSITION -> REGENERATION -> a NEW
+      AUTHORITATIVE_SOURCE at a new hash. Five stages, not four, and it is a cycle rather than a
+      pipeline. ESS-004 traversed it end to end today: locked FCPXML, a provenance view of the audio
+      lanes, an observation of what intersected SIL-01, the Executive ruling, and a regeneration
+      producing CONDUCTOR_SCORE v1.1.0 at a new hash.
+    why_it_matters: >-
+      A four-stage model implies the chain terminates at a decision. It does not. Every disposition
+      in this platform produces a new source, and the custody boundary that most needs to be
+      explicit is the one where a DECISION becomes an ARTIFACT - because that is the boundary where
+      hand-editing would be undetectable, and it is precisely the boundary DOC-002 exists to guard.
+    proposed_remedy: >-
+      Name REGENERATION as the fifth stage and state that it closes the cycle. No new mechanism is
+      needed; DOC-002 already governs it. This is a naming completion, not new architecture.
+    needs: Executive confirmation
+
+  evs_001_status: >-
+    Unchanged. Pass 1 ACTIVE. Boundary NOT declared. Observation card BLANK. Disposition inference
+    FORBIDDEN. Nothing in ER-003 Amendment 2 or ER-004 bears on the ESS-002 boundary question.

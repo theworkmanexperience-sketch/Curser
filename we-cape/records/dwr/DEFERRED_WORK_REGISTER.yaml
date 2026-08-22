@@ -16,8 +16,8 @@ class_definitions:
   IMPLEMENTATION: A decision already made and intentionally postponed. Can be scheduled; needs capacity,
     not authority.
 counts:
-  total: 47
-  deferred_decisions: 18
+  total: 48
+  deferred_decisions: 19
   deferred_implementations: 29
 entries:
 - dwr_id: DWR-001
@@ -974,20 +974,24 @@ entries:
   estimated_complexity: MEDIUM (schema is cheap; a validated visual instrument is not)
   recommended_priority: P2
   current_status: Deferred
-  resolution: 'PARTIALLY RULED, 2026-08-22, ER-003 Amendment 1. THREE EVIDENCE CLASSES adopted: MACHINE_OBSERVED,
-    HUMAN_OBSERVED, EXECUTIVE_OBSERVED. Evidence classes, NOT confidence levels. Every observation identifies
-    its provenance so downstream consumers understand how it entered the platform. STILL OPEN (ER-003-N5):
-    the boundary between HUMAN_OBSERVED and EXECUTIVE_OBSERVED is unstated, and WHO observed is an identity
-    rather than an evidence class. Three non-equivalent readings recorded: R1 Executive Observed is Human
-    Observed with an identity field, making the third class redundant; R2 it is a Layer 3 interpretation,
-    in which case it does not belong among Layer 2 evidence classes and blurs the line ER-003 drew; R3
-    it is a Layer 2 observation that additionally carries GOVERNANCE AUTHORITY - citable as a basis for
-    decision, where HUMAN_OBSERVED is evidence a decision may weigh. R3 is the reading that makes the
-    third class earn its place, but it is an AUTHORITY distinction riding on a provenance field and should
-    say so explicitly, or authority should be its own field. Which reading is intended changes the schema.
-    Not engineering''s to choose. ALSO STILL OPEN: no validated Layer 2 instrument exists - DIE-V at 64x36
-    / 2 fps on a 320x180 proxy cannot see the ruling''s own Layer 2 example.'
-  resolution_artifact: docs/rulings/EXECUTIVE_RULINGS.yaml er_003.amendment_1.a2_evidence_classes
+  resolution: 'RULED 2026-08-22, ER-003 Amendment 2. The Executive replaced the engineer''s frame entirely,
+    and the replacement is better. source_class is CUSTODY - who placed this observation into the governed
+    record - not authority, not confidence, not provenance. MACHINE produced automatically from governed
+    instrumentation; HUMAN recorded by a person; EXECUTIVE recorded by the Executive. Authority, confidence
+    and evidence are all derived downstream. CUSTODY IS IMMUTABLE. The engineer had offered three readings
+    and argued R3 (authority). R3 was wrong in what it NAMED: authority is a downstream consequence that
+    can change - a disposition can be superseded, an interpretation revised - whereas who placed a record
+    into the corpus is a historical fact that cannot. Putting the immutable fact in the schema and deriving
+    the mutable ones from it is the correct dependency direction, and it is the same reason registries
+    store renderings permanently and derive canonical names rather than the reverse. TWO NOTES RAISED.
+    ER-003-N7: the class definitions as issued still say EXECUTIVE is ''authoritative when used for governed
+    dispositions'' and HUMAN is ''not authoritative'' - which is the double duty the custody frame was
+    introduced to remove. Proposed: strip the authority language; a separate rule states which custody
+    classes may ground a disposition. ER-003-N8: MACHINE custody must name its instrument, instrument_version
+    and validation reference, because DOC-001 requires an instrument reproduce a known-good result before
+    its output enters custody - ''MACHINE'' alone is an adjective, which DOC-001 rule 2 exists to stop.
+    STILL OPEN: no validated Layer 2 instrument exists.'
+  resolution_artifact: docs/rulings/EXECUTIVE_RULINGS.yaml er_003_amendment_2.a2_2_custody_not_authority
   resolution_date: '2026-08-22'
   resolution_authority: Executive
 - dwr_id: DWR-047
@@ -1038,3 +1042,29 @@ entries:
   resolution_artifact: docs/rulings/EXECUTIVE_RULINGS.yaml er_003.amendment_1.a3_kpi_governance
   resolution_date: '2026-08-22'
   resolution_authority: Executive
+- dwr_id: DWR-048
+  title: Custody boundaries are ruled but the cycle has five stages, not four
+  category: F — Governance Debt
+  class: DECISION
+  origin: ER-004 engineering note N1
+  discussion_reference: docs/rulings/EXECUTIVE_RULINGS.yaml er_004
+  date_identified: '2026-08-22'
+  reason_deferred: 'ER-004 names four custody boundaries: AUTHORITATIVE_SOURCE, DERIVED_VIEW, OBSERVATION,
+    DISPOSITION. Its own closing clause - ''a disposition is not a regeneration'' - names a fifth stage
+    the list does not contain. REGENERATION is where a disposition becomes a new artifact, and it is already
+    governed by DOC-002.'
+  executive_context: 'A four-stage model implies the chain terminates at a decision. It does not: every
+    disposition in this platform produces a new source. AUTHORITATIVE_SOURCE -> DERIVED_VIEW -> OBSERVATION
+    -> DISPOSITION -> REGENERATION -> a NEW AUTHORITATIVE_SOURCE at a new hash. A cycle, not a pipeline.
+    ESS-004 traversed it end to end on 2026-08-22: locked FCPXML, a provenance view of the audio lanes,
+    an observation of what intersected SIL-01, the ruling, and a regeneration producing CONDUCTOR_SCORE
+    v1.1.0 at a new hash. The custody boundary that most needs to be explicit is where a DECISION becomes
+    an ARTIFACT, because that is where hand-editing would be undetectable - precisely the boundary DOC-002
+    exists to guard. Proposed: name REGENERATION as the fifth stage and state that it closes the cycle.
+    A naming completion, not new architecture; no new mechanism is needed.'
+  dependencies: Executive confirmation
+  trigger_event: next platform architecture review
+  estimated_value: MEDIUM-HIGH — the unnamed boundary is the one DOC-002 guards
+  estimated_complexity: VERY LOW (naming, not mechanism)
+  recommended_priority: P2
+  current_status: Deferred
