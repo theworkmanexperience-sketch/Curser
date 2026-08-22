@@ -9,7 +9,7 @@ gate_class: EXECUTION_GATE
 gate_kind: PROGRESSION
 gate_id: GATE-2026-08-22-MIE-DOWNSTREAM
 schema_version: WET-SPEC-GATE-001-v1.0
-version: 1.2.0            # 1.1.0 -> 1.2.0: ESS-004 DISPOSITIONED (ELS-001 ruling); 3 of 4 blocking items remain OPEN
+version: 1.3.0            # 1.2.0 -> 1.3.0: ESS-002 scope narrowed by Executive direction; EVS-001 session prepared
 scope: PRODUCTION
 subject: downstream Musical Intelligence Engine work for Alpha RoundUp Part 2
 
@@ -61,10 +61,52 @@ blocking_items:
     type: PDR
     path: docs/pdr/PDR-2026-08-22-ESS-002_Escort_Ride_vs_CUE-03_Span.md
     conflict_id: VCONF-02
+    related_deltas: [D-15, D-19]
+    related_findings: [SLF-02]
     subject: escort ride duration vs CUE-03 span
     status: OPEN
+    scope: >-
+      NARROWED 2026-08-22 by Executive direction to ONE question: is the proposed musical
+      boundary (00:29:10.000) correct? Options A/B/C/D are read strictly as boundary options.
+      Every question about how music behaves once it exists is out of scope and registered
+      forward - see deferred_to_cue_pdr.
+    scope_authority: Executive Producer, 2026-08-22
+    scope_amendment: PDR-2026-08-22-ESS-002 Amendment 2
+    narrowing_reason: >-
+      Circular dependency. ESS-002 blocks MIE Pass 3; Pass 3 produces CUE-03; CUE-03 is what
+      the struck questions needed. Placement is decidable from picture; behaviour is not
+      decidable until a cue exists. Narrowing breaks the loop.
+    session_ref: EVS-001
+    session_doc: docs/reviews/EVS-001_ESCORT_RIDE_VIEWING_BRIEF.md
+    session_class: EXECUTIVE_VIEWING_SESSION
+    session_status: PREPARED
+    deferred_to_cue_pdr:
+      target: PDR-<date>-CUE-03
+      questions:
+        - Does the composed CUE-03 overstay its span?
+        - Does its exit read as natural at the boundary set by ESS-002?
+        - Is the LEAD behaviour state achievable over this span's production audio, measured
+          at -3.17 dB mean across the gap (EVS-001 section 3.1)?
+      licence: >-
+        The cue PDR MAY move the boundary set by ESS-002, provided it records why. A boundary
+        is a hypothesis with a recorded rationale, not a lock. The governance value is not that
+        the boundary never moves - it is that it never moves silently (DOC-002, applied to a
+        decision rather than an artifact).
+      risk_named: >-
+        PREMATURE FREEZING. Deciding placement before composition is a bet that the correct
+        boundary is knowable before the music that must land on it exists. Usually good,
+        occasionally wrong: a musical phrase has a length no picture measurement predicts.
+        The licence above is the mitigation and is not optional. See ESS-002 section A2.4.
     blocks_specifically: [MIE_PASS_3_MOTION, CUE-03, SIL-01_APPROACH]
     regenerates_on_disposition: [EDITORIAL_SYNCHRONIZATION.yaml, CONDUCTOR_SCORE.yaml]
+    evidence_added_2026_08_22:
+      - "Amendment 1: no cue-sheet boundary in this region lands on a cut. CUE-03 out sits 18.250 s
+         into a 66.708 s take; SIL-01 in sits 50.458 s into a 62.875 s take. Only CUE-03's IN point
+         is near a cut (0.792 s)."
+      - "EVS-001 section 3.1: no audio event at 29:10 (+0.525 dB, below the ~1 dB JND). The mix
+         performs a large level event at the SIL-01 boundary instead (-7.648 dB)."
+      - "EVS-001 section 3.2: mean shot length rises 2.975x across the boundary while frame-difference
+         energy falls only 0.826x. The deceleration is in the CUTTING, not the motion."
   - id: PDR-2026-08-22-ESS-003
     type: PDR
     path: docs/pdr/PDR-2026-08-22-ESS-003_Caption_Policy_vs_Locked_Cut.md
@@ -185,3 +227,8 @@ status_history:
             D-18 CLOSED, D-22 dependency retired, 0 breaches, covenant INTACT. Artifacts regenerated
             at run WECAPE-AR2-ESS004-REGEN-20260822-174500. GATE REMAINS CLOSED: 3 of 4 blocking
             items still OPEN. Next: ESS-002."}
+  - {date: 2026-08-22, state: CLOSED, authority: Executive Producer,
+     note: "ESS-002 scope NARROWED to one question - is the proposed musical boundary correct.
+            Behaviour questions registered forward against PDR-<date>-CUE-03 with an explicit
+            licence to move the boundary if recorded. EVS-001 Executive Viewing Session prepared
+            and revised to v1.1 under the narrowing. Still 3 of 4 OPEN; gate unchanged."}

@@ -1,65 +1,52 @@
 # EVS-001 — Executive Viewing Session: how Road Soul breathes with the edit
 ## Governance Status
-Document Type: **Executive Viewing Session — Brief** · Status: **PREPARED 2026-08-22 — SESSION NOT YET HELD**
+Document Type: **Executive Viewing Session — Brief** · Version **1.1** · Status: **PREPARED 2026-08-22 — SESSION NOT YET HELD**
 Date: 2026-08-22 · Authority: Executive Producer · Resolves: `PDR-2026-08-22-ESS-002` (VCONF-02, D-15, D-19, SLF-02)
 Precedent: `ELS-001` (Executive Listening Session) · Session class: **EVS** — picture + sound + editorial pacing
+**v1.0 → v1.1:** scope narrowed by Executive direction 2026-08-22 (`ESS-002` Amendment 2). The session
+now answers **one question**. Two questions are struck and registered against `PDR-<date>-CUE-03`.
 Reporting conformance: `WET-SPEC-REPORT-001` v1.1 — component metrics and objective percentages below;
 **the Executive Verdict is deliberately blank. It is the output of the session.**
 
 | field | value |
 |---|---|
-| **Purpose** | Determine how CUE-03 ESCORT_ANTHEM should relate to the escort ride, and disposition ESS-002 |
+| **Purpose** | **Is the proposed musical boundary (00:29:10.000) correct?** Nothing more |
 | **Media span** | `00:27:10 – 00:33:30` of the locked cut (380 s), with two close passes |
-| **Deliverable** | One Executive disposition on ESS-002 (option + boundary timecode) |
-| **Expected duration** | ~20 minutes for all five passes; ~8 minutes for Passes 1 and 3 alone |
+| **Deliverable** | One boundary: option A/B/C/D + a timecode to the frame + whether it sits on a cut |
+| **Expected duration** | **~13 minutes** — Passes 1, 2 and 3. Passes 4 and 5 are optional reference |
 | **Processing Status** | `READY` — media cut, measurements complete, verdict blank |
 
 ---
 
-## 0. Read this first — two of your five questions cannot be answered by watching
+## 0. Scope — one question, by Executive direction
 
-Before anything else, because ESS-004's lesson was *don't answer the wrong question*, and the same
-trap is set here in a different costume.
+> *"ESS-002 should answer one question. Is the proposed musical boundary correct? Nothing more.
+> Everything involving actual music waits until CUE-03 exists."* — Executive direction, 2026-08-22
 
-**There is no CUE-03.** No cue in the MOTION family has been generated. The lock's only WE CAPE-added
-score asset is `KICKSTANDS UP v1`, at `00:00:00.000–00:01:16.417` — nowhere near this span. **The
-entire region from 27:10 to 33:30 is unscored today**, and will be unscored during the viewing.
+**The question:** at which timecode does CUE-03 ESCORT_ANTHEM end?
 
-| your question | answerable by this session? | why |
-|---|---|---|
-| Does the ride feel **sustained**? | **YES** | picture and production sound, both present |
-| Does the cue **overstay**? | **NO — nothing to observe** | requires a cue that does not exist |
-| Does the cue **exit naturally**? | **NO — nothing to observe** | same |
-| Does production sound become **stronger after the exit**? | **YES** — and it is already measured (§3.1) | production audio is present and continuous |
-| Does the audience feel the **deceleration**? | **YES** — and it is already measured (§3.2) | picture only |
+**Why the narrowing was necessary.** There is no CUE-03. No MOTION-family cue has been generated; the
+lock's only WE CAPE-added score asset is `KICKSTANDS UP v1` at `00:00:00.000–00:01:16.417`. The entire
+27:10–33:30 region is unscored and will be unscored during the viewing. Two of the five questions
+originally posed asked you to observe a cue that does not exist — and the dependency was circular,
+since ESS-002 blocks the Pass 3 work that would produce it.
 
-**And the dependency is circular.** ESS-002 blocks MIE Pass 3. Pass 3 is what would produce CUE-03.
-CUE-03 is what questions 2 and 3 need. As posed, ESS-002 cannot be fully dispositioned before the
-work it is blocking has been done.
-
-### The recommended way through — split the question
-
-**Rule now on what the picture can settle; defer what only the cue can settle.**
-
-| decide **now**, in this session | defer to a **cue PDR**, after CUE-03 exists |
+| original question | status in v1.1 |
 |---|---|
-| Which option — A / B / C / D | Whether the finished cue overstays |
-| **Where the boundary sits, to the frame** | Whether the finished cue's exit is natural |
-| Whether the deceleration is real and intended | Whether the exit gesture works as written |
-| Whether the ride sustains itself without music | Final level, duck depth, tail length |
+| Does the ride feel **sustained**? | **IN SCOPE** — Pass 1 and Pass 2 |
+| Does the cue **overstay**? | **STRUCK** → registered against `PDR-<date>-CUE-03` |
+| Does the cue **exit naturally**? | **STRUCK** → registered against `PDR-<date>-CUE-03` |
+| Does production sound become **stronger after the exit**? | **IN SCOPE** — already measured, §3.1 |
+| Does the audience feel the **deceleration**? | **IN SCOPE** — already measured, §3.2 |
 
-This is not a workaround. It is the shape the platform already has: the cue sheet's family gate and
-`PDR-<date>-CUE-03` are *designed* to hold the "does it work" question until there is something to
-listen to. EVS-001 supplies what that PDR will need — a boundary, and a recorded intent.
+The struck questions are **registered, not discarded** — `ESS-002` Amendment 2 §A2.3 carries them
+forward as a written obligation on the cue PDR, together with a third that the measurements raised:
+*is the `LEAD` behaviour state achievable over this span's production audio?* (§3.1 — the span runs at
+−3.17 dB, the loudest sustained level in the region).
 
-**One alternative you could authorize instead, which I do not recommend.** `KICKSTANDS UP v1` could be
-laid under 27:40–29:10 as a stand-in so questions 2 and 3 have something to hear. It is an existing
-asset, so no music would be generated and no constraint breached. I advise against it: it is
-CELEBRATION colour, not Road Soul MOTION, and a stand-in in the wrong family anchors the ear to the
-wrong thing — you would be ruling on how *that* bed exits, not how the anthem should. If you want it
-anyway, say so and it takes ten minutes to prepare.
-
----
+**And the boundary you set is a hypothesis, not a lock.** `PDR-<date>-CUE-03` holds an explicit
+licence to move it if the composed cue demands it — provided it records why. The governance value is
+not that the boundary never moves; it is that it never moves silently.
 
 ## 1. What you are watching, and what the picture actually does
 
@@ -88,19 +75,19 @@ seconds *before* the cue sheet asks the music to leave.
 
 ---
 
-## 2. The five viewing passes — in this order, for a reason
+## 2. The viewing passes — three required, two optional, in this order for a reason
 
 Clean before marked, sound before silence-comparison, whole before close. Markers and measurements
 anchor perception; they come *after* the judgement, not before it (DOC-001: validate the instrument
 before the measurement — here, the instrument is you, and priming is the contamination).
 
-| # | file | span | duration | watch for |
-|---|---|---|---|---|
-| **1** | `PASS1_clean_27-10_to_33-30.mp4` | 27:10–33:30 | 380 s | **Nothing in particular. Watch it as an audience.** Then: where did you first want music to leave? Where did you first feel the ride settle? Note timecodes only after it ends |
-| **2** | `PASS2_muted_27-10_to_33-30.mp4` | 27:10–33:30 | 380 s | **Muted.** Does the ride still feel sustained with no sound at all? This isolates *picture* pacing from *audio* pacing — the only way to tell whether the deceleration you feel is in the edit or in the engines |
-| **3** | `PASS3_boundary_28-40_to_30-30.mp4` | 28:40–30:30 | 110 s | The proposed exit at **29:10**, in context. It sits 18 s into a 67 s shot. Does anything happen there? |
-| **4** | `PASS4_sil01_31-10_to_32-30.mp4` | 31:10–32:30 | 80 s | The **SIL-01** boundary at 31:43, 50 s into a 63 s shot. This is where the mix's own big level event lives (§3.1) |
-| **5** | `PASS5_marked_reference_27-10_to_33-30.mp4` | 27:10–33:30 | 380 s | Burned-in timecode and zone labels. **Reference only — watch last.** Use it to convert your Pass-1 instincts into timecodes |
+| # | file | span | duration | required? | watch for |
+|---|---|---|---|---|---|
+| **1** | `PASS1_clean_27-10_to_33-30.mp4` | 27:10–33:30 | 380 s | **required** | **Nothing in particular. Watch it as an audience.** One question afterwards: **where did the music's job end?** Note the timecode only after it finishes |
+| **2** | `PASS2_muted_27-10_to_33-30.mp4` | 27:10–33:30 | 380 s | **required** | **Muted.** Does the sequence still sustain with no sound at all? This separates *edit* pacing from *engine* pacing — and the boundary is a picture decision, so this is the pass that most directly answers it |
+| **3** | `PASS3_boundary_28-40_to_30-30.mp4` | 28:40–30:30 | 110 s | **required** | The proposed boundary at **29:10**, in context. It sits 18.25 s into a 66.7 s shot. **Does anything happen there?** If nothing does, 29:10 is not a boundary — it is a number |
+| 4 | `PASS4_sil01_31-10_to_32-30.mp4` | 31:10–32:30 | 80 s | optional | The SIL-01 boundary at 31:43, 50.5 s into a 62.9 s shot. Where the mix's own large level event lives (§3.1). Watch if you are considering option B |
+| 5 | `PASS5_marked_reference_27-10_to_33-30.mp4` | 27:10–33:30 | 380 s | **last, if at all** | Burned-in timecode and zone labels. **Reference only.** Use it to convert a Pass-1 instinct into a timecode |
 
 **Preferred instrument: Final Cut Pro, on the timeline itself.** These files are 320×180 — the only
 full-length Part 2 render that exists is a proxy (§5). For *pacing* that is sufficient, because pacing
@@ -123,7 +110,7 @@ frame-difference energy from the 2 fps observable series. Cuts: FCPXML primary s
 | SIL-01 first 77 s 31:43–33:00 | 77 s | **−10.82 dB** | 16.60 | 4 | 19.25 s |
 | SIL-01 remainder 33:00–38:52 | 352 s | −12.76 dB | 19.03 | 17 | 20.71 s |
 
-### 3.1 Question 4 — "does production sound become stronger after the exit?"
+### 3.1 "Does production sound become stronger after the boundary?"
 **Measured answer: no. It does not change at all.**
 
 - across CUE-03's out point: **−3.6925 dB → −3.1675 dB = +0.525 dB.** Below the ~1 dB just-noticeable
@@ -153,11 +140,19 @@ production audio already does. And **CUE-03 is scheduled to exit at the loudest 
 (−2.50 dB, 29:00–29:30). Music leaving at the exact point the film is at its fullest is a legitimate
 choice, but it should be a chosen one.
 
+**One consequence for the deferred cue PDR, raised here because the measurement raises it.**
+`CONDUCTOR_SCORE` assigns CUE-03 the behaviour state **`LEAD`** — *"music carries the span; ambient
+engine and crowd sound sit under it but must remain audible."* Over a span whose production audio
+already runs at **−3.17 dB, the loudest sustained level in the region**, `LEAD` is a demanding ask:
+the music must sit above engines that the ESS-004 ruling now guarantees will stay. That is not a
+boundary question and is out of scope today — it is registered as the third deferred question in
+`ESS-002` §A2.3.
+
 *Caveat, stated plainly:* this is **total mix energy**, not "engine energy." Speech, wind, engines and
 the contributed clip are all in it. It measures whether the film gets louder or quieter, not what is
 making the sound.
 
-### 3.2 Questions 1 and 5 — "sustained?" and "does the audience feel the deceleration?"
+### 3.2 "Sustained?" and "does the audience feel the deceleration?"
 **Measured answer: the deceleration is real, and it is in the *cutting*, not the *motion*.**
 
 | | CUE-03 span | the gap | change |
@@ -206,49 +201,45 @@ If a boundary moves, these are the real picture events available:
 
 ## 6. Executive Verdict
 ### 6.1 Viewing findings — TO BE RECORDED
-**Pass 1 (clean, as an audience).** First point you wanted music to leave: `______`
-First point the ride felt settled: `______`
+**Pass 1 (clean, as an audience).** Where did the music's job end? `______`
 Did the ride feel sustained through to SIL-01? ☐ yes ☐ no ☐ partly: `______`
 
-**Pass 2 (muted).** With no sound, does the sequence still sustain? ☐ yes ☐ no
+**Pass 2 (muted).** With no sound at all, does the sequence still sustain? ☐ yes ☐ no
 Is the deceleration in the **edit** or in the **engines**? ☐ edit ☐ engines ☐ both
 
-**Pass 3 (29:10 boundary).** Does anything happen at 29:10? ☐ yes ☐ no
-**Pass 4 (31:43 boundary).** Does the SIL-01 drop land? ☐ yes ☐ no ☐ lands but late/early: `______`
+**Pass 3 (the 29:10 boundary).** Does anything happen at 29:10? ☐ yes ☐ no
 
-### 6.2 Disposition of ESS-002 — TO BE RECORDED
-**Selected option:** ☐ A cue stands ☐ B extend ☐ C new CUE-03b ☐ D registry only ☐ Other: `______`
-**Boundary timecode, to the frame:** `______` **On a cut?** ☐ yes ☐ no — if no, recorded reason: `______`
-**If C — energy value for CUE-03b:** `______` *(§3.2: inheriting CUE-03's energy 5 is contradicted by a 2.975× drop in cut rate)*
-**Deferred to `PDR-<date>-CUE-03`:** ☐ overstay ☐ exit gesture ☐ level/duck ☐ tail length
+### 6.2 Disposition of ESS-002 — the one question
+**Is the proposed musical boundary (00:29:10.000) correct?** ☐ yes ☐ no
+
+**Selected option:** ☐ A stands at 29:10 ☐ B extend ☐ C new CUE-03b ☐ D registry only ☐ Other: `______`
+**Boundary timecode, to the frame:** `______`
+**Does it sit on a cut?** ☐ yes ☐ no — **if no, the recorded reason:** `______`
+**If C — in point for CUE-03b and its energy value:** `______`
+*(§3.2: inheriting CUE-03's energy 5 is contradicted by a 2.975× drop in cut rate)*
 **Rationale:** `______`
 **Dispositioned by / date:** `______`
 
-### 6.3 The behavioral question you actually raised — TO BE RECORDED
-> *"Let's let ESS-002 teach us how Road Soul breathes with the edit. I suspect this will become the
-> defining musical behavior of the documentary — and potentially a signature characteristic of the
-> Road Soul™ style itself."*
+### 6.3 Optional — the behavioral question, if a rule presents itself
+Only if watching makes one obvious. **This is not required to disposition ESS-002**, and the session
+should not be held open for it.
 
-If a rule emerges, state it here in behavioral terms — the same form `CONDUCTOR_SCORE` already
-encodes — so it can be tested against CUE-07 RIDE_PASSAGE and CUE-08 NIGHT_ARRIVALS before anyone
-calls it a style:
+> *"Let's let ESS-002 teach us how Road Soul breathes with the edit."*
 
 **Candidate behavior:** `______`
 *(e.g. "when the cut rate falls by more than 2x, the score yields to production sound and does not
-return until the cut rate recovers" — a rule that is measurable, falsifiable, and checkable against
-every cue in the sheet)*
+return until the cut rate recovers" — measurable, falsifiable, checkable against every cue in the sheet)*
 
-**Do not promote it to doctrine from this session.** One instance is an observation. The platform's
-own rule is that a Reference Execution earns its authority by being *re-run*; a musical behavior
-should earn its by being *re-tested*. **CUE-07 RIDE_PASSAGE (56:10–58:43) is the natural second
-test** — also MOTION family, also road, also unscored today. If the behavior holds there, it is a
-style. If it does not, it was a good decision about one sequence, which is still worth having.
-
----
+**Do not promote it to doctrine from this session.** One instance is an observation. **CUE-07
+RIDE_PASSAGE (56:10–58:43) is the natural second test** — also MOTION family, also road, also
+unscored today. And CUE-07 matters twice over: MOTION currently has only two cues, so CUE-03 and
+CUE-07 *are* the entire evidence base for the MOTION grammar (`RSB-AUDIT-001` §4).
 
 ## 7. After the session
 - ESS-002 dispositioned → `EDITORIAL_SYNCHRONIZATION.yaml` and `CONDUCTOR_SCORE.yaml` **regenerate**
   (DOC-002 — never hand-edited).
+- The three deferred questions travel to `PDR-<date>-CUE-03` (`ESS-002` A2.3), which holds a recorded
+  licence to move the boundary if the composed cue demands it.
 - Gate: 2 of 4 dispositioned; **still CLOSED**. Remaining: ESS-001, ESS-003.
 - Any candidate behavior recorded at §6.3 goes to `docs/doctrine/` as a **candidate**, not doctrine,
   with CUE-07 named as its test.

@@ -179,3 +179,90 @@ Producer's. Nothing above narrows the four options; it corrects three claims att
 **Rationale:** ______
 **Dispositioned by / date:** ______
 
+
+
+---
+
+# Amendment 2 — 2026-08-22: **SCOPE NARROWED BY EXECUTIVE DIRECTION**
+
+**Direction as issued:**
+
+> *"ESS-002 should answer one question. Is the proposed musical boundary correct? Nothing more.
+> Everything involving actual music waits until CUE-03 exists."*
+
+## A2.1 The question this PDR now answers — and only this
+
+> **Is the proposed musical boundary correct?**
+
+Concretely: **at which timecode does CUE-03 ESCORT_ANTHEM end?** The four options A/B/C/D are
+unchanged; they are now read strictly as boundary options, stripped of every claim about how music
+will behave once it exists.
+
+| in scope | out of scope — deferred to `PDR-<date>-CUE-03` |
+|---|---|
+| Which option: A / B / C / D | Whether the finished cue overstays |
+| The out point, to the frame | Whether the exit gesture reads as natural |
+| Whether that point sits on a cut, and if not, why not | Level, duck depth, tail length, reverb decay |
+| Whether the picture's deceleration is real and intended | Whether the `LEAD` behavior state is achievable over this production audio |
+| If C: the in point for CUE-03b, and its energy value | Whether the chosen boundary survives contact with the composed cue |
+
+## A2.2 Why the scope had to narrow — the circularity, restated
+
+ESS-002 blocks MIE Pass 3. Pass 3 produces CUE-03. CUE-03 is what "does it overstay" needs.
+Left as originally written, this PDR could not be dispositioned until the work it blocks had been
+done. Narrowing it to the boundary breaks the loop: **placement is decidable from picture; behavior
+is not decidable until there is a cue.**
+
+## A2.3 The deferred question — registered, not lost
+
+A question moved out of scope and not written down anywhere is a question that disappears. It is
+therefore registered here as a forward obligation on the cue PDR:
+
+```
+DEFERRED-FROM: PDR-2026-08-22-ESS-002 (Amendment 2, Executive direction 2026-08-22)
+DEFERRED-TO:   PDR-<date>-CUE-03
+QUESTIONS:     1. Does the composed CUE-03 overstay its span?
+               2. Does its exit read as natural at the boundary set here?
+               3. Is the LEAD behaviour state achievable over this span's production audio?
+                  (measured at -3.17 dB mean across the gap - see EVS-001 section 3.1)
+LICENCE:       The cue PDR MAY move the boundary set here, provided it records why.
+               See A2.4. A boundary is a hypothesis with a rationale, not a lock.
+```
+
+## A2.4 The risk this narrowing creates, stated so it is not discovered later
+
+Deciding placement before composition is disciplined. It is also a **bet**: that the correct boundary
+can be known before the music that has to land on it exists.
+
+That bet is usually good and occasionally wrong. A composer working the span may find the natural
+resolve is fourteen seconds later than the ruled boundary — not because the ruling was careless, but
+because a musical phrase has a length that no picture measurement predicts.
+
+**The failure mode is not blur. It is premature freezing** — treating a boundary ruled at EVS-001 as
+immovable because it is now in a governed artifact, and bending the music to fit a number.
+
+**The mitigation is stated above and is not optional:** `PDR-<date>-CUE-03` holds an explicit licence
+to move this boundary **if it records why**. The governance value is not that the boundary never
+changes. It is that it never changes *silently* — the same property `DOC-002` gives derived
+artifacts, applied to a decision.
+
+## A2.5 Session
+
+`EVS-001` (`docs/reviews/EVS-001_ESCORT_RIDE_VIEWING_BRIEF.md`), revised to v1.1 under this
+narrowing: the two unanswerable questions are struck from the session, and the passes are retargeted
+onto the boundary question alone.
+
+**Status remains OPEN — AWAITING EXECUTIVE DISPOSITION**, now on one question.
+
+---
+
+## Decision (Amendment 2 revision — supersedes all decision blocks above)
+
+**Is the proposed musical boundary (00:29:10.000) correct?** ☐ yes ☐ no
+
+**Selected option:** ☐ A cue stands at 29:10 ☐ B extend ☐ C new CUE-03b ☐ D registry only ☐ Other: ______
+**Boundary timecode, to the frame:** ______
+**Does it sit on a cut?** ☐ yes ☐ no — **if no, the recorded reason:** ______
+**If C — in point for CUE-03b, and its energy value:** ______
+**Rationale:** ______
+**Dispositioned by / date:** ______
