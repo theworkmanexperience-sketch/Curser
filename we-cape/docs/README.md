@@ -45,3 +45,34 @@ until ratified through the ordinary route. The preserved section is immutable �
 a later run that contradicts it is recorded in a new Doctrine Source, because
 the value of a reflection is that it was written before the outcome was known.
 Feeds: Production Intelligence Review · LESSONS_LEARNED · Platform Retrospective.
+
+### Document Class: Execution Gate (ratified 2026-08-22)
+A machine-readable control artifact answering one question: may the next stage of
+work begin. Governed by WET-SPEC-GATE-001. Gates form ONE ledger with two kinds —
+PUBLICATION (GATE 1/2/3, SOP-06, ratified from CAPE clauses 17-19, Chairman
+authority) and PROGRESSION (per sprint, production or phase, Executive Producer
+authority). This honours WET-REV-002's standing rule that approvals join the
+existing gate ledger and never a parallel system. A PROGRESSION gate can only
+further restrict; it confers no release authority and never substitutes for
+GATE 1/2/3. Gates live beside the work they govern and are discovered by the
+marker gate_class: EXECUTION_GATE, not by filename. New gate files SHOULD be
+named GATE.yaml. A gate missing any required field is non-conforming and is
+treated as CLOSED — a control artifact fails shut. Gates compose by AND and the
+aggregate is computed, never authored (scripts/gate_status.py).
+
+### Document Class: Doctrine (ratified 2026-08-22)
+A ratified platform principle, numbered DOC-NNN, held in docs/doctrine/.
+Doctrine is promoted from a Doctrine Source candidate and is normative once
+ratified. Platform-scope doctrine carries Chairman countersignature. Distinct
+from a Doctrine Source (DOC-SRC-NNN), which preserves evidence and is normative
+about nothing. In force: DOC-001 (validate the instrument before the
+measurement) · DOC-002 (never patch intelligence, regenerate intelligence).
+
+### Reference Execution Scorecards (ratified 2026-08-22)
+Every Reference Execution carries a factual fingerprint generated from its
+governed sources by scripts/re_scorecard.py — counts, ratios, booleans and
+statuses only, never a subjective score. Scorecards accumulate into
+RE_SCORECARD_INDEX.md so platform evolution is visible across RE-001, RE-002 and
+beyond. Each scorecard carries a context block (proxy resolution, sampling
+fraction, measurable-vs-indeterminate segments); two Reference Executions are
+comparable on evidence-bounded fields only when their context rows match.

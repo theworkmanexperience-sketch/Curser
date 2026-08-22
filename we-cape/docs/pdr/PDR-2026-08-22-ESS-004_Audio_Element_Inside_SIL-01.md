@@ -76,3 +76,24 @@ and RETURN behaviour from the zone's definition. Should be dispositioned togethe
 **Silence-law scope now reads:** ☐ no score ☐ no sound ☐ other: ______
 **Rationale:** ______
 **Dispositioned by / date:** ______
+
+---
+
+## Amendment 1 — 2026-08-22 (evidence only; no decision changed)
+**Raised by:** implementation, during the Gate Ledger Standard work.
+**Effect:** narrows the question. Does not answer it.
+
+SOP-06 Phase A4 (GATE 1 — Timeline Audit) records the CONTRIBUTED custody exception for this
+production verbatim as: *"every clip resolves to ORIGINAL or cleared-CONTRIBUTED custody (currently
+cleared: **NOTOR1OUS ×2** only)."*
+
+The element in question is therefore **already custody-cleared at GATE 1**. Two consequences:
+
+1. **The element's presence in the timeline is not at issue.** It is one of exactly two cleared
+   contributed items in the whole lock. Option B's "remove it" framing should be read as *remove it
+   from this window*, never as *it should not be here*.
+2. **The open question is narrower than first stated.** It is only whether the audio *content* is
+   musical for silence-law purposes — which is still resolved by the 62-second listen, and which still
+   sets the platform-wide reading of MANDATORY_SILENCE.
+
+Options A–D stand unchanged. Status remains **OPEN — AWAITING EXECUTIVE DISPOSITION**.

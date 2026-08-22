@@ -1,27 +1,56 @@
 # ============================================================================
-# Downstream authorization gate — machine-readable
+# Execution Gate — conforms to WET-SPEC-GATE-001 v1.0 (Gate Ledger Standard)
+# Discovery marker: gate_class: EXECUTION_GATE  (the marker is the index)
 # Issued by: Final Executive Disposition, Sprint 3A, 2026-08-22, item 4
 # Reference Execution: RE-001 (WECAPE-AR2-SPRINT3A-20260822-114028)
 # MIE tooling SHALL read this file before any generation step.
 # ============================================================================
+gate_class: EXECUTION_GATE
+gate_kind: PROGRESSION
 gate_id: GATE-2026-08-22-MIE-DOWNSTREAM
-version: 1.0.0
-issued: 2026-08-22
-authority: Executive Producer
+schema_version: WET-SPEC-GATE-001-v1.0
+version: 1.1.0            # 1.0.0 -> 1.1.0: conformed to the Gate Ledger Standard
+scope: PRODUCTION
 subject: downstream Musical Intelligence Engine work for Alpha RoundUp Part 2
+
 state: CLOSED
-downstream_mie_authorized: false
+authorized: false
+downstream_mie_authorized: false   # DEPRECATED alias of `authorized`; retained for prior references
+
+authority: Executive Producer
+issued: 2026-08-22
+review_by: 2026-09-05
 
 reference_execution: RE-001
 reference_execution_doc: docs/reference_executions/RE-001_WECAPE-AR2-SPRINT3A.md
 disposition_doc: docs/reports/G3-ESS-001_EXECUTIVE_DISPOSITION.md
+standard_doc: docs/specs/WET-SPEC-GATE-001_v1.0_Gate_Ledger_Standard.md
 
 unblock_condition: >-
   All four blocking PDRs reviewed AND dispositioned by the Executive Producer.
   Partial disposition does not partially open this gate.
 
-blocking_pdrs:
+composition: ADDITIVE
+composition_note: >-
+  Gates compose by AND. This gate can only further restrict. It confers no release
+  authority and does not substitute for SOP-06 GATE 1/2/3, which remain the terminal
+  publication authority. A production with this gate OPEN and GATE 3 unrecorded is
+  unpublished.
+
+sop06_placement:
+  phase: "Phase B — Score & Sound (the MIE window)"
+  relationship: >-
+    Phase B already holds that timeline timing is frozen and MIE work proceeds against
+    the lock XML. This gate narrows Phase B for this production only, and expires when
+    its blocking items are dispositioned.
+  caution: >-
+    SOP-06 B2 — any picture change during Phase B voids the lock and requires re-export
+    and re-audit. It would also invalidate RE-001's input hashes. Two options in
+    PDR-2026-08-22-ESS-003 and one in PDR-2026-08-22-ESS-004 carry that consequence.
+
+blocking_items:
   - id: PDR-2026-08-22-ESS-001
+    type: PDR
     path: docs/pdr/PDR-2026-08-22-ESS-001_S16_Label_vs_Observed_Illumination.md
     conflict_id: VCONF-01
     subject: S16 segment label vs observed illumination
@@ -29,6 +58,7 @@ blocking_pdrs:
     blocks_specifically: [MIE_PASS_4_CELEBRATION, CUE-08]
     regenerates_on_disposition: [EDITORIAL_SYNCHRONIZATION.yaml, CONDUCTOR_SCORE.yaml]
   - id: PDR-2026-08-22-ESS-002
+    type: PDR
     path: docs/pdr/PDR-2026-08-22-ESS-002_Escort_Ride_vs_CUE-03_Span.md
     conflict_id: VCONF-02
     subject: escort ride duration vs CUE-03 span
@@ -36,6 +66,7 @@ blocking_pdrs:
     blocks_specifically: [MIE_PASS_3_MOTION, CUE-03, SIL-01_APPROACH]
     regenerates_on_disposition: [EDITORIAL_SYNCHRONIZATION.yaml, CONDUCTOR_SCORE.yaml]
   - id: PDR-2026-08-22-ESS-003
+    type: PDR
     path: docs/pdr/PDR-2026-08-22-ESS-003_Caption_Policy_vs_Locked_Cut.md
     conflict_id: VCONF-03
     subject: caption policy vs the locked cut's lower-thirds
@@ -44,6 +75,7 @@ blocking_pdrs:
     regenerates_on_disposition: [CAPTION_REGISTRY.yaml, EDITORIAL_SYNCHRONIZATION.yaml]
     carries_consent_dimension: true
   - id: PDR-2026-08-22-ESS-004
+    type: PDR
     path: docs/pdr/PDR-2026-08-22-ESS-004_Audio_Element_Inside_SIL-01.md
     conflict_id: SLF-01
     related_deltas: [D-18, D-22]
@@ -55,35 +87,44 @@ blocking_pdrs:
       Listen to 00:33:37.708-00:34:39.667 of the locked cut and classify the element's
       content as musical or non-musical. RE-001 did not determine this: the source media
       (/Volumes/10TB/.../NOTOR1OUS_CARAVAN_2_.mp4) was offline for that run (delta D-22).
+    narrowing_evidence: >-
+      SOP-06 GATE 1 records NOTOR1OUS x2 as the cleared CONTRIBUTED custody exception.
+      The element's PRESENCE in the timeline is therefore already gate-cleared; the open
+      question is narrower than first stated - it is only whether the audio content is
+      musical for silence-law purposes. See PDR Amendment 1 (2026-08-22).
     precedent_value: >-
       The disposition defines whether MANDATORY_SILENCE means "no score" or "no sound"
       for the platform, not only for this element.
 
 pre_existing_gates_still_in_force:
-  - {id: MIE-PROD-001, source: CUE_SHEET_v1.1, effect: cue generation gated}
-  - {id: PASS_GATE, source: PDR-2026-08-21-MIE-001_RevA,
+  - {id: GATE-1, kind: PUBLICATION, source: SOP-06 Phase A4, effect: timeline custody audit}
+  - {id: GATE-2, kind: PUBLICATION, source: SOP-06 Phase C2, effect: claims/content review}
+  - {id: GATE-3, kind: PUBLICATION, source: SOP-06 Phase C3, effect: Chairman publication approval}
+  - {id: MIE-PROD-001, kind: PROGRESSION, source: CUE_SHEET_v1.1, effect: cue generation gated}
+  - {id: PASS_GATE, kind: PROGRESSION, source: PDR-2026-08-21-MIE-001_RevA,
      effect: "passes 1-5 in sequence; all four Conversation beds PDR'd before Pass 2 unlocks"}
-gate_composition_rule: >-
-  This gate is additive. Opening it does not open any pre-existing gate, and no pre-existing
-  gate opening substitutes for this one.
 
 recommended_disposition_order:
-  - {step: 1, pdrs: [PDR-2026-08-22-ESS-004, PDR-2026-08-22-ESS-002],
+  - {step: 1, items: [PDR-2026-08-22-ESS-004, PDR-2026-08-22-ESS-002],
      reason: "both concern SIL-01 - its interior and its left boundary; ESS-004 also sets the
               silence-law scope the others inherit"}
-  - {step: 2, pdrs: [PDR-2026-08-22-ESS-001], reason: "reaches CUE-08 (Pass 4)"}
-  - {step: 3, pdrs: [PDR-2026-08-22-ESS-003], reason: "independent of music; carries a consent dimension"}
+  - {step: 2, items: [PDR-2026-08-22-ESS-001], reason: "reaches CUE-08 (Pass 4)"}
+  - {step: 3, items: [PDR-2026-08-22-ESS-003], reason: "independent of music; carries a consent dimension"}
 
-on_all_dispositioned:
+on_open:
   required_actions:
     - regenerate EDITORIAL_SYNCHRONIZATION.yaml and CONDUCTOR_SCORE.yaml from the disposed values
     - archive the regenerated run as RE-002 with the delta against RE-001 categorized
-    - set this gate state to OPEN and record the opening authority and date
+    - generate RE-002's scorecard and regenerate RE_SCORECARD_INDEX.md
+    - set state to OPEN, authorized to true, and append to status_history
+  doctrine_ref: DOC-002
   note: >-
-    Regeneration is not optional. Both artifacts are regenerate-on-mismatch and never
-    hand-edited (ADR-009 section 2); editing a disposed value into them by hand would
+    Regeneration is not optional (DOC-002). Both artifacts are regenerate-on-mismatch and
+    never hand-edited (ADR-009 section 2); editing a disposed value into them by hand would
     break the property that makes them citable.
 
 status_history:
   - {date: 2026-08-22, state: CLOSED, authority: Executive Producer,
      note: "issued with Final Executive Disposition, Sprint 3A"}
+  - {date: 2026-08-22, state: CLOSED, authority: Executive Producer,
+     note: "conformed to WET-SPEC-GATE-001 v1.0; ESS-004 narrowed by SOP-06 GATE 1 clearance evidence"}
