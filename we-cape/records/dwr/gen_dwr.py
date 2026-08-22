@@ -300,6 +300,12 @@ ROWS = [
  "A four-stage model implies the chain terminates at a decision. It does not: every disposition in this platform produces a new source. AUTHORITATIVE_SOURCE -> DERIVED_VIEW -> OBSERVATION -> DISPOSITION -> REGENERATION -> a NEW AUTHORITATIVE_SOURCE at a new hash. A cycle, not a pipeline. ESS-004 traversed it end to end on 2026-08-22: locked FCPXML, a provenance view of the audio lanes, an observation of what intersected SIL-01, the ruling, and a regeneration producing CONDUCTOR_SCORE v1.1.0 at a new hash. The custody boundary that most needs to be explicit is where a DECISION becomes an ARTIFACT, because that is where hand-editing would be undetectable - precisely the boundary DOC-002 exists to guard. Proposed: name REGENERATION as the fifth stage and state that it closes the cycle. A naming completion, not new architecture; no new mechanism is needed.",
  "Executive confirmation","next platform architecture review",
  "MEDIUM-HIGH — the unnamed boundary is the one DOC-002 guards","VERY LOW (naming, not mechanism)","P2","Deferred"),
+("DWR-049","None of Sprint 3A's four Primary Sources is raw production evidence","F — Governance Debt",D,
+ "ER-004 Amendment 1, engineering note N2","docs/rulings/EXECUTIVE_RULINGS.yaml er_004_amendment_1","2026-08-22",
+ "ER-004 Amendment 1 defines Primary Sources as 'immutable evidence ACQUIRED FROM PRODUCTION'. Measured against the four inputs the entire Part 2 evidence chain rests on, none was acquired from production. Filmage_Editor.mp4 is a RENDER of the lock. Info.fcpxml is an EXPORT of editorial decisions. The lock SRT is ASR OUTPUT derived from the master. P2_LOCK_timing.json is an EXPORT. The artifacts genuinely acquired from production are the camera originals, and they are offline - delta D-22, the same volume that could not be reached during ESS-004.",
+ "NOT a crisis and NOT blocking anything. All four are immutable in practice, hash-pinned, and produced OUTSIDE the platform by an editorial process the platform does not govern, so they behave exactly like Primary Sources and the ruling works. The gap is definitional. Three options for a future ruling, no recommendation: (A) keep two classes, define Primary Source as the most authoritative acquisition-side artifact AVAILABLE and record its derivation beside its hash; (B) three classes - PRODUCTION EVIDENCE (camera originals, telemetry, audio) then EDITORIAL ARTIFACT (lock render, FCPXML, SRT, ETC) then GOVERNED ARTIFACT (platform-regenerated), where the middle class is immutable but derived and produced outside platform governance; (C) keep two classes and add a derivation_note to every Primary Source. WET-SPEC-DIE-001 already grades transcript authority GT-1/GT-2/GT-3, so the platform has precedent for grading source authority rather than treating sources as flat - option B is the closest analogue.",
+ "Executive ruling, whenever convenient","next platform architecture review, or when camera originals come back online",
+ "MEDIUM — the definition and the evidence chain disagree, and the chain is the one that matters","VERY LOW (a definition, or one field)","P3","Deferred"),
 ]
 
 RESOLUTIONS = {
@@ -356,6 +362,27 @@ RESOLUTIONS = {
    "resolution_artifact": "docs/rulings/EXECUTIVE_RULINGS.yaml EC-N2; intelligence/p2/ess/scripts/gen_artifacts.py",
    "resolution_date": "2026-08-22",
    "resolution_authority": "Executive Producer / Chairman"},
+ "DWR-048": {
+   "resolution": ("RULED 2026-08-22, ER-004 Amendment 1. PRIMARY SOURCES vs GOVERNED ARTIFACTS. "
+                  "Primary Sources are immutable evidence acquired from production. Governed "
+                  "Artifacts are regenerated products derived from that evidence under governed "
+                  "processes. Regeneration produces a NEW governed artifact; it does not alter or "
+                  "replace the originating evidence. "
+                  "This CORRECTS THE ENGINEER'S FRAMING, not merely completes the ruling. ER-004-N1 "
+                  "said a regenerated artifact 'becomes a new Authoritative Source at a new hash' - "
+                  "that collapsed two different things. A regenerated artifact is a GOVERNED "
+                  "ARTIFACT and never becomes evidence. The corrected cycle: PRIMARY SOURCE "
+                  "(immutable, never in the cycle) feeds DERIVED VIEW -> OBSERVATION -> DISPOSITION "
+                  "-> REGENERATION -> GOVERNED ARTIFACT, and a Governed Artifact may feed a further "
+                  "view - so the cycle runs among Governed Artifacts while Primary Sources form a "
+                  "floor beneath it that nothing in the cycle can reach. Evidence does not move. "
+                  "Products do. "
+                  "Verified against ESS-004: CONDUCTOR_SCORE moved 1.0.0 -> 1.1.0 while all four "
+                  "input hashes stayed identical - the ruling holding in practice before it was "
+                  "written. One follow-on raised at DWR-049."),
+   "resolution_artifact": "docs/rulings/EXECUTIVE_RULINGS.yaml er_004_amendment_1",
+   "resolution_date": "2026-08-22",
+   "resolution_authority": "Executive"},
  "DWR-046": {
    "resolution": ("RULED 2026-08-22, ER-003 Amendment 2. The Executive replaced the engineer's frame "
                   "entirely, and the replacement is better. source_class is CUSTODY - who placed this "

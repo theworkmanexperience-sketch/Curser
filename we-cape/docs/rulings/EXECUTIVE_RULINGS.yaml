@@ -11,7 +11,7 @@
 #   - Executive Producer, 2026-08-22 (DOC-CAND-001 section 4.0)
 # ============================================================================
 register_id: EXECUTIVE_RULINGS
-register_version: 1.4.0   # ER-003 Amendment 2 (view declaration, custody, coverage, missing_data_policy) + ER-004 Custody Boundaries
+register_version: 1.5.0   # ER-004 Amendment 1: Primary Sources vs Governed Artifacts
 schema_version: 1.0
 authority: Chairman
 date: '2026-08-22'
@@ -852,3 +852,89 @@ er_004:
   evs_001_status: >-
     Unchanged. Pass 1 ACTIVE. Boundary NOT declared. Observation card BLANK. Disposition inference
     FORBIDDEN. Nothing in ER-003 Amendment 2 or ER-004 bears on the ESS-002 boundary question.
+
+# ============================================================================
+# ER-004 AMENDMENT 1 - 2026-08-22.  Resolves ER-004-N1.
+# ============================================================================
+er_004_amendment_1:
+  date: '2026-08-22'
+  authority: Executive
+  application: PROSPECTIVE
+  resolves: ER-004-N1
+
+  ruling_verbatim: >-
+    The platform now distinguishes between Primary Sources and Governed Artifacts. Primary Sources
+    are immutable evidence acquired from production. Governed Artifacts are regenerated products
+    derived from that evidence under governed processes. Regeneration produces a NEW governed
+    artifact. It does not alter or replace the originating evidence. This distinction preserves
+    evidentiary custody while allowing governed artifacts to evolve through disposition and
+    regeneration.
+
+  engineer_correction_accepted: >-
+    This corrects the engineer's own framing, not merely the ruling's. ER-004-N1 said a regenerated
+    artifact "becomes a new Authoritative Source at a new hash". That collapsed two different things.
+    A regenerated artifact is a GOVERNED ARTIFACT. It never becomes evidence. The four hash-pinned
+    Sprint 3A inputs were never altered by any regeneration and never will be - CONDUCTOR_SCORE
+    moved 1.0.0 -> 1.1.0 while every input hash stayed identical, which is the ruling holding in
+    practice before it was written.
+
+  the_corrected_cycle: >-
+    PRIMARY SOURCE (immutable, never in the cycle) feeds DERIVED VIEW -> OBSERVATION -> DISPOSITION
+    -> REGENERATION -> GOVERNED ARTIFACT. A Governed Artifact may itself feed a further derived
+    view, so the CYCLE runs among Governed Artifacts while Primary Sources form a floor beneath it
+    that nothing in the cycle can reach. Evidence does not move. Products do.
+
+  worked_example_ess_004:
+    primary_sources_unchanged:
+      - {artifact: Filmage_Editor.mp4, sha256: a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8}
+      - {artifact: Info.fcpxml, sha256: 2bf0685373d6963bc151b982fd8b16b072d47ca88bb36f3c4dcd4cf5563858e7}
+      - {artifact: lock SRT, sha256: 89d61f965aa17e4d3dade14173869b34efb0c09d689b1c347d3c9c8f6eca1c6b}
+      - {artifact: P2_LOCK_timing.json, sha256: e91318a6719c81e448e6c57267dff7a807076cb9aded822a459fb6353e80010d}
+    governed_artifact_evolved: {artifact: CONDUCTOR_SCORE.yaml, from: 1.0.0, to: 1.1.0,
+                                trigger: ESS-004 disposition, mechanism: regeneration (DOC-002)}
+    verdict: evidence untouched, product advanced - exactly as the ruling states
+
+  engineering_note:
+    id: ER-004-N2
+    subject: None of Sprint 3A's four Primary Sources is raw production evidence
+    status: RAISED_NOT_DECIDED
+    priority: not blocking anything
+    observation: >-
+      "Primary Sources are immutable evidence ACQUIRED FROM PRODUCTION." Measured against the four
+      inputs the entire Part 2 evidence chain rests on, none of them was acquired from production.
+      Filmage_Editor.mp4 is a RENDER of the lock. Info.fcpxml is an EXPORT of editorial decisions.
+      The SRT is ASR OUTPUT derived from the master. P2_LOCK_timing.json is an EXPORT. The artifacts
+      that were genuinely acquired from production are the camera originals - and they are offline
+      (delta D-22, the same volume that could not be reached during ESS-004).
+    why_it_is_not_a_crisis: >-
+      All four are immutable in practice, hash-pinned, and produced OUTSIDE the platform by an
+      editorial process the platform does not govern - so they behave exactly like Primary Sources
+      and the ruling works. The gap is definitional, not operational.
+    three_options_for_a_future_ruling:
+      - id: A
+        option: >-
+          keep two classes; define Primary Source as the most authoritative acquisition-side artifact
+          AVAILABLE, and record its derivation alongside its hash
+      - id: B
+        option: >-
+          three classes - PRODUCTION EVIDENCE (camera originals, telemetry, audio recordings) ->
+          EDITORIAL ARTIFACT (lock render, FCPXML, SRT, ETC) -> GOVERNED ARTIFACT (platform-
+          regenerated). The middle class is immutable but derived, and produced outside platform
+          governance
+      - id: C
+        option: keep two classes and add a derivation_note field to every Primary Source
+    note: >-
+      WET-SPEC-DIE-001 already grades transcript authority GT-1 / GT-2 / GT-3, so the platform has
+      precedent for grading source authority rather than treating all sources as flat. Option B is
+      the closest analogue to that precedent. NO RECOMMENDATION - this is a governance decision.
+    needs: Executive ruling, whenever convenient
+    register_entry: DWR-049
+
+  evs_001_status_at_close:
+    pass_1: ACTIVE
+    boundary_declared: false
+    observation_card: BLANK
+    disposition_inference: FORBIDDEN
+    note: >-
+      Confirmed by the Executive as the correct operational state. The architecture is ready.
+      Nothing further is recorded until the card is written.

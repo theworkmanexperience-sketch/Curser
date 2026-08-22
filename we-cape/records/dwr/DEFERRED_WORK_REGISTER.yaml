@@ -16,8 +16,8 @@ class_definitions:
   IMPLEMENTATION: A decision already made and intentionally postponed. Can be scheduled; needs capacity,
     not authority.
 counts:
-  total: 48
-  deferred_decisions: 19
+  total: 49
+  deferred_decisions: 20
   deferred_implementations: 29
 entries:
 - dwr_id: DWR-001
@@ -1067,4 +1067,49 @@ entries:
   estimated_value: MEDIUM-HIGH — the unnamed boundary is the one DOC-002 guards
   estimated_complexity: VERY LOW (naming, not mechanism)
   recommended_priority: P2
+  current_status: Deferred
+  resolution: 'RULED 2026-08-22, ER-004 Amendment 1. PRIMARY SOURCES vs GOVERNED ARTIFACTS. Primary Sources
+    are immutable evidence acquired from production. Governed Artifacts are regenerated products derived
+    from that evidence under governed processes. Regeneration produces a NEW governed artifact; it does
+    not alter or replace the originating evidence. This CORRECTS THE ENGINEER''S FRAMING, not merely completes
+    the ruling. ER-004-N1 said a regenerated artifact ''becomes a new Authoritative Source at a new hash''
+    - that collapsed two different things. A regenerated artifact is a GOVERNED ARTIFACT and never becomes
+    evidence. The corrected cycle: PRIMARY SOURCE (immutable, never in the cycle) feeds DERIVED VIEW ->
+    OBSERVATION -> DISPOSITION -> REGENERATION -> GOVERNED ARTIFACT, and a Governed Artifact may feed
+    a further view - so the cycle runs among Governed Artifacts while Primary Sources form a floor beneath
+    it that nothing in the cycle can reach. Evidence does not move. Products do. Verified against ESS-004:
+    CONDUCTOR_SCORE moved 1.0.0 -> 1.1.0 while all four input hashes stayed identical - the ruling holding
+    in practice before it was written. One follow-on raised at DWR-049.'
+  resolution_artifact: docs/rulings/EXECUTIVE_RULINGS.yaml er_004_amendment_1
+  resolution_date: '2026-08-22'
+  resolution_authority: Executive
+- dwr_id: DWR-049
+  title: None of Sprint 3A's four Primary Sources is raw production evidence
+  category: F — Governance Debt
+  class: DECISION
+  origin: ER-004 Amendment 1, engineering note N2
+  discussion_reference: docs/rulings/EXECUTIVE_RULINGS.yaml er_004_amendment_1
+  date_identified: '2026-08-22'
+  reason_deferred: ER-004 Amendment 1 defines Primary Sources as 'immutable evidence ACQUIRED FROM PRODUCTION'.
+    Measured against the four inputs the entire Part 2 evidence chain rests on, none was acquired from
+    production. Filmage_Editor.mp4 is a RENDER of the lock. Info.fcpxml is an EXPORT of editorial decisions.
+    The lock SRT is ASR OUTPUT derived from the master. P2_LOCK_timing.json is an EXPORT. The artifacts
+    genuinely acquired from production are the camera originals, and they are offline - delta D-22, the
+    same volume that could not be reached during ESS-004.
+  executive_context: 'NOT a crisis and NOT blocking anything. All four are immutable in practice, hash-pinned,
+    and produced OUTSIDE the platform by an editorial process the platform does not govern, so they behave
+    exactly like Primary Sources and the ruling works. The gap is definitional. Three options for a future
+    ruling, no recommendation: (A) keep two classes, define Primary Source as the most authoritative acquisition-side
+    artifact AVAILABLE and record its derivation beside its hash; (B) three classes - PRODUCTION EVIDENCE
+    (camera originals, telemetry, audio) then EDITORIAL ARTIFACT (lock render, FCPXML, SRT, ETC) then
+    GOVERNED ARTIFACT (platform-regenerated), where the middle class is immutable but derived and produced
+    outside platform governance; (C) keep two classes and add a derivation_note to every Primary Source.
+    WET-SPEC-DIE-001 already grades transcript authority GT-1/GT-2/GT-3, so the platform has precedent
+    for grading source authority rather than treating sources as flat - option B is the closest analogue.'
+  dependencies: Executive ruling, whenever convenient
+  trigger_event: next platform architecture review, or when camera originals come back online
+  estimated_value: MEDIUM — the definition and the evidence chain disagree, and the chain is the one that
+    matters
+  estimated_complexity: VERY LOW (a definition, or one field)
+  recommended_priority: P3
   current_status: Deferred
