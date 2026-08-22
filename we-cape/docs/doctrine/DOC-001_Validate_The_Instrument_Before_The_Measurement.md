@@ -104,17 +104,37 @@ conformance are independent properties, and only one of them makes a timecode me
 
 ## A1.3 The rule
 
-> **An instrument is validated by conformance first and fidelity second. For any judgement expressed
-> in timecode, the viewing master SHALL be verified against the governed lock — duration, frame rate,
-> and hash — before it is used, and its hash recorded. Among conformant candidates, prefer the
-> highest fidelity. A non-conformant candidate is not a lower-quality option; it is a different film.**
+> **Validate the instrument by conformance before trusting its fidelity.**
+>
+> For any judgement expressed in timecode, the viewing master SHALL be verified against the governed
+> lock — duration, frame rate, and hash — before it is used, and its hash recorded. Among conformant
+> candidates, prefer the highest fidelity. **A non-conformant candidate is not a lower-quality option;
+> it is a different film.**
+
+*Wording ruled by the Executive Producer, 2026-08-22, in preference to the engineer's longer draft. It
+generalizes past picture: the same test applies to audio stems, telemetry, GPS tracks, drone logs,
+FCPXML exports, and any future model whose output is expressed against a timeline. **Fidelity describes
+how good an instrument is. Conformance describes whether it is measuring the same thing you are.***
 
 This is the same doctrine, not a new one. `191/191` validated a resolver against governed values before
 its novel output was read. `4846.625000 s` validates a viewing master against the same lock before an
 Executive's eyes are spent on it. Rule 2 applies unchanged: **state the result as a number, not an
 adjective.** "The 4K master" is an adjective. "4846.625000 s, exact" is a validation.
 
-## A1.4 The approved viewing master for Alpha RoundUp Part 2
+## A1.4 The register — exactly one, by Executive Ruling
+
+> *"Before any Executive Viewing Session (EVS), the platform shall designate exactly one Approved
+> Viewing Master. Every other render becomes reference only."*
+
+Recorded as `intelligence/p2/registries/APPROVED_VIEWING_MASTER.yaml`. **Exactly one entry per
+production may carry `status: APPROVED`.** Minimum evidence, all six required — a missing field is a
+disqualification, not a caveat:
+
+`sha256` · `exact_runtime_s` · `frame_rate` · `resolution` · `editorial_conformance` · `approval_status`
+
+**A render absent from the register is not approved. Silence is not approval.**
+
+## A1.5 The approved viewing master for Alpha RoundUp Part 2
 
 ```
 path      Alpha RoundUp Part 2 /XML retry/Thursday Aug 20th/Alpha RoudUp Part 2.m4v
@@ -127,7 +147,7 @@ status    APPROVED VIEWING MASTER for Executive creative judgement, Alpha RoundU
 excluded  the three non-conformant renders in A1.2 are NOT approved for any timecoded judgement
 ```
 
-## A1.5 Rule 4 exercised — the two instruments agree
+## A1.6 Rule 4 exercised — the two instruments agree
 
 The doctrine's fourth requirement — *"where a second, independent check is available at low cost, take
 it"* — was discharged rather than assumed. The `EVS-001` region metrics were recomputed from the master

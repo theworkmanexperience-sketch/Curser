@@ -1,0 +1,178 @@
+# ============================================================================
+# Approved Viewing Master Register
+# Executive Ruling, 2026-08-22: "Before any Executive Viewing Session (EVS),
+# the platform shall designate exactly ONE Approved Viewing Master. Every other
+# render becomes reference only."
+#
+# Doctrine: DOC-001 Amendment 1 — validate the instrument by conformance before
+# trusting its fidelity.
+#
+# EXACTLY ONE entry per production may carry status: APPROVED.
+# A render absent from this register is NOT approved. Silence is not approval.
+# ============================================================================
+register_id: APPROVED_VIEWING_MASTER
+register_version: 1.0.0
+schema_version: 1.0
+conforms_to: DOC-001 Amendment 1
+authority: Executive Producer
+date: '2026-08-22'
+
+minimum_evidence:
+  note: >-
+    Executive Ruling 2026-08-22. Every field below is REQUIRED before a render may
+    be designated APPROVED. A missing field is a disqualification, not a caveat.
+  required_fields:
+    - sha256
+    - exact_runtime_s
+    - frame_rate
+    - resolution
+    - editorial_conformance
+    - approval_status
+  conformance_definition: >-
+    editorial_conformance compares exact_runtime_s against the governed editorial lock
+    duration. CONFORMANT means equality to the millisecond. Anything else is
+    NON_CONFORMANT and is ineligible for any judgement expressed in timecode - it is not
+    a lower-quality option, it is a different film.
+  selection_rule: >-
+    Conformance FIRST, fidelity SECOND. Among conformant candidates prefer the highest
+    fidelity. Never select by resolution, file size or filename.
+
+productions:
+  - production: Alpha RoundUp Part 2
+    editorial_lock_duration_s: 4846.625
+    lock_format: 3840x2160p24 NDF
+    lock_sources:
+      fcpxml_sha256: 2bf0685373d6963bc151b982fd8b16b072d47ca88bb36f3c4dcd4cf5563858e7
+      etc_sha256: e91318a6719c81e448e6c57267dff7a807076cb9aded822a459fb6353e80010d
+
+    approved_viewing_master:
+      path: "AlphaRoundUp_2026/Alpha RoundUp Part 2 /XML retry/Thursday Aug 20th/Alpha RoudUp Part 2.m4v"
+      volume: WE_CAPE_OUTPUT
+      sha256: 89e911b1bffe14cefe330f8e4270d467dc06393b622143350ca42de8dbf8cd46
+      exact_runtime_s: 4846.625000
+      frame_rate: 24/1
+      frame_rate_note: NDF, non-drop
+      resolution: 3840x2160
+      video_codec: h264
+      audio: AAC 48 kHz stereo
+      size_bytes: 12199752138
+      editorial_conformance: CONFORMANT      # exact to the millisecond, delta 0.000 s
+      approval_status: APPROVED
+      approved_by: Executive Producer
+      approved_date: '2026-08-22'
+      approved_for: Executive creative and editorial judgement, Alpha RoundUp Part 2
+      validated_by: Implementation Engineer
+      validation_method: >-
+        ffprobe duration, frame rate and stream inventory read directly from the container;
+        SHA-256 computed over the whole file; duration compared against the governed lock.
+        Stated as a number, not an adjective (DOC-001 rule 2).
+      first_session: EVS-001
+
+    # ------------------------------------------------------------------
+    # REFERENCE ONLY. None of these may be used for a timecoded judgement.
+    # The three NON_CONFORMANT 4K/large renders are the live hazard: same size,
+    # same codec, same resolution, nearly the same filename as the approved file.
+    # ------------------------------------------------------------------
+    reference_only:
+      - path: "Alpha RoundUp Part 2 /XML retry/Thursday Aug 20th/Reduced Files/Alpha RoudUp Part 2.mp4"
+        exact_runtime_s: 4846.625000
+        resolution: 720x480
+        size_bytes: 1600000000            # 1.6 GB, du -h
+        editorial_conformance: CONFORMANT
+        approval_status: REFERENCE_ONLY
+        reason: conformant but lower fidelity; the 4K master supersedes it for creative judgement
+
+      - path: "Alpha RoundUp Part 2 /XML retry/Thursday Aug 20th/Final Data Source Files/Filmage_Editor.mp4"
+        exact_runtime_s: 4846.747000
+        delta_vs_lock_s: 0.122
+        resolution: 320x180
+        sha256: a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8
+        size_bytes: 399320021
+        editorial_conformance: NEAR_CONFORMANT
+        approval_status: REFERENCE_ONLY
+        approved_use: >-
+          ENGINEERING ONLY - timing, synchronisation, level analysis, registry extraction.
+          This is the Sprint 3A / RE-001 proxy. Its methodology is now empirically corroborated:
+          its region level deltas agree with the approved master to within 0.031 dB (see
+          instrument_agreement below). It remains valid for the tasks it was validated for.
+          It is NOT approved for Executive creative judgement.
+        watermarked: true
+
+      - path: "Saftey File/Alpha RoudUp Part 2_SRT_.m4v"
+        exact_runtime_s: 4848.125000
+        delta_vs_lock_s: 1.500
+        resolution: 854x480
+        size_bytes: 941000000
+        editorial_conformance: NON_CONFORMANT
+        approval_status: REFERENCE_ONLY
+        hazard: LOW
+
+      - path: "Alpha RoundUp Part 2 /Reduced_Part_2.mp4"
+        exact_runtime_s: 4850.810000
+        delta_vs_lock_s: 4.185
+        resolution: 320x180
+        size_bytes: 389000000
+        editorial_conformance: NON_CONFORMANT
+        approval_status: REFERENCE_ONLY
+        hazard: LOW
+
+      - path: "Saftey File/Alpha RoudUp Part 2 Safe 2.m4v"
+        exact_runtime_s: 4861.833333
+        delta_vs_lock_s: 15.208
+        resolution: 3840x2160
+        size_bytes: 12000000000
+        editorial_conformance: NON_CONFORMANT
+        approval_status: REFERENCE_ONLY
+        hazard: HIGH
+        hazard_note: >-
+          12 GB, 3840x2160, h264, filename differs from the approved master by three
+          characters. Indistinguishable from the approved file in a directory listing.
+          Would place every recorded timecode 15.208 s away from the FCPXML.
+
+      - path: "Saftey File/Alpha RoudUp Part 2 - Saftey .m4v"
+        exact_runtime_s: 4868.625000
+        delta_vs_lock_s: 22.000
+        resolution: 3840x2160
+        size_bytes: 12000000000
+        editorial_conformance: NON_CONFORMANT
+        approval_status: REFERENCE_ONLY
+        hazard: HIGH
+        hazard_note: >-
+          12 GB, 3840x2160, h264. The largest deviation of any candidate, and the delta is a
+          suspiciously round 22.000 s - consistent with a slate, countdown or alternative tail,
+          NOT diagnosed. Would place every recorded timecode 22 s away from the FCPXML.
+
+    selection_hazard_summary:
+      total_candidates: 7
+      conformant: 2
+      non_conformant: 5
+      four_k_candidates: 3
+      four_k_conformant: 1
+      finding: >-
+        Selecting a viewing master by fidelity alone would have been wrong two times in three.
+        A 720x480 render is conformant while two 3840x2160 renders are not. Fidelity and
+        conformance are independent properties and only one of them makes a timecode mean
+        anything. This register exists so the question is never asked twice.
+
+    instrument_agreement:
+      note: >-
+        DOC-001 rule 4 - where a second independent check is available at low cost, take it.
+        Region level deltas recomputed from the approved master's 48 kHz audio and compared
+        with the Sprint 3A proxy series they were originally derived from.
+      checks:
+        - measurement: across CUE-03 out (00:29:10)
+          master_db: 0.5565
+          proxy_db: 0.5251
+          agreement_db: 0.031
+        - measurement: across SIL-01 in (00:31:43)
+          master_db: -7.6244
+          proxy_db: -7.6476
+          agreement_db: 0.023
+      conclusion: >-
+        A 320x180 / 44.1 kHz proxy and a 3840x2160 / 48 kHz master agree to within 0.03 dB on
+        both deltas that carry the EVS-001 finding. The Sprint 3A proxy methodology now has
+        empirical validation for timing and level analysis. Verdicts unchanged: no audible
+        event at 29:10; a large audible event at 31:43.
+
+sessions_using_this_register:
+  - {session: EVS-001, production: Alpha RoundUp Part 2, date: '2026-08-22', status: PREPARED}

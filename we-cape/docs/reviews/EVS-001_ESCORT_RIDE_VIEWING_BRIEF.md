@@ -16,6 +16,7 @@ Reporting conformance: `WET-SPEC-REPORT-001` v1.1 — component metrics and obje
 | **Media span** | `00:27:10 – 00:33:30` of the locked cut (380 s), with two close passes |
 | **Deliverable** | One boundary: option A/B/C/D + a timecode to the frame + whether it sits on a cut |
 | **Expected duration** | **~13 minutes** — Passes 1, 2 and 3. Passes 4 and 5 are optional reference |
+| **Register** | `intelligence/p2/registries/APPROVED_VIEWING_MASTER.yaml` — exactly one APPROVED per production |
 | **Viewing master** | `Alpha RoudUp Part 2.m4v` · 3840×2160 · **4846.625000 s, exact to the lock** · sha `89e911b1…f8cd46` |
 | **Processing Status** | `READY` — master validated, measurements corroborated on two instruments, verdict blank |
 
@@ -233,8 +234,62 @@ that carry the finding. **The verdicts are unchanged and now rest on two indepen
 audible event at 29:10 (below the ~1 dB JND); a large audible event at 31:43.
 
 ## 6. Executive Verdict
+
+### 6.0 Observation protocol — and an honest limit on it
+
+**The protocol, as directed:**
+
+> *"I would deliberately forget everything we've discussed about 29:10. Watch Pass 1 exactly as an
+> audience. When you reach the end, immediately write down: 'The music's job ended at ___'. Write the
+> time before opening any notes. Only afterward compare it against 29:10, 31:43, the measured
+> transitions, and the cue sheet."*
+
+**Adopted. Write the timecode before reopening this document.** That instruction is the whole
+instrument, and it is worth taking literally: close the brief, play from 27:10, and do not consult
+anything until a number is on paper.
+
+**The limit that must be recorded with it.** *"Deliberately forget"* is not achievable by intention,
+and this session's observer is already primed. Before this protocol was proposed, this brief and the
+conversation around it had already supplied:
+
+- that the proposed boundary is `00:29:10.000`;
+- that the boundary sits **18.250 s inside a 66.708 s take**, and lands on no cut;
+- that the picture *"enters let-it-ride mode at 28:51.750"* — an engineer's phrase, and a leading one;
+- that mean shot length rises **2.975×** across the boundary;
+- that there is **no audible level event at 29:10** and a **−7.6 dB event at 31:43**.
+
+Priming does not clear on request. **The observation this session produces will therefore be an
+INFORMED Executive observation, not an independent one**, and it must be labelled that way in the
+disposition. It is still the most valuable thing available — an experienced eye on the actual picture
+outranks any measurement here — but it cannot be cited as confirmation of the measurements, because
+the measurements are already in the observer.
+
+**If a genuinely independent observation is wanted, it costs one person and six minutes.** Someone who
+has read none of this watches 27:10 → 33:30 on the approved master and writes down where the music's
+job ended, before being told anything. That is the only way to obtain an uncontaminated data point,
+and it would make the Executive's own observation *more* citable rather than less — two observers, one
+primed and one not, is a stronger record than either alone. **Recommended, not required, and it should
+not delay the session.**
+
+**Whichever is done, the record states what the observer had been exposed to beforehand.** That is the
+difference between a governed observation and an anecdote.
+
+### 6.0.1 The predicted outcomes — with a fourth the Executive did not list
+
+| # | outcome | reading |
+|---|---|---|
+| 1 | stops **near 29:10** | ESS-002 confirmed. The cue sheet's value was an editorial instinct, and it was right |
+| 2 | stops **later**, near the long-take transition | ESS-002 shifts. **A governed finding, not a failure** |
+| **4** | stops **EARLIER**, near **28:51.750** | **Not in the original list, and it is where the measurements point** — the edit stops cutting 18.25 s *before* the cue is scheduled to leave. If this happens it should not be retro-fitted as "the boundary shifts later" |
+| 3 | **no conscious stopping point at all** | The most interesting outcome — it would suggest Road Soul must **yield gradually** rather than end at a discrete boundary. **Also the outcome most vulnerable to the priming above**, since the observer has already been told the picture decelerates rather than cuts. Weight it accordingly, and it is the outcome that most needs the independent second observer |
+
+All four advance the platform. Outcome 3 would be the one that changes the *vocabulary* — a gradual
+yield is not `HANDOFF`, and Road Soul does not currently have a word for it.
+
 ### 6.1 Viewing findings — TO BE RECORDED
 **Pass 1 (clean, as an audience).** Where did the music's job end? `______`
+**Written before reopening this brief?** ☐ yes ☐ no · **Observation class:** ☐ INFORMED ☐ INDEPENDENT
+**Prior exposure, if INFORMED:** `______` *(§6.0 lists this session's default exposure)*
 Did the ride feel sustained through to SIL-01? ☐ yes ☐ no ☐ partly: `______`
 
 **Pass 2 (muted).** With no sound at all, does the sequence still sustain? ☐ yes ☐ no
