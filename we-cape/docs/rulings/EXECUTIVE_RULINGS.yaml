@@ -11,7 +11,7 @@
 #   - Executive Producer, 2026-08-22 (DOC-CAND-001 section 4.0)
 # ============================================================================
 register_id: EXECUTIVE_RULINGS
-register_version: 1.2.0   # ER-003 added: COM-004 Editorial Mechanics vs Editorial Interpretation
+register_version: 1.3.0   # ER-003 Amendment 1: collection/presentation split, evidence classes, KPI governance
 schema_version: 1.0
 authority: Chairman
 date: '2026-08-22'
@@ -523,3 +523,132 @@ er_003:
       long-term value of the platform without expanding its authority.
 
   register_entries: [DWR-045, DWR-046, DWR-047]
+
+  # ==========================================================================
+  # AMENDMENT 1 - 2026-08-22. Executive response to the three engineering notes.
+  # ==========================================================================
+  amendment_1:
+    date: '2026-08-22'
+    authority: Executive
+    application: PROSPECTIVE
+
+    a1_collection_vs_presentation:
+      ruling: >-
+        Future ingestion shall CLASSIFY editorial mechanics rather than suppress them. Presentation
+        layers may filter information appropriate to the current workflow. The underlying repository
+        of observations shall remain COMPLETE. Filtering is a PRESENTATION concern. Collection is an
+        ARCHITECTURAL concern. Those responsibilities shall remain separate.
+      rationale_as_issued: >-
+        The value of an editorial mechanic is often unknown at ingestion time. That uncertainty is
+        not justification for discarding or withholding it.
+      engineering_note:
+        id: ER-003-N4
+        subject: A filtered presentation must DECLARE its filter
+        status: RAISED_NOT_DECIDED
+        observation: >-
+          The separation is correct and it does not, by itself, prevent what happened today. My shot
+          list WAS a legitimate presentation-layer filter - depth-0 primary spine, appropriate to a
+          boundary question. The defect was not the filtering. The defect was the LABEL: it said
+          "every shot, authoritative" when it meant "every primary-spine shot, 214 of 1025". A
+          filtered view that does not announce its filter is indistinguishable from a complete one,
+          and the reader cannot know what to ask for.
+        proposed_remedy: >-
+          Any filtered presentation of a governed corpus states its filter predicate and the count
+          withheld - "primary spine only; 214 of 1025 elements shown, 811 withheld by depth>0". One
+          line. It costs nothing and it converts a silent omission into a visible one, which is the
+          same move DOC-001 rule 2 makes for validation: state the ratio, not the adjective.
+        needs: Executive confirmation
+
+    a2_evidence_classes:
+      ruling: >-
+        The platform shall distinguish MACHINE_OBSERVED, HUMAN_OBSERVED and EXECUTIVE_OBSERVED.
+        These are EVIDENCE CLASSES, not confidence levels. Each observation shall identify its
+        provenance so downstream consumers understand how the observation entered the platform.
+      resolves: ER-003-N1 (in part - the classes are named)
+      engineering_note:
+        id: ER-003-N5
+        subject: The boundary between HUMAN_OBSERVED and EXECUTIVE_OBSERVED is unstated
+        status: RAISED_NOT_DECIDED
+        observation: >-
+          MACHINE_OBSERVED is unambiguous - a named validated instrument produced it and re-running
+          the instrument reproduces it. The other two need a stated boundary, because WHO made the
+          observation is an identity, not an evidence class. Three readings, and they are not
+          equivalent:
+        readings:
+          - id: R1
+            reading: EXECUTIVE_OBSERVED is a Layer 2 observation that happens to be made by the Executive
+            consequence: >-
+              then it is HUMAN_OBSERVED with an observer identity field, and the third class is
+              redundant
+          - id: R2
+            reading: EXECUTIVE_OBSERVED is a Layer 3 interpretation
+            consequence: >-
+              then it does not belong in a list of Layer 2 evidence classes at all, and listing it
+              there blurs the Layer 2 / Layer 3 line ER-003 was written to draw
+          - id: R3
+            reading: >-
+              EXECUTIVE_OBSERVED is a Layer 2 observation that additionally carries GOVERNANCE
+              AUTHORITY - it may be cited as a basis for a decision, where HUMAN_OBSERVED is evidence
+              a decision may weigh
+            consequence: >-
+              coherent, and probably the intended one - but it is an AUTHORITY distinction riding on
+              an evidence field. The ruling says these are not confidence levels; authority is not
+              confidence either, but it is also not provenance. If R3 is meant, the class should say
+              so explicitly, or authority should be a separate field from provenance.
+        engineer_view: >-
+          R3 is the reading that makes the third class earn its place. Recorded as a question rather
+          than adopted, because which reading is intended changes the schema and it is not
+          engineering's to choose.
+        needs: Executive ruling at Layer 2 schema design
+
+    a3_kpi_governance:
+      ruling: >-
+        A KPI is not merely a calculation. A KPI is a GOVERNED DEFINITION. Only governed KPIs shall
+        appear in dashboards or be compared across productions.
+      required_fields:
+        - identifier
+        - formal_definition
+        - calculation_method
+        - inclusion_rules
+        - exclusion_rules
+        - version
+        - evidence_sources
+      resolves: ER-003-N3 (the frozen-definition requirement is adopted)
+      engineering_note:
+        id: ER-003-N6
+        subject: Two fields the seven do not yet cover
+        status: RAISED_NOT_DECIDED
+        gaps:
+          - id: G1
+            subject: source pinning
+            observation: >-
+              evidence_sources names the CLASS of source. It does not pin the VERSION. Everywhere
+              else this platform hashes what it depends on - four input SHA-256s on every Sprint 3A
+              artifact, a hash on the approved viewing master, registry_version on every registry. A
+              KPI computed from Info.fcpxml is only reproducible if it records WHICH Info.fcpxml.
+            proposed_addition: "source_sha256 and instrument_version, alongside evidence_sources"
+          - id: G2
+            subject: behaviour on incomplete input
+            observation: >-
+              The seven fields say what a KPI computes over. They do not say what it does when part
+              of that span is missing, offline or UNCERTAIN. A KPI that silently narrows its
+              denominator to the data it happens to have reports a confident number over a partial
+              corpus - which is the silent-recovery failure the platform has forbidden since Sprint
+              3A, appearing in a new place.
+            proposed_addition: >-
+              coverage - the fraction of the intended span actually measured, reported alongside
+              every value - and an explicit null_policy. A KPI over incomplete input reports its
+              coverage or reports UNCERTAIN. It never reports a bare number.
+        needs: Executive ruling at first KPI implementation
+        register_entry: DWR-047
+
+  evs_001_status_at_this_amendment:
+    stated_by: Executive
+    pass_1: ACTIVE
+    boundary_declared: false
+    observation_card: BLANK
+    disposition_inference: FORBIDDEN
+    note: >-
+      Recorded so that no downstream reader mistakes the volume of governance issued during the
+      session for progress on the session itself. ESS-002 remains OPEN. Nothing in ER-003 or this
+      amendment bears on the boundary question.

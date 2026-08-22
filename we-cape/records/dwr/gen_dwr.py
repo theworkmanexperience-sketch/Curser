@@ -350,6 +350,72 @@ RESOLUTIONS = {
    "resolution_artifact": "docs/rulings/EXECUTIVE_RULINGS.yaml EC-N2; intelligence/p2/ess/scripts/gen_artifacts.py",
    "resolution_date": "2026-08-22",
    "resolution_authority": "Executive Producer / Chairman"},
+ "DWR-046": {
+   "resolution": ("PARTIALLY RULED, 2026-08-22, ER-003 Amendment 1. THREE EVIDENCE CLASSES adopted: "
+                  "MACHINE_OBSERVED, HUMAN_OBSERVED, EXECUTIVE_OBSERVED. Evidence classes, NOT "
+                  "confidence levels. Every observation identifies its provenance so downstream "
+                  "consumers understand how it entered the platform. "
+                  "STILL OPEN (ER-003-N5): the boundary between HUMAN_OBSERVED and EXECUTIVE_OBSERVED "
+                  "is unstated, and WHO observed is an identity rather than an evidence class. Three "
+                  "non-equivalent readings recorded: R1 Executive Observed is Human Observed with an "
+                  "identity field, making the third class redundant; R2 it is a Layer 3 "
+                  "interpretation, in which case it does not belong among Layer 2 evidence classes "
+                  "and blurs the line ER-003 drew; R3 it is a Layer 2 observation that additionally "
+                  "carries GOVERNANCE AUTHORITY - citable as a basis for decision, where "
+                  "HUMAN_OBSERVED is evidence a decision may weigh. R3 is the reading that makes the "
+                  "third class earn its place, but it is an AUTHORITY distinction riding on a "
+                  "provenance field and should say so explicitly, or authority should be its own "
+                  "field. Which reading is intended changes the schema. Not engineering's to choose. "
+                  "ALSO STILL OPEN: no validated Layer 2 instrument exists - DIE-V at 64x36 / 2 fps "
+                  "on a 320x180 proxy cannot see the ruling's own Layer 2 example."),
+   "resolution_artifact": "docs/rulings/EXECUTIVE_RULINGS.yaml er_003.amendment_1.a2_evidence_classes",
+   "resolution_date": "2026-08-22",
+   "resolution_authority": "Executive"},
+ "DWR-047": {
+   "resolution": ("PARTIALLY RULED, 2026-08-22, ER-003 Amendment 1. KPI GOVERNANCE adopted: a KPI is "
+                  "not a calculation, it is a GOVERNED DEFINITION. Seven required fields - "
+                  "identifier, formal_definition, calculation_method, inclusion_rules, "
+                  "exclusion_rules, version, evidence_sources. Only governed KPIs may appear in "
+                  "dashboards or be compared across productions. This resolves ER-003-N3: the "
+                  "frozen-definition requirement is adopted. "
+                  "TWO GAPS RAISED, NOT DECIDED (ER-003-N6). (1) SOURCE PINNING: evidence_sources "
+                  "names the CLASS of source, not the VERSION. Everywhere else this platform hashes "
+                  "what it depends on - four input SHA-256s on every Sprint 3A artifact, a hash on "
+                  "the approved viewing master, registry_version on every registry. A KPI computed "
+                  "from Info.fcpxml is reproducible only if it records WHICH Info.fcpxml. Proposed: "
+                  "source_sha256 and instrument_version. (2) BEHAVIOUR ON INCOMPLETE INPUT: the seven "
+                  "fields say what a KPI computes over, not what it does when part of that span is "
+                  "missing, offline or UNCERTAIN. A KPI that silently narrows its denominator to the "
+                  "data it happens to have reports a confident number over a partial corpus - the "
+                  "silent-recovery failure forbidden since Sprint 3A, in a new place. Proposed: a "
+                  "coverage fraction reported alongside every value, plus an explicit null_policy. A "
+                  "KPI over incomplete input reports its coverage or reports UNCERTAIN. It never "
+                  "reports a bare number. "
+                  "ER-003-N2 UNCHANGED and still open: ride-to-information ratio and retention "
+                  "correlation both remain inadmissible until ruled."),
+   "resolution_artifact": "docs/rulings/EXECUTIVE_RULINGS.yaml er_003.amendment_1.a3_kpi_governance",
+   "resolution_date": "2026-08-22",
+   "resolution_authority": "Executive"},
+ "DWR-045": {
+   "resolution": ("DIRECTION GIVEN, 2026-08-22, ER-003 Amendment 1, not yet scheduled. 'Future "
+                  "ingestion shall CLASSIFY editorial mechanics rather than suppress them. "
+                  "Presentation layers may filter information appropriate to the current workflow. "
+                  "The underlying repository of observations shall remain COMPLETE. Filtering is a "
+                  "PRESENTATION concern. Collection is an ARCHITECTURAL concern. Those "
+                  "responsibilities shall remain separate.' "
+                  "ONE NOTE RAISED (ER-003-N4): the separation is correct and does not by itself "
+                  "prevent what happened today. The shot list WAS a legitimate presentation-layer "
+                  "filter - depth-0 primary spine, appropriate to a boundary question. The defect "
+                  "was not the filtering, it was the LABEL: it said 'every shot, authoritative' when "
+                  "it meant 'every primary-spine shot, 214 of 1025'. A filtered view that does not "
+                  "announce its filter is indistinguishable from a complete one, and the reader "
+                  "cannot know what to ask for. Proposed: any filtered presentation of a governed "
+                  "corpus states its filter predicate and the count withheld - one line, costs "
+                  "nothing, and converts a silent omission into a visible one. Same move DOC-001 "
+                  "rule 2 makes for validation: state the ratio, not the adjective."),
+   "resolution_artifact": "docs/rulings/EXECUTIVE_RULINGS.yaml er_003.amendment_1.a1_collection_vs_presentation",
+   "resolution_date": "2026-08-22",
+   "resolution_authority": "Executive"},
  "DWR-040": {
    "resolution": ("PARTIALLY RULED, 2026-08-22, Executive Producer. The taxonomy is ADOPTED and the "
                   "unit of classification is settled: classify CRITERIA, not states. A single behaviour "
