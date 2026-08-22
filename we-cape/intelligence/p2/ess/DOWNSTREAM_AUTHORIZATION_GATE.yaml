@@ -84,9 +84,13 @@ blocking_items:
     blocks_specifically: [ALL_MIE, SIL-01, CUE-03, CUE-04]
     regenerates_on_disposition: [CONDUCTOR_SCORE.yaml, EDITORIAL_SYNCHRONIZATION.yaml]
     prerequisite_human_action: >-
-      Listen to 00:33:37.708-00:34:39.667 of the locked cut and classify the element's
-      content as musical or non-musical. RE-001 did not determine this: the source media
-      (/Volumes/10TB/.../NOTOR1OUS_CARAVAN_2_.mp4) was offline for that run (delta D-22).
+      ELS-001 Executive Listening Session. Listen to 00:33:37.708-00:34:39.667 of the locked
+      cut and rule on the semantics of MANDATORY_SILENCE. Brief, three ruling options and
+      objective measurements: docs/reviews/ELS-001_MANDATORY_SILENCE_LISTENING_BRIEF.md.
+      Prepared 2026-08-22; session status READY. RE-001 did not determine the content: the
+      source media (/Volumes/10TB/.../NOTOR1OUS_CARAVAN_2_.mp4) was offline (delta D-22).
+    session_ref: ELS-001
+    ruling_options: ["1 no non-diegetic score", "2 no music of any kind", "3 no sound but speech"]
     narrowing_evidence: >-
       SOP-06 GATE 1 records NOTOR1OUS x2 as the cleared CONTRIBUTED custody exception.
       The element's PRESENCE in the timeline is therefore already gate-cleared; the open
@@ -105,11 +109,11 @@ pre_existing_gates_still_in_force:
      effect: "passes 1-5 in sequence; all four Conversation beds PDR'd before Pass 2 unlocks"}
 
 recommended_disposition_order:
-  - {step: 1, items: [PDR-2026-08-22-ESS-004, PDR-2026-08-22-ESS-002],
-     reason: "both concern SIL-01 - its interior and its left boundary; ESS-004 also sets the
-              silence-law scope the others inherit"}
-  - {step: 2, items: [PDR-2026-08-22-ESS-001], reason: "reaches CUE-08 (Pass 4)"}
-  - {step: 3, items: [PDR-2026-08-22-ESS-003], reason: "independent of music; carries a consent dimension"}
+  - {step: 1, items: [PDR-2026-08-22-ESS-004], reason: "ELS-001 - the semantic ruling the rest inherit"}
+  - {step: 2, items: [PDR-2026-08-22-ESS-002],
+     reason: "same silence zone, its left boundary; the silence ruling informs the escort-ride discussion"}
+  - {step: 3, items: [PDR-2026-08-22-ESS-001], reason: "reaches CUE-08 (Pass 4)"}
+  - {step: 4, items: [PDR-2026-08-22-ESS-003], reason: "independent of music; carries a consent dimension"}
 
 on_open:
   required_actions:
@@ -128,3 +132,6 @@ status_history:
      note: "issued with Final Executive Disposition, Sprint 3A"}
   - {date: 2026-08-22, state: CLOSED, authority: Executive Producer,
      note: "conformed to WET-SPEC-GATE-001 v1.0; ESS-004 narrowed by SOP-06 GATE 1 clearance evidence"}
+  - {date: 2026-08-22, state: CLOSED, authority: Executive Producer,
+     note: "ESS-004 reframed as ELS-001 Executive Listening Session; ruling options corrected from
+            binary to ternary (diegetic case); disposition order confirmed 004 -> 002 -> 001 -> 003"}

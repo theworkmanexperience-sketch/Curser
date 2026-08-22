@@ -97,3 +97,37 @@ The element in question is therefore **already custody-cleared at GATE 1**. Two 
    sets the platform-wide reading of MANDATORY_SILENCE.
 
 Options A–D stand unchanged. Status remains **OPEN — AWAITING EXECUTIVE DISPOSITION**.
+
+---
+
+## Amendment 2 — 2026-08-22: reframed as an Executive Listening Session; **options corrected**
+**Reframe (Executive direction).** This PDR is conducted as **ELS-001 — Executive Listening Session**.
+Purpose: determine the semantic meaning of `MANDATORY_SILENCE`. Deliverable: one Executive ruling.
+Expected duration ~5 minutes, though the media span is 62 seconds. Brief and evidence:
+`docs/reviews/ELS-001_MANDATORY_SILENCE_LISTENING_BRIEF.md`.
+
+**Correction to this PDR's own framing — the question is not binary.**
+Options A–D above were built on *no score* versus *no sound*. That is insufficient. The element is a
+**contributed video's own audio track**; if its content is music that was playing *in the scene*, it is
+**diegetic**, and neither original option covers it. "No score" permits it as location sound; "no
+sound" forbids it along with engine noise and room tone. The covenant's test — the town's words
+carrying their weight *"unassisted"* — is genuinely arguable in that case.
+
+The ruling therefore requires **three** options, carried in ELS-001 §5:
+1. No **non-diegetic** score — diegetic/source audio permitted
+2. No **music of any kind**, diegetic or not
+3. No sound but the primary speech
+
+Options A–D above remain valid as *dispositions of this element*. The semantic ruling is the new
+1/2/3. Raised before the session rather than discovered after it.
+
+**Objective evidence now attached (ELS-001 §4).** A three-way measurement against known controls
+establishes one fact and refuses to establish the other:
+- The element is **audible** — the target span carries **26.59 %** of total energy in 80–250 Hz against
+  **3.87 %** in an otherwise-comparable span of the same silence zone, never drops out, and is the most
+  tonal of the three spans. Row "inaudible / muted" is unlikely.
+- The measurements **do not classify the content**. Steady, tonal, low-frequency and beatless is equally
+  consistent with a musical pad and with engine rumble. No verdict is offered, per
+  `WET-SPEC-REPORT-001` and the run's no-silent-recovery constraint.
+
+Status remains **OPEN — AWAITING EXECUTIVE DISPOSITION**.
