@@ -227,7 +227,7 @@ ROWS = [
  "The execution sandbox has no network egress and no SSH credentials; push fails host key verification.",
  "Environmental, not architectural. The commits exist and are complete; they need transmitting.",
  "Operator with repository credentials","Next operator session at the machine",
- "HIGH — unpushed governance is unshared governance","VERY LOW (one command)","P1","Deferred"),
+ "HIGH — unpushed governance is unshared governance","VERY LOW (one command)","P1","Completed"),
 ]
 
 RESOLUTIONS = {
@@ -240,6 +240,18 @@ RESOLUTIONS = {
    "resolution_artifact": "docs/specs/WET-SPEC-REPORT-001_Platform_Reporting_Standard.md",
    "resolution_date": "2026-08-22",
    "resolution_authority": "Executive Producer"},
+ "DWR-036": {
+   "resolution": ("Transmitted 2026-08-22 by the operator: ff0c45f..d0b0f89, 9 commits, 137 objects, "
+                  "193.67 KiB. Verified from the session side: local main == origin/main == "
+                  "d0b0f893012f965f20ef5d5b4c67248e7eaf7af9, 0 ahead, 0 behind."),
+   "resolution_artifact": "git: origin/main @ d0b0f893012f965f20ef5d5b4c67248e7eaf7af9",
+   "resolution_date": "2026-08-22",
+   "resolution_authority": "Operator",
+   "recurring_constraint_note": (
+     "This instance is closed; the underlying condition is NOT. The execution sandbox has no network "
+     "egress and no SSH credentials, so every future session will accrue local commits requiring an "
+     "operator push. Recorded here rather than opened as a standing register entry - raise one if the "
+     "Executive Team wants it tracked as a permanent operational constraint rather than a closed item.")},
 }
 
 entries = []
