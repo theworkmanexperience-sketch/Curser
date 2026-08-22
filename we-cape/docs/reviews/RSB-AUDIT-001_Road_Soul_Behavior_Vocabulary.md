@@ -1,7 +1,7 @@
 # RSB-AUDIT-001 — Is Road Soul™ a governed musical language yet?
 ## Governance Status
 Document Type: **Audit** — findings and recommendations only. **No implementation authorized.**
-Date: 2026-08-22 · Prepared by: Implementation Engineer · For: Executive Review
+Date: 2026-08-22 · Prepared by: Implementation Engineer · For: Executive Review · **Amendment 1 appended (Executive rulings + three corrections)**
 Prompted by: Executive Observation, 2026-08-22 (§1) · Subject: `CONDUCTOR_SCORE.yaml` v1.1.0
 Method: every `behaviour_states` entry across all 15 cues and 3 conducted silences, tabulated. Counting, not opinion.
 
@@ -221,3 +221,162 @@ constraint on reviews.
 > Closing that gap is the difference between a house style and a specification. The evidence so far
 > says the closing is affordable and has not yet cost any artistry — but that evidence comes from the
 > five easiest states, and the four that remain are the ones that carry the music.
+
+
+---
+
+# Amendment 1 — 2026-08-22: Executive rulings recorded, with three corrections
+
+The Executive accepted DWR-039/040/041 as classified and added four things: a **four-layer stack**, a
+**three-class test taxonomy**, the **Conductor's Score / Road Soul distinction**, and a direction to
+stop theorizing and hold EVS-001. All four are recorded here. **No specification is written and none
+is authorized** — this amendment is the record, not the work.
+
+## A1.1 The Road Soul stack — ACCEPTED
+
+```
+Lexicon      the words          ENTER · LEAD · BREATHE · HANDOFF
+   ↓
+Grammar      the rules          which words are legal, where, in what order
+   ↓
+Behaviour    the meaning        what each word actually requires
+   ↓
+Composition  the music          the artistic realization
+```
+
+This is the right decomposition, and it does something the audit did not: it separates **Lexicon**
+from **Behaviour**. The audit treated "the vocabulary exists but is undefined" as one gap (G1+G2). The
+stack correctly makes it two layers — you can close the Lexicon (declare the ten words, close the set)
+without yet closing Behaviour (define what each requires). **That is a cheaper first step than the
+audit proposed**, and it is the half that is pure transcription.
+
+## A1.2 The three test classes — ACCEPTED, with the examples corrected
+
+| class | meaning | verdict |
+|---|---|---|
+| **Type A** | machine-testable | accepted |
+| **Type B** | observable now, measurable eventually | accepted — this is the class the audit was missing, and it is the important one |
+| **Type C** | Executive judgement, may never quantify | accepted **with a guardrail** (§A1.5) |
+
+**Type B is the real contribution.** The audit offered a binary — testable or prose — which forced
+every hard behaviour into the same bucket as the impossible ones. Type B says: *this is checkable by a
+person today, and the criterion is stable enough that a measurement may be found later.* That is both
+honest and progressive, and it is where most of the four untestable states actually belong.
+
+### Correction 1 — the Type C example is misattributed
+
+> *"Type C · Executive Judgement · Example: `LEAD → Never a downbeat announcement.`"*
+
+**"Never a downbeat announcement" is not `LEAD`. It is `ENTER`**, and it appears in exactly four cues —
+CUE-02a, 02b, 02c, 04, all CONVERSATION:
+
+> `ENTER`: *"fade-in ≤2 s under the preceding handoff; **never a downbeat announcement**"*
+
+`LEAD`'s actual text, identical across all five cues that carry it (CUE-03, 07, 08, 09a, 09b), is:
+
+> `LEAD`: *"music carries the span; ambient engine and crowd sound sit under it but **must remain audible**"*
+
+**This changes the classification.** *"Ambient sound must remain audible"* is not a judgement that
+resists measurement — it is an **audibility relationship between two signals**, which is Type B and
+plausibly becomes Type A once a ratio is chosen. The genuine Type C candidate in the same sentence is
+`ENTER`'s *"never a downbeat announcement"*, which asks whether a musical entry reads as an
+**announcement** — a question about perceived rhetorical function, not level.
+
+Corrected assignment, offered as a starting point and **not** as a completed classification:
+
+| state | proposed class | why |
+|---|---|---|
+| `DUCK` · `REBUILD` · `BREATHE` · `APPROACH` · `RETURN` | **A** | already carry numeric criteria |
+| `FLOOR` | **A** | the ESS-004 provenance test made it machine-checkable from the FCPXML |
+| `LEAD` | **B → plausibly A** | audibility of ambient under music is a measurable relationship |
+| `HANDOFF` | **B** | *"inaudible as an event"* is observable now; a transient-detection test is conceivable |
+| `SUSTAIN` | **B** | *"zero builds, zero drops, zero risers"* needs only a definition of "build" |
+| `ENTER` | **A + C, split** | *"≤2 s"* is Type A. *"Never a downbeat announcement"* is Type C |
+
+**`ENTER` is the finding here: a single state carrying both a Type A and a Type C criterion.** The
+taxonomy must classify **criteria**, not states — several states will split the way `ENTER` does.
+
+### Correction 2 — two of the four grammar rules cannot be checked against the artifact
+
+| rule | kind | status |
+|---|---|---|
+| *BREATHE only in CONVERSATION* | set-constraint | **VERIFIED — 0 violations.** All 4 CONVERSATION cues carry it; no other cue does |
+| *LEAD forbidden during SILENCE* | set-constraint | **VERIFIED — 0 violations.** Silences carry only `APPROACH · FLOOR · RETURN` |
+| *LEAD never follows LEAD* | **transition-constraint** | **UNCHECKABLE** |
+| *HANDOFF cannot begin inside DUCK* | **transition-constraint** | **UNCHECKABLE** |
+
+**Why:** `behaviour_states` is a **set**, not a **machine**. Every field ever used on a behaviour state
+is `state · action · target_db · sidechain · budget_s · max_gain_db · permitted_between_answers ·
+window_s`. **There is no field expressing time, order, sequence, or transition condition anywhere in
+the artifact.** The list *reads* chronologically — ENTER, SUSTAIN, DUCK, REBUILD, HANDOFF — but nothing
+declares that, and `DUCK`/`REBUILD` plainly recur throughout a cue rather than occurring once in
+sequence.
+
+Half of the proposed Grammar layer therefore has a prerequisite the audit did not identify: **a state
+transition model.** Until states have entry conditions, exit conditions and legal successors, rules
+about what may follow what have nothing to bind to.
+
+*This is not an argument against the rules.* Both transition rules are musically sound. It is an
+argument that the Grammar layer costs more than the Lexicon layer, and that the two should not be
+scheduled as one job. → **`DWR-042`.**
+
+### Correction 3 — the Conductor's Score / Road Soul distinction finds a live violation
+
+> *"Conductor's Score is behavior. Road Soul is expression. One governs. One performs. Those should
+> never be merged."*
+
+**Accepted, and it is the sharpest thing said today.** Applied to the artifact, it immediately finds
+something:
+
+`CONDUCTOR_SCORE.yaml` carries `instrumentation_guidance` on **13 of 15 cues**, with fields
+`colour · instruments · tempo · tonality · prohibited` — for example *"fingerpicked or clean electric
+guitar, pad, brushed kit or no kit, low strings; slow to mid; warm major or dorian."* Each cue also
+carries `road_soul_family`.
+
+**That is expression, sitting inside the behaviour artifact.** By the distinction just drawn, colour,
+instruments, tempo and tonality belong to Road Soul; only `prohibited` reads as behaviour, and only
+where it is phrased as a constraint on function (*"no percussion transients that read as an event"*)
+rather than on material.
+
+The principle is right and the artifact does not yet obey it. **Flagged, not fixed** — splitting the
+artifact now would be exactly the restructuring the Executive just deprioritized, and it would land
+on `CONDUCTOR_SCORE` while ESS-002 is still open against it. → **`DWR-043`.**
+
+## A1.5 The guardrail Type C needs
+
+> *"Not everything should become math."*
+
+Agreed, without reservation. But **Type C carries a price that should be stated once, in writing,
+before the class is used:**
+
+1. **A Type C criterion can never be validated without the Executive in the room.** Every cue carrying
+   one is a standing, recurring call on Executive attention — per cue, per candidate, per revision,
+   for the life of the production and every production after it. That is a real operating cost, and
+   it is the correct cost for genuinely irreducible judgements. It is a bad cost for a behaviour that
+   was merely hard to think about on the day.
+2. **Without a rule, Type C becomes the drawer.** Anything difficult ends up there, and the
+   classification stops carrying information.
+
+**Recommended, not authorized:** a Type C assignment records **(a)** why the criterion resists
+measurement — a stated reason, not a shrug — and **(b)** a re-review trigger, so the classification is
+revisited rather than inherited. Type C should be **provisional by default and permanent only by
+decision.**
+
+## A1.6 Direction accepted — this document stops here
+
+> *"I think we're ready to stop theorizing and start validating. The next milestone is no longer
+> another governance document. It's EVS-001."*
+
+**Accepted.** No specification is written. No state is classified beyond the starting point offered
+above. No artifact is split. `WET-SPEC-RSB-001` remains sequenced behind CUE-03 and CUE-07
+(`DWR-041`), and now behind a transition model as well (`DWR-042`).
+
+**Register entries raised by this amendment:**
+
+| id | title | class | priority |
+|---|---|---|---|
+| `DWR-042` | Behaviour states carry no transition model — half the Grammar layer is unbindable | IMPLEMENTATION | P2 |
+| `DWR-043` | Expression content sits inside CONDUCTOR_SCORE, contrary to the governs/performs distinction | DECISION | P2 |
+
+---
+*Amendment 1 recorded 2026-08-22. Findings and corrections only. No implementation authorized.*
