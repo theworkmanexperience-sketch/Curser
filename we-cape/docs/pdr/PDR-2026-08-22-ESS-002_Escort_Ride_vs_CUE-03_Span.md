@@ -72,3 +72,110 @@ silence zone.
 **If A — recorded rationale for the intended air:** ______
 **Rationale:** ______
 **Dispositioned by / date:** ______
+
+---
+
+# Amendment 1 — 2026-08-22: two findings that arrived after this PDR was written
+
+Two things changed since the Options section above was drafted. Neither is a new opinion; both are
+measurements or rulings, and both bear directly on which option is defensible. **The four options
+stand. What follows corrects the reasoning attached to them.**
+
+## A1.1 — The ESS-004 ruling removes "silence" from this problem entirely
+
+`MANDATORY_SILENCE` is now defined (Executive Disposition ESS-004, 2026-08-22) as prohibiting
+**WE CAPE-added non-diegetic score only.** Existing production audio — engines, wind, ambience,
+speech — is permitted.
+
+**Measured consequence.** The primary spine from `00:27:30` to `00:40:00` is **unbroken
+camera-original footage**: 37 consecutive `asset-clip` elements, zero gaps, every one carrying its
+own audio. There is no point in the 153-second "unscored" span, and no point inside SIL-01, at which
+the film is acoustically silent.
+
+| region | span | primary-spine coverage | audible content under the ruling |
+|---|---|---|---|
+| CUE-03 as specified | 27:40–29:10 | continuous | score **+** production audio |
+| the gap | 29:10–31:43 | continuous | production audio (engines, wind, road) |
+| SIL-01 | 31:43–38:52 | continuous | production audio + civic speech |
+
+**This reframes Option A.** Option A was written as *"deliberate air."* It is not air. It is
+**engines** — 153 seconds of a motorcycle column on a public road, carrying itself. That is a
+materially stronger editorial position than "the anthem withdraws and nothing happens," and it is
+the position the cut already takes.
+
+**And it reframes Option B's stated virtue.** B was justified by the anthem *"handing directly to
+silence."* Under the ruling there is no silence to hand to. B now means: score stops, engines
+continue, unchanged. The handoff B was designed to create is already what the gap does — without
+four minutes of energy-5 cue to sustain first.
+
+## A1.2 — New measurement: **no cue-sheet boundary in this region lands on a cut**
+
+Measured against the locked FCPXML's primary spine (resolver validated 191/191 against the ETC;
+source SHA `2bf06853…3858e7`):
+
+| boundary | timecode | host shot at that instant | prev cut | next cut | on a cut? |
+|---|---|---|---|---|---|
+| CUE-03 in | 00:27:40.000 | `028 · 10:59:30 · DJI` | −14.208 s | **+0.792 s** | **NO** (near) |
+| CUE-03 out | 00:29:10.000 | `013 · 10:27:18 · X5` | −18.250 s | +48.458 s | **NO** |
+| SIL-01 in | 00:31:43.000 | `016 · 10:27:19 · X5` | −50.458 s | +12.417 s | **NO** |
+| SIL-01 out | 00:38:52.000 | `017 · 10:43:36 · X5` | −74.000 s | +4.292 s | **NO** |
+| R46 in | 00:39:07.000 | `018 · 10:47:32 · X5` | −8.375 s | +51.250 s | **NO** |
+
+Only CUE-03's **in** point is near a cut (0.792 s, ~19 frames). Every other boundary sits mid-take,
+some by nearly a minute. The pattern is consistent with the cue sheet's spans having been set from
+approximate timecode rather than against the cut list — which is normal at architecture stage, and is
+exactly what this PDR exists to resolve.
+
+**Consequence for Option B.** B's argument was that the cue *"lands its resolve exactly on the SIL-01
+boundary."* That is true on the **timeline** and false in the **picture**: 00:31:43.000 falls 50.5 s
+into a 62.9 s continuous take. A four-minute energy-5 cue would resolve to floor with nothing on
+screen to mask the event — the most exposed possible place to end a cue. If B is chosen, its out
+point should move to a cut. The nearest candidates are **00:31:55.417** (+12.4 s, the cut to `014`)
+and **00:30:52.542** (−50.5 s).
+
+**Consequence for Option C.** The same measurement is C's strongest argument. A separate CUE-03b can
+take its **in** point at a cut without touching approved CUE-03 at all. `00:29:58.458` — the cut into
+`NOTOR1OUS_CARAVAN_1_` — is 48.5 s after the cue sheet's 29:10 and is a real picture event.
+
+**Consequence for Option A.** A is unaffected. It is the only option that needs no boundary.
+
+## A1.3 — Cut density: the gap is editorially *calmer* than the cue
+
+| span | duration | cuts | mean shot length |
+|---|---|---|---|
+| CUE-03 as specified (27:40–29:10) | 90 s | 7 | **12.86 s** |
+| the gap (29:10–31:43) | 153 s | 4 | **38.25 s** |
+| SIL-01 (31:43–38:52) | 429 s | 21 | 20.43 s |
+
+The gap is cut **three times slower** than the cue it follows. Whatever was intended, the picture in
+that 153 seconds decelerates — it does not sustain. **This argues against B on its own terms:**
+holding energy 5 across material that visibly slows down asks the music to contradict the edit. It
+argues *for* A (the deceleration is the point) or for a **low-energy** C (a de-escalation cue that
+follows the picture down), and it is evidence that Option C's energy value should not inherit
+CUE-03's 5.
+
+## A1.4 — What this Amendment does not resolve, and will not
+
+Cut alignment, audio continuity and cut density are **measurements**. Whether the anthem should carry
+the ride or step out of it is a **musical-intent decision** and remains entirely the Executive
+Producer's. Nothing above narrows the four options; it corrects three claims attached to them:
+
+| claim as originally written | status after Amendment 1 |
+|---|---|
+| A = "deliberate air" | **WRONG WORD.** It is 153 s of engines, not absence |
+| B = "hands directly to silence" | **NO LONGER TRUE.** There is no silence to hand to |
+| B = "resolve lands exactly on the SIL-01 boundary" | **TRUE ON THE TIMELINE, FALSE IN THE PICTURE.** It lands 50.5 s inside a continuous take |
+
+**Status remains OPEN — AWAITING EXECUTIVE DISPOSITION.**
+
+---
+
+## Decision (Amendment 1 revision — replaces the block above)
+
+**Selected option:** ☐ A ☐ B ☐ C ☐ D ☐ Other: ______
+**If A — recorded rationale for the intended engine-carry:** ______
+**If B or C — out/in point, and whether it moves to a cut:** ______
+**If C — energy value for CUE-03b (note A1.3: inheriting 5 is contradicted by the cut density):** ______
+**Rationale:** ______
+**Dispositioned by / date:** ______
+
