@@ -11,7 +11,7 @@
 #   - Executive Producer, 2026-08-22 (DOC-CAND-001 section 4.0)
 # ============================================================================
 register_id: EXECUTIVE_RULINGS
-register_version: 1.1.0   # Executive Clarification 2026-08-22: three clarifications adopted
+register_version: 1.2.0   # ER-003 added: COM-004 Editorial Mechanics vs Editorial Interpretation
 schema_version: 1.0
 authority: Chairman
 date: '2026-08-22'
@@ -359,3 +359,167 @@ notes_raised_by_this_clarification:
     recommendation: NONE - this is the palette-ownership decision, which is Executive
     needs: Executive ruling BEFORE the ESS-002 disposition triggers regeneration
     register_entries: [DWR-043, DWR-044]
+
+# ============================================================================
+  # ER-003 is appended below the clarification block deliberately: it arrived
+  # later the same day, from COM-004, and its scope is the whole platform
+  # rather than Road Soul cue development.
+# ============================================================================
+er_003:
+  id: ER-003
+  title: Editorial Mechanics vs Editorial Interpretation
+  source: COM-004
+  authority: Executive
+  date: '2026-08-22'
+  status: RULED
+  application: PROSPECTIVE
+  scope: WE CAPE PLATFORM ARCHITECTURE
+  binds: all ingestion, extraction and registry design
+
+  ruling_verbatim: >-
+    The platform should not evaluate whether an editorial mechanic is "important." The platform
+    should determine only whether the mechanic is objectively observable and reproducible. If so,
+    it should be cataloged. Its significance is determined later.
+
+  principle: >-
+    Observation precedes interpretation. Collection precedes analysis. Mechanics precede meaning.
+    The platform preserves objective evidence; the Executive determines significance.
+
+  three_layers:
+    - {layer: 1, name: TIMELINE_MECHANICS, source: FCPXML or equivalent editorial metadata,
+       character: objective and machine-verifiable, owner: PLATFORM,
+       example: "the FCPXML records a dissolve transition on a connected storyline at 27:10.000"}
+    - {layer: 2, name: SCREEN_PRESENTATION, source: rendered picture,
+       character: objective and viewer-observable, owner: PLATFORM,
+       example: "a map graphic dissolves into the upper-left corner while the primary picture continues"}
+    - {layer: 3, name: EXECUTIVE_INTERPRETATION, source: human judgement,
+       character: creative, narrative or musical significance, owner: EXECUTIVE_ONLY,
+       example: "this transition should orient the audience",
+       platform_shall_not: [infer artistic intent, recommend artistic intent]}
+
+  ingestion_direction: >-
+    The ingestion pipeline shall favour recording observable facts over filtering on perceived
+    immediate usefulness. If an editorial mechanic can be measured reproducibly it should generally
+    be cataloged. Whether it later influences synchronization, music, analytics, dashboards or
+    future productions is a DOWNSTREAM decision, not an INGESTION decision.
+
+  # --------------------------------------------------------------------
+  # The founding evidence. This ruling was not abstract - it was prompted
+  # by a live failure of exactly the behaviour it now forbids.
+  # --------------------------------------------------------------------
+  founding_evidence:
+    id: ER-003-E1
+    date: '2026-08-22'
+    finding: >-
+      During EVS-001 the engineer presented a shot list to the Executive labelled "every shot,
+      authoritative". It contained only depth-0 primary-spine elements. The Executive, watching the
+      picture, immediately named a map overlay at 27:10 that the shot list did not contain. The
+      element exists in the FCPXML and had been resolved by the platform's own resolver hours
+      earlier - it was filtered out at presentation because it was judged not immediately useful
+      to the boundary question.
+    the_number: >-
+      The resolver produced 1025 elements. 214 are depth-0. 811 - SEVENTY-NINE POINT ONE PERCENT of
+      the timeline - were never surfaced. The data was not missing. It was withheld by a usefulness
+      judgement the platform was not entitled to make.
+    conclusion: >-
+      ER-003 is not a speculative future-proofing rule. It closes a failure that occurred today, in
+      the session that produced it, committed by the engineer who wrote this note.
+
+  # --------------------------------------------------------------------
+  # What is already extractable TODAY from the locked FCPXML, at no new cost
+  # --------------------------------------------------------------------
+  layer_1_inventory_available_now:
+    source: Info.fcpxml sha256 2bf0685373d6963bc151b982fd8b16b072d47ca88bb36f3c4dcd4cf5563858e7
+    resolver: intelligence/p2/ess/scripts/fcpx_resolve.py (validated 191/191 against the ETC)
+    totals:
+      elements_resolved: 1025
+      by_tag: {asset-clip: 478, transition: 180, spine: 109, video: 77, clip: 61, title: 57, gap: 33, audio: 30}
+      by_depth: {0: 214, 1: 444, 2: 323, 3: 44}
+      connected_storylines: 109
+      distinct_lanes_in_use: 22
+    transitions:
+      count: 180
+      by_name: {Cross Dissolve: 166, Divide: 6, Center: 3, Flow: 1, Doorway: 1, Fade In: 1,
+                Blocks Dissolve: 1, Page Flip: 1}
+      duration_s: {mean: 0.889, median: 1.000, min: 0.125, max: 1.000}
+    note: >-
+      Every figure above was computed from an artifact the platform already holds, with a resolver
+      already validated. The first tranche of ER-003 collection costs a schema, not a measurement.
+
+  # --------------------------------------------------------------------
+  # Three engineering notes. Raised, not decided.
+  # --------------------------------------------------------------------
+  engineering_notes:
+    - id: ER-003-N1
+      subject: Layer 2 has no validated instrument, and the ruling's own Layer 2 example proves it
+      status: RAISED_NOT_DECIDED
+      observation: >-
+        Layer 1 has an instrument - the FCPXML resolver, validated 191/191. Layer 3 has an
+        authority - the Executive. LAYER 2 HAS NEITHER. The nearest thing the platform owns is
+        DIE-V, which observes a 320x180 watermarked proxy at 64x36 and 2 fps. It cannot see "a map
+        graphic dissolves into the upper-left corner." The ruling's own Layer 2 example is beyond
+        every instrument the platform currently has.
+      the_sharper_point: >-
+        That example did not come from a machine. It came from a human watching the film. That is a
+        legitimate Layer 2 observation, but it is HUMAN-SOURCED, and the platform has no way to
+        distinguish a human-observed Layer 2 fact from a machine-derived one. They are not the same
+        evidence class: one is reproducible by re-running code, the other only by another human
+        watching. Under DOC-001 an instrument must be validated before its output enters custody -
+        and a human observer is an instrument whose validation is a second observer, which is
+        exactly the EIO/IEO distinction already ruled for EVS.
+      proposed_remedy: >-
+        Layer 2 records carry an observer field - MACHINE with a named validated instrument, or
+        HUMAN with an observer identity and an observation class. Neither is superior; they are
+        different, and conflating them would let an unreproducible observation inherit a
+        machine-derived record's authority.
+      needs: Executive ruling at Layer 2 schema design
+
+    - id: ER-003-N2
+      subject: One of the proposed KPIs crosses the ruling's own boundary
+      status: RAISED_NOT_DECIDED
+      observation: >-
+        Most of the listed KPIs are Layer 1 arithmetic and are safe - dissolve duration, transition
+        density, graphic density, lower-third frequency, average title duration. Two are not.
+        "RIDE-TO-INFORMATION RATIO" requires classifying each shot as ride or information. That
+        classification is not in the FCPXML and is not visible in a frame; it is a judgement about
+        what a shot is FOR. It is a Layer 3 interpretation wearing a Layer 1 name, and computing it
+        would be the platform assigning meaning - the precise thing this ruling forbids.
+        "CORRELATION BETWEEN EDITORIAL MECHANICS AND AUDIENCE RETENTION" is a different problem:
+        retention data is not editorial metadata, does not exist in the platform, arrives from a
+        distribution service, and carries its own consent and accuracy questions. A correlation
+        published without those caveats invites a causal claim the data cannot support.
+      proposed_remedy: >-
+        A KPI is admissible under ER-003 only if every term in it is derivable from Layer 1 or from
+        an instrumented Layer 2 with no human classification step. "Ride-to-information ratio"
+        becomes admissible ONLY once an Executive-defined shot taxonomy exists, at which point the
+        classification is Executive-authored and the platform merely counts. Retention correlation
+        is deferred as an external-data-class question, not an editorial-mechanics one.
+      needs: Executive ruling before either KPI is implemented
+
+    - id: ER-003-N3
+      subject: Cross-production KPIs require frozen definitions, or they are not comparable
+      status: RAISED_NOT_DECIDED
+      observation: >-
+        "Average dissolve duration" is meaningless across productions unless every run counts the
+        same things. This lock contains 180 transitions of 8 distinct kinds; 166 are Cross
+        Dissolves. A run counting only cross-dissolves reports a different mean from one counting
+        all transitions, and both are defensible. The same ambiguity attaches to "transition
+        density by chapter" - chapter is undefined - and to "graphic density by runtime", where
+        runtime could mean sequence duration or the sum of graphic-bearing spans.
+      proposed_remedy: >-
+        Every KPI carries a frozen definition, a version, and the resolver version that produced it,
+        exactly as registries already carry registry_version and registry_schema_version. A KPI
+        whose definition changes gets a new version rather than a silently different value. This is
+        the measurement-vs-score test applied to production intelligence: a value that describes one
+        thing and carries its basis is a measurement.
+      needs: schema decision at first KPI implementation
+
+  consistency_check:
+    principle: "The platform prepares decisions; it does not make artistic ones."
+    verdict: >-
+      CONSISTENT, and it strengthens the principle rather than merely restating it. Layers 1 and 2
+      are preparation. Layer 3 is decision. The ruling expands what the platform may COLLECT while
+      leaving untouched what it may CONCLUDE - which is the Executive's own phrasing: it expands the
+      long-term value of the platform without expanding its authority.
+
+  register_entries: [DWR-045, DWR-046, DWR-047]

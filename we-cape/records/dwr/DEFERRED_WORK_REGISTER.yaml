@@ -16,9 +16,9 @@ class_definitions:
   IMPLEMENTATION: A decision already made and intentionally postponed. Can be scheduled; needs capacity,
     not authority.
 counts:
-  total: 44
-  deferred_decisions: 16
-  deferred_implementations: 28
+  total: 47
+  deferred_decisions: 18
+  deferred_implementations: 29
 entries:
 - dwr_id: DWR-001
   title: 'Define MANDATORY_SILENCE scope: no score vs no sound'
@@ -910,3 +910,82 @@ entries:
     notes EC-N1
   resolution_date: '2026-08-22'
   resolution_authority: Executive Producer / Chairman
+- dwr_id: DWR-045
+  title: EDITORIAL_MECHANICS_REGISTRY - 79.1% of the resolved timeline is collected but never surfaced
+  category: G — Future Capability
+  class: IMPLEMENTATION
+  origin: ER-003 (COM-004) founding evidence
+  discussion_reference: docs/rulings/EXECUTIVE_RULINGS.yaml er_003.founding_evidence
+  date_identified: '2026-08-22'
+  reason_deferred: 'The resolver produced 1025 elements; only 214 (depth-0) were ever presented. 811 -
+    79.1% - were filtered out at presentation because they were judged not immediately useful. The Executive
+    named a 27:10 map overlay from the picture that the platform had resolved hours earlier and withheld.
+    Not missing data: withheld data.'
+  executive_context: 'ER-003 forbids exactly that filtering: ''the platform should not evaluate whether
+    an editorial mechanic is important.'' Already extractable TODAY at no new measurement cost, from an
+    artifact the platform holds with a resolver validated 191/191: 180 transitions across 8 kinds (166
+    Cross Dissolve; mean 0.889 s, median 1.000 s, range 0.125-1.000), 109 connected storylines, 57 titles,
+    22 distinct lanes in use, 478 asset-clips. The first tranche costs a SCHEMA, not a measurement.'
+  dependencies: A registry schema and an Executive decision on scope
+  trigger_event: next ingestion sprint; no dependency on Part 2 completion
+  estimated_value: HIGH — this is the production-intelligence asset ER-003 exists to accumulate, and it
+    is sitting in a file already parsed
+  estimated_complexity: LOW-MEDIUM (extraction is done; the work is schema and emission)
+  recommended_priority: P2
+  current_status: Deferred
+- dwr_id: DWR-046
+  title: Layer 2 (Screen Presentation) has no validated instrument and no observer provenance class
+  category: G — Future Capability
+  class: DECISION
+  origin: ER-003-N1
+  discussion_reference: docs/rulings/EXECUTIVE_RULINGS.yaml er_003.engineering_notes ER-003-N1
+  date_identified: '2026-08-22'
+  reason_deferred: Layer 1 has an instrument (FCPXML resolver, 191/191). Layer 3 has an authority (the
+    Executive). Layer 2 has neither. DIE-V observes a 320x180 watermarked proxy at 64x36 / 2 fps and cannot
+    see 'a map graphic dissolves into the upper-left corner' - ER-003's own Layer 2 example is beyond
+    every instrument the platform currently owns.
+  executive_context: 'The sharper point: that example came from a HUMAN watching, not a machine. A human-observed
+    Layer 2 fact and a machine-derived one are different evidence classes - one is reproducible by re-running
+    code, the other only by another human watching. DOC-001 requires an instrument be validated before
+    its output enters custody, and a human observer''s validation is a second observer, which is exactly
+    the EIO/IEO distinction already ruled for EVS. Proposed and NOT adopted: Layer 2 records carry an
+    observer field - MACHINE with a named validated instrument, or HUMAN with an observer identity and
+    observation class. Neither superior; conflating them would let an unreproducible observation inherit
+    a machine-derived record''s authority.'
+  dependencies: Executive ruling on Layer 2 schema; a validated Layer 2 instrument if machine observation
+    is wanted
+  trigger_event: Layer 2 schema design
+  estimated_value: MEDIUM-HIGH — decides whether Layer 2 is a real layer or an aspiration
+  estimated_complexity: MEDIUM (schema is cheap; a validated visual instrument is not)
+  recommended_priority: P2
+  current_status: Deferred
+- dwr_id: DWR-047
+  title: Two proposed production-intelligence KPIs cross ER-003's own boundary; none carry frozen definitions
+  category: F — Governance Debt
+  class: DECISION
+  origin: ER-003-N2 and ER-003-N3
+  discussion_reference: docs/rulings/EXECUTIVE_RULINGS.yaml er_003.engineering_notes
+  date_identified: '2026-08-22'
+  reason_deferred: 'Most listed KPIs are Layer 1 arithmetic and safe. Two are not. RIDE-TO-INFORMATION
+    RATIO requires classifying each shot as ride or information - a judgement about what a shot is FOR,
+    absent from the FCPXML and invisible in a frame. It is a Layer 3 interpretation wearing a Layer 1
+    name. CORRELATION WITH AUDIENCE RETENTION uses data that is not editorial metadata, does not exist
+    in the platform, arrives from a distribution service and carries its own consent and accuracy questions;
+    published without caveats it invites a causal claim the data cannot support. Separately, NO listed
+    KPI carries a frozen definition: this lock holds 180 transitions of 8 kinds, 166 of them Cross Dissolves,
+    so ''average dissolve duration'' differs defensibly between a run counting cross-dissolves and one
+    counting all transitions. ''Transition density by chapter'' has no definition of chapter.'
+  executive_context: 'Proposed and NOT adopted: a KPI is admissible under ER-003 only if every term is
+    derivable from Layer 1 or an instrumented Layer 2 with no human classification step. Ride-to-information
+    becomes admissible once an Executive-defined shot taxonomy exists - then the classification is Executive-authored
+    and the platform merely counts. Retention correlation is deferred as an external-data-class question,
+    not an editorial-mechanics one. Every KPI carries a frozen definition, a version, and the resolver
+    version that produced it, exactly as registries carry registry_version. This is the measurement-vs-score
+    test applied to production intelligence.'
+  dependencies: Executive ruling before either KPI is implemented; a shot taxonomy for the first
+  trigger_event: first KPI implementation
+  estimated_value: HIGH — an unversioned KPI compared across productions is a composite score by another
+    route
+  estimated_complexity: LOW to specify, HIGH to retrofit if skipped
+  recommended_priority: P1
+  current_status: Deferred
