@@ -4,6 +4,7 @@ Document Type: **Executive Viewing Session — Brief** · Version **1.2** · Sta
 Date: 2026-08-22 · Authority: Executive Producer · Resolves: `PDR-2026-08-22-ESS-002` (VCONF-02, D-15, D-19, SLF-02)
 Precedent: `ELS-001` (Executive Listening Session) · Session class: **EVS** — picture + sound + editorial pacing
 **v1.0 → v1.1:** scope narrowed by Executive direction. The session answers **one question**.
+**v1.2 → v1.3:** observation protocol adopted (§6.0); observation classes **EIO / IEO** ruled.
 **v1.1 → v1.2:** an editorial-resolution viewing master was located, validated against the lock and
 approved (`DOC-001` Amendment 1). **The session now runs on the 4K master, not the proxy.** The
 §5 limitation *"no editorial-resolution viewing master exists"* is **RETIRED**.
@@ -248,6 +249,27 @@ audible event at 29:10 (below the ~1 dB JND); a large audible event at 31:43.
 instrument, and it is worth taking literally: close the brief, play from 27:10, and do not consult
 anything until a number is on paper.
 
+### The card — write this and nothing else before pressing play
+
+> **"My task is to determine where the picture no longer requires music to lead."**
+
+One sentence on a blank sheet. **No timecodes. No cue names. No engineering language.** The card exists
+to hold attention on the film rather than on the process.
+
+*One observation, offered and then dropped:* that sentence names **`LEAD`** — the exact behaviour state
+CUE-03 carries, and the only one under test here — without using a single word from the vocabulary.
+That is the sentence doing its job, not a coincidence worth analysing further.
+
+**When the scene ends, in this order and no other:**
+
+1. **Write the timecode.**
+2. **Write one sentence saying why.**
+3. **Only then** consult the measurements, the shot list, or anything in §1–§5.
+
+Step 2 matters as much as step 1. A timecode alone can be rationalised afterwards into agreement with
+whatever the measurements say; a timecode *with a reason recorded before the measurements were
+re-read* cannot.
+
 **The limit that must be recorded with it.** *"Deliberately forget"* is not achievable by intention,
 and this session's observer is already primed. Before this protocol was proposed, this brief and the
 conversation around it had already supplied:
@@ -258,18 +280,18 @@ conversation around it had already supplied:
 - that mean shot length rises **2.975×** across the boundary;
 - that there is **no audible level event at 29:10** and a **−7.6 dB event at 31:43**.
 
-Priming does not clear on request. **The observation this session produces will therefore be an
-INFORMED Executive observation, not an independent one**, and it must be labelled that way in the
-disposition. It is still the most valuable thing available — an experienced eye on the actual picture
+Priming does not clear on request. The observation this session produces is therefore an
+**Executive Informed Observation (EIO)** — ruled as a named class by the Executive Producer,
+2026-08-22 — and not an Independent Executive Observation. It is labelled that way in the disposition. It is still the most valuable thing available — an experienced eye on the actual picture
 outranks any measurement here — but it cannot be cited as confirmation of the measurements, because
 the measurements are already in the observer.
 
-**If a genuinely independent observation is wanted, it costs one person and six minutes.** Someone who
-has read none of this watches 27:10 → 33:30 on the approved master and writes down where the music's
-job ended, before being told anything. That is the only way to obtain an uncontaminated data point,
-and it would make the Executive's own observation *more* citable rather than less — two observers, one
-primed and one not, is a stronger record than either alone. **Recommended, not required, and it should
-not delay the session.**
+**The independent class — `IEO`.** An **Independent Executive Observation** is one made by a viewer who
+has seen none of the analysis. It costs one person and six minutes: they watch 27:10 → 33:30 on the
+approved master, hold the same card, and write a timecode and a reason before being told anything.
+**An EIO and an IEO together are a stronger evidentiary record than either alone** — which is why
+obtaining the IEO makes the Executive's own observation *more* citable, not less. **Recommended, not
+required, and it must not delay this session.**
 
 **Whichever is done, the record states what the observer had been exposed to beforehand.** That is the
 difference between a governed observation and an anecdote.
@@ -288,7 +310,9 @@ yield is not `HANDOFF`, and Road Soul does not currently have a word for it.
 
 ### 6.1 Viewing findings — TO BE RECORDED
 **Pass 1 (clean, as an audience).** Where did the music's job end? `______`
-**Written before reopening this brief?** ☐ yes ☐ no · **Observation class:** ☐ INFORMED ☐ INDEPENDENT
+**Card written before pressing play?** ☐ yes ☐ no · **Timecode and reason written before consulting §1–§5?** ☐ yes ☐ no
+**Observation class:** ☐ **EIO** (Executive Informed Observation) ☐ **IEO** (Independent Executive Observation)
+**Reason, in one sentence, written before the measurements were re-read:** `______`
 **Prior exposure, if INFORMED:** `______` *(§6.0 lists this session's default exposure)*
 Did the ride feel sustained through to SIL-01? ☐ yes ☐ no ☐ partly: `______`
 
