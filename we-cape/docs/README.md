@@ -76,3 +76,19 @@ RE_SCORECARD_INDEX.md so platform evolution is visible across RE-001, RE-002 and
 beyond. Each scorecard carries a context block (proxy resolution, sampling
 fraction, measurable-vs-indeterminate segments); two Reference Executions are
 comparable on evidence-bounded fields only when their context rows match.
+
+### Platform Reporting Standard (ratified 2026-08-22)
+Every readiness, health or intelligence report follows one pattern, governed by
+WET-SPEC-REPORT-001: Component Metrics -> Objective Percentages -> Executive
+Verdict. Component rows carry Available / Enabled / Consumed plus a required
+evidence reference, and a status of PASS, OPPORTUNITY, ATTENTION or ABSENT.
+Composite readiness, health, quality, maturity or intelligence scores are
+PROHIBITED, and that prohibition may be superseded only by an ADR that
+explicitly does so. Percentages are permitted only for directly measurable
+quantities - coverage, utilization, completion, reconciliation, validation -
+each published with its numerator, denominator and source, and never aggregated
+into an opaque composite without explicit Executive approval. Per-item
+measurements that carry their own basis (quality_score, camera_confidence,
+ENERGY_CURVE energy, HIGH/MEDIUM/LOW confidences) are NOT scores under this
+standard and are unaffected. One language, one philosophy: the platform
+explains rather than rates.

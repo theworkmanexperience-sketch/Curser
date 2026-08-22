@@ -182,7 +182,14 @@ entries:
   estimated_value: HIGH — prevents re-litigating a settled decision
   estimated_complexity: VERY LOW (one clarifying ruling)
   recommended_priority: P1
-  current_status: Deferred
+  current_status: Completed
+  resolution: EXTEND GAP-03. Executive Ruling, 2026-08-22. The prohibition on composite readiness/health
+    scores is extended to Capture Readiness, Acquisition Intelligence and all future platform health reporting.
+    Percentages permitted only for directly measurable quantities; no opaque aggregation without explicit
+    Executive approval. Supersedable only by an ADR that explicitly does so.
+  resolution_artifact: docs/specs/WET-SPEC-REPORT-001_v1.0_Platform_Reporting_Standard.md
+  resolution_date: '2026-08-22'
+  resolution_authority: Executive Producer
 - dwr_id: DWR-011
   title: CURATED as a ratification candidate in the provenance vocabulary
   category: D — Governance

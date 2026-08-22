@@ -10,6 +10,11 @@ Sprint 3A and CAR-003. Compensating controls: every current-state claim is sourc
 or reproducible `ffprobe` output; no proposal is recommended for construction; Executive review and a
 required ADR stand between this package and any build.
 
+**Amendment 2 (2026-08-22).** The Executive Ruling on `DWR-010` — *extend GAP-03* — landed while this
+package was open and **resolves review question 7 before review begins**. Candidate S-5 is rewritten,
+Q7 is closed, and the ruling is now normative as `WET-SPEC-REPORT-001 v1.0`. **Appendix B** applies it
+to this production as a worked example.
+
 ---
 
 ## 1. Executive Summary
@@ -140,12 +145,14 @@ Offered so reviewers have something specific to disagree with. **None is propose
 | S-2 | `CAPTURE_DEVICE_REGISTRY` constitutional now; acquisition generalized later from evidence | `cameras.yaml` already exists and is production-proven; promoting it is `DWR-016`, a Quick Win | Risks the exact naming/discoverability failure CAR-003 just documented — a second registry culture |
 | S-3 | `PRODUCTION_CAPTURE_PROFILE.yaml` emitted per production | Makes capture readiness, conform burden and device utilization measurable per production; feeds the dashboard and the PIR | Another generated artifact to keep regenerate-only (DOC-002); value unproven until a second production exists to compare |
 | S-4 | Capture-mode vocabulary (interview · ride · 360 · aerial · body · static · walking · time-lapse) as a governed enum | Sprint 3A's DIE-V invented ad-hoc event classes for exactly these; a shared vocabulary would let capture and editorial intelligence speak | Mode is often *interpretation*, not observation — assigning it at capture risks writing NIE-class judgement into a DIE-class registry (ADR-009 boundary) |
-| S-5 | Capture Readiness Score | A.3 shows one missed setting cost this production its route GPS | CAR-003 found GAP-03 already **rejected** a single 0–100 composite for the Production Health Report. Any score proposal must reconcile with that ruling first (`DWR-010`) |
+| S-5 | **Acquisition Readiness *Report*** — component metrics → objective percentages → Executive Verdict, per `WET-SPEC-REPORT-001` | A.3 shows one missed setting cost this production its route GPS; **Appendix B** demonstrates the report against real evidence and the verdict is actionable in one sentence | Cost is in the *collection* of component evidence, not the format; needs a decision on whether it is generated per production (`S-3`) or on demand |
 | S-6 | Extend the existing dashboard rather than build an Executive Dashboard | R6 accepted in CAR-003; the dashboard exists and honours zero-network | Capture Intelligence may need surfaces the current prototype was not shaped for |
 
-**Note on S-5 before it is debated:** the platform has already ruled once that composite scores hide
-more than they show. If a Capture Readiness *Score* is wanted, the review should first decide whether
-that ruling is being *extended* or *overturned*, and record which.
+**S-5 is settled in form, open in scope.** The Executive Ruling of 2026-08-22 extended GAP-03: a
+Capture Readiness **Score** is prohibited; a Capture Readiness **Report** is the required shape.
+`WET-SPEC-REPORT-001 v1.0` is in force and supersedable only by an ADR that explicitly says so. What
+remains for this review is *when* the report is produced and *what collects its component evidence* —
+not whether it may be a number.
 
 ---
 
@@ -173,7 +180,10 @@ that ruling is being *extended* or *overturned*, and record which.
    extension registry (like `ENERGY_CURVE`) sufficient?
 5. **Per-production profile** — does `PRODUCTION_CAPTURE_PROFILE.yaml` earn its regeneration cost?
 6. **Mode vocabulary** — is capture mode observation or interpretation? Which engine owns it?
-7. **Score** — extend or overturn GAP-03's no-composite-score ruling?
+7. ~~**Score** — extend or overturn GAP-03's no-composite-score ruling?~~ **RESOLVED 2026-08-22 by
+   Executive Ruling: EXTEND.** See `WET-SPEC-REPORT-001 v1.0`. Residual question for reviewers: what
+   collects the component evidence in §1 of Appendix B, and is the report generated per production or
+   on demand?
 8. **Telemetry sequencing** — parse Tier 3 telemetry, or first exhaust Tiers 0–1 and measure what is
    still missing?
 9. **Privacy** — how does a centralized acquisition view preserve the GPS separation D1/P7 guarantees?
@@ -197,7 +207,7 @@ are in scope for a first increment.
 | S-2 capture-first registry | ☐ | ☐ | ☐ | |
 | S-3 `PRODUCTION_CAPTURE_PROFILE.yaml` | ☐ | ☐ | ☐ | |
 | S-4 capture-mode vocabulary | ☐ | ☐ | ☐ | |
-| S-5 Capture Readiness Score | ☐ | ☐ | ☐ | reconcile with GAP-03 first |
+| S-5 Acquisition Readiness **Report** (form settled by ruling; scope open) | ☐ | ☐ | ☐ | `WET-SPEC-REPORT-001` in force |
 | S-6 extend existing dashboard | ☐ | ☐ | ☐ | |
 | Tier 0 wiring as a first increment | ☐ | ☐ | ☐ | |
 | Custody-at-acquisition rule for uncustodied material | ☐ | ☐ | ☐ | raised by A.5 |
@@ -219,4 +229,6 @@ recommendation traces to documented evidence.
 (DWR-014…017, 021, 032) · `WET-WF-001` Gap Register GAP-02/03/04/05 · `SPEC_SRT_Telemetry.md` ·
 `SPEC_Production_Health_Report.md` · `UI_Dashboard_Design_Guidelines_v2.md` ·
 `CAPE-RAT-20260813` clauses 9–15 · `ADR-009` (engine boundaries) · `DOC-001`, `DOC-002` ·
-**Appendix A — Capture Capability Matrix**.
+**Appendix A — Capture Capability Matrix** · **Appendix B — Acquisition Readiness Report (worked
+example under `WET-SPEC-REPORT-001`)** · `WET-SPEC-REPORT-001 v1.0` (Platform Reporting Standard) ·
+`DWR-010` (Completed, 2026-08-22).

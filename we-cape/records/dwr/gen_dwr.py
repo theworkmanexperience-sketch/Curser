@@ -70,7 +70,7 @@ ROWS = [
  "A locked design decision already rejects a single composite score for the Production Health Report. Whether that ruling extends to a 'Production Intelligence Score' has never been stated.",
  "The Executive Team listed Production Intelligence Score as a topic of interest; the governed record may already answer it.",
  "None","PHI-001 disposition",
- "HIGH — prevents re-litigating a settled decision","VERY LOW (one clarifying ruling)","P1","Deferred"),
+ "HIGH — prevents re-litigating a settled decision","VERY LOW (one clarifying ruling)","P1","Completed"),
 ("DWR-011","CURATED as a ratification candidate in the provenance vocabulary","D — Governance",D,
  "Part 1 governance pilot vocabulary rulings","docs/reports/PMR-001_Pilot_Metrics_Report.md 'CURATED admitted as ratification candidate (human-authorship/copyright rationale)'","2026-08-08",
  "Admitted as a candidate, never ratified. APPROVED was rejected as a provenance class twice.",
@@ -230,9 +230,22 @@ ROWS = [
  "HIGH — unpushed governance is unshared governance","VERY LOW (one command)","P1","Deferred"),
 ]
 
+RESOLUTIONS = {
+ "DWR-010": {
+   "resolution": ("EXTEND GAP-03. Executive Ruling, 2026-08-22. The prohibition on composite "
+                  "readiness/health scores is extended to Capture Readiness, Acquisition Intelligence "
+                  "and all future platform health reporting. Percentages permitted only for directly "
+                  "measurable quantities; no opaque aggregation without explicit Executive approval. "
+                  "Supersedable only by an ADR that explicitly does so."),
+   "resolution_artifact": "docs/specs/WET-SPEC-REPORT-001_v1.0_Platform_Reporting_Standard.md",
+   "resolution_date": "2026-08-22",
+   "resolution_authority": "Executive Producer"},
+}
+
 entries = []
 for r in ROWS:
     e = dict(zip(REQ, r))
+    e.update(RESOLUTIONS.get(e["dwr_id"], {}))
     missing = [k for k in REQ if not e.get(k)]
     if missing:
         sys.exit(f"{r[0]} missing {missing}")
