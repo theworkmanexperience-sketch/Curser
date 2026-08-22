@@ -279,6 +279,42 @@ ROWS = [
 ]
 
 RESOLUTIONS = {
+ "DWR-044": {
+   "resolution": ("PARTIALLY RULED, 2026-08-22, Executive Clarification 2. PALETTE is recognised as a "
+                  "DISTINCT ARCHITECTURAL LAYER - the fifth - sitting between BEHAVIOR and COMPOSITION. "
+                  "Palette constrains permissible expressive space but does not prescribe musical "
+                  "realization. OWNERSHIP RULED: Executive. The platform may REFERENCE an "
+                  "Executive-defined palette and test candidates against it; it shall NOT author, "
+                  "extend, add terms to, or infer one. Revised stack: LEXICON -> GRAMMAR -> BEHAVIOR "
+                  "(platform) -> PALETTE (Executive) -> COMPOSITION (composer). "
+                  "The three questions: behaviour asks what must the music ACCOMPLISH; palette asks "
+                  "what universe may it INHABIT; composition asks what shall this cue BECOME. "
+                  "STILL OPEN: (a) no palette has been authored for any family, so nothing can yet be "
+                  "referenced; (b) EC-N1 - a palette is only testable if its term vocabulary is closed. "
+                  "Palette conformity is one of ER-001's eight criteria and must therefore report a "
+                  "measurement and a method, but 'discouraged' has no method. Proposed and NOT adopted: "
+                  "PERMITTED->PASS, RESTRICTED->UNCERTAIN-escalate, FORBIDDEN->FAIL, plus a declared "
+                  "list_closure of CLOSED or OPEN. That makes palette conformity machine-testable "
+                  "without the platform authoring a single term."),
+   "resolution_artifact": "docs/rulings/EXECUTIVE_RULINGS.yaml executive_clarification_2026_08_22.clarification_2; notes EC-N1",
+   "resolution_date": "2026-08-22",
+   "resolution_authority": "Executive Producer / Chairman"},
+ "DWR-043": {
+   "resolution": ("ESCALATED 2026-08-22 and now BLOCKING. Executive Clarification 2 makes the finding "
+                  "sharper than when it was raised: instrumentation_guidance on 13 of 15 cues of "
+                  "CONDUCTOR_SCORE is PALETTE content, which the platform may reference but not author. "
+                  "The clarification is prospective, so the current artifact and RE-001 are NOT "
+                  "retroactively non-conforming. BUT CONDUCTOR_SCORE regenerates on the ESS-002 "
+                  "disposition, and gen_artifacts.py would re-author that content at that moment - "
+                  "knowingly emitting a non-conforming artifact. Three options recorded at EC-N2: "
+                  "(A) retain, marked ADVISORY and NON-NORMATIVE, awaiting palette ratification; "
+                  "(B) strip and replace with a palette reference - BLOCKED, no palette exists; "
+                  "(C) freeze the field and emit it verbatim as inherited content rather than "
+                  "re-deriving it. NO RECOMMENDATION - this is the palette-ownership decision and it "
+                  "is Executive. NEEDS A RULING BEFORE THE ESS-002 DISPOSITION TRIGGERS REGENERATION."),
+   "resolution_artifact": "docs/rulings/EXECUTIVE_RULINGS.yaml notes_raised_by_this_clarification EC-N2",
+   "resolution_date": "2026-08-22",
+   "resolution_authority": "Executive Producer / Chairman"},
  "DWR-040": {
    "resolution": ("PARTIALLY RULED, 2026-08-22, Executive Producer. The taxonomy is ADOPTED and the "
                   "unit of classification is settled: classify CRITERIA, not states. A single behaviour "

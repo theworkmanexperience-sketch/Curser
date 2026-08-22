@@ -11,7 +11,7 @@
 #   - Executive Producer, 2026-08-22 (DOC-CAND-001 section 4.0)
 # ============================================================================
 register_id: EXECUTIVE_RULINGS
-register_version: 1.0.0
+register_version: 1.1.0   # Executive Clarification 2026-08-22: three clarifications adopted
 schema_version: 1.0
 authority: Chairman
 date: '2026-08-22'
@@ -24,7 +24,7 @@ application_note: >-
 # A note on the classification of this register - raised, not decided.
 # --------------------------------------------------------------------------
 classification_question:
-  status: RAISED_NOT_DECIDED
+  status: RESOLVED 2026-08-22 (Executive Clarification 3) - ER REMAINS A DISTINCT CLASS
   raised_by: Music Systems Engineer
   raised_date: '2026-08-22'
   observation: >-
@@ -44,6 +44,25 @@ classification_question:
     - C - ER stays a lightweight ruling instrument (like the ESS-004 ruling, which lives
           inside its PDR) and this register indexes rulings wherever they live
   recommendation: NONE - this is a governance decision, not an engineering one
+  ruling: >-
+    Executive Clarification 3, 2026-08-22. Executive Rulings remain a DISTINCT governance
+    class pending formal architecture review. They shall not be reclassified without explicit
+    Executive disposition. Option A adopted; options B and C are closed.
+  basis: >-
+    An ADR answers "why was the platform built this way" - it is a record of a decision
+    already taken. An Executive Ruling answers "how shall the platform be governed going
+    forward" - it is an exercise of authority, prospective by construction. Different
+    authorities, different tense. Merging them would flatten a record into a rule.
+  governance_hierarchy:
+    - {class: CAR, answers: what did we find, function: review}
+    - {class: ADR, answers: why was it built this way, function: architecture}
+    - {class: SPEC, answers: how is it implemented, function: implementation}
+    - {class: PDR, answers: what was decided for this production, function: production}
+    - {class: ER, answers: how shall the platform be governed going forward, function: executive authority}
+  parallel_system_concern: >-
+    WITHDRAWN. WET-REV-002 forbids a parallel system that duplicates an existing mechanism.
+    ER does not duplicate ADR - it occupies a tense ADR does not cover. The engineer's concern
+    was that the two classes overlapped; the ruling establishes that they do not.
 
 rulings:
 
@@ -88,7 +107,7 @@ rulings:
     engineering_notes:
       - id: ER-001-N1
         subject: A criterion COUNT is a ranking
-        status: RAISED_NOT_DECIDED
+        status: RESOLVED
         observation: >-
           The ruling's own illustrative sentence - "Candidate A satisfies criteria 1-8.
           Candidate B satisfies criteria 1-7." - reads as 8 versus 7. A total is a composite
@@ -96,28 +115,26 @@ rulings:
           equal weight and that failing silence-covenant compliance costs the same as failing
           a technical observation. That is the exact construction the Executive Ruling on
           DWR-010 (EXTEND GAP-03) prohibits platform-wide.
-        proposed_remedy: >-
-          Candidate reports state a per-criterion verdict - PASS, FAIL, or UNCERTAIN - and
-          NEVER a count, total, percentage, or any aggregate. Where a candidate fails, the
-          report names WHICH criterion and by how much, in units. The Executive weighs the
-          criteria; the platform does not weigh them by counting them.
-        needs: Executive confirmation
+        status_resolved: ADOPTED 2026-08-22 (Executive Clarification 1)
+        ruling: >-
+          Candidate comparisons shall never produce counts, totals, percentages, rankings, or
+          aggregate compliance values. Each criterion shall be reported independently with its
+          evidence, measurement, and method.
 
       - id: ER-001-N2
         subject: The technical_observations criterion is the leak
-        status: RAISED_NOT_DECIDED
+        status: RESOLVED
         observation: >-
           Seven of the eight criteria are conformity tests against a governed value. The
           eighth is open-ended, and open-ended is where preference re-enters wearing
           technical clothing. "Transient density in the 1-4 kHz band is 3.2x the candidate
           mean" is a measurement. "Candidate A feels cluttered" is a preference. Both would
           pass as a technical observation as the criterion is currently written.
-        proposed_remedy: >-
-          Every technical observation SHALL be stated as a measurement with a unit and a
-          method, or explicitly classified UNCERTAIN. An observation that cannot be
-          expressed as a number or as UNCERTAIN is an artistic judgement and belongs to the
-          Executive, not in the report.
-        needs: Executive confirmation
+        status_resolved: ADOPTED 2026-08-22 (Executive Clarification 1)
+        ruling: >-
+          The mandated report shape carries a METHOD column. A row without a stated method
+          cannot be filled, so an unmeasurable observation has nowhere to go. The leak is
+          closed structurally rather than by instruction.
 
   # ======================================================================
   - id: ER-002
@@ -164,7 +181,7 @@ rulings:
     engineering_notes:
       - id: ER-002-N1
         subject: The Type A example contains expression as well as behaviour
-        status: RAISED_NOT_DECIDED
+        status: RESOLVED
         observation: >-
           The ruling's Type A example includes "Instrumentation: electric guitar, warm organ,
           upright bass, brush kit". By the ruling's own test - behaviour defines what the
@@ -192,7 +209,7 @@ rulings:
           outside the four-layer Road Soul stack entirely. Either the stack needs a fifth
           element or the palette belongs to Composition as an Executive-owned input. Not
           decided here.
-        needs: Executive ruling
+        status_resolved: ADOPTED 2026-08-22 (Executive Clarification 2)
         register_entry: DWR-044
 
       - id: ER-002-N2
@@ -220,3 +237,125 @@ consistency_check:
   er_002: >-
     CONSISTENT in intent. Behaviour is preparation; creative intent is decision. Note ER-002-N1:
     as illustrated, one field of the Type A example crosses the line the ruling draws.
+
+# ============================================================================
+# EXECUTIVE CLARIFICATION — 2026-08-22
+# "These clarifications are prospective and shall inform the forthcoming Road
+#  Soul Behavior Specification."
+# ============================================================================
+executive_clarification_2026_08_22:
+  authority: Executive Producer / Chairman
+  date: '2026-08-22'
+  application: PROSPECTIVE
+  informs: WET-SPEC-RSB-001 (Road Soul Behaviour Specification), when drafted
+
+  clarification_1:
+    subject: Candidate report shape
+    amends: ER-001
+    ruling: >-
+      Candidate comparisons shall never produce counts, totals, percentages, rankings, or
+      aggregate compliance values. Each criterion shall be reported independently with its
+      evidence, measurement, and method.
+    mandated_report_shape: [criterion, status, evidence, measurement, method]
+    nothing_more: true
+    prohibited: [totals, percentages, green scores, compliance percentages, rankings, aggregates]
+    worked_examples:
+      - {criterion: DUCK, status: PASS, evidence: sustained level under dialogue,
+         measurement: "-18.2 dB", method: EBU R128}
+      - {criterion: SILENCE_COVENANT, status: FAIL, evidence: "tail extends 0.84 s past the boundary",
+         measurement: "0.84 s", method: "frame 48201"}
+    engineering_note: >-
+      The METHOD column closes ER-001-N2 structurally rather than by instruction. A row cannot
+      be filled without a stated method, so an observation that is really a preference has
+      nowhere to go. That is a better fix than a rule telling the engineer not to editorialise,
+      because it fails loudly instead of silently.
+
+  clarification_2:
+    subject: Palette is a distinct architectural layer
+    amends: ER-002
+    ruling: >-
+      Road Soul Palette is recognized as a distinct architectural layer. Palette constrains
+      permissible expressive space but does not prescribe musical realization. Behavioral
+      Specifications may REFERENCE an Executive-defined Palette but shall not AUTHOR or
+      EXTEND one.
+    the_three_questions:
+      behaviour: What must the music accomplish?
+      palette: What universe may the music inhabit?
+      composition: What shall this cue become?
+    revised_road_soul_stack:
+      - {level: 1, layer: LEXICON,     is: vocabulary,                    owner: PLATFORM}
+      - {level: 2, layer: GRAMMAR,     is: permitted relationships,       owner: PLATFORM}
+      - {level: 3, layer: BEHAVIOR,    is: observable intent,             owner: PLATFORM}
+      - {level: 4, layer: PALETTE,     is: permissible expressive space,  owner: EXECUTIVE,
+         note: "creative governance - neither engineering nor composition; a brand guide, not a score"}
+      - {level: 5, layer: COMPOSITION, is: musical realization,           owner: COMPOSER}
+    platform_may: [reference a palette by name, test a candidate against a palette]
+    platform_may_not: [author a palette, extend a palette, add a term to a palette,
+                       infer a palette from existing cues]
+
+  clarification_3:
+    subject: Executive Rulings remain a distinct class
+    ruling: >-
+      Executive Rulings remain a distinct governance class pending formal architecture review.
+      They shall not be reclassified without explicit Executive disposition.
+    basis: ADR records why the platform was built; ER exercises how it shall be governed forward
+    hierarchy: [CAR, ADR, SPEC, PDR, ER]
+    engineer_concern: WITHDRAWN - see classification_question.parallel_system_concern
+
+# ----------------------------------------------------------------------------
+# ONE NOTE RAISED BY THE CLARIFICATION ITSELF, NOT YET DECIDED
+# ----------------------------------------------------------------------------
+notes_raised_by_this_clarification:
+  - id: EC-N1
+    subject: A palette is only testable if its term vocabulary is closed
+    status: RAISED_NOT_DECIDED
+    raised_by: Music Systems Engineer
+    observation: >-
+      Palette conformity is one of ER-001's eight governed criteria, so under Clarification 1 it
+      must report a status with a measurement and a method. The illustrative MOTION palette uses
+      four different strengths - "never orchestral", "electric guitar permitted", "synth pads
+      restricted", "brass discouraged" - and only two of them are testable as written. A candidate
+      containing brass is not FAIL, because discouraged is not forbidden; it is not PASS either.
+      And a candidate using a mandolin cannot be assessed at all, because it is unstated whether
+      the permit list is closed ("only these") or open ("these are permitted, others on ruling").
+    proposed_remedy: >-
+      Palette terms use a closed three-value vocabulary that maps directly onto the ER-001 status
+      column: PERMITTED -> PASS, RESTRICTED -> UNCERTAIN and escalate to the Executive,
+      FORBIDDEN -> FAIL. Each palette additionally declares list_closure - CLOSED (anything
+      unlisted is FORBIDDEN) or OPEN (anything unlisted is RESTRICTED). "Discouraged" collapses
+      into RESTRICTED. This makes palette conformity machine-testable without the platform
+      authoring a single palette term, which Clarification 2 forbids.
+    why_it_matters_now: >-
+      Without it, palette conformity is the one criterion of the eight that cannot be filled in
+      under Clarification 1's mandated shape - there is no method for "discouraged".
+    needs: Executive ruling, at palette authorship
+    register_entry: DWR-044
+
+  - id: EC-N2
+    subject: The next CONDUCTOR_SCORE regeneration would emit platform-authored palette content
+    status: RAISED_NOT_DECIDED
+    severity: BLOCKING for the next regeneration
+    raised_by: Music Systems Engineer
+    observation: >-
+      CONDUCTOR_SCORE.yaml v1.1.0 carries instrumentation_guidance on 13 of 15 cues - colour,
+      instruments, tempo, tonality, prohibited. Under Clarification 2 that is PALETTE content,
+      Executive-owned, which the platform may reference but not author. The clarification is
+      prospective, so the current artifact and RE-001 are NOT retroactively non-conforming.
+      But CONDUCTOR_SCORE regenerates on the ESS-002 disposition, and gen_artifacts.py would
+      re-author that content at that moment. The regeneration would knowingly emit a
+      non-conforming artifact.
+    the_three_options:
+      - id: A
+        action: retain instrumentation_guidance, marked ADVISORY and NON-NORMATIVE, with a note
+                that it predates Clarification 2 and awaits Executive palette ratification
+        cost: the artifact still contains platform-authored expression, now labelled
+      - id: B
+        action: strip instrumentation_guidance and replace it with a palette reference
+        cost: BLOCKED - no Executive-defined palette exists yet for any family
+      - id: C
+        action: freeze the field at its current values, generator emits it verbatim as inherited
+                content rather than re-deriving it, pending palette authorship
+        cost: none immediately; defers the decision without hiding it
+    recommendation: NONE - this is the palette-ownership decision, which is Executive
+    needs: Executive ruling BEFORE the ESS-002 disposition triggers regeneration
+    register_entries: [DWR-043, DWR-044]
