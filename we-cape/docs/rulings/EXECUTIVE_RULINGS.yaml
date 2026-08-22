@@ -1,0 +1,222 @@
+# ============================================================================
+# Executive Rulings Register
+# Chairman direction, 2026-08-22: "Record these as Executive Rulings and apply
+# them prospectively to all Road Soul(TM) cue development."
+#
+# An Executive Ruling (ER) binds how the PLATFORM operates. It is prospective:
+# it governs work not yet done and does not reopen work already dispositioned.
+#
+# Governing principle these rulings extend:
+#   "The platform prepares decisions; it does not make artistic ones."
+#   - Executive Producer, 2026-08-22 (DOC-CAND-001 section 4.0)
+# ============================================================================
+register_id: EXECUTIVE_RULINGS
+register_version: 1.0.0
+schema_version: 1.0
+authority: Chairman
+date: '2026-08-22'
+application: PROSPECTIVE
+application_note: >-
+  Applies to all Road Soul cue development from 2026-08-22 forward. Does not reopen
+  ESS-004, RE-001, or any artifact already dispositioned.
+
+# --------------------------------------------------------------------------
+# A note on the classification of this register - raised, not decided.
+# --------------------------------------------------------------------------
+classification_question:
+  status: RAISED_NOT_DECIDED
+  raised_by: Music Systems Engineer
+  raised_date: '2026-08-22'
+  observation: >-
+    ER-001 and ER-002 are platform-scope, permanent and prospective, and they constrain
+    how the platform operates. That is the definition the repository already uses for an
+    ADR (ADR = platform, PDR = production). Standing up an ER series alongside ADR may be
+    the parallel system WET-REV-002 forbids ("PDR approvals join the existing gate ledger,
+    never a parallel system"), and it adds a class to a repository whose top-ranked finding
+    in CAR-003 was DISCOVERABILITY, not absence.
+  why_recorded_as_ER_anyway: >-
+    The Chairman named them Executive Rulings and directed they be recorded as such.
+    Silently reclassifying a Chairman ruling would be the platform making a governance
+    decision that is not its to make. Recorded under the name given.
+  options_for_a_future_ruling:
+    - A - ER becomes its own document series with a stated boundary against ADR
+    - B - absorbed as ADR-010 and ADR-011; this register becomes a pointer
+    - C - ER stays a lightweight ruling instrument (like the ESS-004 ruling, which lives
+          inside its PDR) and this register indexes rulings wherever they live
+  recommendation: NONE - this is a governance decision, not an engineering one
+
+rulings:
+
+  # ======================================================================
+  - id: ER-001
+    title: Candidate Comparisons
+    authority: Chairman
+    date: '2026-08-22'
+    status: RULED
+    application: PROSPECTIVE
+    binds: Music Systems Engineer; all Road Soul cue candidate reporting
+
+    ruling_verbatim: >-
+      The Music Systems Engineer shall compare candidate cues only against governed
+      technical and behavioral criteria. Reports shall identify conformity and
+      non-conformity by criterion. Reports shall never rank candidates, recommend a
+      preferred candidate, or express artistic preference. Artistic selection remains
+      an Executive function.
+
+    governed_criteria:
+      - placement_conformity
+      - transition_conformity
+      - ducking_compliance
+      - silence_covenant_compliance
+      - timing_behaviour
+      - behavioural_state_conformity
+      - registry_consistency
+      - technical_observations
+
+    prohibited:
+      - ranking candidates
+      - recommending a winner
+      - assigning artistic scores
+      - estimating emotional impact
+      - estimating audience preference
+      - estimating "better"
+
+    # ------------------------------------------------------------------
+    # Two operational requirements the ruling implies. Raised because both
+    # would otherwise reintroduce exactly what the ruling prohibits.
+    # ------------------------------------------------------------------
+    engineering_notes:
+      - id: ER-001-N1
+        subject: A criterion COUNT is a ranking
+        status: RAISED_NOT_DECIDED
+        observation: >-
+          The ruling's own illustrative sentence - "Candidate A satisfies criteria 1-8.
+          Candidate B satisfies criteria 1-7." - reads as 8 versus 7. A total is a composite
+          score with invisible weights: it silently asserts that all eight criteria carry
+          equal weight and that failing silence-covenant compliance costs the same as failing
+          a technical observation. That is the exact construction the Executive Ruling on
+          DWR-010 (EXTEND GAP-03) prohibits platform-wide.
+        proposed_remedy: >-
+          Candidate reports state a per-criterion verdict - PASS, FAIL, or UNCERTAIN - and
+          NEVER a count, total, percentage, or any aggregate. Where a candidate fails, the
+          report names WHICH criterion and by how much, in units. The Executive weighs the
+          criteria; the platform does not weigh them by counting them.
+        needs: Executive confirmation
+
+      - id: ER-001-N2
+        subject: The technical_observations criterion is the leak
+        status: RAISED_NOT_DECIDED
+        observation: >-
+          Seven of the eight criteria are conformity tests against a governed value. The
+          eighth is open-ended, and open-ended is where preference re-enters wearing
+          technical clothing. "Transient density in the 1-4 kHz band is 3.2x the candidate
+          mean" is a measurement. "Candidate A feels cluttered" is a preference. Both would
+          pass as a technical observation as the criterion is currently written.
+        proposed_remedy: >-
+          Every technical observation SHALL be stated as a measurement with a unit and a
+          method, or explicitly classified UNCERTAIN. An observation that cannot be
+          expressed as a number or as UNCERTAIN is an artistic judgement and belongs to the
+          Executive, not in the report.
+        needs: Executive confirmation
+
+  # ======================================================================
+  - id: ER-002
+    title: Prompt Custody
+    authority: Chairman
+    date: '2026-08-22'
+    status: RULED
+    application: PROSPECTIVE
+    binds: Music Systems Engineer; all Road Soul generation inputs
+    supersedes_ambiguity_in: >-
+      the standing "no music generation" constraint, which governed generation but left
+      prompt AUTHORSHIP unallocated. This ruling allocates it.
+
+    ruling_verbatim: >-
+      Behavioral Specifications belong to the platform and may be authored by the Music
+      Systems Engineer. Creative Prompts belong to the Executive Producer / Composer and
+      shall not be authored, optimized, or selected by the platform.
+      Behavior defines what the music must do. Creative intent defines what the music
+      should become.
+
+    type_a_behavioural_specification:
+      owner: PLATFORM (Music Systems Engineer may author)
+      defines: what the music must DO
+      character: constraints and measurable targets
+      examples_as_ruled:
+        - "Road Soul family: MOTION"
+        - "Behaviour: LEAD, SUSTAIN, DUCK, REBUILD"
+        - "Tempo: approximately 98 BPM"
+        - "Duck: -18 dB"
+        - "No lyrics"
+        - "No builds"
+        - "No drops"
+
+    type_b_creative_prompt:
+      owner: EXECUTIVE PRODUCER / COMPOSER
+      defines: what the music should BECOME
+      character: artistic intent
+      examples_as_ruled:
+        - "Make the audience feel the road opening after the escort falls away"
+        - "The motorcycles become one heartbeat"
+        - "Give me the feeling of freedom after responsibility"
+      platform_may_not: [author, optimize, select]
+
+    engineering_notes:
+      - id: ER-002-N1
+        subject: The Type A example contains expression as well as behaviour
+        status: RAISED_NOT_DECIDED
+        observation: >-
+          The ruling's Type A example includes "Instrumentation: electric guitar, warm organ,
+          upright bass, brush kit". By the ruling's own test - behaviour defines what the
+          music must DO - a named instrument does not say what the music does. It says what
+          the music IS. That is expression, and the Chairman ruled on 2026-08-22 that
+          "Conductor's Score is behaviour, Road Soul is expression, those should never be
+          merged." The same finding was already raised as DWR-043 against CONDUCTOR_SCORE,
+          which carries instrumentation_guidance on 13 of 15 cues. It now appears inside the
+          ruling that was meant to separate them.
+        the_line_runs_through_the_field: >-
+          The example mixes both classes within instrumentation itself.
+          CONSTRAINTS are behaviour and are testable - "no lyrics", "no builds", "no drops",
+          "no percussion transients that read as an event", "keep 1-4 kHz uncluttered".
+          A PALETTE is expression - "electric guitar, warm organ, upright bass, brush kit".
+          The first says what the music must not do. The second says what it is made of.
+        proposed_remedy: >-
+          The platform may CITE a governed family palette; it may not INVENT one. Road Soul
+          family palettes are Executive-authored once per family and live with Road Soul, not
+          with the Conductor's Score. A Behavioural Specification then reads "palette: Road
+          Soul MOTION (see family definition)" rather than naming instruments the platform
+          chose. This keeps the specification handable to a generation engine - the
+          engine-independence goal below - without the platform authoring a musical palette.
+        open_question_for_the_stack: >-
+          A palette is not Lexicon, not Grammar, not Behaviour, and not Composition. It sits
+          outside the four-layer Road Soul stack entirely. Either the stack needs a fifth
+          element or the palette belongs to Composition as an Executive-owned input. Not
+          decided here.
+        needs: Executive ruling
+        register_entry: DWR-044
+
+      - id: ER-002-N2
+        subject: Engine independence is now a requirement, not a property
+        status: RECORDED
+        observation: >-
+          Chairman, 2026-08-22 - "Those specifications should outlive Suno. Outlive Udio.
+          Outlive whatever AI comes next. Ten years from now another engine should be able to
+          consume a Road Soul Behavior Spec without knowing anything about Suno."
+        consequence: >-
+          This converts engine-independence from a desirable property of WET-SPEC-RSB-001 into
+          a stated Executive requirement on it, and it raises that spec's value materially:
+          the durable asset is not the music and not the prompts, it is the behavioural
+          specification. Recorded against DWR-039. It also sharpens the Type A / Type B split
+          - a Type B creative prompt is engine-facing and disposable; a Type A behavioural
+          specification is institutional and must survive the engine it was written for.
+        binds: WET-SPEC-RSB-001 when drafted
+        register_entry: DWR-039
+
+consistency_check:
+  principle: "The platform prepares decisions; it does not make artistic ones."
+  er_001: >-
+    CONSISTENT. Reporting conformity is preparation. Ranking is deciding. The two engineering
+    notes exist to stop preparation from becoming decision by arithmetic or by adjective.
+  er_002: >-
+    CONSISTENT in intent. Behaviour is preparation; creative intent is decision. Note ER-002-N1:
+    as illustrated, one field of the Type A example crosses the line the ruling draws.

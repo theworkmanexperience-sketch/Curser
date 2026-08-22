@@ -16,8 +16,8 @@ class_definitions:
   IMPLEMENTATION: A decision already made and intentionally postponed. Can be scheduled; needs capacity,
     not authority.
 counts:
-  total: 43
-  deferred_decisions: 15
+  total: 44
+  deferred_decisions: 16
   deferred_implementations: 28
 entries:
 - dwr_id: DWR-001
@@ -719,7 +719,10 @@ entries:
     CUE-03, CUE-07, then the spec.'
   dependencies: ESS-002 disposition; CUE-03 and CUE-07 realization
   trigger_event: CUE-07 selection PDR
-  estimated_value: HIGH — it is the difference between a soundtrack and a governed musical language
+  estimated_value: 'VERY HIGH — Chairman ER-002-N2, 2026-08-22: the behavioural specification must OUTLIVE
+    Suno, Udio and whatever comes next. Engine independence is now a stated Executive REQUIREMENT on this
+    spec, not a desirable property. The durable asset is not the music and not the prompts - it is this
+    specification.'
   estimated_complexity: LOW-MEDIUM (sections 1-3 are transcription; section 4 is real work on four states)
   recommended_priority: P1
   current_status: Deferred
@@ -844,3 +847,32 @@ entries:
   resolution_artifact: Executive Review of commit 47f5268
   resolution_date: '2026-08-22'
   resolution_authority: Executive Producer
+- dwr_id: DWR-044
+  title: Palette ownership is unallocated - it is neither behaviour nor any layer of the Road Soul stack
+  category: F — Governance Debt
+  class: DECISION
+  origin: ER-002 engineering note N1
+  discussion_reference: docs/rulings/EXECUTIVE_RULINGS.yaml ER-002-N1
+  date_identified: '2026-08-22'
+  reason_deferred: 'ER-002 places ''Instrumentation: electric guitar, warm organ, upright bass, brush
+    kit'' inside the platform-owned Type A Behavioural Specification. By the ruling''s own test - behaviour
+    defines what the music must DO - a named instrument says what the music IS, not what it does. The
+    line runs THROUGH the instrumentation field: constraints are behaviour and are testable (''no lyrics'',
+    ''no builds'', ''no percussion transients that read as an event''); a palette is expression. The same
+    finding is already open as DWR-043 against CONDUCTOR_SCORE, and it now appears inside the ruling that
+    was meant to separate the two.'
+  executive_context: 'Proposed remedy, NOT adopted: the platform may CITE a governed family palette but
+    may not INVENT one. Family palettes are Executive-authored once per family and live with Road Soul,
+    not with the Conductor''s Score. A Behavioural Specification then reads ''palette: Road Soul MOTION
+    (see family definition)''. This preserves engine-independence - the spec stays handable to any generation
+    engine - without the platform authoring musical material. Open question underneath: a palette is not
+    Lexicon, not Grammar, not Behaviour and not Composition. It sits outside the four-layer stack entirely.
+    Either the stack needs a fifth element or the palette belongs to Composition as an Executive-owned
+    input.'
+  dependencies: Executive ruling on palette ownership and on where it sits in the stack
+  trigger_event: first Road Soul cue PDR, or WET-SPEC-RSB-001 drafting
+  estimated_value: HIGH — it decides what a Behavioural Specification may contain, and that spec is the
+    platform's durable asset
+  estimated_complexity: LOW to specify once ruled
+  recommended_priority: P1
+  current_status: Deferred
