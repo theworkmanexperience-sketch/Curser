@@ -513,15 +513,21 @@ and matches the 2026-08-24 divergent cut at r = 0.999958.
 | inference policy | `ZERO` — five conditions are recorded as `INSUFFICIENT_OBSERVATION` and none was filled |
 | instruments | I-1 caption-text alignment · I-2 audio-envelope correlation, cross-validated to 0.001–0.085 s |
 | resolution | envelope 10 ms · boundary scans ±0.2 s · lag search 10 ms |
-| scripts | `srt.py`, `partA_B.py`, `partC.py`, `partC2.py`, `partD_internal.py`, `partE_align.py`, `partE_bound.py`, `partE_fine.py` |
+| scripts committed | `intelligence/p2/forensics/scripts/` — `srt.py`, `env100.py`, `partA_B.py`, `partC.py`, `partC2.py`, `partD_internal.py`, `partE_align.py`, `partE_bound.py`, `partE_fine.py` |
 | assets read | 8 audited (§1.2) + 4 reference (§1.2), all hashed before use |
-| assets modified | **none.** Working copies were made under `SPRINT3A_WORK/parent_audit/`; no audited file was written to |
+| assets modified | **none.** Working copies and envelope files were written under `WE_CAPE_OUTPUT/AlphaRoundUp_2026/SPRINT3A_WORK/parent_audit/`; no audited file was written to, renamed, or deleted |
 | registries consulted | none required; **no registry was modified** |
 | ranking, preference, or aggregate compliance value expressed | **none** (ER-001) |
 
-**Reproduction note.** The four audited hashes in §1.2 pin the inputs. Re-running the eight scripts
-against those hashes reproduces every number in this report. Any number that cannot be reproduced from
-those inputs is an error in this report and should be reported as one.
+**Reproduction note — stated with its limit.** The four audited hashes in §1.2 pin the inputs, and the
+nine committed scripts reproduce **Parts A, B, C, D-2 through D-6, E.1, E.2 and F** directly.
+
+**Four figures were produced by ad-hoc comparisons that are not in the committed scripts** and are
+therefore reproducible from the method statement in §6 but not by re-running a file: the Parent-vs-08-24
+envelope difference (D-7), the Parent-vs-Approved-Viewing-Master lag sweep (D-1), the tail free-search
+(D-4), and the F.1 arithmetic re-check. **Each is named here rather than left to look like scripted
+output.** Any number in this report that cannot be reproduced from the pinned inputs is an error in
+this report and should be reported as one.
 
 ---
 
