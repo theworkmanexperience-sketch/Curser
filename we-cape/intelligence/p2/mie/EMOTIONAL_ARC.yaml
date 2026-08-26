@@ -1,3 +1,23 @@
+# ============================================================================
+# SUPERSEDED 2026-08-26 by EXECUTIVE RATIFICATION ORDER - EPR-001, clause 1.1.
+#
+#   SUPERSEDED_BY: EMOTIONAL_PROGRESSION_REGISTRY.yaml (EPR-001) v1.1.0
+#
+# RETAINED IN CUSTODY, NOT DELETED. This file remains the PROVENANCE of
+# EPR-001's initial content: its beat, segs and audience_emotion values were
+# transcribed forward verbatim (audience_emotion -> audience_state is a rename
+# ruled by the order's schema, not a change of value).
+#
+# The music_responsibility column did NOT transfer. Its six terms - Invite,
+# Yield, Lift, Support, Celebrate, Resolve - are DEFERRED to WET-SPEC-RSB-001
+# by order clause 1.3. No mapping to the ten conductor behaviour states has
+# been executed.
+#
+# The contract clause below is CARRIED FORWARD VERBATIM into EPR-001 per
+# order clause 1.2. It is live in both places; EPR-001 is the governing copy.
+#
+# DO NOT EDIT. Corrections belong in EPR-001.
+# ============================================================================
 document_id: DOCUMENTARY_EMOTIONAL_ARC
 version: 1.0.0
 class: executive-artifact  # the emotional contract binding composer and editor (Chairman addition, Executive Review)

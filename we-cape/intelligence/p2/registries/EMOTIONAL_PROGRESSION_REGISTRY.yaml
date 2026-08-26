@@ -1,0 +1,163 @@
+# ============================================================================
+# EMOTIONAL_PROGRESSION_REGISTRY (EPR-001)
+# Governed upstream artifact of DOCUMENTARY INTENT.
+#
+# Ratified: EXECUTIVE RATIFICATION ORDER & INGESTION PROMPT - EPR-001
+#           Authority: Executive Producer / Chairman   Date: 2026-08-26
+#           Reference: PR-001 Architectural Review & Triad Alignment
+#
+# CUSTODY (order 2.1-2.3):
+#   Every entry is source_class EXECUTIVE.
+#   The platform MAY read, cite and validate STRUCTURE.
+#   The platform SHALL NOT author, populate, infer, extend, suggest or default
+#   ANY value. An empty field remains empty.
+#
+# WHAT THE PLATFORM DID IN PRODUCING THIS FILE:
+#   TRANSCRIBED the Executive-custody values already declared in
+#   EMOTIONAL_ARC.yaml v1.0.0, which order 1.1 names as the provenance of
+#   EPR-001's initial content. beat, segment_refs and audience_state are
+#   carried forward verbatim (audience_emotion -> audience_state is a rename
+#   ruled by the order's schema, not a change of value).
+#   Fields with NO existing Executive declaration are left
+#   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
+# ============================================================================
+registry_id: EMOTIONAL_PROGRESSION_REGISTRY
+registry_version: "1.1.0"
+registry_schema_version: "1.0"
+source_class: EXECUTIVE
+supersedes: "EMOTIONAL_ARC.yaml v1.0.0"
+segment_authority: "TIMELINE_REGISTRY v1.0.0 (S01-S19)"
+missing_data_policy: propagate_unknown
+
+governing_invariants:
+  invariant_a: >-
+    Documentary intent shall never prescribe musical implementation;
+    observational measurement shall never prescribe documentary intent.
+  invariant_b_non_interpolation: >-
+    Executive declarations are intentionally non-interpolable. The platform shall not
+    infer intermediate states, trends, averages, smoothing, interpolation, or derived
+    dramatic states between declared segment levels.
+
+precondition_contract:
+  clause: >-
+    Every cue decision cites its beat; a cue that cannot name its emotion and
+    responsibility does not generate.
+  carried_forward_verbatim_from: "EMOTIONAL_ARC.yaml v1.0.0"
+  operational_interpretation: >-
+    A cue cannot generate until both the Executive documentary intent (EPR-001) and the
+    downstream musical responsibility (Behavior layer / Conductor Score) are available.
+  engineering_note_IR002_I1: >-
+    RAISED, NOT RESOLVED. The musical responsibility vocabulary is DEFERRED to
+    WET-SPEC-RSB-001 by order 1.3, and the Behavior Registry does not yet exist (order
+    4.3). As written the precondition therefore cannot be satisfied by any cue until
+    WET-SPEC-RSB-001 exists. Nothing is blocked today because
+    GATE-2026-08-22-MIE-DOWNSTREAM is CLOSED, but this becomes live at gate-open.
+    See IR-002 section 1.
+
+intensity_scale:
+  ordered: AWAITING_EXECUTIVE_INPUT   # see IR-002 section 4 - are these ordinal or labels?
+  categories:
+    LOW:       [Reflective, Observational]
+    MODERATE:  [Engaged, Conversational]
+    HIGH:      [Purposeful, Energetic]
+    ELEVATED:  [Commanding, "Emotionally Significant"]
+    CLIMACTIC: [Defining, Irreversible]
+
+prohibited_fields: [palette, instrumentation, stems, BPM, harmony, genre, prompts,
+                    dynamics, cue_behaviour, timecodes]
+
+# ----------------------------------------------------------------------------
+# ENTRIES
+#   beat / segment_refs / audience_state  -> TRANSCRIBED from EMOTIONAL_ARC v1.0.0
+#   dramatic_intensity / governing_theme / editorial_transition / executive_notes
+#                                         -> AWAITING_EXECUTIVE_INPUT (never defaulted)
+# ----------------------------------------------------------------------------
+entries:
+  - id: EPR-01
+    beat: Arrival
+    segment_refs: [S01, S02]
+    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    audience_state: Curiosity
+    governing_theme: AWAITING_EXECUTIVE_INPUT
+    editorial_transition: AWAITING_EXECUTIVE_INPUT
+    executive_notes: AWAITING_EXECUTIVE_INPUT
+    provenance: "EMOTIONAL_ARC v1.0.0 beat Arrival (audience_emotion: Curiosity)"
+
+  - id: EPR-02
+    beat: Interviews
+    segment_refs: [S03]
+    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    audience_state: Listening
+    governing_theme: AWAITING_EXECUTIVE_INPUT
+    editorial_transition: AWAITING_EXECUTIVE_INPUT
+    executive_notes: AWAITING_EXECUTIVE_INPUT
+    provenance: "EMOTIONAL_ARC v1.0.0 beat Interviews (audience_emotion: Listening)"
+
+  - id: EPR-03
+    beat: Brotherhood
+    segment_refs: [S05]
+    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    audience_state: Unity
+    governing_theme: AWAITING_EXECUTIVE_INPUT
+    editorial_transition: AWAITING_EXECUTIVE_INPUT
+    executive_notes: AWAITING_EXECUTIVE_INPUT
+    provenance: "EMOTIONAL_ARC v1.0.0 beat Brotherhood (audience_emotion: Unity)"
+
+  - id: EPR-04
+    beat: Service
+    segment_refs: [S06, S07, S08, S09, S10]
+    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    audience_state: Respect
+    governing_theme: AWAITING_EXECUTIVE_INPUT
+    editorial_transition: AWAITING_EXECUTIVE_INPUT
+    executive_notes: AWAITING_EXECUTIVE_INPUT
+    provenance: >-
+      EMOTIONAL_ARC v1.0.0 beat Service (audience_emotion: Respect). Its
+      music_responsibility read "Support (here: silence IS support)" - DEFERRED to
+      WET-SPEC-RSB-001 per order 1.3 and NOT carried into this registry.
+
+  - id: EPR-05
+    beat: Deepening
+    segment_refs: [S11, S12]
+    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    audience_state: "Empathy -> Reverence"
+    governing_theme: AWAITING_EXECUTIVE_INPUT
+    editorial_transition: AWAITING_EXECUTIVE_INPUT
+    executive_notes: AWAITING_EXECUTIVE_INPUT
+    provenance: >-
+      EMOTIONAL_ARC v1.0.0 beat Deepening (audience_emotion: "Empathy -> Reverence").
+      Transcribed verbatim including the arrow; the Executive may wish to review whether
+      a two-state value is intended under the new schema. NOT altered here.
+
+  - id: EPR-06
+    beat: Celebration
+    segment_refs: [S13, S14, S15, S16, S18]
+    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    audience_state: Joy
+    governing_theme: AWAITING_EXECUTIVE_INPUT
+    editorial_transition: AWAITING_EXECUTIVE_INPUT
+    executive_notes: AWAITING_EXECUTIVE_INPUT
+    provenance: "EMOTIONAL_ARC v1.0.0 beat Celebration (audience_emotion: Joy)"
+
+  - id: EPR-07
+    beat: Ride_Home
+    segment_refs: [S19]
+    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    audience_state: Completion
+    governing_theme: AWAITING_EXECUTIVE_INPUT
+    editorial_transition: AWAITING_EXECUTIVE_INPUT
+    executive_notes: AWAITING_EXECUTIVE_INPUT
+    provenance: "EMOTIONAL_ARC v1.0.0 beat Ride_Home (audience_emotion: Completion)"
+
+# ----------------------------------------------------------------------------
+# SEGMENTS CARRYING NO DECLARED DOCUMENTARY INTENT
+# Reported, never filled. No entry was created for them, because creating one
+# would require authoring a beat - which order 2.3 forbids.
+# ----------------------------------------------------------------------------
+undeclared_segments:
+  - {segment: S04, activity: ride_brief, note: "no EMOTIONAL_ARC provenance; no EPR entry"}
+  - {segment: S17, activity: audience_cta, note: "no EMOTIONAL_ARC provenance; no EPR entry"}
+undeclared_segments_note: >-
+  These two segments were absent from EMOTIONAL_ARC v1.0.0 and remain absent here.
+  Whether they should carry documentary intent is an Executive question. Under
+  Invariant B nothing may be interpolated across them from the entries either side.
