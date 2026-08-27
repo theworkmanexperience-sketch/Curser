@@ -11,7 +11,10 @@
 # A render absent from this register is NOT approved. Silence is not approval.
 # ============================================================================
 register_id: APPROVED_VIEWING_MASTER
-register_version: 1.0.0
+register_version: 1.1.0   # 1.0.0 -> 1.1.0: one protective quarantine entry added under the
+                          # Executive Order of 2026-08-26 section 2. ADDITIVE ONLY - no existing
+                          # entry, field, rule or summary was altered. The APPROVED designation
+                          # is unchanged. See the quarantine block under `reference_only`.
 schema_version: 1.0
 conforms_to: DOC-001 Amendment 1
 authority: Executive Producer
@@ -74,6 +77,64 @@ productions:
     # same codec, same resolution, nearly the same filename as the approved file.
     # ------------------------------------------------------------------
     reference_only:
+      # ----------------------------------------------------------------
+      # OPERATIONAL QUARANTINE — added 2026-08-26 under
+      # EXECUTIVE ORDER - RECORD COMMIT & MASTER QUARANTINE AUTHORIZATION
+      # (Executive Producer / Chairman, 2026-08-26, BINDING LIMITED SCOPE).
+      #
+      # The Order grants a SINGLE exception to the standing suspension on
+      # registry modification, for this entry and no other. Its stated purpose
+      # is to prevent accidental operational use of an unregistered look-alike.
+      #
+      # The Order states this registration does NOT determine production
+      # identity, does NOT imply Path A/B/C, does NOT establish custody
+      # precedence, does NOT authorize downstream regeneration or re-keying,
+      # and does NOT modify Executive intent. It is an operational quarantine
+      # only, in effect until superseded or removed by a subsequent
+      # Executive Order.
+      # ----------------------------------------------------------------
+      - path: "Alpha RoundUp Part 2 /ALPHA ROUND UP Day 2 Part 2/Alpha RoudUp Part 2.m4v"
+        volume: WE_CAPE_OUTPUT
+        sha256: a94569cea392f72ebcdf3124e08505f32c1ef7f6372a9e994ffee32edc256bb1
+        exact_runtime_s: 4689.500000
+        delta_vs_lock_s: 157.125
+        frame_rate: 24/1
+        frame_rate_note: NDF, non-drop
+        resolution: 3840x2160
+        video_codec: h264
+        audio: AAC 48 kHz stereo
+        size_bytes: 11803856181
+        file_mtime: '2026-08-24T04:00'
+        editorial_conformance: NON_CONFORMANT
+        approval_status: REFERENCE_ONLY
+        reference_status: REFERENCE_ONLY
+        status_key_note: >-
+          The authorizing Order names the field `reference_status`. Every prior entry in this
+          register uses `approval_status`, which is the key the register's own rules and any
+          consumer read. BOTH are recorded rather than one being silently normalised to the
+          other: `approval_status` so the entry is schema-conformant, `reference_status` so the
+          Order's literal term is preserved. Which key is canonical is an Executive
+          determination and is NOT decided here.
+        hazard: HIGH
+        hazard_note: >-
+          11.80 GB, 3840x2160, h264, 24/1 - and the filename is IDENTICAL to the Approved
+          Viewing Master's `Alpha RoudUp Part 2.m4v`. Not similar: identical. The two are
+          distinguishable only by directory, size (11,803,856,181 vs 12,199,752,138 bytes),
+          runtime and hash. Would place every recorded timecode against a picture that
+          diverges from the governed lock at 00:03:27.208 and runs 157.125 s shorter.
+        registered_by: Executive Order 2026-08-26, section 2
+        registered_reason: protective quarantine only
+        provenance_note: >-
+          Runtime matches the 2026-08-24 divergent-cut FCPXML (`1ab3d12f...b4d2`, 4689.500 s) to
+          the millisecond. Whether this render was produced from that FCPXML is NOT asserted -
+          equality of duration is not identity of source, and no comparison of this file's
+          picture against that timeline has been performed. See CUSTODY_ALERT_001.
+        register_scope_note: >-
+          `selection_hazard_summary` below describes the 2026-08-22 selection exercise and its
+          seven candidates. It PREDATES this entry and was deliberately left unmodified: the
+          authorizing Order permits one entry only. Its counts therefore do not include this
+          asset. Correcting them requires a separate Executive authorization.
+
       - path: "Alpha RoundUp Part 2 /XML retry/Thursday Aug 20th/Reduced Files/Alpha RoudUp Part 2.mp4"
         exact_runtime_s: 4846.625000
         resolution: 720x480
