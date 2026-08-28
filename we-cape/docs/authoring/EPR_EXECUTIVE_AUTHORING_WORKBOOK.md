@@ -38,29 +38,83 @@ Order §3 scopes authoring to **active episodic segments `S01–S18`.**
 
 Plus two segments that carry **no entry at all** — Section 3.
 
-### 0.2 A definitional gap, raised before you answer anything
+### 0.2 The definitional gap — **CLOSED 2026-08-28**
 
-**Two of the four fields have never been defined anywhere in the governed record.**
-`dramatic_intensity` has a ratified vocabulary. `executive_notes` is self-evident. But
-**`governing_theme` and `editorial_transition` were named by the ratification order and never
-given a meaning.**
+The gap this section raised has been answered by the Executive. Both definitions are transcribed
+verbatim into EPR-001 v1.3.0. **They are reproduced here because you will use them on every
+page.**
 
-**The platform will not supply definitions**, because a definition written by the platform would
-shape every answer in this workbook — which is the inversion `ER-002` and `DOC-CAND-001` exist to
-prevent.
+#### `governing_theme` — **Narrative Anchor**
 
-> **Before Section 2, please state in your own words what each field is for.** If you would
-> rather answer the beats first and define the fields by how you used them, that is equally
-> valid — say so, and the definitions will be transcribed from your usage rather than imposed on
-> it.
+> The enduring human, institutional, or societal truth that justifies the segment's place within
+> the documentary.
+>
+> **It answers: "Why does this scene belong in the film?"**
 
-```yaml
-field_definitions:
-  governing_theme:      # what is this field for?
-    ""
-  editorial_transition: # what is this field for?
-    ""
+| it is | it is not |
+|---|---|
+| timeless · narrative · documentary · independent of music · independent of editing | a mood · a summary · a soundtrack instruction · an emotion |
+
+*Executive's own examples — illustrative, not a closed vocabulary:* Service · Brotherhood ·
+Leadership · Legacy · Sacrifice · Purpose · Discipline · Community
+
+#### `editorial_transition` — **Contextual Shift**
+
+> The fundamental change in audience understanding that occurs between the current narrative
+> segment and the next.
+>
+> **It answers: "What changes in the viewer's journey?"**
+
+*Narrative only · documentary only · independent of music · independent of editing mechanics ·
+independent of NLE transitions.*
+
+**Explicitly excluded:** cross dissolves · cuts · fades · cue transitions · instrumentation ·
+tempo · harmony.
+
+*Executive's own examples:*
+
 ```
+Anticipation becomes disciplined action.
+Individual reflection broadens into collective purpose.
+Ceremonial recognition resolves into enduring fellowship.
+```
+
+### 0.3 The authoring principle
+
+> ## **Author the story first. The music follows.**
+>
+> **The silence test —** *every answer here should remain true even if the documentary were shown
+> in complete silence.* If a statement needs music to mean anything, it belongs downstream in the
+> Behavior Registry or Conductor Score, **not in EPR-001**.
+
+This is Invariant A approached from the other side. **Invariant A** binds the platform not to let
+documentary intent prescribe musical implementation; **this principle** binds the author not to
+write musical implementation into documentary intent. Same boundary, both directions.
+
+> ### ⚠ Where the silence test will bite hardest — flagged, not solved
+>
+> Three segments are **defined in the registry by their music**: `S01` cold_open
+> (*"music-bed ASR fragments"*), `S15` riding_music_passage (`music_present: true`, **0
+> interviews**), `S18` bike_night_ambience (`music_present: true`, **0 interviews**). `S15`'s
+> registry label is literally *"riding music passage"*.
+>
+> **These segments still have documentary content** — a ride is a ride in silence. But their
+> registry identity is musical, and the silence test will make them the hardest three to answer.
+> **No answer is proposed for any of them.** Raised so it is expected rather than discovered on
+> the page.
+
+### 0.4 The four questions, and how they map to the fields
+
+You framed the session as four questions per segment. **This mapping is the platform's proposal
+and needs your confirmation — it is not a declaration:**
+
+| your question | field |
+|---|---|
+| **1 · What is happening?** | *orientation, not a field* — Appendix A and the segment header carry it |
+| **2 · Why does it matter?** | **`dramatic_intensity`** — the ruling defines the scale as *narrative significance* |
+| **3 · What is the governing theme?** | **`governing_theme`** |
+| **4 · What fundamentally changes for the audience afterward?** | **`editorial_transition`** |
+| *anything the four cannot carry* | **`executive_notes`** |
 
 ---
 
@@ -84,15 +138,38 @@ They are the registry's own words, not the platform's gloss:
 | `ELEVATED` | Commanding · Emotionally Significant |
 | `CLIMACTIC` | Defining · Irreversible |
 
-> ### ⚠ The order they are printed in is not a ranking
+### 1.1 The scale is **ORDERED** — ratified 2026-08-28
+
+**Executive Ruling Q11 — Ordered Categorical Dramatic Intensity Standard.** The scale is an
+**ordered categorical hierarchy describing narrative significance within the documentary.**
+
+```
+LOW  →  MODERATE  →  HIGH  →  ELEVATED  →  CLIMACTIC
+```
+
+| the ruling's own terms |
+|---|
+| The categories are **ordinal**. |
+| They are **not numerical**. |
+| They shall **never be averaged, interpolated, scored, normalized, or smoothed**. |
+| **Advancement between categories is by explicit Executive declaration only.** |
+
+**What this changes for you as you answer.** The tokens now rank, so the six you choose across
+six beats also describe a **progression**, not just six independent labels. **`ELEVATED` outranks
+`HIGH`** — which reads oddly against the descriptors *Purposeful/Energetic* versus
+*Commanding/Emotionally Significant* until you hold the ruling's own words in mind: **this is a
+significance scale, not an energy scale.** A quiet moment can outrank a loud one.
+
+> **⚠ One thing the ruling settles and one it does not — raised, not answered (`OQ-1`).**
 >
-> **`intensity_scale.ordered` is still `AWAITING_EXECUTIVE_INPUT`.** The tokens are listed above
-> in the sequence your Order gives them, and that sequence carries **no** claim that `ELEVATED`
-> is above `HIGH`, or that `LOW` is the least of anything. **Section 5 asks you to settle it.**
+> The four constraints bar averaging, interpolation, scoring, normalization and smoothing.
+> **They do not say whether *comparing* two declared beats and naming the relation** — "this
+> escalates", "this de-escalates", "rising action" — **is a permitted comparison or a derived
+> dramatic state that Invariant B prohibits.** Invariant B names *"trends"* explicitly.
 >
-> This matters while you answer: if the scale turns out to be **labelled**, each beat's token is
-> a name for a quality. If it turns out to be **ordered**, the tokens you choose across six beats
-> also describe a shape. **You may wish to answer Section 5 first.**
+> Nothing depends on it today. **The Behavior Registry will be the first consumer that has to
+> know**, and it is cheaper to settle now than to discover a Conductor Score has been reading a
+> shape it was never licensed to see.
 
 ---
 
@@ -441,24 +518,22 @@ executive_notes:      ______________
 
 ## 5 · Registry-level declarations
 
-### 5.1 · Intensity-scale ordinality — `PBC-4`
+### 5.1 · Intensity-scale ordinality — **ANSWERED 2026-08-28** ✔
 
-`intensity_scale.ordered` is `AWAITING_EXECUTIVE_INPUT`. **Until it is declared, no consumer may
-sort, compare, or reason about relative intensity** — including any future Conductor Score.
+**Q11 is closed.** `intensity_scale.ordered: true`; `scale_class: ORDERED_CATEGORICAL`;
+`measures: "narrative significance within the documentary"`;
+`order: [LOW, MODERATE, HIGH, ELEVATED, CLIMACTIC]`. Transcribed into EPR-001 v1.3.0 with the
+four ordinal constraints verbatim. **`PBC-4` is discharged.**
 
-**Q11 ·**
+### 5.1a · Two questions the ratified foundation raises — **open**
 
-```
-[ ]  ORDERED.  The tokens rank.  State the order, lowest to highest:
-     _____ < _____ < _____ < _____ < _____
+| id | question | why it matters |
+|---|---|---|
+| **`OQ-1`** | Is **comparing** two declared intensity levels and naming the relation (escalation, de-escalation, rising action) a permitted comparison, or a **derived dramatic state** barred by Invariant B's prohibition on *trends*? | ordinality newly makes it computable. The Behavior Registry is the first consumer that must know |
+| **`OQ-2`** | `editorial_transition` describes the shift to **the next** segment. **Six beats have five inter-beat boundaries.** Whichever beat is last has no successor — does its field stay empty, or carry the shift out of the film? Which beat is last depends on `EPR-07` (Q10) | one of the six fields you are about to fill may have nothing to point at |
 
-[ ]  LABELLED.  The tokens are names for distinct qualities and do not rank.
-     Nothing downstream may sort or compare them.
-```
-
-*The five slots above are blank by design. The platform has not proposed an order, and will not —
-the plain-English reading of "high" against "elevated" is genuinely ambiguous, which is why this
-question exists.*
+**Neither is answered here, and neither was defaulted.** Both are recorded in EPR-001 v1.3.0 as
+`open_question_raised_not_resolved`.
 
 ### 5.2 · Anything the four fields cannot carry
 
@@ -484,9 +559,8 @@ Paste this back completed, or return the workbook with the blanks filled — eit
 authored_by: "Executive Producer / Chairman"
 date: ""
 
-field_definitions:
-  governing_theme: ""
-  editorial_transition: ""
+# field_definitions and intensity_scale.ordered were DECLARED 2026-08-28 and are already
+# transcribed into EPR-001 v1.3.0. They are not asked again here.
 
 entries:
   EPR-01:  # Arrival · S01, S02
@@ -551,9 +625,11 @@ undeclared_segments:
     executive_notes: ""
 
 registry_declarations:
-  intensity_scale_ordered: ""        # ordered | labelled  (Q11)
-  intensity_order: []                # lowest to highest, only if ordered
-  missing_field_needed: ""           # Q12
+  # intensity_scale_ordered: ANSWERED 2026-08-28 — ORDERED_CATEGORICAL, LOW..CLIMACTIC
+  four_question_mapping_confirmed: ""   # section 0.4 — confirm | correct it
+  OQ_1_comparison_vs_trend: ""          # permitted comparison | prohibited derived state
+  OQ_2_terminal_beat_transition: ""     # leave empty | carries the shift out of the film
+  missing_field_needed: ""              # Q12
 ```
 
 ---

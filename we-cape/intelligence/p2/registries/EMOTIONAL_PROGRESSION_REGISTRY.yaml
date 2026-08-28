@@ -22,7 +22,17 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.2.0"
+registry_version: "1.3.0"
+registry_version_note_1_3_0: >-
+  1.2.0 -> 1.3.0, 2026-08-28. EXECUTIVE AUTHORING FOUNDATION transcribed: Executive Ruling Q11
+  (Ordered Categorical Dramatic Intensity Standard), the Executive definitions of
+  governing_theme and editorial_transition, and the authoring principle "Author the story
+  first. The music follows."
+  ALL THREE ARE EXECUTIVE DECLARATIONS, TRANSCRIBED VERBATIM. The platform authored no value,
+  proposed none, paraphrased none, and extended none. Two open questions the declarations
+  raise (OQ-1 comparison-versus-trend, OQ-2 the terminal beat) are RAISED AND LEFT UNANSWERED.
+  This increment fills intensity_scale.ordered - one of the 29 empty fields. THE 24 BEAT
+  FIELDS REMAIN EMPTY. The regeneration trigger remains held, as below.
 registry_version_note: >-
   1.1.0 -> 1.2.0 under EXECUTIVE ORDER - CUSTODY_ALERT_001 FINAL DISPOSITION & WORKBOOK
   GENERATION, 2026-08-28, section 2.4. NO EXECUTIVE VALUE WAS ADDED, ALTERED OR REMOVED by
@@ -83,7 +93,40 @@ precondition_contract:
     See IR-002 section 1.
 
 intensity_scale:
-  ordered: AWAITING_EXECUTIVE_INPUT   # see IR-002 section 4 - are these ordinal or labels?
+  # RESOLVED 2026-08-28 by Executive Ruling Q11 - "Ordered Categorical Dramatic Intensity
+  # Standard". Transcribed verbatim; the platform proposed nothing and chose nothing.
+  ordered: true
+  scale_class: ORDERED_CATEGORICAL
+  measures: "narrative significance within the documentary"
+  order: [LOW, MODERATE, HIGH, ELEVATED, CLIMACTIC]   # lowest to highest, as declared
+  ordinal_constraints:
+    - "The categories are ordinal."
+    - "They are not numerical."
+    - "They shall never be averaged, interpolated, scored, normalized, or smoothed."
+    - "Advancement between categories is by explicit Executive declaration only."
+  ruling_ref: "Executive Ruling Q11, 2026-08-28"
+  ruling_rationale_verbatim: >-
+    This preserves the Non-Interpolation Invariant while allowing the documentary to express a
+    coherent dramatic progression.
+  open_question_raised_not_resolved:
+    id: OQ-1
+    subject: "comparison versus trend derivation"
+    statement: >-
+      Ordinality newly permits a consumer to COMPARE two declared levels. Invariant B prohibits
+      inferring "trends" between declared segment levels. The four ordinal_constraints above bar
+      averaging, interpolation, scoring, normalization and smoothing - they do not say whether
+      observing that one declared beat outranks another, and naming that relation (escalation,
+      de-escalation, rising action), is a permitted comparison or a prohibited derived state.
+      RAISED, NOT ANSWERED. No consumer exists yet that depends on it; the Behavior Registry
+      will be the first.
+    owner: EXECUTIVE
+  naming_note: >-
+    The field is called dramatic_intensity and the ruling defines the scale as measuring
+    narrative SIGNIFICANCE. Those are not the same word. Under this ruling ELEVATED
+    ("Commanding, Emotionally Significant") outranks HIGH ("Purposeful, Energetic") - coherent
+    for significance, counterintuitive for energy. Recorded so a future reader who sees only the
+    field name does not infer an energy scale. The field is NOT renamed: renaming an
+    Executive-ratified field is not a platform act.
   categories:
     LOW:       [Reflective, Observational]
     MODERATE:  [Engaged, Conversational]
@@ -93,6 +136,73 @@ intensity_scale:
 
 prohibited_fields: [palette, instrumentation, stems, BPM, harmony, genre, prompts,
                     dynamics, cue_behaviour, timecodes]
+
+# ----------------------------------------------------------------------------
+# FIELD DEFINITIONS
+# Declared by the Executive 2026-08-28 in answer to the Authoring Workbook section 0.2,
+# which recorded that these two fields had been named by the ratification order and never
+# given a meaning. TRANSCRIBED VERBATIM. The platform supplied no definition and did not
+# paraphrase, condense or extend either one.
+# ----------------------------------------------------------------------------
+field_definitions:
+  governing_theme:
+    title: "Narrative Anchor"
+    definition: >-
+      The enduring human, institutional, or societal truth that justifies the segment's place
+      within the documentary.
+    answers: "Why does this scene belong in the film?"
+    characteristics: [timeless, narrative, documentary,
+                      "independent of music", "independent of editing"]
+    examples_given_by_executive: [Service, Brotherhood, Leadership, Legacy,
+                                  Sacrifice, Purpose, Discipline, Community]
+    examples_note: >-
+      These are the Executive's own examples, transcribed. They are ILLUSTRATIVE, not a closed
+      vocabulary, and the platform shall not treat them as an enumeration to validate against.
+    is_not: [a mood, a summary, "a soundtrack instruction", an emotion]
+
+  editorial_transition:
+    title: "Contextual Shift"
+    definition: >-
+      The fundamental change in audience understanding that occurs between the current
+      narrative segment and the next.
+    answers: "What changes in the viewer's journey?"
+    characteristics: [narrative only, documentary only, "independent of music",
+                      "independent of editing mechanics", "independent of NLE transitions"]
+    examples_given_by_executive:
+      - "Anticipation becomes disciplined action."
+      - "Individual reflection broadens into collective purpose."
+      - "Ceremonial recognition resolves into enduring fellowship."
+    excludes: ["cross dissolves", cuts, fades, "cue transitions",
+               instrumentation, tempo, harmony]
+    open_question_raised_not_resolved:
+      id: OQ-2
+      subject: "the terminal beat has no successor"
+      statement: >-
+        The definition is relational - it describes the shift from the current segment TO THE
+        NEXT. Six declared beats have five inter-beat boundaries. Whichever beat is last has no
+        successor and therefore no transition to describe. Which beat is last depends on the
+        EPR-07 disposition (PBC-1), which is itself open. Whether the terminal beat's field is
+        left empty, or carries the shift out of the film and into whatever follows it, is an
+        EXECUTIVE determination. RAISED, NOT ANSWERED. Nothing was defaulted.
+      owner: EXECUTIVE
+
+# ----------------------------------------------------------------------------
+# AUTHORING PRINCIPLE
+# Declared by the Executive 2026-08-28. Transcribed verbatim.
+# ----------------------------------------------------------------------------
+authoring_principle:
+  statement: "Author the story first. The music follows."
+  test: >-
+    Every answer in EPR_EXECUTIVE_AUTHORING_WORKBOOK.md should be one that remains true even if
+    the documentary were shown in complete silence.
+  boundary: >-
+    If a statement depends on music to be meaningful, it belongs downstream in the Behavior
+    Registry or Conductor Score - not in EPR-001.
+  relationship_to_invariant_a: >-
+    This principle is the authoring-side expression of Invariant A. Invariant A binds the
+    platform not to let documentary intent prescribe musical implementation; this principle
+    binds the AUTHOR not to write musical implementation into documentary intent. Same boundary,
+    approached from opposite sides.
 
 # ----------------------------------------------------------------------------
 # ENTRIES
