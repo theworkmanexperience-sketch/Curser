@@ -22,7 +22,20 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.7.0"
+registry_version: "1.8.0"
+registry_version_note_1_8_0: >-
+  1.7.0 -> 1.8.0, 2026-08-28. EXECUTIVE AUTHORING DECLARATION - EPR-03. Transcribed VERBATIM.
+  EPR-03 Brotherhood COMPLETE: dramatic_intensity HIGH, governing_theme "Collective Identity",
+  editorial_transition and executive_notes as declared, plus the Executive Clarification.
+  AWAITING_EXECUTIVE_INPUT 20 -> 16. FIRST ESCALATION ON THE ORDERED SCALE: MODERATE, MODERATE,
+  HIGH - declared by the Executive, not derived by the platform.
+  "Collective Identity" was one of the four unassigned convention illustrations from EPR-02. It
+  is assigned HERE BY THE EXECUTIVE. The platform did not apply it at EPR-02 and did not apply
+  it now. Three illustrations remain unassigned.
+  ONE SCOPE CLARIFICATION ADDED to the OQ-1 record: Invariant B and OQ-1 bind downstream
+  CONSUMERS, not the Executive. An Executive declaration that reasons about the arc is
+  authorship, not interpolation. Recorded so a later audit does not misread the Executive's own
+  rationale as a breach of the Executive's own invariant.
 registry_version_note_1_7_0: >-
   1.6.0 -> 1.7.0, 2026-08-28. EXECUTIVE AUTHORING DECLARATION - EPR-02. Transcribed VERBATIM.
   EPR-02 Interviews COMPLETE: dramatic_intensity MODERATE, governing_theme "Shared Purpose",
@@ -179,6 +192,14 @@ intensity_scale:
       first implementation cannot quietly widen the ruling. If it is wrong, correcting it here
       is cheaper than correcting a Behavior Registry built on it.
     first_affected_consumer: "Behavior Registry (does not yet exist)"
+    scope_clarification_2026_08_28: >-
+      RECORDED SO A LATER AUDIT DOES NOT MISREAD THE RECORD. OQ-1 and Invariant B bind
+      DOWNSTREAM CONSUMERS of this registry. They do not bind the EXECUTIVE, who is the author.
+      The ordinal_constraints state that "advancement between categories is by explicit
+      Executive declaration only" - reasoning about the shape of the progression is therefore
+      exactly how a declaration is arrived at, and is the Executive's prerogative. Where an
+      Executive authoring declaration describes an arc across declared beats, that is authorship,
+      not interpolation. The prohibition is on the PLATFORM deriving a shape nobody declared.
   naming_note: >-
     The field is called dramatic_intensity and the ruling defines the scale as measuring
     narrative SIGNIFICANCE. Those are not the same word. Under this ruling ELEVATED
@@ -435,11 +456,39 @@ entries:
   - id: EPR-03
     beat: Brotherhood
     segment_refs: [S05]
-    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim.
+    dramatic_intensity: HIGH
     audience_state: Unity
-    governing_theme: AWAITING_EXECUTIVE_INPUT
-    editorial_transition: AWAITING_EXECUTIVE_INPUT
-    executive_notes: AWAITING_EXECUTIVE_INPUT
+    governing_theme: "Collective Identity"
+    editorial_transition: >
+      Visible unity on the road evolves into visible service to the
+      community as the riders move from demonstrating brotherhood
+      to engaging civic leadership and public purpose.
+    executive_notes: >
+      This sequence should communicate disciplined unity, mutual respect,
+      and shared purpose through observation rather than spectacle.
+      The escort ride is not presented as performance or entertainment,
+      but as a visible expression of organizational discipline and
+      collective responsibility. Allow the scale, formation, and quiet
+      confidence of the riders to speak for themselves while preparing
+      the audience for the community-centered recognitions that follow.
+    authored: '2026-08-28'
+    authored_by: "Executive Producer / Chairman"
+    authority: "EXECUTIVE AUTHORING DECLARATION - EPR-03, 2026-08-28"
+    entry_status: COMPLETE
+    executive_clarification: >-
+      This beat establishes that the documentary's first major rise in dramatic significance is
+      earned through collective action, not heightened emotion. The governing theme "Collective
+      Identity" reflects the transformation of many individual riders into one unified
+      organization operating with shared discipline and purpose. The transition intentionally
+      shifts the audience's understanding from WHO THESE MEN ARE to WHAT THEY REPRESENT
+      TOGETHER. This is a documentary transition only and shall not be interpreted as a musical,
+      editorial, or production directive.
+    theme_provenance_note: >-
+      "Collective Identity" was one of the four UNASSIGNED illustrations in the
+      governing_theme_convention established at EPR-02. It was not applied by the platform then
+      and was not applied now - it is assigned here by explicit Executive declaration. The
+      remaining three unassigned illustrations stay unassigned.
     provenance: "EMOTIONAL_ARC v1.0.0 beat Brotherhood (audience_emotion: Unity)"
 
   - id: EPR-04
