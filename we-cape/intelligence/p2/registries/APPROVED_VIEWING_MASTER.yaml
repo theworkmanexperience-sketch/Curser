@@ -11,10 +11,23 @@
 # A render absent from this register is NOT approved. Silence is not approval.
 # ============================================================================
 register_id: APPROVED_VIEWING_MASTER
-register_version: 1.1.0   # 1.0.0 -> 1.1.0: one protective quarantine entry added under the
-                          # Executive Order of 2026-08-26 section 2. ADDITIVE ONLY - no existing
-                          # entry, field, rule or summary was altered. The APPROVED designation
-                          # is unchanged. See the quarantine block under `reference_only`.
+register_version: 1.2.0
+# 1.0.0 -> 1.1.0  one protective quarantine entry added, Executive Order 2026-08-26 section 2.
+#                 ADDITIVE ONLY. No existing entry, field, rule or summary was altered.
+# 1.1.0 -> 1.2.0  Executive Order 2026-08-28 (FINAL DISPOSITION) section 2.2, TWO changes only:
+#                   (a) `approval_status` affirmed as the canonical schema key;
+#                   (b) `selection_hazard_summary.total_candidates` 7 -> 8.
+#                 Explanatory notes accompany each so neither change is silent. NOTHING ELSE
+#                 WAS TOUCHED.
+#
+# NOT CHANGED, AND DELIBERATELY SO - raised for Executive attention:
+#   The Order of 2026-08-28 section 1 declares the 08-24 lineage PRODUCTION and the 08-22 lock
+#   SUPERSEDED_ASSEMBLY. The render carrying `approval_status: APPROVED` below is 4846.625 s and
+#   is CONFORMANT to the 08-22 assembly - it is therefore NO LONGER conformant to the governed
+#   production. Re-designation is not authorized by section 2 and is barred by the section 4
+#   suspension, so the APPROVED entry stands UNMODIFIED. Until a conformant master of the 08-24
+#   production is exported and designated, this register names an approved viewing master for a
+#   superseded assembly. Recorded here rather than corrected, per NO SILENT RECOVERY.
 schema_version: 1.0
 conforms_to: DOC-001 Amendment 1
 authority: Executive Producer
@@ -107,14 +120,14 @@ productions:
         file_mtime: '2026-08-24T04:00'
         editorial_conformance: NON_CONFORMANT
         approval_status: REFERENCE_ONLY
-        reference_status: REFERENCE_ONLY
+        reference_status: REFERENCE_ONLY     # RETAINED, NON-CANONICAL - see status_key_note
         status_key_note: >-
-          The authorizing Order names the field `reference_status`. Every prior entry in this
-          register uses `approval_status`, which is the key the register's own rules and any
-          consumer read. BOTH are recorded rather than one being silently normalised to the
-          other: `approval_status` so the entry is schema-conformant, `reference_status` so the
-          Order's literal term is preserved. Which key is canonical is an Executive
-          determination and is NOT decided here.
+          RESOLVED 2026-08-28 by Executive Order (FINAL DISPOSITION & WORKBOOK GENERATION,
+          section 2.2): `approval_status` is the CANONICAL schema key for this register.
+          `reference_status` was the term used by the authorizing Order of 2026-08-26 and is
+          retained here, non-canonical, so that the quarantine's authorizing language stays
+          legible. Consumers SHALL read `approval_status`. The two carry the same value and
+          the platform did not choose between them - the Executive did.
         hazard: HIGH
         hazard_note: >-
           11.80 GB, 3840x2160, h264, 24/1 - and the filename is IDENTICAL to the Approved
@@ -130,10 +143,10 @@ productions:
           equality of duration is not identity of source, and no comparison of this file's
           picture against that timeline has been performed. See CUSTODY_ALERT_001.
         register_scope_note: >-
-          `selection_hazard_summary` below describes the 2026-08-22 selection exercise and its
-          seven candidates. It PREDATES this entry and was deliberately left unmodified: the
-          authorizing Order permits one entry only. Its counts therefore do not include this
-          asset. Correcting them requires a separate Executive authorization.
+          `selection_hazard_summary` was corrected to 8 candidates on 2026-08-28 under Executive
+          Order section 2.2. Its remaining fields still describe the 2026-08-22 selection
+          exercise and were NOT recomputed - that would be regeneration, which remains
+          suspended. See the summary's own `count_correction_note`.
 
       - path: "Alpha RoundUp Part 2 /XML retry/Thursday Aug 20th/Reduced Files/Alpha RoudUp Part 2.mp4"
         exact_runtime_s: 4846.625000
@@ -204,11 +217,21 @@ productions:
           NOT diagnosed. Would place every recorded timecode 22 s away from the FCPXML.
 
     selection_hazard_summary:
-      total_candidates: 7
-      conformant: 2
-      non_conformant: 5
-      four_k_candidates: 3
-      four_k_conformant: 1
+      total_candidates: 8       # 7 -> 8, corrected 2026-08-28, Executive Order section 2.2
+      count_correction_note: >-
+        ONLY `total_candidates` was corrected, by explicit Executive authorization. The four
+        counts below still describe the 2026-08-22 selection exercise as it was conducted and
+        were NOT recomputed against the eighth candidate: recomputing them is regeneration,
+        which section 4 of the same Order keeps suspended. Read them as a record of that
+        exercise, not as a current census. The eighth candidate is NON_CONFORMANT and 4K; a
+        future recomputation would therefore move `non_conformant` 5 -> 6 and
+        `four_k_candidates` 3 -> 4, leaving `conformant` and `four_k_conformant` unchanged.
+        Stated so the arithmetic is visible rather than left for someone to rediscover; NOT
+        applied.
+      conformant: 2             # as at 2026-08-22, not recomputed
+      non_conformant: 5         # as at 2026-08-22, not recomputed
+      four_k_candidates: 3      # as at 2026-08-22, not recomputed
+      four_k_conformant: 1      # as at 2026-08-22, not recomputed
       finding: >-
         Selecting a viewing master by fidelity alone would have been wrong two times in three.
         A 720x480 render is conformant while two 3840x2160 renders are not. Fidelity and

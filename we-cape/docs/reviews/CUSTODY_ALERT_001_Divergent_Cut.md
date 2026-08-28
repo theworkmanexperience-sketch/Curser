@@ -3,6 +3,56 @@
 **Occasion:** instrument validation for the seven-prompt analysis work order
 **Status of the work order:** **NOT EXECUTED.** Reason below.
 
+> ## ⚑ AMENDMENT 1 — 2026-08-28 · §5 RESOLVED · §1 CORRECTED
+>
+> **Amendment, not revision.** Nothing below this box is edited. The original text is the record
+> of what was known on 2026-08-24 and stays exactly as raised.
+>
+> ### §5 is resolved — **Path B**
+>
+> `EXECUTIVE ORDER — CUSTODY_ALERT_001 FINAL DISPOSITION & WORKBOOK GENERATION`, Executive
+> Producer / Chairman, **2026-08-28**, BINDING / FINAL:
+>
+> ```yaml
+> answers_recorded:
+>   Q1_later_cut_exists: "no"
+> path_selected: "Path B (Episodic Production Architecture)"
+> production_identity:
+>   governed_production: "Alpha RoundUp 2026 — Day 2 Episodic Trilogy (08-24 Lineage)"
+>   08_24_lineage_status:        "PRODUCTION"
+>   08_22_assembly_lock_status:  "SUPERSEDED_ASSEMBLY"
+>   three_parts_status:          "DISTRIBUTION_DELIVERABLES"
+> ```
+>
+> **§7 of this document ("Rule on §5 first") is therefore discharged, and the state block at the
+> foot of §7 is superseded** — `cut_in_force` is no longer `AWAITING_EXECUTIVE_DISPOSITION`.
+> Both are left in place as the record of the question that was asked.
+>
+> ### §1 is corrected — the two "unidentified" 1648 s assets are identified
+>
+> §1 recorded `Analysis_Day_2_Part_1_video.WAV` (1648.083 s) and its `.mov` companion as assets of
+> unknown provenance, concluding *"Whatever they are, they are not this cut."* **That conclusion
+> was wrong in its implication, though correct in its literal terms.** Measured 2026-08-26 in
+> `DAY2_PARENT_FORENSIC_AUDIT.md`:
+>
+> ```
+> Day 2 Part 1.WAV                 sha256 bcc17b2b2ea62f9e30fff18f7667d1ad18f715cc6c86b56ce0f47d4b4feb4d9f
+> Analysis_Day_2_Part_1_video.WAV  sha256 bcc17b2b2ea62f9e30fff18f7667d1ad18f715cc6c86b56ce0f47d4b4feb4d9f
+> ```
+>
+> **Byte-identical.** The file is **Day 2 Part 1** — an *extract* of this cut, not a separate
+> 27½-minute program. Its 1648.083 s runtime is correct for a Part and meaningless as a program
+> length, and its 44.1 kHz / 30 fps profile is a delivery encode, not evidence of foreign origin.
+> Under the 2026-08-28 disposition it is one of the three **`DISTRIBUTION_DELIVERABLES`**.
+>
+> **§1's table rows for those two assets, and the sentence "Whatever they are, they are not this
+> cut," are superseded by this amendment.** They are not deleted: they record a correct refusal to
+> measure an unidentified asset, which is why the identification happened at all.
+>
+> **Unchanged by this amendment:** every hash, duration and element count in §§1–3 · the
+> divergence point `00:03:27.208` · the `SOP-06 B2` finding in §3 · the seven-prompt assessment in
+> §6, which was about instruments, not about which cut governs.
+
 ---
 
 ## 0. Summary

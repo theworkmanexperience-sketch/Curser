@@ -8,7 +8,92 @@ No code, registry, or commit was changed in producing this brief.
 
 **Status:** **ACCEPTED** as the official Executive Decision Brief for `CUSTODY_ALERT_001`,
 Executive Producer / Chairman, 2026-08-26.
-**Amended:** `AMENDMENT 1`, 2026-08-26 — see below.
+**Amended:** `AMENDMENT 1`, 2026-08-26 · **`AMENDMENT 2`, 2026-08-28 — `CUSTODY_ALERT_001` §5 is
+RESOLVED.**
+
+---
+
+## AMENDMENT 2 — 2026-08-28 · `Q1` CLOSED · **PATH B RATIFIED** · §5 RESOLVED
+
+**Amendment, not revision.** The three-path analysis in §4–§6 is left standing in full. It was
+the instrument of the decision, and a decision document that erases the alternatives it weighed
+cannot be audited afterwards.
+
+**Source:** `EXECUTIVE ORDER — CUSTODY_ALERT_001 FINAL DISPOSITION & WORKBOOK GENERATION`,
+Executive Producer / Chairman, **2026-08-28**, **BINDING / FINAL**.
+
+### The adjudication, transcribed verbatim
+
+```yaml
+answers_recorded:
+  Q1_later_cut_exists: "no"
+
+  Q2_purpose_of_the_three_parts: >
+    The three Parts constitute the authoritative public distribution
+    deliverables for Alpha RoundUp 2026 Day 2.
+
+path_selected: "Path B (Episodic Production Architecture)"
+
+production_identity:
+  governed_production: "Alpha RoundUp 2026 — Day 2 Episodic Trilogy (08-24 Lineage)"
+  08_24_lineage_status: "PRODUCTION"
+  08_22_assembly_lock_status: "SUPERSEDED_ASSEMBLY"
+  three_parts_status: "DISTRIBUTION_DELIVERABLES"
+```
+
+> *"This ruling supersedes all provisional analyses concerning production lineage contained
+> within prior reviews and decision briefs."*
+
+### Status of this brief after the ruling
+
+| | |
+|---|---|
+| **§1 · the decision in one page** | historical — the two artifacts are no longer candidates; one is the production |
+| **§2 · dependency surface** | **still live.** Classes T, X, S, I, H describe what Path B must now traverse. **§2.3's regeneration boundary and §2.4's `EPR-07` arithmetic are now execution facts, not forecasts** |
+| **§3–§4 · Path A** | **NOT SELECTED.** Retained as the record of what was weighed |
+| **§5 · Path B** | **SELECTED.** §B.4's twelve follow-on actions become the execution sequence — **subject to the Order's §4 suspension, which holds all of them** |
+| **§6 · Path C** | **NOT SELECTED.** Retained |
+| **§7 · comparison** | historical |
+| **§8.1** | `Q1` **CLOSED** — *"no"*. `Q2` **CLOSED** 2026-08-26 |
+| **§8.2 · framing** | closed. The Order adopts neither the "one production slot" framing nor a sibling split: the 08-24 lineage **is** the production and the assembly/deliverable roles are declared separately |
+| **§8.3 · accretion** | **realised.** The timecode-bearing artifacts pinned to the 08-22 assembly are now the rebuild set |
+| **§8.4** | **discharged.** The lineage has a status: `PRODUCTION` |
+| **§9 · decision record** | **complete for the ruling.** See below |
+
+### `Q1`'s answer and the evidence, kept distinct
+
+The Executive declares **`Q1_later_cut_exists: "no"`**. Independently, the platform observed on
+2026-08-26 that **no FCPXML later than 2026-08-24 17:14 exists in the tree.** These agree. **They
+are not the same statement and neither derives from the other** — the observation covers exported
+artifacts on disk; the declaration covers the production. The declaration governs.
+
+### What §B.4 now becomes — and what still holds it
+
+Path B's follow-on sequence is the execution plan. **Order §4 suspends all of it** until the
+Executive Authoring Workbook is complete and `EPR-001` is reviewed and ratified.
+
+| §B.4 | status under the 2026-08-28 Order |
+|---|---|
+| B-1 … B-8, B-10 … B-12 | **SUSPENDED** — regeneration, re-derivation, re-keying, re-export, RE-002 |
+| **B-9** — Executive re-declaration where `segment_refs` no longer resolve | **IN PROGRESS.** `EPR-07` is processed as `UNRESOLVED_PENDING_EXECUTIVE`; the question is put in the Workbook |
+
+**One item in §B.5 is now live and is not in the Order's authorized list.** §B.5 records that the
+Approved Viewing Master ceases to be conformant under Path B. `89e911b1…` at 4846.625 s is
+conformant to the **superseded assembly**. Re-designation is not authorized and is barred by §4,
+so `approval_status: APPROVED` **stands unmodified on a render of a superseded assembly.** The
+condition is recorded in `APPROVED_VIEWING_MASTER` v1.2.0's version note and in the ingestion
+workspace's checklist. **It is a live operational hazard for as long as the suspension runs.**
+
+### `EPR-07` — processed, not repaired
+
+`S19` lies wholly outside the governed production's runtime, and the Order scopes authoring to
+`S01–S18`. Under §2.4 the consequence is **reported and propagated, not resolved**: the entry is
+not deleted, not re-keyed, not merged, and its `EXECUTIVE`-custody `beat` and `audience_state`
+are untouched. **No replacement narrative content was inferred.**
+
+**`V-2` does not detect it** — it resolves `S19` against `TIMELINE_REGISTRY` v1.0.0, the
+superseded assembly's segment authority, and passes. See
+`EPR-001_VALIDATION_REPORT_PATH_B.md` §3.
 
 ---
 
@@ -575,10 +660,11 @@ explicitly distinguish assembly assets from public distribution assets.**
 **The Order states these establish the role of each asset only, and do not determine production
 lineage, custody precedence, or regeneration authority. No further consequence is drawn here.**
 
-### `Q1` — **OPEN**, reserved to a separate Executive ruling
+### `Q1` — **CLOSED 2026-08-28** · `Q1_later_cut_exists: "no"`
 
-The Order expressly reserves it. **One half of it has observable evidence and one half does not,
-and the difference matters:**
+**Superseded text below**, retained as the record of what was reserved and why. The Order of
+2026-08-26 reserved `Q1`; the Order of 2026-08-28 closed it. **One half of it had observable
+evidence and one half did not, and the difference mattered:**
 
 - **On disk:** no FCPXML later than **2026-08-24 17:14** exists anywhere in the tree. That is an
   observation about *exported artifacts*, made 2026-08-26.
@@ -658,21 +744,22 @@ will not.*
 ```yaml
 ruling_id: CUSTODY_ALERT_001-RULING
 authority: Executive Producer / Chairman
-date:
+date: '2026-08-28'                                         # BINDING / FINAL
 
-path_selected:                    # A | B | C | other      -- NOT SELECTED
-rationale:                        # Executive custody
+path_selected: "Path B (Episodic Production Architecture)" # ratified 2026-08-28
+rationale:                        # Executive custody — not supplied, not inferred
 
 answers_recorded:
-  Q1_later_cut_exists:            # yes | no | unknown     -- OPEN, reserved
+  Q1_later_cut_exists: "no"                                # CLOSED 2026-08-28
   Q2_purpose_of_the_three_parts: >                         # CLOSED 2026-08-26
     The three Parts constitute the authoritative public distribution
     deliverables for Alpha RoundUp 2026 Day 2.
 
 production_identity:
-  governed_production:
-  08_24_lineage_status:           # REFERENCE_ONLY | PRODUCTION | SEPARATE_PRODUCTION
-  three_parts_status: DISTRIBUTION_DELIVERABLES            # declared 2026-08-26
+  governed_production: "Alpha RoundUp 2026 — Day 2 Episodic Trilogy (08-24 Lineage)"
+  08_24_lineage_status: "PRODUCTION"                       # declared 2026-08-28
+  08_22_assembly_lock_status: "SUPERSEDED_ASSEMBLY"        # declared 2026-08-28
+  three_parts_status: "DISTRIBUTION_DELIVERABLES"          # declared 2026-08-26
   parent_timeline_role: >                                  # declared 2026-08-26
     Assembly artifact utilized in the creation of the serialized releases.
 
@@ -681,16 +768,44 @@ record_distinction_required: >                             # declared 2026-08-26
   (internal editorial lineage) from public distribution assets
   (released deliverables).
 
-authorised_follow_on_actions: []  # from A.4 / B.4 / C.4
-deferred_follow_on_actions: []
+authorised_follow_on_actions:                              # Order 2026-08-28 section 2
+  - record Q1 CLOSED and Path B SELECTED in this brief
+  - APPROVED_VIEWING_MASTER: affirm approval_status canonical; total_candidates 7 -> 8
+  - amend CUSTODY_ALERT_001 section 1 (Analysis_Day_2_Part_1_video.WAV identification)
+  - update EPR-001 and related validation reports for Path B
+  - prepare, but do not execute, the 08-24 ingestion workspace
+  - generate EPR_EXECUTIVE_AUTHORING_WORKBOOK.md
 
-effective_immediately:            # true | false
-review_by:
+deferred_follow_on_actions:                                # Order 2026-08-28 section 4
+  - all of section B.4 except B-9  # re-export, ETC, resolver re-validation, new viewing
+                                   # master, gen_artifacts.py run, TIMELINE_REGISTRY
+                                   # re-derivation, cue-index re-pointing, MIE re-derivation,
+                                   # RE-002 archival, ESS re-scoping, RE-001 status change
+  - re-designation of the Approved Viewing Master   # NOT authorized; see AMENDMENT 2
+  - EXECUTIVE_RULINGS.yaml amendment                # NOT authorized
+
+regeneration_gate:                                         # Order 2026-08-28 section 4
+  gen_artifacts_py: LOCKED
+  releases_when:
+    - Executive Authoring Workbook completed
+    - EPR-001 reviewed
+    - EPR-001 formally ratified by the Executive
+
+effective_immediately: true
+review_by:                        # not supplied, not inferred
 ```
 
-**Suspended until `Q1` is adjudicated:** path selection · registry regeneration · registry
+~~**Suspended until `Q1` is adjudicated:** path selection · registry regeneration · registry
 re-keying · modification of custody precedence · alteration of any governed registry · platform
-inference of custody implications · downstream governance changes.
+inference of custody implications · downstream governance changes.~~
+
+**Superseded 2026-08-28.** `Q1` is adjudicated and Path B is selected. **A narrower suspension
+replaces the broad one** and is now keyed to `EPR-001`'s ratification rather than to `Q1`:
+
+**Suspended until the Workbook is complete and `EPR-001` is ratified:** downstream artifact
+regeneration · registry population · Conductor Score generation · `gen_artifacts.py` (RUN_ID
+lock held). **Not authorized by any Order to date:** re-designation of the Approved Viewing
+Master · amendment of `EXECUTIVE_RULINGS.yaml` · `RE-001` status change to `SUPERSEDED`.
 
 ---
 

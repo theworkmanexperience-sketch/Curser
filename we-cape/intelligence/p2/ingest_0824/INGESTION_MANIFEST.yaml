@@ -1,0 +1,186 @@
+# ============================================================================
+# INGESTION MANIFEST — Alpha RoundUp 2026 · Day 2 Episodic Trilogy (08-24 Lineage)
+#
+# STATE: PREPARED_NOT_EXECUTED
+#
+# Prepared 2026-08-28 under EXECUTIVE ORDER - CUSTODY_ALERT_001 FINAL DISPOSITION
+# & WORKBOOK GENERATION, section 2.5: "Prepare (but do not execute) the ingestion
+# workspace for the 08-24 production lineage."
+#
+# NOTHING HERE HAS BEEN INGESTED, PARSED, HASHED FOR INGESTION, OR POPULATED.
+# Every measured field below is NOT_COMPUTED or AWAITING_INGESTION. Where a hash or
+# duration IS present it was measured during earlier authorized observation work
+# (CUSTODY_ALERT_001, DAY2_PARENT_FORENSIC_AUDIT) and is carried here as a POINTER,
+# not as an ingested value. Provenance is stated per field.
+#
+# Order section 4: gen_artifacts.py remains under RUN_ID lock. No downstream
+# regeneration is authorized until the Executive Authoring Workbook is complete and
+# EPR-001 is reviewed and formally ratified.
+# ============================================================================
+manifest_id: INGEST-0824
+manifest_version: 0.1.0
+schema_version: 1.0
+state: PREPARED_NOT_EXECUTED
+prepared: '2026-08-28'
+prepared_by: platform
+custody: MACHINE
+authority: "EXECUTIVE ORDER - CUSTODY_ALERT_001 FINAL DISPOSITION & WORKBOOK GENERATION, 2026-08-28"
+
+production_identity:
+  # Transcribed verbatim from the Order, section 1. Not interpreted.
+  governed_production: "Alpha RoundUp 2026 - Day 2 Episodic Trilogy (08-24 Lineage)"
+  path_selected: "Path B (Episodic Production Architecture)"
+  '08_24_lineage_status': PRODUCTION
+  '08_22_assembly_lock_status': SUPERSEDED_ASSEMBLY
+  three_parts_status: DISTRIBUTION_DELIVERABLES
+  ratified: '2026-08-28'
+
+# ---------------------------------------------------------------------------
+# ASSEMBLY ASSETS (internal editorial lineage)
+# Order 2026-08-26 D6 requires the record to distinguish these from distribution assets.
+# ---------------------------------------------------------------------------
+assembly_assets:
+  - role: editorial_project
+    path: "Alpha RoundUp Part 2 /ALPHA ROUND UP Day 2 Part 2/Analysis_Day_2_Part_1_video/Alpha RoudUp Part 2.fcpxmld/Info.fcpxml"
+    volume: WE_CAPE_OUTPUT
+    sha256: 1ab3d12f0dd150c63907a4b2e4bac4253baf8100910dfda74daa3a5378b6b4d2
+    sha256_provenance: "measured 2026-08-24 under CUSTODY_ALERT_001; carried as a pointer, NOT ingested"
+    sequence_duration_s: 4689.500000
+    ingestion_status: AWAITING_INGESTION
+    etc_status: NOT_PRODUCED         # no Editorial Timing Contract exists for this lineage
+    resolver_validation_status: NOT_VALIDATED   # fcpx_resolve.py validated only against the 08-22 ETC
+
+  - role: assembly_audio
+    path: "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Parent file/Alpha RoudUp Part 2.m4a"
+    volume: WE_CAPE_OUTPUT
+    sha256: 4b43968a0f9d4f06c5e441de10b060a797e4bf26e2f52597d7dc993978617fe2
+    sha256_provenance: "measured 2026-08-26 under DAY2_PARENT_FORENSIC_AUDIT"
+    duration_s: 4689.557333
+    ingestion_status: AWAITING_INGESTION
+
+  - role: assembly_captions
+    path: "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Parent file/PARENT_SRT_English (United States).srt"
+    volume: WE_CAPE_OUTPUT
+    sha256: 80a8ed25ed962b4d8a6a40f482dd509ec71ad13368eabe5bd6a31d73124c8519
+    sha256_provenance: "measured 2026-08-26 under DAY2_PARENT_FORENSIC_AUDIT"
+    known_defects: [DOUBLED_CUES, NONPOSITIVE_DURATION_CUES]
+    known_defects_ref: "DAY2_PARENT_FORENSIC_AUDIT section A.1 (A-D1, A-D2)"
+    ingestion_status: AWAITING_INGESTION
+    ingestion_precondition: >-
+      A declared collapse rule for the doubled cues MUST precede ingestion. Any consumer that
+      counts cues or sums caption time will otherwise be wrong. No collapse rule has been
+      declared. NOT AUTHORED HERE.
+
+  - role: assembly_picture_candidate
+    path: "Alpha RoundUp Part 2 /ALPHA ROUND UP Day 2 Part 2/Alpha RoudUp Part 2.m4v"
+    volume: WE_CAPE_OUTPUT
+    sha256: a94569cea392f72ebcdf3124e08505f32c1ef7f6372a9e994ffee32edc256bb1
+    duration_s: 4689.500000
+    resolution: 3840x2160
+    frame_rate: 24/1
+    current_register_status: REFERENCE_ONLY      # quarantined 2026-08-26
+    ingestion_status: BLOCKED
+    blocked_reason: >-
+      This render is currently quarantined REFERENCE_ONLY hazard HIGH in
+      APPROVED_VIEWING_MASTER. Its duration matches the governed project's sequence duration to
+      the millisecond, but EQUALITY OF DURATION IS NOT IDENTITY OF SOURCE and no comparison of
+      its picture against the governed timeline has been performed. Whether it is the
+      production's viewing master is an EXECUTIVE determination. NOT ASSERTED HERE.
+
+# ---------------------------------------------------------------------------
+# PUBLIC DISTRIBUTION ASSETS (released deliverables)
+# ---------------------------------------------------------------------------
+distribution_assets:
+  - episode: EP01
+    title_as_found: "Day 2 Part 1"
+    release_status: PUBLISHED           # declared by the Executive, 2026-08-26
+    picture:
+      path: "Alpha RoundUp Part 2 /ALPHA ROUND UP Day 2 Part 2/Alpha_Round_Up_Day_2_Part_1/Alpha_Round_Up_Day_2_Part_1.mp4"
+      duration_s: 1648.200000
+      resolution: 3840x2160
+      frame_rate: 30/1
+      sha256: NOT_COMPUTED
+    audio:
+      path: "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Day 2 Part 1/Day 2 Part 1.WAV"
+      duration_s: 1648.082721
+      sha256: bcc17b2b2ea62f9e30fff18f7667d1ad18f715cc6c86b56ce0f47d4b4feb4d9f
+    captions:
+      path: "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Day 2 Part 1/Day 2 Part 1.srt"
+      sha256: c057fccf4001377a0c947316a00212eeb83a05c2d2cb7f21bbcac39c2c157892
+    ingestion_status: AWAITING_INGESTION
+
+  - episode: EP02
+    title_as_found: "Day 2 Part 2"
+    release_status: SCHEDULED_PREMIERE  # declared by the Executive, 2026-08-26
+    picture:
+      path: "Alpha RoundUp Part 2 /Alpha_Round Up Day 2 Part 2/Day 2 Part 2/Day 2 Part 2.mp4"
+      duration_s: 1669.033333
+      resolution: 3840x2160
+      frame_rate: 30/1
+      sha256: NOT_COMPUTED
+    audio:
+      path: "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Day 2 Part 2/Day 2 Part 2.WAV"
+      duration_s: 1668.911020
+      sha256: a9416a6fc78e324523c37bb44482a7384ac92bfb708a8798a2a2f7343132105c
+    captions:
+      path: "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Day 2 Part 2/Day 2 Part 2.srt"
+      sha256: 65a313bc41614b95cdc1eda2a4c97858515ef16a029fb8b8fb6c974570a2619a
+    ingestion_status: AWAITING_INGESTION
+
+  - episode: EP03
+    title_as_found: "Day 2 Part 3"
+    release_status: SCHEDULED_PREMIERE  # declared by the Executive, 2026-08-26
+    picture:
+      path: "Alpha RoundUp Part 2 /Day 2 Part 3/Alpha RoundUP Day 2 Part 3/Alpha RoundUP Day 2 Part 3.mp4"
+      duration_s: 1567.000000
+      resolution: 3840x2160
+      frame_rate: 30/1
+      sha256: NOT_COMPUTED
+    audio:
+      path: "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Day 2 Part 3/Day 2 Part 3.WAV"
+      duration_s: 1566.882540
+      sha256: 1badf1c313a9b942a3d42850c3072a90ac391461613b947a226608ac659e1310
+    captions:
+      path: "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Day 2 Part 3/Day 2 Part 3.srt"
+      sha256: 96bbee5d96b2745a93a15d306f18bd2278392d2c152cd7d2bae987b96bcf04af
+    ingestion_status: AWAITING_INGESTION
+
+# ---------------------------------------------------------------------------
+# ASSETS OBSERVED BUT UNCLASSIFIED — reported, never assumed
+# ---------------------------------------------------------------------------
+observed_unclassified:
+  - {asset: "Alpha RoudUp Day 2 trailer.m4v", duration_s: 75.875, resolution: 3840x2160,
+     frame_rate: 24/1, note: "a trailer. No governed asset class exists for promotional material."}
+  - {asset: "Alpha ROund UP Day 2 - Part 1 of 3.jpg", note: "thumbnail naming the series"}
+  - {asset: "Day 2 Part 1/2/3-Cover.jpg", note: "per-episode cover art"}
+  - {asset: "Final Data Source Files/Sunday August 23/*_segment_1.mov, *_segment_2.mov",
+     note: "source media that entered the 08-22 lock's own source folder after that lock"}
+  - {asset: "Final Data Source Files/Music/", note: >-
+      a directory named Music inside the governed source folder. Contents NOT inspected. Bears on
+      the copyright-exposure question that CUSTODY_ALERT_001 section 6 declined to answer without
+      a validated instrument.}
+observed_unclassified_note: >-
+  Classification of these assets is an EXECUTIVE determination. None has been assigned a class,
+  ingested, or opened.
+
+# ---------------------------------------------------------------------------
+# WHAT MUST EXIST BEFORE INGESTION MAY BE AUTHORIZED
+# ---------------------------------------------------------------------------
+ingestion_preconditions:
+  - {id: IP-1, requirement: "Editorial Timing Contract for the 08-24 lineage", status: NOT_PRODUCED}
+  - {id: IP-2, requirement: "fcpx_resolve.py re-validated against that ETC (DOC-001)", status: NOT_VALIDATED}
+  - {id: IP-3, requirement: "conformant viewing master exported and designated", status: NOT_DESIGNATED}
+  - {id: IP-4, requirement: "collapse rule declared for the doubled Parent SRT cues", status: NOT_DECLARED}
+  - {id: IP-5, requirement: "EPR-001 content authored and ratified by the Executive", status: IN_PROGRESS}
+  - {id: IP-6, requirement: "segment set for the governed production ratified", status: NOT_DERIVED}
+  - {id: IP-7, requirement: "episode boundaries assigned to segments", status: NOT_DERIVABLE_WITHOUT_IP-1}
+  - {id: IP-8, requirement: "SOP-06 Phase A re-export and GATE-1 timeline custody audit", status: NOT_PERFORMED}
+
+execution_state:
+  ingestion_performed: false
+  parsing_performed: false
+  registry_population_performed: false
+  regeneration_performed: false
+  conductor_score_generated: false
+  gen_artifacts_py: LOCKED
+  run_id_lock_held_by: "EXECUTIVE ORDER 2026-08-28 section 4"

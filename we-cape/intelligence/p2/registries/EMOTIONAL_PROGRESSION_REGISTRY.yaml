@@ -22,11 +22,39 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.1.0"
+registry_version: "1.2.0"
+registry_version_note: >-
+  1.1.0 -> 1.2.0 under EXECUTIVE ORDER - CUSTODY_ALERT_001 FINAL DISPOSITION & WORKBOOK
+  GENERATION, 2026-08-28, section 2.4. NO EXECUTIVE VALUE WAS ADDED, ALTERED OR REMOVED by
+  this increment. It records the ratified production identity and processes one segment
+  reference that the ratification renders unresolvable.
+  REGENERATION TRIGGER HELD: the ratification order section 4.5 makes a registry_version
+  increment the regeneration trigger. Section 4 of the 2026-08-28 Order suspends downstream
+  regeneration until the Executive Authoring Workbook is complete and EPR-001 is ratified.
+  This increment therefore ARMS a trigger that MUST NOT FIRE yet. Recorded rather than
+  worked around. See IR-002 Q3.
 registry_schema_version: "1.0"
 source_class: EXECUTIVE
 supersedes: "EMOTIONAL_ARC.yaml v1.0.0"
+
+production_identity:
+  # Transcribed verbatim from the Executive Order of 2026-08-28 section 1. Not interpreted.
+  ratified: '2026-08-28'
+  path_selected: "Path B (Episodic Production Architecture)"
+  governed_production: "Alpha RoundUp 2026 - Day 2 Episodic Trilogy (08-24 Lineage)"
+  '08_24_lineage_status': "PRODUCTION"
+  '08_22_assembly_lock_status': "SUPERSEDED_ASSEMBLY"
+  three_parts_status: "DISTRIBUTION_DELIVERABLES"
+
 segment_authority: "TIMELINE_REGISTRY v1.0.0 (S01-S19)"
+segment_authority_status: SUPERSEDED_PENDING_REDERIVATION
+segment_authority_note: >-
+  TIMELINE_REGISTRY v1.0.0 is pinned to the 08-22 assembly, which the 2026-08-28 Order
+  declares SUPERSEDED_ASSEMBLY. Its nineteen segment SPANS are therefore no longer positions
+  in the governed production. Its segment IDENTIFIERS (S01-S19) remain the keys this registry
+  is written against and are unchanged. Re-derivation of the spans against the 08-24 lineage
+  is REGENERATION and is suspended by section 4 of the same Order. Until that happens, no
+  consumer may resolve an EPR segment_ref to a timecode.
 missing_data_policy: propagate_unknown
 
 governing_invariants:
@@ -148,6 +176,21 @@ entries:
     editorial_transition: AWAITING_EXECUTIVE_INPUT
     executive_notes: AWAITING_EXECUTIVE_INPUT
     provenance: "EMOTIONAL_ARC v1.0.0 beat Ride_Home (audience_emotion: Completion)"
+    segment_reference_status: UNRESOLVED_PENDING_EXECUTIVE
+    segment_reference_note: >-
+      PROCESSED under the 2026-08-28 Order section 2.4, NOT repaired. S19's span as declared
+      in TIMELINE_REGISTRY v1.0.0 lies ENTIRELY beyond the governed 08-24 production's
+      runtime, and the Order's own workbook directive scopes Executive authoring to S01-S18.
+      Measurements are held in EPR-001_VALIDATION_REPORT_PATH_B.md and are deliberately not
+      restated here: `timecodes` is a prohibited field of this registry.
+      Under missing_data_policy: propagate_unknown, the unknown is propagated and NOT
+      resolved. This entry is NOT deleted, NOT re-keyed to another segment, and NOT merged
+      into EPR-06. Its beat and audience_state are EXECUTIVE-custody declarations and stand
+      untouched. Whether the Ride_Home beat survives into the episodic trilogy, migrates to
+      another segment, or is retired is an EXECUTIVE determination. Order section 2.4:
+      "Do not infer replacement narrative content." None was inferred.
+      NOTE FOR VALIDATORS: V-2 resolves S19 successfully against TIMELINE_REGISTRY v1.0.0
+      and therefore CANNOT detect this condition. See EPR-001_VALIDATION_REPORT_PATH_B.md.
 
 # ----------------------------------------------------------------------------
 # SEGMENTS CARRYING NO DECLARED DOCUMENTARY INTENT
@@ -161,3 +204,66 @@ undeclared_segments_note: >-
   These two segments were absent from EMOTIONAL_ARC v1.0.0 and remain absent here.
   Whether they should carry documentary intent is an Executive question. Under
   Invariant B nothing may be interpolated across them from the entries either side.
+  2026-08-28: both fall inside the S01-S18 authoring scope of the Executive Authoring
+  Workbook and are put to the Executive there. No entry has been created for either.
+
+# ----------------------------------------------------------------------------
+# PATH B CONSEQUENCES - REPORTED, NOT PROCESSED FURTHER
+# Recorded under the 2026-08-28 Order section 2.4. Each is a condition the ratified
+# production identity creates. NONE is repaired here; repair is regeneration, re-keying
+# or Executive authoring, all of which that Order withholds.
+# ----------------------------------------------------------------------------
+path_b_consequences:
+  - id: PBC-1
+    condition: EPR-07 segment reference unresolvable
+    detail: >-
+      S19's declared span in the superseded assembly lies wholly beyond the governed
+      production's runtime. Figures in EPR-001_VALIDATION_REPORT_PATH_B.md.
+    disposition: UNRESOLVED_PENDING_EXECUTIVE
+    owner: EXECUTIVE
+
+  - id: PBC-2
+    condition: S18 declared boundary extends beyond the governed runtime
+    detail: >-
+      S18's declared START falls inside the governed production's runtime and its declared END
+      falls outside it. S18 is IN SCOPE for Executive authoring per the Order's S01-S18
+      directive, and EPR-06 already references it. The segment is not re-derived here.
+      Figures in EPR-001_VALIDATION_REPORT_PATH_B.md.
+    disposition: BOUNDARY_OUT_OF_RANGE_PENDING_REDERIVATION
+    owner: platform, after regeneration is authorized
+
+  - id: PBC-3
+    condition: no segment-to-episode assignment exists
+    detail: >-
+      The Order describes S01-S18 as "active episodic segments" and the three Parts as the
+      distribution deliverables. DAY2_PARENT_FORENSIC_AUDIT establishes which contiguous region
+      of the Parent each Part body is drawn from. Assigning segments to those episodes requires
+      segment positions in the 08-24 Parent, which do not exist: the only positions on record
+      are spans in the superseded assembly, related to the governed timeline by five distinct
+      piecewise lags. ANY assignment made today would be inference. NONE WAS MADE.
+      Figures in EPR-001_VALIDATION_REPORT_PATH_B.md.
+    disposition: NOT_DERIVABLE_WITHOUT_REGENERATION
+    owner: platform, after regeneration is authorized
+
+  - id: PBC-4
+    condition: intensity scale ordinality still undeclared
+    detail: >-
+      intensity_scale.ordered remains AWAITING_EXECUTIVE_INPUT. The five ratified tokens are
+      reaffirmed by the 2026-08-28 Order but their ordinality is not. Until declared, no
+      consumer may sort, compare or reason about relative intensity. Put to the Executive in
+      the Authoring Workbook.
+    disposition: AWAITING_EXECUTIVE_DECLARATION
+    disposition_token_note: >-
+      Deliberately NOT the string AWAITING_EXECUTIVE_INPUT. That token is the census marker for
+      unfilled Executive FIELDS, and V-6 counts it; using it on a consequence record would
+      inflate that census by one without an actual field being empty.
+    owner: EXECUTIVE
+
+  - id: PBC-5
+    condition: precondition contract still unsatisfiable (IR-002 I1, carried forward)
+    detail: >-
+      Unchanged by this ratification. The musical-responsibility half of the precondition is
+      deferred to WET-SPEC-RSB-001, which does not exist. Not blocking while regeneration is
+      suspended; live at gate-open.
+    disposition: RAISED_NOT_RESOLVED
+    owner: EXECUTIVE
