@@ -22,7 +22,16 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.4.0"
+registry_version: "1.5.0"
+registry_version_note_1_5_0: >-
+  1.4.0 -> 1.5.0, 2026-08-28. FIRST AUTHORED BEAT. EPR-01 Arrival received
+  dramatic_intensity, governing_theme and editorial_transition from the Executive, transcribed
+  VERBATIM and not normalised, tidied, reworded or condensed. executive_notes was NOT supplied
+  and remains AWAITING_EXECUTIVE_INPUT - it was not backfilled from the rationale.
+  The Executive supplied a rationale per field; those are recorded under a `rationale` key so
+  each stays attached to its own field. THE PLACEMENT IS A PLATFORM STRUCTURAL CHOICE, flagged
+  for confirmation; THE WORDS ARE THE EXECUTIVE'S.
+  AWAITING_EXECUTIVE_INPUT in entries: 28 -> 25.
 registry_version_note_1_4_0: >-
   1.3.0 -> 1.4.0, 2026-08-28. Four Executive determinations transcribed, entering the authoring
   session: OQ-1 RESOLVED (pairwise step comparison permitted for transition checks; algorithmic
@@ -293,11 +302,38 @@ entries:
   - id: EPR-01
     beat: Arrival
     segment_refs: [S01, S02]
-    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim, not normalised.
+    dramatic_intensity: MODERATE
     audience_state: Curiosity
-    governing_theme: AWAITING_EXECUTIVE_INPUT
-    editorial_transition: AWAITING_EXECUTIVE_INPUT
+    governing_theme: "Brotherhood Gathering"
+    editorial_transition: >-
+      The audience moves from observing the gathering to understanding the people whose shared
+      purpose gives the gathering meaning.
     executive_notes: AWAITING_EXECUTIVE_INPUT
+    authored: '2026-08-28'
+    authored_by: "Executive Producer / Chairman"
+    rationale:
+      # The Executive supplied a rationale attached to each field. Placing them here, rather
+      # than in executive_notes, is a PLATFORM STRUCTURAL CHOICE - it preserves the attachment
+      # of each rationale to its own field. The words are the Executive's, verbatim.
+      # executive_notes was left AWAITING_EXECUTIVE_INPUT because it was not supplied.
+      dramatic_intensity: >-
+        The opening should invite the audience into the experience rather than overwhelm them.
+        The story has begun, but the emotional stakes have not yet been earned. This is an
+        orientation beat - viewers are discovering where they are, who they're with, and why this
+        gathering matters. The energy is active and engaging without suggesting that the
+        documentary has reached a defining or transformative moment.
+      governing_theme: >-
+        The opening is not fundamentally about motorcycles. It is not fundamentally about Alpha.
+        It is not fundamentally about Kansas City. It is about people intentionally coming
+        together. Everything that follows - rides, interviews, service, celebration - only has
+        meaning because this community has first gathered. "Brotherhood Gathering" is broad
+        enough to encompass the weekend while remaining true to what this opening actually
+        accomplishes.
+      editorial_transition: >-
+        The shift is not from one location to another. It is from place to people. Arrival
+        establishes context. The interview sequence establishes connection. That is the
+        documentary transformation.
     provenance: "EMOTIONAL_ARC v1.0.0 beat Arrival (audience_emotion: Curiosity)"
 
   - id: EPR-02
