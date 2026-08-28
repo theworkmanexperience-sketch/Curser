@@ -22,7 +22,14 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.5.0"
+registry_version: "1.6.0"
+registry_version_note_1_6_0: >-
+  1.5.0 -> 1.6.0, 2026-08-28. EPR-01 Arrival COMPLETE. executive_notes supplied by the Executive
+  and transcribed VERBATIM. All four authored fields of EPR-01 are now declared; entry_status
+  COMPLETE. AWAITING_EXECUTIVE_INPUT in entries: 25 -> 24.
+  STRUCTURAL QUESTION ANSWERED BY DEMONSTRATION: the Executive supplied executive_notes as
+  content distinct from the per-field rationale, which confirms the rationale does NOT belong in
+  executive_notes. The `rationale` key placement stands. Still open to correction.
 registry_version_note_1_5_0: >-
   1.4.0 -> 1.5.0, 2026-08-28. FIRST AUTHORED BEAT. EPR-01 Arrival received
   dramatic_intensity, governing_theme and editorial_transition from the Executive, transcribed
@@ -309,9 +316,15 @@ entries:
     editorial_transition: >-
       The audience moves from observing the gathering to understanding the people whose shared
       purpose gives the gathering meaning.
-    executive_notes: AWAITING_EXECUTIVE_INPUT
+    executive_notes: >-
+      Preserve an observational point of view that welcomes the audience into the experience
+      without rushing toward spectacle. Allow viewers to become oriented to the environment, the
+      hosts, and the community before introducing individual voices. The opening should create
+      anticipation through authenticity, inviting the audience to stay because they want to know
+      the people behind the event.
     authored: '2026-08-28'
     authored_by: "Executive Producer / Chairman"
+    entry_status: COMPLETE
     rationale:
       # The Executive supplied a rationale attached to each field. Placing them here, rather
       # than in executive_notes, is a PLATFORM STRUCTURAL CHOICE - it preserves the attachment
