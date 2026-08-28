@@ -22,7 +22,21 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.9.0"
+registry_version: "1.10.0"
+registry_version_note_1_10_0: >-
+  1.9.0 -> 1.10.0, 2026-08-28. EXECUTIVE AUTHORING DECLARATION - EPR-05. Transcribed VERBATIM.
+  EPR-05 Deepening COMPLETE: dramatic_intensity CLIMACTIC, governing_theme "Legacy Through
+  Service", editorial_transition and executive_notes as declared, plus the Executive
+  Clarification. AWAITING_EXECUTIVE_INPUT 12 -> 8.
+  WORKBOOK Q9 RESOLVED: audience_state disposition KEEP. "Empathy -> Reverence" stands exactly
+  as written; EPR-05 was NOT split into two entries and the value was NOT altered,
+  re-punctuated or normalised. NO ACTION WAS TAKEN because the ruling was to take none.
+  "Legacy Through Service" is a NEW theme, not one of the six convention illustrations. Two
+  illustrations remain unassigned and appear in no field.
+  Declared progression: MODERATE, MODERATE, HIGH, ELEVATED, CLIMACTIC.
+  ONE STRUCTURAL FACT RECORDED, NO ACTION TAKEN: CLIMACTIC is the top of the ratified scale and
+  is now declared at EPR-05. Under an ordered scale no later beat can exceed it; a later beat
+  may equal it or sit below it. Stated because the ordered scale makes it visible.
 registry_version_note_1_9_0: >-
   1.8.0 -> 1.9.0, 2026-08-28. EXECUTIVE AUTHORING DECLARATION - EPR-04. Transcribed VERBATIM.
   EPR-04 Service COMPLETE: dramatic_intensity ELEVATED, governing_theme "Service Through
@@ -552,11 +566,55 @@ entries:
   - id: EPR-05
     beat: Deepening
     segment_refs: [S11, S12]
-    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim.
+    dramatic_intensity: CLIMACTIC
     audience_state: "Empathy -> Reverence"
-    governing_theme: AWAITING_EXECUTIVE_INPUT
-    editorial_transition: AWAITING_EXECUTIVE_INPUT
-    executive_notes: AWAITING_EXECUTIVE_INPUT
+    governing_theme: "Legacy Through Service"
+    editorial_transition: >
+      Personal testimony and organizational recognition resolve into
+      lasting appreciation, preparing the audience to celebrate the
+      fellowship that continues beyond the formal ceremony.
+    executive_notes: >
+      Preserve authenticity above ceremony. The interviews reveal the
+      personal reasons behind the organization's mission, while the
+      organizer recognition acknowledges those whose quiet leadership
+      sustains that mission. The mandatory silence surrounding these
+      moments is respected because the documentary allows genuine human
+      reflection to carry the emotional weight rather than manufactured
+      spectacle.
+    authored: '2026-08-28'
+    authored_by: "Executive Producer / Chairman"
+    authority: "EXECUTIVE AUTHORING DECLARATION - EPR-05, 2026-08-28"
+    entry_status: COMPLETE
+    executive_clarification: >-
+      This beat is the emotional summit of the documentary. The audience has already witnessed
+      brotherhood, public service and civic recognition. Now they understand the people. The
+      documentary reaches its highest narrative significance because the audience finally
+      understands why these riders commit themselves to something larger than riding. The
+      organizer recognition and protected silence are not separate stories - they are the
+      culmination of the stories already told. This declaration concerns documentary intent only
+      and shall not be interpreted as musical, editorial, or production instruction.
+    audience_state_disposition:
+      # Workbook Q9, RESOLVED by the Executive 2026-08-28.
+      ruling: KEEP
+      ruling_verbatim: >-
+        KEEP exactly as written. The progression itself is the narrative intent. No split. No
+        replacement. No inferred intermediate state. The existing declaration already expresses
+        the audience's journey.
+      action_taken: >-
+        NONE. The value was already "Empathy -> Reverence" and was not altered, re-punctuated or
+        normalised. EPR-05 was NOT split into two entries. The arrow glyph as stored is the
+        ASCII form carried through from EMOTIONAL_ARC v1.0.0.
+      consumer_note: >-
+        RECORDED FOR DOWNSTREAM CONSUMERS, NOT A QUESTION. EPR-05 is the only entry whose
+        audience_state names two states. A consumer reading the field gets the literal compound
+        string; under Invariant B it may NOT infer an intermediate state between Empathy and
+        Reverence, and under this ruling it may not split the value either. The string is opaque
+        by design.
+    theme_provenance_note: >-
+      "Legacy Through Service" is a NEW theme, not drawn from the six illustrations recorded in
+      governing_theme_convention. It conforms to the convention - a compound expressing one
+      unified narrative idea. "Quiet Leadership" and "Leadership by Example" remain unassigned.
     provenance: >-
       EMOTIONAL_ARC v1.0.0 beat Deepening (audience_emotion: "Empathy -> Reverence").
       Transcribed verbatim including the arrow; the Executive may wish to review whether
