@@ -22,7 +22,21 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.3.0"
+registry_version: "1.4.0"
+registry_version_note_1_4_0: >-
+  1.3.0 -> 1.4.0, 2026-08-28. Four Executive determinations transcribed, entering the authoring
+  session: OQ-1 RESOLVED (pairwise step comparison permitted for transition checks; algorithmic
+  trend-fitting and curve-smoothing remain barred by Invariant B); OQ-2 RESOLVED (the terminal
+  beat's editorial_transition carries a concluding resolution statement rather than staying
+  empty); the four-question mapping CONFIRMED; and an authoring directive for the three
+  music-bed segments S01, S15, S18.
+  TWO ILLUSTRATIVE EXAMPLES WERE GIVEN AND NEITHER WAS APPLIED TO ANY ENTRY - the concluding
+  resolution wording and the music-bed focus phrases were both offered with "e.g." as forms,
+  not values. Writing either into a field would be the platform authoring Executive content.
+  ONE NEW DEFERRED CONSEQUENCE RAISED, NOT ANSWERED: OQ-2a, whether "the final beat in the
+  episodic cut" means one terminal beat for the film or three, one per episode. Blocked by
+  PBC-3, not blocking authoring.
+  THE 24 BEAT FIELDS REMAIN EMPTY. AWAITING_EXECUTIVE_INPUT unchanged at 28 in entries.
 registry_version_note_1_3_0: >-
   1.2.0 -> 1.3.0, 2026-08-28. EXECUTIVE AUTHORING FOUNDATION transcribed: Executive Ruling Q11
   (Ordered Categorical Dramatic Intensity Standard), the Executive definitions of
@@ -108,18 +122,33 @@ intensity_scale:
   ruling_rationale_verbatim: >-
     This preserves the Non-Interpolation Invariant while allowing the documentary to express a
     coherent dramatic progression.
-  open_question_raised_not_resolved:
+  resolved_question:
     id: OQ-1
     subject: "comparison versus trend derivation"
-    statement: >-
+    status: RESOLVED
+    resolved: '2026-08-28'
+    resolved_by: "Executive Producer / Chairman"
+    ruling_verbatim: >-
+      Comparing discrete steps (e.g., checking if the next beat is higher or lower for a
+      handoff) is a legitimate transition check, but algorithmic trend-fitting or
+      curve-smoothing remains barred by Invariant B.
+    original_question: >-
       Ordinality newly permits a consumer to COMPARE two declared levels. Invariant B prohibits
-      inferring "trends" between declared segment levels. The four ordinal_constraints above bar
-      averaging, interpolation, scoring, normalization and smoothing - they do not say whether
-      observing that one declared beat outranks another, and naming that relation (escalation,
-      de-escalation, rising action), is a permitted comparison or a prohibited derived state.
-      RAISED, NOT ANSWERED. No consumer exists yet that depends on it; the Behavior Registry
-      will be the first.
-    owner: EXECUTIVE
+      inferring "trends" between declared segment levels. The four ordinal_constraints bar
+      averaging, interpolation, scoring, normalization and smoothing - they did not say whether
+      observing that one declared beat outranks another, and naming that relation, is a
+      permitted comparison or a prohibited derived state.
+    platform_reading_pending_confirmation: >-
+      When a consumer is eventually built against this ruling, the platform will read it as:
+      PERMITTED - a pairwise comparison of two ADJACENT declared levels, yielding higher /
+      lower / equal, for the purpose of a transition or handoff check.
+      BARRED - any operation spanning three or more declared levels to produce a shape, curve,
+      slope, arc or direction-of-travel, and any function that emits a value not itself
+      declared by the Executive.
+      This reading is the platform's, NOT the Executive's words. It is recorded so that the
+      first implementation cannot quietly widen the ruling. If it is wrong, correcting it here
+      is cheaper than correcting a Behavior Registry built on it.
+    first_affected_consumer: "Behavior Registry (does not yet exist)"
   naming_note: >-
     The field is called dramatic_intensity and the ruling defines the scale as measuring
     narrative SIGNIFICANCE. Those are not the same word. Under this ruling ELEVATED
@@ -174,17 +203,40 @@ field_definitions:
       - "Ceremonial recognition resolves into enduring fellowship."
     excludes: ["cross dissolves", cuts, fades, "cue transitions",
                instrumentation, tempo, harmony]
-    open_question_raised_not_resolved:
+    resolved_question:
       id: OQ-2
       subject: "the terminal beat has no successor"
-      statement: >-
-        The definition is relational - it describes the shift from the current segment TO THE
-        NEXT. Six declared beats have five inter-beat boundaries. Whichever beat is last has no
-        successor and therefore no transition to describe. Which beat is last depends on the
-        EPR-07 disposition (PBC-1), which is itself open. Whether the terminal beat's field is
-        left empty, or carries the shift out of the film and into whatever follows it, is an
-        EXECUTIVE determination. RAISED, NOT ANSWERED. Nothing was defaulted.
-      owner: EXECUTIVE
+      status: RESOLVED
+      resolved: '2026-08-28'
+      resolved_by: "Executive Producer / Chairman"
+      ruling_verbatim: >-
+        The final beat in the episodic cut has no successor; its editorial_transition cleanly
+        resolves to a concluding resolution statement, so no field is left syntactically
+        dangling.
+      rule: >-
+        The terminal beat's editorial_transition is NOT left empty. It carries a concluding
+        resolution statement.
+      example_of_form_given_by_executive: "Concludes the episodic narrative in lasting communal resolution."
+      example_handling: >-
+        THE EXAMPLE ABOVE WAS NOT APPLIED TO ANY ENTRY. It was offered with "e.g." as an
+        illustration of the FORM a concluding resolution statement takes, not as the value of
+        any beat's field. Writing it into an entry would be the platform authoring Executive
+        content. Every editorial_transition remains AWAITING_EXECUTIVE_INPUT.
+      dependency_note: >-
+        WHICH beat is terminal is still open: it depends on the EPR-07 disposition (PBC-1),
+        unanswered in the Authoring Workbook at Q10. The RULE is settled; its SUBJECT is not.
+      deferred_consequence:
+        id: OQ-2a
+        statement: >-
+          The ruling says "the final beat in the episodic cut". The ratified deliverable is
+          THREE episodes. If editorial_transition is scoped to the film, there is one terminal
+          beat; if scoped to each episode, there are three, and a beat spanning an episode
+          boundary would end mid-beat. This cannot be settled before segment-to-episode
+          assignment exists (PBC-3), which requires the Editorial Timing Contract that has not
+          been produced. RAISED, NOT ANSWERED, and not blocking: authoring proceeds at beat
+          level, where the question does not arise.
+        owner: EXECUTIVE
+        blocked_by: PBC-3
 
 # ----------------------------------------------------------------------------
 # AUTHORING PRINCIPLE
@@ -203,6 +255,33 @@ authoring_principle:
     platform not to let documentary intent prescribe musical implementation; this principle
     binds the AUTHOR not to write musical implementation into documentary intent. Same boundary,
     approached from opposite sides.
+  music_bed_segments_directive:
+    # Executive ruling, 2026-08-28, in answer to the workbook section 0.3 flag.
+    applies_to: [S01, S15, S18]
+    applies_to_note: >-
+      The three segments whose registry identity is musical - S01 cold_open ("music-bed ASR
+      fragments"), S15 riding_music_passage and S18 bike_night_ambience, the latter two carrying
+      music_present true with zero interviews.
+    ruling_verbatim: >-
+      When scoring riding passages or ambient scenes, the narrative intent focuses entirely on
+      visual story and dramatic purpose, completely stripped of musical prompts.
+    examples_of_focus_given_by_executive: ["the visual discipline of the pack", "the physical journey"]
+    example_handling: >-
+      Offered with "e.g." as illustrations of WHERE the narrative intent should focus. NOT
+      APPLIED to any entry. No governing_theme, editorial_transition or dramatic_intensity was
+      authored, drafted or seeded from them.
+
+four_question_mapping:
+  # Proposed by the platform in the Authoring Workbook section 0.4 and CONFIRMED by the
+  # Executive 2026-08-28. Recorded because it governs how eighteen segments are answered.
+  status: CONFIRMED
+  confirmed: '2026-08-28'
+  mapping:
+    - {question: "What is happening?",                              maps_to: "context - orientation only, not a field"}
+    - {question: "Why does it matter?",                             maps_to: dramatic_intensity}
+    - {question: "What is the governing theme?",                    maps_to: governing_theme}
+    - {question: "What fundamentally changes for the audience?",    maps_to: editorial_transition}
+    - {question: "anything the four cannot carry",                  maps_to: executive_notes}
 
 # ----------------------------------------------------------------------------
 # ENTRIES

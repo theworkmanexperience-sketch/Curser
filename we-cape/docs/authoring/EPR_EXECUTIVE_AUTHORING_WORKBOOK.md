@@ -2,7 +2,7 @@
 
 **For:** Executive Producer / Chairman · **Prepared by:** platform · **Date:** 2026-08-28
 **Authority:** `EXECUTIVE ORDER — CUSTODY_ALERT_001 FINAL DISPOSITION & WORKBOOK GENERATION` §3
-**Subject:** `EMOTIONAL_PROGRESSION_REGISTRY.yaml` (EPR-001) v1.2.0
+**Subject:** `EMOTIONAL_PROGRESSION_REGISTRY.yaml` (EPR-001) **v1.4.0**
 **Production:** Alpha RoundUp 2026 — Day 2 Episodic Trilogy (08-24 Lineage) · **Path B**
 
 ---
@@ -30,10 +30,11 @@ leave blank will be filled by anything else.
 Order §3 scopes authoring to **active episodic segments `S01–S18`.**
 
 ```
-29  empty fields in EPR-001 v1.2.0
+28  empty fields in EPR-001 v1.4.0
 ├── 24  in authoring scope        -> Section 2, six beats x four fields
-├──  4  belong to EPR-07 (S19)    -> OUT OF SCOPE. Its disposition is asked in Section 4
-└──  1  registry-level ordinality -> Section 5
+└──  4  belong to EPR-07 (S19)    -> OUT OF SCOPE. Its disposition is asked in Section 4
+
+     the 29th - registry-level ordinality - was DECLARED 2026-08-28 (Q11)
 ```
 
 Plus two segments that carry **no entry at all** — Section 3.
@@ -41,7 +42,7 @@ Plus two segments that carry **no entry at all** — Section 3.
 ### 0.2 The definitional gap — **CLOSED 2026-08-28**
 
 The gap this section raised has been answered by the Executive. Both definitions are transcribed
-verbatim into EPR-001 v1.3.0. **They are reproduced here because you will use them on every
+verbatim into EPR-001 v1.4.0. **They are reproduced here because you will use them on every
 page.**
 
 #### `governing_theme` — **Narrative Anchor**
@@ -98,15 +99,13 @@ write musical implementation into documentary intent. Same boundary, both direct
 > interviews**), `S18` bike_night_ambience (`music_present: true`, **0 interviews**). `S15`'s
 > registry label is literally *"riding music passage"*.
 >
-> **These segments still have documentary content** — a ride is a ride in silence. But their
-> registry identity is musical, and the silence test will make them the hardest three to answer.
-> **No answer is proposed for any of them.** Raised so it is expected rather than discovered on
-> the page.
+> **Executive directive, 2026-08-28:** *"When scoring riding passages or ambient scenes, the
+> narrative intent focuses entirely on visual story and dramatic purpose, completely stripped of
+> musical prompts."* The examples offered — *the visual discipline of the pack*, *the physical
+> journey* — are illustrations of **where to look**, not answers. **Neither was written into any
+> field.**
 
-### 0.4 The four questions, and how they map to the fields
-
-You framed the session as four questions per segment. **This mapping is the platform's proposal
-and needs your confirmation — it is not a declaration:**
+### 0.4 The four questions, and how they map to the fields — **CONFIRMED 2026-08-28** ✔
 
 | your question | field |
 |---|---|
@@ -120,14 +119,14 @@ and needs your confirmation — it is not a declaration:**
 
 ## 1 · The vocabulary
 
-`dramatic_intensity` accepts **exactly these five tokens**, ratified and reaffirmed by the Order
-of 2026-08-28. No sixth value is valid. No blend, range, or arrow is valid.
+`dramatic_intensity` accepts **exactly these five tokens**. No sixth value is valid. No blend,
+range, or arrow is valid.
 
 ```
 LOW          MODERATE          HIGH          ELEVATED          CLIMACTIC
 ```
 
-The descriptors below are **transcribed from EPR-001 v1.2.0**, where they were already ratified.
+The descriptors below are **transcribed from EPR-001**, where they were already ratified.
 They are the registry's own words, not the platform's gloss:
 
 | token | ratified descriptors |
@@ -160,16 +159,14 @@ six beats also describe a **progression**, not just six independent labels. **`E
 *Commanding/Emotionally Significant* until you hold the ruling's own words in mind: **this is a
 significance scale, not an energy scale.** A quiet moment can outrank a loud one.
 
-> **⚠ One thing the ruling settles and one it does not — raised, not answered (`OQ-1`).**
+> ### `OQ-1` — **RESOLVED 2026-08-28**
 >
-> The four constraints bar averaging, interpolation, scoring, normalization and smoothing.
-> **They do not say whether *comparing* two declared beats and naming the relation** — "this
-> escalates", "this de-escalates", "rising action" — **is a permitted comparison or a derived
-> dramatic state that Invariant B prohibits.** Invariant B names *"trends"* explicitly.
+> > *Comparing discrete steps (e.g., checking if the next beat is higher or lower for a handoff)
+> > is a legitimate transition check, but algorithmic trend-fitting or curve-smoothing remains
+> > barred by Invariant B.*
 >
-> Nothing depends on it today. **The Behavior Registry will be the first consumer that has to
-> know**, and it is cheaper to settle now than to discover a Conductor Score has been reading a
-> shape it was never licensed to see.
+> **Nothing changes about how you answer.** You choose one token per beat, as before. The ruling
+> governs what a downstream consumer may do with the six tokens once they exist.
 
 ---
 
@@ -522,18 +519,25 @@ executive_notes:      ______________
 
 **Q11 is closed.** `intensity_scale.ordered: true`; `scale_class: ORDERED_CATEGORICAL`;
 `measures: "narrative significance within the documentary"`;
-`order: [LOW, MODERATE, HIGH, ELEVATED, CLIMACTIC]`. Transcribed into EPR-001 v1.3.0 with the
+`order: [LOW, MODERATE, HIGH, ELEVATED, CLIMACTIC]`. Transcribed into EPR-001 v1.4.0 with the
 four ordinal constraints verbatim. **`PBC-4` is discharged.**
 
-### 5.1a · Two questions the ratified foundation raises — **open**
+### 5.1a · The two questions the foundation raised — **both RESOLVED 2026-08-28** ✔
 
-| id | question | why it matters |
-|---|---|---|
-| **`OQ-1`** | Is **comparing** two declared intensity levels and naming the relation (escalation, de-escalation, rising action) a permitted comparison, or a **derived dramatic state** barred by Invariant B's prohibition on *trends*? | ordinality newly makes it computable. The Behavior Registry is the first consumer that must know |
-| **`OQ-2`** | `editorial_transition` describes the shift to **the next** segment. **Six beats have five inter-beat boundaries.** Whichever beat is last has no successor — does its field stay empty, or carry the shift out of the film? Which beat is last depends on `EPR-07` (Q10) | one of the six fields you are about to fill may have nothing to point at |
+| id | ruling |
+|---|---|
+| **`OQ-1`** | *Comparing discrete steps (e.g., checking if the next beat is higher or lower for a handoff) is a legitimate transition check, but algorithmic trend-fitting or curve-smoothing remains barred by Invariant B.* |
+| **`OQ-2`** | *The final beat in the episodic cut has no successor; its `editorial_transition` cleanly resolves to a concluding resolution statement, so no field is left syntactically dangling.* |
 
-**Neither is answered here, and neither was defaulted.** Both are recorded in EPR-001 v1.3.0 as
-`open_question_raised_not_resolved`.
+**`OQ-2` settles the rule, not the subject.** *Which* beat is terminal still depends on the
+`EPR-07` disposition — **Q10, still open.**
+
+> **One consequence recorded and deferred (`OQ-2a`), not blocking.** The ruling says *"the final
+> beat in the episodic cut."* The ratified deliverable is **three episodes.** One terminal beat
+> for the film, or three, one per episode? A beat spanning an episode boundary would end
+> mid-beat. **Unanswerable until segment-to-episode assignment exists (`PBC-3`), which needs the
+> ETC that has not been produced.** Authoring proceeds at beat level, where the question does not
+> arise.
 
 ### 5.2 · Anything the four fields cannot carry
 
@@ -560,7 +564,7 @@ authored_by: "Executive Producer / Chairman"
 date: ""
 
 # field_definitions and intensity_scale.ordered were DECLARED 2026-08-28 and are already
-# transcribed into EPR-001 v1.3.0. They are not asked again here.
+# transcribed into EPR-001 v1.4.0. They are not asked again here.
 
 entries:
   EPR-01:  # Arrival · S01, S02
@@ -626,9 +630,9 @@ undeclared_segments:
 
 registry_declarations:
   # intensity_scale_ordered: ANSWERED 2026-08-28 — ORDERED_CATEGORICAL, LOW..CLIMACTIC
-  four_question_mapping_confirmed: ""   # section 0.4 — confirm | correct it
-  OQ_1_comparison_vs_trend: ""          # permitted comparison | prohibited derived state
-  OQ_2_terminal_beat_transition: ""     # leave empty | carries the shift out of the film
+  # four_question_mapping · OQ-1 · OQ-2 : all ANSWERED 2026-08-28, in EPR-001 v1.4.0
+  OQ_2a_episodic_terminal_scope: ""     # one terminal beat for the film | one per episode
+                                        # (deferred — blocked by PBC-3, not blocking authoring)
   missing_field_needed: ""              # Q12
 ```
 
@@ -703,7 +707,7 @@ propagates as unknown and is never defaulted, in this round or any later one.
 | values inferred, suggested, defaulted or exampled | **none** |
 | intensity tokens | the five ratified tokens, verbatim, **presented without an ordering** |
 | segment facts | transcribed from `TIMELINE_REGISTRY` v1.0.0 |
-| declared beats and `audience_state` values | transcribed from EPR-001 v1.2.0 |
+| declared beats and `audience_state` values | transcribed from EPR-001 v1.4.0 |
 | positions | **withheld from the question pages by design**; Appendix A only, marked superseded |
 | episode groupings | **none offered** — not derivable without inference (`PBC-3`) |
 | definitions of `governing_theme` and `editorial_transition` | **not supplied** — the gap is raised in §0.2 and left to you |
