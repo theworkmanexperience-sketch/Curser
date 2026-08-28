@@ -22,7 +22,20 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.8.0"
+registry_version: "1.9.0"
+registry_version_note_1_9_0: >-
+  1.8.0 -> 1.9.0, 2026-08-28. EXECUTIVE AUTHORING DECLARATION - EPR-04. Transcribed VERBATIM.
+  EPR-04 Service COMPLETE: dramatic_intensity ELEVATED, governing_theme "Service Through
+  Action", editorial_transition and executive_notes as declared, plus the Executive
+  Clarification. AWAITING_EXECUTIVE_INPUT 16 -> 12.
+  Declared progression to date: MODERATE, MODERATE, HIGH, ELEVATED - every step declared by the
+  Executive, none derived by the platform.
+  "Service Through Action" was an unassigned convention illustration from EPR-02, assigned HERE
+  by the Executive. Two illustrations remain unassigned and appear in no field.
+  ONE STRUCTURAL FACT RECORDED, NO ACTION TAKEN: with ELEVATED declared at EPR-04, one step of
+  the ratified scale remains above it. Two in-scope beats are unauthored. Repetition of a token
+  is already established practice (EPR-01 and EPR-02 both MODERATE), so this constrains nothing
+  - it is stated because the ordered scale makes it visible and it was not visible before.
 registry_version_note_1_8_0: >-
   1.7.0 -> 1.8.0, 2026-08-28. EXECUTIVE AUTHORING DECLARATION - EPR-03. Transcribed VERBATIM.
   EPR-03 Brotherhood COMPLETE: dramatic_intensity HIGH, governing_theme "Collective Identity",
@@ -494,11 +507,43 @@ entries:
   - id: EPR-04
     beat: Service
     segment_refs: [S06, S07, S08, S09, S10]
-    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim.
+    dramatic_intensity: ELEVATED
     audience_state: Respect
-    governing_theme: AWAITING_EXECUTIVE_INPUT
-    editorial_transition: AWAITING_EXECUTIVE_INPUT
-    executive_notes: AWAITING_EXECUTIVE_INPUT
+    governing_theme: "Service Through Action"
+    editorial_transition: >
+      Public recognition of the organization's service transforms
+      respect into personal connection, preparing the audience to
+      experience the individual stories that deepen the documentary's
+      emotional impact.
+    executive_notes: >
+      This beat should emphasize authentic civic recognition rather than
+      celebration for its own sake. The proclamations, acknowledgements,
+      and community interactions validate the organization's purpose
+      through the voices of others. Preserve sincerity, humility, and
+      gratitude while allowing moments of quiet reflection to reinforce
+      that service—not recognition—is the enduring message.
+    authored: '2026-08-28'
+    authored_by: "Executive Producer / Chairman"
+    authority: "EXECUTIVE AUTHORING DECLARATION - EPR-04, 2026-08-28"
+    entry_status: COMPLETE
+    executive_clarification: >-
+      This beat represents the documentary's first major institutional validation. The
+      significance does not arise because officials speak. It arises because independent civic
+      voices affirm what the audience has already begun to observe. Brotherhood becomes
+      recognized public service. That movement elevates the documentary from an internal
+      motorcycle-club story into a broader story about community impact. This declaration
+      concerns documentary intent only and shall not be interpreted as musical, editorial, or
+      production instruction.
+    theme_provenance_note: >-
+      "Service Through Action" was one of the unassigned illustrations in the
+      governing_theme_convention established at EPR-02. Assigned HERE by explicit Executive
+      declaration, not applied by the platform. Two illustrations remain unassigned.
+    single_token_note: >-
+      One dramatic_intensity token covers five segments (S06-S10), as the entry's structure
+      requires. The Executive was asked to use executive_notes if the five did not share one
+      weight; no such statement was made, so ELEVATED stands for the beat as a whole. Nothing
+      was apportioned, split or inferred per segment.
     provenance: >-
       EMOTIONAL_ARC v1.0.0 beat Service (audience_emotion: Respect). Its
       music_responsibility read "Support (here: silence IS support)" - DEFERRED to
