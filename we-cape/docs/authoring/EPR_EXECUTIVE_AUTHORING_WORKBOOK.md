@@ -2,7 +2,7 @@
 
 **For:** Executive Producer / Chairman · **Prepared by:** platform · **Date:** 2026-08-28
 **Authority:** `EXECUTIVE ORDER — CUSTODY_ALERT_001 FINAL DISPOSITION & WORKBOOK GENERATION` §3
-**Subject:** `EMOTIONAL_PROGRESSION_REGISTRY.yaml` (EPR-001) **v1.4.0**
+**Subject:** `EMOTIONAL_PROGRESSION_REGISTRY.yaml` (EPR-001) **v1.7.0**
 **Production:** Alpha RoundUp 2026 — Day 2 Episodic Trilogy (08-24 Lineage) · **Path B**
 
 ---
@@ -30,11 +30,13 @@ leave blank will be filled by anything else.
 Order §3 scopes authoring to **active episodic segments `S01–S18`.**
 
 ```
-28  empty fields in EPR-001 v1.4.0
-├── 24  in authoring scope        -> Section 2, six beats x four fields
+20  empty fields in EPR-001 v1.7.0
+├── 16  in authoring scope        -> EPR-03, EPR-04, EPR-05, EPR-06
 └──  4  belong to EPR-07 (S19)    -> OUT OF SCOPE. Its disposition is asked in Section 4
 
-     the 29th - registry-level ordinality - was DECLARED 2026-08-28 (Q11)
+AUTHORED SO FAR
+  EPR-01  Arrival      MODERATE   "Brotherhood Gathering"   COMPLETE
+  EPR-02  Interviews   MODERATE   "Shared Purpose"          COMPLETE
 ```
 
 Plus two segments that carry **no entry at all** — Section 3.
@@ -42,7 +44,7 @@ Plus two segments that carry **no entry at all** — Section 3.
 ### 0.2 The definitional gap — **CLOSED 2026-08-28**
 
 The gap this section raised has been answered by the Executive. Both definitions are transcribed
-verbatim into EPR-001 v1.4.0. **They are reproduced here because you will use them on every
+verbatim into EPR-001 v1.7.0. **They are reproduced here because you will use them on every
 page.**
 
 #### `governing_theme` — **Narrative Anchor**
@@ -105,7 +107,29 @@ write musical implementation into documentary intent. Same boundary, both direct
 > journey* — are illustrations of **where to look**, not answers. **Neither was written into any
 > field.**
 
-### 0.4 The four questions, and how they map to the fields — **CONFIRMED 2026-08-28** ✔
+### 0.4 Field separation — **Executive interpretation, binding from 2026-08-28**
+
+Established with the EPR-02 authoring declaration. **These responsibilities remain distinct for
+the remainder of Executive authoring.**
+
+| field | Executive meaning |
+|---|---|
+| `dramatic_intensity` | The ordered categorical weight of the narrative beat. |
+| `governing_theme` | The enduring truth that justifies the beat's place within the documentary. |
+| `editorial_transition` | The change in audience understanding between narrative beats. |
+| `executive_notes` | Directorial guidance describing how the beat should be handled while preserving documentary intent. |
+
+#### Governing-theme convention — **established 2026-08-28**
+
+> *Compound themes are authorized when they express one unified narrative idea rather than a list
+> of concepts.* … *The governing theme shall function as a narrative anchor, not a keyword
+> collection.*
+
+Six illustrations were given. **Two are now declared** — `Brotherhood Gathering` (EPR-01),
+`Shared Purpose` (EPR-02). **The other four are unassigned illustrations of form, not reserved
+values, and have not been applied to any beat.**
+
+### 0.5 The four questions, and how they map to the fields — **CONFIRMED 2026-08-28** ✔
 
 | your question | field |
 |---|---|
@@ -519,7 +543,7 @@ executive_notes:      ______________
 
 **Q11 is closed.** `intensity_scale.ordered: true`; `scale_class: ORDERED_CATEGORICAL`;
 `measures: "narrative significance within the documentary"`;
-`order: [LOW, MODERATE, HIGH, ELEVATED, CLIMACTIC]`. Transcribed into EPR-001 v1.4.0 with the
+`order: [LOW, MODERATE, HIGH, ELEVATED, CLIMACTIC]`. Transcribed into EPR-001 v1.7.0 with the
 four ordinal constraints verbatim. **`PBC-4` is discharged.**
 
 ### 5.1a · The two questions the foundation raised — **both RESOLVED 2026-08-28** ✔
@@ -564,7 +588,7 @@ authored_by: "Executive Producer / Chairman"
 date: ""
 
 # field_definitions and intensity_scale.ordered were DECLARED 2026-08-28 and are already
-# transcribed into EPR-001 v1.4.0. They are not asked again here.
+# transcribed into EPR-001 v1.7.0. They are not asked again here.
 
 entries:
   EPR-01:  # Arrival · S01, S02
@@ -630,7 +654,7 @@ undeclared_segments:
 
 registry_declarations:
   # intensity_scale_ordered: ANSWERED 2026-08-28 — ORDERED_CATEGORICAL, LOW..CLIMACTIC
-  # four_question_mapping · OQ-1 · OQ-2 : all ANSWERED 2026-08-28, in EPR-001 v1.4.0
+  # four_question_mapping · OQ-1 · OQ-2 : all ANSWERED 2026-08-28, in EPR-001 v1.7.0
   OQ_2a_episodic_terminal_scope: ""     # one terminal beat for the film | one per episode
                                         # (deferred — blocked by PBC-3, not blocking authoring)
   missing_field_needed: ""              # Q12
@@ -707,7 +731,7 @@ propagates as unknown and is never defaulted, in this round or any later one.
 | values inferred, suggested, defaulted or exampled | **none** |
 | intensity tokens | the five ratified tokens, verbatim, **presented without an ordering** |
 | segment facts | transcribed from `TIMELINE_REGISTRY` v1.0.0 |
-| declared beats and `audience_state` values | transcribed from EPR-001 v1.4.0 |
+| declared beats and `audience_state` values | transcribed from EPR-001 v1.7.0 |
 | positions | **withheld from the question pages by design**; Appendix A only, marked superseded |
 | episode groupings | **none offered** — not derivable without inference (`PBC-3`) |
 | definitions of `governing_theme` and `editorial_transition` | **not supplied** — the gap is raised in §0.2 and left to you |

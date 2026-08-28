@@ -22,7 +22,21 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.6.0"
+registry_version: "1.7.0"
+registry_version_note_1_7_0: >-
+  1.6.0 -> 1.7.0, 2026-08-28. EXECUTIVE AUTHORING DECLARATION - EPR-02. Transcribed VERBATIM.
+  EPR-02 Interviews COMPLETE: dramatic_intensity MODERATE, governing_theme "Shared Purpose",
+  editorial_transition and executive_notes as declared. AWAITING_EXECUTIVE_INPUT 24 -> 20.
+  TWO EXECUTIVE PRECEDENTS ALSO ESTABLISHED and recorded as their own blocks:
+  governing_theme_convention (compound themes authorized where they express one unified
+  narrative idea; the theme is a narrative anchor, not a keyword collection) and
+  field_separation (the four authored fields carry distinct responsibilities, binding for the
+  remainder of Executive authoring).
+  FOUR OF THE SIX CONVENTION EXAMPLES ARE UNASSIGNED AND WERE NOT APPLIED - "Quiet Leadership",
+  "Service Through Action", "Collective Identity" and "Leadership by Example" are illustrations
+  of form, not declarations, and shall not be drawn on to populate any later beat.
+  beat: Interviews UNCHANGED - the declaration's heading reads "Interview Gauntlet" but its
+  Executive Declaration block carries no `beat:` field. Raised in the entry, not acted on.
 registry_version_note_1_6_0: >-
   1.5.0 -> 1.6.0, 2026-08-28. EPR-01 Arrival COMPLETE. executive_notes supplied by the Executive
   and transcribed VERBATIM. All four authored fields of EPR-01 are now declared; entry_status
@@ -287,6 +301,47 @@ authoring_principle:
       APPLIED to any entry. No governing_theme, editorial_transition or dramatic_intensity was
       authored, drafted or seeded from them.
 
+governing_theme_convention:
+  # Executive precedent established with the EPR-02 authoring declaration, 2026-08-28.
+  # Transcribed verbatim. Answers the vocabulary question raised after EPR-01.
+  established: '2026-08-28'
+  established_by: "EXECUTIVE AUTHORING DECLARATION - EPR-02"
+  rule_verbatim: >-
+    Compound themes are authorized when they express one unified narrative idea rather than a
+    list of concepts.
+  function_verbatim: >-
+    The governing theme shall function as a narrative anchor, not a keyword collection.
+  examples_given_by_executive: ["Brotherhood Gathering", "Shared Purpose", "Quiet Leadership",
+                                "Service Through Action", "Collective Identity",
+                                "Leadership by Example"]
+  example_handling: >-
+    ILLUSTRATIONS OF THE CONVENTION, NOT DECLARATIONS. Two of the six - "Brotherhood Gathering"
+    and "Shared Purpose" - are already declared, at EPR-01 and EPR-02 respectively. The other
+    four are NOT assigned to any beat, were NOT applied, and shall NOT be drawn on to populate
+    EPR-03 through EPR-07 or either undeclared segment. They are a demonstration of form. The
+    list is NOT a closed vocabulary and shall not be used as an enumeration to validate against.
+
+field_separation:
+  # Executive interpretation, established with the EPR-02 authoring declaration, 2026-08-28.
+  # Transcribed verbatim. These responsibilities shall remain distinct throughout the
+  # remainder of Executive authoring.
+  established: '2026-08-28'
+  established_by: "EXECUTIVE AUTHORING DECLARATION - EPR-02"
+  binding_scope: "the remainder of Executive authoring"
+  fields:
+    dramatic_intensity: "The ordered categorical weight of the narrative beat."
+    governing_theme: >-
+      The enduring truth that justifies the beat's place within the documentary.
+    editorial_transition: "The change in audience understanding between narrative beats."
+    executive_notes: >-
+      Directorial guidance describing how the beat should be handled while preserving
+      documentary intent.
+  relationship_to_field_definitions: >-
+    This block is the Executive's compact statement of each field's RESPONSIBILITY. The fuller
+    definitions under `field_definitions` - Narrative Anchor and Contextual Shift - stand
+    unchanged and are not superseded by it. Where the two are read together, field_definitions
+    describes what a field IS and field_separation describes what it is FOR.
+
 four_question_mapping:
   # Proposed by the platform in the Authoring Workbook section 0.4 and CONFIRMED by the
   # Executive 2026-08-28. Recorded because it governs how eighteen segments are answered.
@@ -351,12 +406,30 @@ entries:
 
   - id: EPR-02
     beat: Interviews
+    # beat UNCHANGED. The authoring declaration of 2026-08-28 is headed "EPR-02 · Interview
+    # Gauntlet", but its Executive Declaration block carries no `beat:` field. The heading was
+    # read as a section title, not as a rename. Renaming an EXECUTIVE-custody value on the
+    # strength of a heading would be the platform inferring a declaration. RAISED, NOT ACTED ON.
     segment_refs: [S03]
-    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim.
+    dramatic_intensity: MODERATE
     audience_state: Listening
-    governing_theme: AWAITING_EXECUTIVE_INPUT
-    editorial_transition: AWAITING_EXECUTIVE_INPUT
-    executive_notes: AWAITING_EXECUTIVE_INPUT
+    governing_theme: "Shared Purpose"
+    editorial_transition: >
+      Personal convictions become collective action as
+      individual voices unite in a common mission.
+    executive_notes: >
+      Preserve the individuality of every speaker while allowing the
+      audience to recognize the common values emerging across the
+      interviews. Do not rush responses for pace alone. Authenticity
+      comes from the accumulation of honest voices rather than any
+      single statement. The audience should leave this beat
+      understanding not only who these riders are, but why they have
+      chosen to ride together.
+    authored: '2026-08-28'
+    authored_by: "Executive Producer / Chairman"
+    authority: "EXECUTIVE AUTHORING DECLARATION - EPR-02, 2026-08-28"
+    entry_status: COMPLETE
     provenance: "EMOTIONAL_ARC v1.0.0 beat Interviews (audience_emotion: Listening)"
 
   - id: EPR-03
