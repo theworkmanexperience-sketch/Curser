@@ -26,6 +26,59 @@ Four forces, none speculative, all external to this entity. `[E]` for the platfo
 
 ---
 
+# ENTERPRISE VALUE — FOUR EVIDENCE-ORIENTED CATEGORIES
+
+*Added under WET-EXEC-004 §G. Qualitative unless repository evidence exists. **No unsupported numerical claim appears in this section.***
+
+## TIME — process acceleration
+
+| evidenced | measure |
+|---|---|
+| Hardware-accelerated processing | **16×**, measured and disaggregated — NVMe contributed 2.96×, the previously-unset decode flag contributed 16× `[E]` |
+| Pre-platform baseline | **64 hours**, filed *before* the platform's own production so the comparison could not be tuned afterward `[E]` |
+| Measured actuals | curation **38 hours** · Part 1 edit **12 hours** `[E]` |
+| Manual work eliminated | headless capture-to-NLE orchestration replacing manual timestamp reconciliation; chrono-sets import replacing date-clumped browsing `[E]` |
+
+**Not claimed:** any editorial-density or utilization improvement figure. The 85 % Part 2 utilization figure and the ~45× density claim have **no producing computation** in the repository and are excluded from every document in this package. `[O]`
+
+**The honest form of the time argument:** the platform demonstrably accelerates *processing* and demonstrably *measures* editorial effort. It has not yet produced a governed measurement of editorial acceleration. **One instrument run — a single NLE export — would close that gap.**
+
+## PROCESS — deterministic workflows
+
+Same inputs, same outputs, or the run stops.
+
+- Seven governed artifacts regenerate byte-identically from source; a full parameterisation refactor moved **7 lines in 205,679 bytes**, each explained `[E]`
+- A generator that cannot verify its inputs **produces nothing** rather than producing something plausible — four injected-fault tests, each exit 2 with **zero files written** `[E]`
+- `--run-id pinned` reproduces an archived run exactly, so the only variable under test is the change itself `[E]`
+- Publication passes three recorded gates, and `SOP-06` was *committed before the picture lock it governs* — it caught real rights exposure the same evening `[E]`
+
+**Commercial translation:** a process whose failures are *refusals* rather than *bad outputs* has a fundamentally different risk profile. The expensive failure in content operations is not a job that stops — it is a job that finishes and is wrong.
+
+## QUALITY — governance, auditability, repeatability, traceability
+
+| dimension | implementation | evidence |
+|---|---|---|
+| **Governance** | 20 ratified architecture clauses · ten instrument classes · proposal and ratification held as separate artifacts | `CAPE-RAT`, Chairman's Acceptance Memorandum `[E]` |
+| **Auditability** | every stop carries a named reason and an exit code — **you can audit what the system declined to do**, not only what it did | `FAILED_SOURCE_IDENTITY` · `FAILED_CARDINALITY` · `FAILED_COMPARISON` `[E]` |
+| **Repeatability** | pinned run identifiers; regenerate-never-patch; superseded generators retained and marked `DO NOT EDIT` | `DOC-002` `[E]` |
+| **Traceability** | every registry fact carries a timecode citation and a confidence grade; every governed artifact is hash-pinned to four sources | 14 registries `[E]` |
+
+**The differentiator is the second row.** Most systems log what happened. Very few log what was refused, with the reason, in a form an auditor can read.
+
+## VALUE — reusable registries, knowledge assets, AI operating procedures, institutional memory
+
+**Reusable registries** — 14 governed registries, timecode-cited, confidence-graded, consent-marked. `[E]`
+
+**Knowledge assets** — 75 riders, 66 why-I-ride answers, quotes, organisations, locations, a timeline index. **Twenty-five names marked `UNCONF` rather than guessed**, which is what makes the set usable as evidence rather than as content. `[E]`
+
+**AI operating procedures** — the custody model, the refusal contract, the evidence hierarchy, the composite-score prohibition, non-interpolation. **Domain-independent as written**: `ER-003`, `ER-004`, `DOC-001`, `DOC-002` and `WET-SPEC-REPORT-001` contain nothing about video. `[E]`
+
+**Institutional memory** — `ER-006`, `ER-007` and the Doctrine Source class exist specifically so that what was learned survives the person who learned it. A Doctrine Source is *"preserved verbatim at the moment of completion, before hindsight edits it."* `[E]`
+
+**The boundary, stated plainly:** all four assets **exist**. Their **compounding is unproven at `n = 1`**. `CAR-004`: *"value unproven until a second production exists to compare."* `[O]`
+
+---
+
 ## 0 · THE EVIDENCE STANDARD APPLIED TO COMMERCE
 
 This document carries the same grading as the briefing. It matters more here than anywhere else in the package, because commercial documents are where unsupported claims normally live.

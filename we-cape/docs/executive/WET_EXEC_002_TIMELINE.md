@@ -8,6 +8,43 @@
 
 > **Why eras and not months.** A monthly view fails this timeline twice. It cannot render the **eleven-day silence** — the single most informative datum in the repository and the pivot of the narrative — because a gap between two months disappears into the boundary. And it misstates the sequence: governance emerged in **May**, not June, and the intelligence layer emerged in **August**, not July. The era view preserves both facts, and each era is labelled with **what fundamentally changed**, not with what happened.
 
+## MILESTONE TIMELINE WITH MONTH BANDS
+### *`G-47` — months on the axis, eras as the structure*
+
+**Reconciliation note.** WET-EXEC-004 §H directs *"replace the simplified timeline with a milestone timeline; show months."* WET-EXEC-003 §P0-3 removed a month-structured timeline because it misstated two facts and could not render the eleven-day gap. **Both are satisfied here:** month bands appear as the axis so a reader can locate any milestone by calendar, while the *structure* remains eras — because governance emerged in **May** not June, intelligence in **August** not July, and a gap between two months disappears into a monthly boundary.
+
+```
+ MAY          JUNE              JULY            AUGUST
+ ├────────────┼─────────────────┼───────────────┼──────────────────────────►
+ │ ▓▓▓▓▓      │  ▓ ▓▓▓▓▓▓▓▓▓▓   │ ▓▓▓▓          │        ▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓
+ │  ERA I     │      ERA III    │  ERA IV       │  ERA V    ERA VI   ERA VII
+ │            │  ERA II         │        ╎╎╎╎╎  │
+ │            │                 │        SILENCE│
+ └────────────┴─────────────────┴───────────────┴──────────────────────────
+
+ CALLOUTS
+ ● May 20    PROJECT FORMATION      engine + acceptance suite, same commit
+ ● May 22    GOVERNANCE FIRST       attorney-reviewed EULA, day three
+ ● Jun 19    ENGINEERING ACCEL.     rebrand + legal entity, one commit
+ ● Jun 22    16× MEASURED           and "all prior reports incorrect"
+ ● Jun 25-28 DOCUMENTARY PRODUCTION AlphaRoundUp — 4 cameras, 75 interviews
+ ● Jul 21    BASELINE FILED         64 hrs, before the platform's own production
+ ⌀ Jul 27–   SILENT EDITORIAL       ELEVEN DAYS · ZERO COMMITS
+   Aug 7     PERIOD                 Part 1 edited and published without the platform
+ ● Aug 15    20 CLAUSES RATIFIED    findings become law
+ ● Aug 20    CONSTITUTION CREATION  assess→freeze→certify→ratify→specify, one day
+ ● Aug 22    32 COMMITS             densest day in the repository — and it is governance
+ ● Aug 24-28 EXECUTIVE ORDERS       custody alert · Path B · EPR-001 · ERO-001
+ ● Aug 29    RUNTIME GUARD ARCH.    14 guards, 6 negatives, zero files written
+ ● Aug 29    CONFORMANCE CERT.      22 PASS / 0 FAIL · ENGINEERING-CONFORMANT
+ ● Aug 28    GOVERNANCE v1.0        corpus tagged
+ ● Aug 29    PRESENTATION ARCH.     WET-EXEC-002 / 003 / 004
+```
+
+**The `⌀` marker is the timeline's most important element.** It is drawn as a void with the axis running through it, never as a low bar — a zero that looks like a small number is a misrepresentation of the single most informative datum in the repository.
+
+---
+
 ## ERA / MILESTONE SUMMARY — what fundamentally changed
 
 | era | window | commits | what fundamentally changed |

@@ -4,7 +4,7 @@
 **Companion to:** `WET_EXEC_002_PRESENTATION_OUTLINE.md`
 **Targets:** Gamma AI · PowerPoint · Keynote
 **Custody:** `EXECUTIVE PRESENTATION PACKAGE ONLY`
-**Coverage:** 35 specifications — `G-01`–`G-24` (original) · `G-25`–`G-35` (added under WET-EXEC-003)
+**Coverage:** 48 specifications — `G-01`–`G-24` (original) · `G-25`–`G-35` (WET-EXEC-003) · `G-36`–`G-47` + `G-31b` (WET-EXEC-004), with `G-25` amended to seven fields
 
 ---
 
@@ -268,6 +268,121 @@ sources → wecape/capture → wecape/registry → derived intermediates
 
 ---
 
+## 1B · GRAPHICS ADDED UNDER WET-EXEC-004
+
+Thirteen specifications for the elevated architecture narrative. `G-25` is amended.
+
+### `G-25` **AMENDED** · Moment Card Template — now seven fields
+The card gains an `ENGINEERING` field between `GOVERNANCE ARTIFACT` and the closing field, and the closing field is renamed to `LONG-TERM PRINCIPLE`.
+
+```
+MOMENT n · <title> · <date> · <commit>
+─────────────────────────────────────────
+THE POSITION ON RECORD    what the artifacts stated
+WHAT THE EVIDENCE SHOWED  a number or a quotation, never a characterisation
+DECISION                  what was done
+GOVERNANCE ARTIFACT       the instrument produced, by identifier
+ENGINEERING               what was built or changed in code
+LONG-TERM PRINCIPLE       what became permanently true
+```
+
+**The prohibition is unchanged and is the reason the card exists in this shape.** The second field is **never** *"What we believed."* `ER-007 §3` forbids the platform inferring Executive beliefs, motivations or intent. Belief and reflection are `ER-007` Executive Reflection content, currently `AWAITING_EXECUTIVE_DECLARATION`. A seventh field may be added when the Chairman authors those stages — **labelled as Executive content, never inferred.**
+
+**Why `ENGINEERING` was added:** without it the card jumps from governance to principle and the reader never sees what was actually built. The full arc is *position → evidence → decision → governance → engineering → principle*, and the engineering row is what makes it a platform architecture review rather than a governance anecdote.
+
+### `G-36` · Five-Layer Platform Stack  *(A3)* — **new hero graphic**
+**Form:** five full-width bands. Knowledge (bottom) · Intelligence · Governance · Engineering · Production (top).
+**Rule 1 — build it bottom-up.** If the deck animates, Knowledge appears first. The stack's argument is that knowledge is the *foundation*, not the output, and a top-down build inverts it.
+**Rule 2:** each band carries **what it holds** and **one measured figure** — Knowledge `14 registries · 75 riders · 25 UNCONF` · Intelligence `4 engines, 4 questions` · Governance `90 documents · 20 clauses` · Engineering `39 modules · 14 guards` · Production `3-part series · 8-track album`.
+**Rule 3:** do not draw arrows between bands. They are strata, not a pipeline; the pipeline is `G-30`.
+
+### `G-37` · Governance-First Comparison  *(A5, C4)* — **new hero graphic**
+**Form:** two vertical flows side by side, sharing a baseline.
+Left, four steps: `PROMPT → OUTPUT → REVIEW → FIX`. Right, six steps: `GOVERNANCE → EVIDENCE → EXECUTIVE REVIEW → ENGINEERING → TESTING → PRODUCTION`.
+**Rule 1:** annotate the left flow at the `REVIEW` step — *"governance arrives here: a filter on output that already exists. It can reject. It cannot prevent."*
+**Rule 2:** annotate the right flow at the top — *"governance as precondition: ungoverned output cannot be produced."*
+**Rule 3:** the left column must not be caricatured. It is what most competent teams do, and the slide is stronger if the audience recognises their own process without feeling mocked. **The argument is sequence, not sophistication.**
+
+### `G-38` · Collaborative AI Model  *(A6, C5)* — **new hero graphic**
+**Form:** a vertical spine that **begins and ends at a human**, with the two AI channels as parallel boxes in the middle.
+`EXECUTIVE AUTHORITY → EXECUTIVE ORDERS → [ Creative Direction (ChatGPT) ‖ Engineering Channel (Claude) ] → VERIFICATION → GOVERNANCE → EXECUTIVE APPROVAL → PRODUCTION`
+**Rule 1:** both channel boxes carry `authority: NONE` in the same weight as their names. **That label is the diagram.**
+**Rule 2:** the human blocks — top and bottom — are visually heaviest.
+**Rule 3:** name the roles first and the vendors second (parenthetical, smaller). Vendors date a deck; roles do not, and the evidence supports the roles.
+**Rule 4:** the two channels are **parallel, not sequential.** Do not draw one feeding the other — they hold different custody and report to the same authority.
+
+### `G-39` · Repository Authority Chain  *(A15)*
+**Form:** nine stacked levels with a single descending spine — Executive · Governance · Specifications · Registries · Intelligence · Generators · Runtime · Testing · Commercial.
+**Rule 1:** annotate each level with **what it constrains**, not what it contains.
+**Rule 2:** draw a **return arrow** on the left running upward, labelled *"regenerate, never patch — any artifact can be rebuilt from the level above."* The chain is not one-directional and the return path is `DOC-002`.
+**Rule 3:** mark the currently broken link — `CONDUCTOR_SCORE.yaml`, three dispositions un-materialised — in the Open accent. **A chain diagram that hides its broken link is a marketing diagram.**
+
+### `G-40` · Four Levels of Reuse  *(A16, B18)* — **new hero graphic**
+**Form:** four ascending tiers, each wider than the one below, with four columns: *what is reused · persists across · who owns it · status*.
+```
+4  INTELLIGENCE REUSE   the apparatus itself      every future domain      [E] exists · [O] unproven
+3  REGISTRY REUSE       governed cited records    every future production  [E] exists · [O] unproven
+2  KNOWLEDGE REUSE      facts extracted once      a project                common · fragile
+1  PROMPT REUSE         the words you type        a session                universal · no advantage
+```
+**Rule 1:** levels 3 and 4 carry the Evidenced accent for *exists* and the Open accent for *compounding unproven*. **Both states on the same tier.** This is the slide where the package's honesty is most load-bearing — the economic argument and its unproven status must appear together.
+**Rule 2:** the tiers are **different in kind, not degrees of the same thing.** Use a visual break between 2 and 3 — a rule, a gap, a change of treatment — because that boundary is where most organisations stop.
+
+### `G-41` · Repository Scale Panel  *(A17)*
+**Form:** a definition-bearing metrics grid. Three groups — Governance instruments · Code and testing · Knowledge.
+**Rule 1:** **every cell carries its definition in smaller type beneath the number.** A number without a definition does not go on this slide.
+**Rule 2:** the `ADR` row shows **2 in custody** with the note *"`ADR-001`–`008` cited, not in git"* in the Open accent. The census must show its own gap.
+**Rule 3:** the `Executive Orders` row shows *"1 filed standalone · 8 documents record one's terms"* — the ambiguity is real and stating it is more credible than picking a number.
+**Rule 4:** no total. The instruments are not commensurable and summing them would be a composite.
+
+### `G-42` · Engineering Practice Matrix  *(A18)*
+**Form:** a table graphic — *practice · how implemented · evidence* — with a final block styled differently: **the honest gaps column.**
+**Rule:** the gaps block (`no CI · no dependency manifest · no release version since May · no code signing · no independent audit · pipeline has no unit tests`) is drawn at **equal visual weight** to the practices. A matrix that renders strengths large and gaps small is a scorecard, and this platform prohibits scorecards.
+
+### `G-43` · Human Judgment Chain vs Prompt Chain  *(A19)* — **the essential graphic**
+**Form:** two vertical chains, left and right, sharing a baseline. **Left, seven links:** Human Judgment · Executive Authority · Governance · Evidence · Engineering · AI Collaboration · Repeatable Production. **Right, three links:** Prompt · LLM · Output.
+**Rule 1:** **draw both at true scale.** The right chain must be conspicuously short. Do not stretch it to fill the column — the asymmetry is the argument.
+**Rule 2:** the left chain's links are connected by a continuous spine; the right chain's are connected by plain arrows. Different connective tissue, different claim.
+**Rule 3:** annotate the right chain, beneath it, in Neutral: *"No custody boundary. No refusal path. No record of what was declined. Nothing here can say 'I will not do that, and here is why.'"*
+**Rule 4 — the closing lines are the slide.** Set them as three separate lines with generous leading, in the Evidenced accent:
+> **AI accelerated the work.**
+> **Governance made it trustworthy.**
+> **Human judgment made it valuable.**
+
+**Rule 5:** resist illustration. No robot, no brain, no handshake, no human-and-machine silhouette. **This slide's power is its restraint** — two chains and three sentences.
+
+### `G-44` · Ecosystem Reuse Map  *(A20)*
+**Form:** a hub-and-spoke. **Capture** at the top, **Knowledge Repository** as the hub, six outputs beneath, **Enterprise Assets** at the base.
+**Rule 1:** every spoke originates at the **hub**, never at Capture. That routing *is* Progressive Intelligence — engines consume governed outputs, never raw media. A diagram where a channel draws directly from footage depicts a different architecture.
+**Rule 2:** **every node carries its grade** — `[E]` for YouTube and Music/streaming; `[P]` for Instagram, Community, Education, Future Products, Enterprise Assets.
+**Rule 3:** the six reuse mechanisms run as a legend beneath: Content · Knowledge · Registry · Intelligence · Brand · Commercial, each with its own grade.
+
+### `G-45` · Four-Tier Future  *(A21)*
+**Form:** four horizontal tiers — CURRENT · NEAR TERM · LONG TERM · ASPIRATIONAL — with a **visible boundary rule** between each.
+**Rule 1:** **the boundaries must be hard.** The Order requires *"do not blur."* No gradient fills, no fading, no overlapping shapes across tiers.
+**Rule 2:** NEAR TERM and LONG TERM carry their gates inline — each goal paired with the gate that must clear first.
+**Rule 3:** ASPIRATIONAL is **detached** from the tier stack, matching `G-27`, and labelled *"separate regulated programmes, not rungs."*
+**Rule 4:** every tier carries a grade. CURRENT is `[E]`; the rest are `[P]`.
+
+### `G-46` · Deterministic Generation  *(B11)*
+**Form:** two runs of the same generator, side by side, with a byte-diff strip beneath.
+**Rule:** show the diff at true proportion — **7 changed lines out of 205,679 bytes.** A diff strip that renders the change visibly is a misrepresentation; the point is that it is almost invisible, and the caption carries the number.
+
+### `G-47` · Milestone Timeline with Callouts  *(Timeline document)*
+**Form:** a horizontal timeline with **month bands as an axis** and **era blocks as the structure**, with callout boxes above and below.
+**Rule 1 — months are a reading aid, not the organising principle.** The timeline is built on eras because a monthly structure misstates two facts (governance emerged in May, not June; intelligence in August, not July) and cannot render a gap. **Month labels sit on the axis; era blocks sit above it.**
+**Rule 2 — the eleven-day silence is drawn as a void with the axis continuing through it**, with its own callout: *"Part 1 edited and published without the platform."* This is non-negotiable; it is the pivot of the narrative.
+**Rule 3:** callout boxes for: Project Formation · Governance First · Engineering Acceleration · Documentary Production · **Silent Editorial Period** · Constitution Creation · Executive Orders · Engineering Reviews · Runtime Guard Architecture · Conformance Certification · Governance v1.0 · Presentation Architecture.
+**Rule 4:** mark the 22 August spike — **32 commits, the densest day, and it is governance.**
+
+### `G-31b` · The Testing Inversion  *(B5)*
+**Form:** two paired bars.
+`ENGINE  5,802 LOC  ·  5,823 test LOC` — near-parity.
+`PIPELINE  6,122 LOC  ·  0 test LOC` — one bar absent entirely.
+**Rule:** draw the pipeline's test bar as an **empty outline at the position it would occupy**, not as a missing element. An absent bar reads as a layout artifact; an empty one reads as a finding.
+
+---
+
 ## 2 · GRAPHICS THAT MUST NOT APPEAR
 
 Listed because they are the default output of every AI deck tool, and each one contradicts the platform being presented.
@@ -286,6 +401,10 @@ Listed because they are the default output of every AI deck tool, and each one c
 | **A summed test total** | the four harnesses measure different things and are not additive (`G-31`) |
 | **An ungated roadmap ladder** | superseded by `G-27`; regulated verticals are detached programmes, not rungs |
 | **"What we believed" as a Moment Card field** | `ER-007 §3` prohibits the platform inferring Executive belief — use `THE POSITION ON RECORD` (`G-25`) |
+| **A month-structured timeline** | months misstate two facts and cannot render the eleven-day gap — months are an axis, eras are the structure (`G-47`) |
+| **Illustration on `G-43`** | no robot, brain, handshake or human-and-machine silhouette. Two chains and three sentences |
+| **A summed instrument total on `G-41`** | governance instruments are not commensurable; summing them is a composite |
+| **A right-hand chain stretched to match the left on `G-43`** | the asymmetry is the argument; true scale only |
 
 ---
 
