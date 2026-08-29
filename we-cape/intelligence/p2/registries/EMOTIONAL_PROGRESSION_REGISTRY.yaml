@@ -22,7 +22,36 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.12.0"
+registry_version: "1.13.0"
+registry_ratification:
+  status: RATIFIED
+  ratified: '2026-08-28'
+  ratified_by: "Executive Producer / Chairman"
+  authority: "EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE, section 2"
+  scope_verbatim:
+    - "EPR-01 through EPR-06"
+    - "Segment coverage S01 through S18"
+    - "Ordered categorical dramatic intensity"
+    - "Non-Interpolation Invariant"
+    - "Executive field definitions"
+    - "Executive semantic conventions"
+  co_ratified: "EPR_EXECUTIVE_AUTHORING_WORKBOOK.md"
+  supersedes: "all prior draft authoring states"
+registry_version_note_1_13_0: >-
+  1.12.0 -> 1.13.0, 2026-08-28. EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE.
+  SECTIONS 1 AND 2 APPLIED. SECTION 3 NOT EXECUTED - see GER-001.
+  Section 1: Q10 ADJUDICATED, disposition RETIRE. EPR-07 retired, NOT deleted; beat,
+  audience_state and segment_refs untouched; no migration; no replacement content inferred.
+  EPR-06 terminal_beat_status CONTINGENT -> TERMINAL.
+  Section 2: EPR-001 RATIFIED, recorded under registry_ratification.
+  Section 3: THE ATOMIC REGENERATION WAS NOT RUN. Six governance exceptions were found on
+  pre-execution inspection and are reported under section 4 rather than resolved. In summary the
+  committed generator is hard-coded to the SUPERSEDED 08-22 assembly - LOCK=4846.625, the four
+  08-22 input hashes, and a nineteen-segment table in 08-22 seconds including the S19 the
+  Executive has just retired - it cannot emit a new RUN_ID because RUN_ID is a string constant,
+  and it cannot run at all because its five intermediate inputs live at cloud paths from the
+  2026-08-22 session that do not exist. Executing it would have stamped seven artifacts
+  describing a superseded edit as the governed record. See GER-001.
 registry_version_note_1_12_0: >-
   1.11.0 -> 1.12.0, 2026-08-29. EXECUTIVE SEGMENT CLASSIFICATION ORDER (Q7, Q8).
   ONLY TWO VALUES CHANGED, BOTH segment_refs:
@@ -717,7 +746,18 @@ entries:
       governing_theme_convention. It conforms to the convention. "Quiet Leadership" and
       "Leadership by Example" remain unassigned.
     terminal_beat_status:
-      status: CONTINGENT_ON_EPR-07_DISPOSITION
+      status: TERMINAL
+      resolved: '2026-08-28'
+      resolved_by: >-
+        EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE, section 1 consequences:
+        "EPR-06 becomes the terminal narrative beat of the governed production."
+      oq2_application_note: >-
+        REPORTED, NOT ACTED ON. Under the OQ-2 ruling the terminal beat's editorial_transition
+        carries a concluding resolution statement. EPR-06's editorial_transition was declared on
+        2026-08-28 BEFORE this entry was terminal. The platform has NOT re-read, re-labelled,
+        re-scoped or rewritten it, and the Order forbids inferring replacement content. Whether
+        the declared text satisfies the OQ-2 form is an EXECUTIVE determination.
+      prior_status: CONTINGENT_ON_EPR-07_DISPOSITION
       note: >-
         Whether EPR-06 is the documentary's terminal beat depends on the EPR-07 disposition
         (workbook Q10 / PBC-1), WHICH REMAINS UNDECLARED. If EPR-07 is retired, EPR-06 becomes
@@ -738,7 +778,35 @@ entries:
     editorial_transition: AWAITING_EXECUTIVE_INPUT
     executive_notes: AWAITING_EXECUTIVE_INPUT
     provenance: "EMOTIONAL_ARC v1.0.0 beat Ride_Home (audience_emotion: Completion)"
-    segment_reference_status: UNRESOLVED_PENDING_EXECUTIVE
+    segment_reference_status: RESOLVED_BY_RETIREMENT
+    retirement:
+      # EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE, section 1.
+      # Q10 ADJUDICATED. Transcribed verbatim. The entry is RETIRED, NOT DELETED.
+      disposition: RETIRE
+      adjudicated: '2026-08-28'
+      adjudicated_by: "Executive Producer / Chairman"
+      rationale_verbatim: >-
+        Under the ratified Path B (Episodic Production Architecture), S19 (Ride_Home) exists
+        entirely outside the governed 08-24 production runtime. EPR-07 is therefore retired from
+        the active narrative progression registry. Its historical existence shall remain
+        preserved through repository history and governance records.
+      consequences_verbatim:
+        - "EPR-06 becomes the terminal narrative beat of the governed production."
+        - "No replacement narrative content shall be inferred."
+        - "No migration shall occur."
+        - "Historical provenance remains intact."
+      what_was_done: >-
+        The entry was NOT deleted, NOT merged, NOT re-keyed. beat Ride_Home and audience_state
+        Completion - both EXECUTIVE custody - stand untouched. segment_refs still reads [S19].
+      four_fields_note: >-
+        dramatic_intensity, governing_theme, editorial_transition and executive_notes remain
+        literally AWAITING_EXECUTIVE_INPUT because they were never declared and, under this
+        retirement, never will be. THE PLATFORM DID NOT OVERWRITE THEM WITH A "RETIRED" SENTINEL:
+        writing into an Executive field to tidy a count would be authoring. CONSEQUENCE, REPORTED
+        NOT RESOLVED: V-6 will continue to report AWAITING_EXECUTIVE_INPUT=4 for this retired
+        entry. That count is now a property of a retired entry, not outstanding Executive work.
+        Whether the validator should distinguish the two is an ENGINEERING question and a code
+        change; none is authorized.
     executive_inclination_recorded_not_applied:
       # RECORDED SO IT IS NOT LOST. THIS IS NOT A DISPOSITION AND HAS NOT BEEN APPLIED.
       date: '2026-08-28'
