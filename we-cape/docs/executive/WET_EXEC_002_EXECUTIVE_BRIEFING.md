@@ -1,6 +1,9 @@
 # WET-EXEC-002 — EXECUTIVE BRIEFING · **VERSION 2.0**
 ## W.E. C.A.P.E. — A Governed Collaborative AI Operating Environment for Deterministic Creative Production
 
+> **CANONICAL SOURCE:** `WET_EXEC_MASTER_PRESENTATION.md` (WET-EXEC-005).
+> This briefing is the **narrative long form** of the canonical source. Where a figure here and a figure in the Master differ, **the Master governs** and this document is corrected. Metrics in §11 were measured at `db69f5b`; the Master's `M-01`…`M-33` are measured at `0acf42a` and supersede them. See Master §1.6 for the documented drift.
+
 > ### DOCUMENT CLASSIFICATION
 > **Technical & Governance Diligence Package · Platform Architecture Review.**
 > No revenue projection, no market sizing, no valuation framing, no composite score. A verifiable record of what was built, what it cost in evidence, and what remains open — written to be checked.

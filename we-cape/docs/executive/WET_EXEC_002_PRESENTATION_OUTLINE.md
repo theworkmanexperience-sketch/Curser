@@ -1,5 +1,8 @@
 # WET-EXEC-002 — PRESENTATION OUTLINE · **VERSION 2.0**
 
+> **CANONICAL SOURCE:** `WET_EXEC_MASTER_PRESENTATION.md` (WET-EXEC-005).
+> **This outline is superseded as a delivery instrument by the three governed views** — `WET_EXEC_EXECUTIVE_SUMMARY.md` (16 slides) · `WET_EXEC_TECHNICAL_ARCHITECTURE.md` (32) · `WET_EXEC_COMPLETE_REFERENCE.md` (56). It is retained as the **design record** for Decks A/B/C and for its delivery notes. **Do not build a deck from this file**; build from a governed view. The Master governs any discrepancy.
+
 **Revised under:** WET-EXEC-003 (finalization) · **WET-EXEC-004 (architecture narrative elevation)**
 **Companion to:** `WET_EXEC_002_EXECUTIVE_BRIEFING.md` v2.0
 **Targets:** Gamma AI · PowerPoint · Keynote

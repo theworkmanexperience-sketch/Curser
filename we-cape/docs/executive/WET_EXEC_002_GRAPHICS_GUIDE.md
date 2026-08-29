@@ -1,5 +1,8 @@
 # WET-EXEC-002 — GRAPHICS GUIDE
 
+> **CANONICAL SOURCE:** `WET_EXEC_MASTER_PRESENTATION.md` (WET-EXEC-005).
+> This guide specifies **how** each graphic is drawn. **What it contains comes from the Master** — every figure rendered in a graphic cites an `M-nn` identifier, and no graphic may display a value absent from Master §1. The Master governs any discrepancy.
+
 **Revised under:** EXECUTIVE REVIEW ORDER — WET-EXEC-003
 **Companion to:** `WET_EXEC_002_PRESENTATION_OUTLINE.md`
 **Targets:** Gamma AI · PowerPoint · Keynote
@@ -374,6 +377,20 @@ Left, four steps: `PROMPT → OUTPUT → REVIEW → FIX`. Right, six steps: `GOV
 **Rule 2 — the eleven-day silence is drawn as a void with the axis continuing through it**, with its own callout: *"Part 1 edited and published without the platform."* This is non-negotiable; it is the pivot of the narrative.
 **Rule 3:** callout boxes for: Project Formation · Governance First · Engineering Acceleration · Documentary Production · **Silent Editorial Period** · Constitution Creation · Executive Orders · Engineering Reviews · Runtime Guard Architecture · Conformance Certification · Governance v1.0 · Presentation Architecture.
 **Rule 4:** mark the 22 August spike — **32 commits, the densest day, and it is governance.**
+
+### `G-48` · Legacy Chain  *(E-16, C56)* — **added under WET-EXEC-005**
+**Form:** five links in a single vertical descent, each with its evidence grade set beside it.
+```
+The documentary proved the platform.        [E]
+The platform produced knowledge.            [E]
+The knowledge became the asset.             [E] exists · [O] compounding
+The governance became the differentiator.   [E]
+The methodology becomes the legacy.         [P]
+```
+**Rule 1 — the grades are part of the graphic, not a caption.** They sit at the same weight as the text. A legacy chain without its grades is a slogan.
+**Rule 2 — the final link is rendered differently from the four above it.** Outline rather than fill, or a dashed connector into it. **It is the only sentence in the package written in the future tense**, and the visual must say so before the speaker does.
+**Rule 3 — the third link carries two grades on one line.** `[E]` for *exists*, `[O]` for *compounding*. Do not resolve the tension; it is the honest state.
+**Rule 4:** no ascending arrow, no upward curve, no "growth" motif. A descent that ends in a projection is the correct shape.
 
 ### `G-31b` · The Testing Inversion  *(B5)*
 **Form:** two paired bars.

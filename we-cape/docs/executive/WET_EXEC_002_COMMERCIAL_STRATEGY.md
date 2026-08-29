@@ -1,5 +1,8 @@
 # WET-EXEC-002 — COMMERCIAL STRATEGY
 
+> **CANONICAL SOURCE:** `WET_EXEC_MASTER_PRESENTATION.md` (WET-EXEC-005).
+> The four value categories are carried into the governed views as slide `E-14` and `C-54`. Figures cite `M-nn`; the Master governs any discrepancy.
+
 > ### DOCUMENT CLASSIFICATION
 > **Technical & Governance Diligence Package — commercial section.**
 > This is not a fundraising document. It contains no revenue projection, no market sizing, no valuation framing, and no ask. A reader expecting a pitch should read it as an asset inventory with defensibility assessments and stated preconditions.

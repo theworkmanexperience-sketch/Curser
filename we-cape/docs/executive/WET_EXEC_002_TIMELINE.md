@@ -1,5 +1,8 @@
 # WET-EXEC-002 — ERA / MILESTONE TIMELINE
 
+> **CANONICAL SOURCE:** `WET_EXEC_MASTER_PRESENTATION.md` (WET-EXEC-005).
+> Commit totals here were measured at `db69f5b`; **`M-01` at `0acf42a` supersedes them** (245 → 247). Era boundaries, commit-per-era counts and milestone dates are historical and unaffected by drift. The Master governs any discrepancy.
+
 **Revised under:** EXECUTIVE REVIEW ORDER — WET-EXEC-003
 **Companion to:** `WET_EXEC_002_EXECUTIVE_BRIEFING.md`
 **Custody:** `EXECUTIVE PRESENTATION PACKAGE ONLY`
