@@ -1,0 +1,103 @@
+{
+ "suite": "ECR-GEN-002",
+ "results": [
+  {
+   "id": "E1",
+   "name": "ETC binding validates on the 08-22 fixture",
+   "status": "PASS",
+   "evidence": "verdict=VALIDATED 191 / 191 tol=0.0005 exit=0"
+  },
+  {
+   "id": "E2",
+   "name": "short ETC stops on cardinality, no comparison",
+   "status": "PASS",
+   "evidence": "FAILED_CARDINALITY exit=2, no partial comparison recorded"
+  },
+  {
+   "id": "E3",
+   "name": "ETC naming another export stops on identity",
+   "status": "PASS",
+   "evidence": "FAILED_SOURCE_IDENTITY exit=2"
+  },
+  {
+   "id": "E4",
+   "name": "2 ms drift at one element stops the binding",
+   "status": "PASS",
+   "evidence": "FAILED_COMPARISON 190 / 191 exit=2"
+  },
+  {
+   "id": "E5",
+   "name": "context values measured from the named sources",
+   "status": "PASS",
+   "evidence": "etc spine=191 connected=404 titles=40; resolver total=1025"
+  },
+  {
+   "id": "E6",
+   "name": "a declared value that disagrees stops the build",
+   "status": "PASS",
+   "evidence": "exit=2 STOP: declared srt.cues (9999) does not equal the measured cue count (2291)"
+  },
+  {
+   "id": "E7",
+   "name": "derived camera runs match the resolved spine census",
+   "status": "PASS",
+   "evidence": "191 runs"
+  },
+  {
+   "id": "E8",
+   "name": "all runtime identity guards pass and generation completes",
+   "status": "PASS",
+   "evidence": "12 guards passed, exit=0"
+  },
+  {
+   "id": "E9",
+   "name": "wrong production_id stops at G-01",
+   "status": "PASS",
+   "evidence": "exit=2 files_written=0"
+  },
+  {
+   "id": "E10",
+   "name": "observations pin another source stops at G-03",
+   "status": "PASS",
+   "evidence": "exit=2 files_written=0"
+  },
+  {
+   "id": "E11",
+   "name": "observation bundle incomplete stops at G-11",
+   "status": "PASS",
+   "evidence": "exit=2 files_written=0"
+  },
+  {
+   "id": "E12",
+   "name": "undeclared segment overlap stops at G-08b",
+   "status": "PASS",
+   "evidence": "exit=2 files_written=0"
+  },
+  {
+   "id": "E13",
+   "name": "no production-identifying literal remains (TR-1)",
+   "status": "PASS",
+   "evidence": "0 TR-1 hits; 280 TR-2 narrative literals reported (B-13)"
+  },
+  {
+   "id": "E14",
+   "name": "regression vs the pre-change artifact set",
+   "status": "PASS",
+   "evidence": "7 of 7 artifacts changed, 7 changed line(s) total, 205679 -> 205684 bytes"
+  },
+  {
+   "id": "E15",
+   "name": "audio RMS producer reproduces the 08-22 fixture",
+   "status": "PASS",
+   "evidence": "verify against /sessions/rcw-012pp1k6nvtfm8pdvgy3kyjt/mnt/WE_CAPE_OUTPUT/AlphaRoundUp_2026"
+  },
+  {
+   "id": "E16",
+   "name": "visual observation producer exists and is specified",
+   "status": "PASS",
+   "evidence": "produced with a written schema; does NOT reproduce the legacy array (3 of 9 columns unrecovered) - reported, not claimed"
+  }
+ ],
+ "passed": 16,
+ "failed": 0
+}

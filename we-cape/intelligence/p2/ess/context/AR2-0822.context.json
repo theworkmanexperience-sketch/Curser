@@ -43,6 +43,25 @@
  "source_files": {
   "srt": "inputs/lock_srt2.srt",
   "fcpxml": "inputs/Info.fcpxml",
-  "etc": "inputs/P2_LOCK_timing.json"
- }
+  "etc": "inputs/P2_LOCK_timing.json",
+  "mp4": "../Alpha RoundUp Part 2 /XML retry/Thursday Aug 20th/Final Data Source Files/Filmage_Editor.mp4"
+ },
+ "display_names": {
+  "mp4": "Filmage_Editor.mp4",
+  "fcpxml": "Info.fcpxml",
+  "fcpxml_header": "Alpha RoudUp Part 2.fcpxmld/Info.fcpxml",
+  "srt": "lock SRT (\"SRT 2\")",
+  "srt_header": "Alpha RoudUp Part 2_SRT__SRT 2_...srt",
+  "srt_manifest": "Alpha RoudUp Part 2_SRT__SRT 2_English (United States).srt",
+  "etc": "P2_LOCK_timing.json"
+ },
+ "declared_segment_overlaps": [
+  {
+   "previous": "S12",
+   "segment": "S13",
+   "overlap_s": 6.0,
+   "status": "DECLARED_AS_PRESENT",
+   "note": "S12 organizer_honors_and_silence [3124.0, 3236.0] and S13 group_photo [3230.0, 3275.0] both claim 3230.0-3236.0. Declared here as a known condition so the run is not blocked by a defect that predates it. This declaration asserts only that the overlap exists. It does not assign the contested span to either segment, and the span sits on the EPR-05/EPR-06 boundary, so the assignment is an Executive question."
+  }
+ ]
 }

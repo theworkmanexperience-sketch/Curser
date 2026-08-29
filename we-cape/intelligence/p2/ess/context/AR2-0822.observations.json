@@ -1709,5 +1709,13 @@
   "segments/cues/visual_events/not_observed/delta_ledger/audio_sources/progressions/energy/voice_over": "extracted mechanically from gen_artifacts.py literals; not retyped",
   "offset_model/anchors": "RECONSTRUCTED from base/STEP0_TIMING_CLOSURE.md - step0_offset.py needs audio_rms_0p25.npy and no producer for it exists in the repository",
   "die_v.thresholds": "RECONSTRUCTED from base/VISUAL_EVENT_REGISTRY.yaml - die_v_observables.py needs video_obs_2fps.npy and no producer for it exists in the repository"
+ },
+ "production_id": "AR2-0822",
+ "lineage": "2026-08-22 editorial lock",
+ "source_sha": {
+  "mp4": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8",
+  "fcpxml": "2bf0685373d6963bc151b982fd8b16b072d47ca88bb36f3c4dcd4cf5563858e7",
+  "srt": "89d61f965aa17e4d3dade14173869b34efb0c09d689b1c347d3c9c8f6eca1c6b",
+  "etc": "e91318a6719c81e448e6c57267dff7a807076cb9aded822a459fb6353e80010d"
  }
 }
