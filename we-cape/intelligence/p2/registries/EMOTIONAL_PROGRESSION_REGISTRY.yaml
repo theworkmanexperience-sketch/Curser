@@ -22,7 +22,24 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.10.0"
+registry_version: "1.11.0"
+registry_version_note_1_11_0: >-
+  1.10.0 -> 1.11.0. EXECUTIVE AUTHORING DECLARATION - EPR-06. Transcribed VERBATIM.
+  EPR-06 Celebration COMPLETE: dramatic_intensity ELEVATED, governing_theme "Enduring
+  Brotherhood", editorial_transition and executive_notes as declared, plus the Executive
+  Rationale. AWAITING_EXECUTIVE_INPUT 8 -> 4. ALL SIX IN-SCOPE BEATS ARE NOW AUTHORED.
+  The four fields still empty all belong to EPR-07, which is OUT OF AUTHORING SCOPE.
+  Declared progression: MODERATE, MODERATE, HIGH, ELEVATED, CLIMACTIC, ELEVATED.
+  Q10 NOT ANSWERED. The Executive expressed an INCLINATION toward RETIRE, phrased as a
+  recommendation and as "if you choose". IT WAS NOT APPLIED. An inclination is not a
+  disposition, and the platform does not convert one into a ruling on the Executive's behalf.
+  Recorded verbatim on the EPR-07 entry under executive_inclination_recorded_not_applied so it
+  is not lost. EPR-07 remains UNRESOLVED_PENDING_EXECUTIVE with all four fields
+  AWAITING_EXECUTIVE_INPUT.
+  EPR-06's terminal_beat_status is recorded as CONTINGENT_ON_EPR-07_DISPOSITION. The platform
+  has NOT classified EPR-06 as terminal and has not re-read its editorial_transition against
+  either outcome.
+  "Enduring Brotherhood" is a NEW theme. Two convention illustrations remain unassigned.
 registry_version_note_1_10_0: >-
   1.9.0 -> 1.10.0, 2026-08-28. EXECUTIVE AUTHORING DECLARATION - EPR-05. Transcribed VERBATIM.
   EPR-05 Deepening COMPLETE: dramatic_intensity CLIMACTIC, governing_theme "Legacy Through
@@ -623,11 +640,49 @@ entries:
   - id: EPR-06
     beat: Celebration
     segment_refs: [S13, S14, S15, S16, S18]
-    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim.
+    dramatic_intensity: ELEVATED
     audience_state: Joy
-    governing_theme: AWAITING_EXECUTIVE_INPUT
-    editorial_transition: AWAITING_EXECUTIVE_INPUT
-    executive_notes: AWAITING_EXECUTIVE_INPUT
+    governing_theme: "Enduring Brotherhood"
+    editorial_transition: >
+      The audience leaves the formal acts of service and remembrance with
+      confidence that the relationships, values, and shared purpose continue
+      beyond the event itself. Celebration becomes the visible expression of
+      an enduring community rather than the conclusion of a single gathering.
+    executive_notes: >
+      Preserve authenticity over spectacle. The closing movement should
+      emphasize genuine fellowship, shared experiences, and the continuity
+      of brotherhood. Riding sequences, group moments, and Bike Night
+      imagery should reinforce that the organization's identity extends
+      beyond ceremonies into everyday relationships. Narrative intent
+      remains grounded entirely in the visual documentary record,
+      independent of musical treatment.
+    authored: '2026-08-28'
+    authored_by: "Executive Producer / Chairman"
+    authority: "EXECUTIVE AUTHORING DECLARATION - EPR-06, 2026-08-28"
+    entry_status: COMPLETE
+    executive_rationale: >-
+      This beat is intentionally not the emotional climax. That summit has already been reached
+      in EPR-05. Instead, this beat provides emotional resolution. The audience has already
+      discovered who these men are, what unites them, how they serve, and why that service
+      matters. Now they simply experience the joy of seeing that brotherhood continue naturally.
+      The ending should feel earned - not manufactured. Celebration becomes evidence that the
+      documentary's themes continue beyond the closing frame.
+    theme_provenance_note: >-
+      "Enduring Brotherhood" is a NEW theme, not drawn from the six illustrations in
+      governing_theme_convention. It conforms to the convention. "Quiet Leadership" and
+      "Leadership by Example" remain unassigned.
+    terminal_beat_status:
+      status: CONTINGENT_ON_EPR-07_DISPOSITION
+      note: >-
+        Whether EPR-06 is the documentary's terminal beat depends on the EPR-07 disposition
+        (workbook Q10 / PBC-1), WHICH REMAINS UNDECLARED. If EPR-07 is retired, EPR-06 becomes
+        terminal and the OQ-2 ruling applies to it - its editorial_transition carries a
+        concluding resolution statement rather than pointing at a successor. If EPR-07 survives
+        or migrates, EPR-06 transitions into it normally.
+        THE PLATFORM HAS NOT CLASSIFIED THIS ENTRY AS TERMINAL. The declared
+        editorial_transition is stored exactly as written and has not been re-read, re-labelled
+        or re-scoped against either outcome.
     provenance: "EMOTIONAL_ARC v1.0.0 beat Celebration (audience_emotion: Joy)"
 
   - id: EPR-07
@@ -640,6 +695,34 @@ entries:
     executive_notes: AWAITING_EXECUTIVE_INPUT
     provenance: "EMOTIONAL_ARC v1.0.0 beat Ride_Home (audience_emotion: Completion)"
     segment_reference_status: UNRESOLVED_PENDING_EXECUTIVE
+    executive_inclination_recorded_not_applied:
+      # RECORDED SO IT IS NOT LOST. THIS IS NOT A DISPOSITION AND HAS NOT BEEN APPLIED.
+      date: '2026-08-28'
+      wording_verbatim: >-
+        Before Claude finalizes EPR-06, I recommend addressing EPR-07 immediately afterward
+        rather than leaving it open. Given the governance state you've established, my
+        inclination would be: disposition: RETIRE - not because "Ride Home" lacks value, but
+        because the governed production has already been ratified as the episodic trilogy, and
+        S19 currently sits entirely outside that runtime until a future segment re-derivation
+        says otherwise. The workbook itself treats Q10 as a separate disposition question rather
+        than an authoring question.
+      why_not_applied: >-
+        The wording is an INCLINATION offered for consideration ("my inclination would be",
+        "if you choose to retire EPR-07"), not a declaration. Q10 is an EXECUTIVE disposition.
+        Under order 2.3 the platform shall not author, populate, infer, extend, suggest or
+        default any value, and under DOC-CAND-001 the platform prepares decisions and does not
+        make them. An inclination is not a ruling, and the platform will not convert one into a
+        ruling on the Executive's behalf - least of all when the Executive's own phrasing
+        invites the platform to choose.
+      what_would_be_needed: >-
+        An explicit Executive declaration of disposition - RETIRE, MIGRATE (naming the target
+        segments), SURVIVE UNCHANGED, or HOLD. Until then EPR-07's four authored fields remain
+        AWAITING_EXECUTIVE_INPUT and its segment_reference_status remains
+        UNRESOLVED_PENDING_EXECUTIVE.
+      consequence_if_declared_RETIRE: >-
+        STATED AS A CONSEQUENCE, NOT AS ADVOCACY. EPR-06 would become the terminal beat and the
+        OQ-2 ruling would apply to it. EPR-07's four fields would close as retired rather than
+        as unfilled. NOTHING HAS BEEN PRE-STAGED AGAINST THIS OUTCOME.
     segment_reference_note: >-
       PROCESSED under the 2026-08-28 Order section 2.4, NOT repaired. S19's span as declared
       in TIMELINE_REGISTRY v1.0.0 lies ENTIRELY beyond the governed 08-24 production's
