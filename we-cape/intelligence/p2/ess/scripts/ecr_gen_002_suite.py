@@ -204,6 +204,61 @@ def main():
         'produced with a written schema; does NOT reproduce the legacy array '
         '(3 of 9 columns unrecovered) - reported, not claimed')
 
+    # -- E17..E21  ERO-001 -------------------------------------------------
+    import copy
+    ctxj = json.load(open(ctx))
+    obsj = json.load(open(obs))
+
+    gnb = ctxj.get('governed_narrative_boundaries') or []
+    scope = (ctxj.get('regeneration_scope') or {}).get('mode')
+    b = gnb[0] if gnb else {}
+    rec('E17', 'ERO-001 transcribed and enforced on the fixture',
+        'PASS' if (scope == 'CANONICAL_EDITORIAL_TIMELINE' and len(gnb) == 1
+                   and b.get('interpolation') == 'PROHIBITED'
+                   and b.get('intermediate_state') == 'PROHIBITED'
+                   and b.get('retained') is True) else 'FAIL',
+        'scope=%s; %s %s/%s %.3f-%.3f s; %s through %.3f; %s from %.3f'
+        % (scope, b.get('id'), b.get('previous'), b.get('segment'),
+           b.get('span_start_s', 0), b.get('span_end_s', 0),
+           b.get('authority_beat_through_span'), b.get('authority_beat_through_s', 0),
+           b.get('successor_beat'), b.get('successor_authority_begins_s', 0)))
+
+    def neg(tid, name, guard, ctx_obj, obs_obj):
+        cp = os.path.join(WK, tid + '.ctx.json'); json.dump(ctx_obj, open(cp, 'w'))
+        op = os.path.join(WK, tid + '.obs.json'); json.dump(obs_obj, open(op, 'w'))
+        d = os.path.join(WK, 'neg_' + tid)
+        shutil.rmtree(d, ignore_errors=True); os.makedirs(d)
+        p = run(['python3', os.path.join(S, 'gen_artifacts_v2.py'), '--context', cp,
+                 '--observations', op, '--derived', D + '/', '--sources', W,
+                 '--out', d + '/', '--run-id', 'pinned'])
+        wrote = len(os.listdir(d))
+        good = p.returncode == 2 and wrote == 0 and guard in p.stderr
+        rec(tid, name, 'PASS' if good else 'FAIL',
+            'exit=%d files_written=%d stopped_at=%s'
+            % (p.returncode, wrote,
+               guard if guard in p.stderr else 'OTHER'))
+
+    fixed = copy.deepcopy(obsj)
+    for s in fixed['segments']:
+        if s[0] == (b.get('segment') or 'S13'):
+            s[1] = b.get('span_end_s')
+    tidy = copy.deepcopy(ctxj); tidy['declared_segment_overlaps'] = []
+    neg('E18', 'erasing the governed overlap stops the run', 'G-08b', ctxj, fixed)
+    neg('E19', 'a complete tidy-up still stops at the governance record', 'G-13',
+        tidy, fixed)
+
+    epi = copy.deepcopy(obsj)
+    epi['episode_progressions'] = {'EP01': [['E1', 'ARRIVAL', 0, 1500]]}
+    neg('E20', 'episode-specific emotional progressions stop the run', 'G-12', ctxj, epi)
+
+    noscope = copy.deepcopy(ctxj); noscope.pop('regeneration_scope', None)
+    neg('E21', 'an undeclared regeneration scope stops the run', 'G-12', noscope, obsj)
+
+    # -- E22  one Conductor Score per run ----------------------------------
+    scores = [f for f in os.listdir(OUT) if f.startswith('CONDUCTOR_SCORE')]
+    rec('E22', 'exactly one authoritative Conductor Score per run',
+        'PASS' if len(scores) == 1 else 'FAIL', '%d emitted' % len(scores))
+
     npass = sum(1 for r in R if r['status'] == 'PASS')
     print('\n%d PASS / %d FAIL of %d' % (npass, len(R) - npass, len(R)))
     if a.json:

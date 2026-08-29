@@ -47,7 +47,7 @@
    "id": "E8",
    "name": "all runtime identity guards pass and generation completes",
    "status": "PASS",
-   "evidence": "12 guards passed, exit=0"
+   "evidence": "14 guards passed, exit=0"
   },
   {
    "id": "E9",
@@ -96,8 +96,44 @@
    "name": "visual observation producer exists and is specified",
    "status": "PASS",
    "evidence": "produced with a written schema; does NOT reproduce the legacy array (3 of 9 columns unrecovered) - reported, not claimed"
+  },
+  {
+   "id": "E17",
+   "name": "ERO-001 transcribed and enforced on the fixture",
+   "status": "PASS",
+   "evidence": "scope=CANONICAL_EDITORIAL_TIMELINE; GNB-001 S12/S13 3230.000-3236.000 s; EPR-05 through 3236.000; EPR-06 from 3236.000"
+  },
+  {
+   "id": "E18",
+   "name": "erasing the governed overlap stops the run",
+   "status": "PASS",
+   "evidence": "exit=2 files_written=0 stopped_at=G-08b"
+  },
+  {
+   "id": "E19",
+   "name": "a complete tidy-up still stops at the governance record",
+   "status": "PASS",
+   "evidence": "exit=2 files_written=0 stopped_at=G-13"
+  },
+  {
+   "id": "E20",
+   "name": "episode-specific emotional progressions stop the run",
+   "status": "PASS",
+   "evidence": "exit=2 files_written=0 stopped_at=G-12"
+  },
+  {
+   "id": "E21",
+   "name": "an undeclared regeneration scope stops the run",
+   "status": "PASS",
+   "evidence": "exit=2 files_written=0 stopped_at=G-12"
+  },
+  {
+   "id": "E22",
+   "name": "exactly one authoritative Conductor Score per run",
+   "status": "PASS",
+   "evidence": "1 emitted"
   }
  ],
- "passed": 16,
+ "passed": 22,
  "failed": 0
 }

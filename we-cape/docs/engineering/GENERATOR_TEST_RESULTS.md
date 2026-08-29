@@ -2,7 +2,7 @@
 
 **Scope:** the WE CAPE ESS artifact generator and its input pipeline
 **Fixture:** `AR2-0822` — 08-22 editorial lock, the only lineage with four hashed sources, a published artifact set and a known-good ETC
-**Last updated:** 2026-08-29, under **ECR-GEN-002**
+**Last updated:** 2026-08-29, under **ECR-GEN-002** and **ERO-001**
 **Custody:** `IMPLEMENTATION / CODEBASE ONLY`
 
 Supersedes the ECR-GEN-001 edition of this document. ECR-GEN-001 results are retained
@@ -13,7 +13,8 @@ in §4 with their current disposition, so nothing is lost by the update.
 ## 1 · Headline
 
 ```
-ECR-GEN-002 conformance suite      16 PASS  ·  0 FAIL
+Conformance suite                  22 PASS  ·  0 FAIL
+Runtime identity guards            14
 Engineering Certification          ENGINEERING-CONFORMANT
 Production Readiness               NOT YET AUTHORIZED
 ```
@@ -45,12 +46,18 @@ A PASS here means the implementation is correct on the fixture. It does not mean
 | `E14` | regression against the pre-change artifact set | **PASS** | 7 changed lines; 205 679 → 205 684 bytes |
 | `E15` | audio RMS producer reproduces the fixture | **PASS** | bitwise identical, 19 386 samples |
 | `E16` | visual observation producer exists and is specified | **PASS** | schema written; **fixture equivalence not claimed** |
+| `E17` | ERO-001 transcribed and enforced on the fixture | **PASS** | scope `CANONICAL_EDITORIAL_TIMELINE`; `GNB-001` S12/S13 3230.000–3236.000 s |
+| `E18` | erasing the governed overlap stops the run | **PASS** | `G-08b`, exit 2, **0 files written** |
+| `E19` | a complete tidy-up still stops at the governance record | **PASS** | `G-13`, exit 2, 0 files |
+| `E20` | episode-specific emotional progressions stop the run | **PASS** | `G-12`, exit 2, 0 files |
+| `E21` | an undeclared regeneration scope stops the run | **PASS** | `G-12`, exit 2, 0 files |
+| `E22` | exactly one authoritative Conductor Score per run | **PASS** | 1 emitted |
 
 ---
 
 ## 3 · Runtime identity guards
 
-Twelve guards, all executed **before the first byte of the first artifact is written**.
+Fourteen guards, all executed **before the first byte of the first artifact is written**.
 
 | guard | asserts | proven by |
 |---|---|---|
@@ -66,6 +73,8 @@ Twelve guards, all executed **before the first byte of the first artifact is wri
 | `G-09` | cues in range, ordered, non-overlapping | `E8` |
 | `G-10` | camera-run count == resolved spine census | `E8` |
 | `G-11` | all twelve observation classes present | `E8`, `E11` negative |
+| `G-12` | canonical regeneration scope (ERO-001 §2) | `E8` positive, `E20` / `E21` negative |
+| `G-13` | governed narrative boundaries preserved (ERO-001 §1) | `E8` positive, `E19` negative |
 
 The guards are **output-neutral**: the artifact set generated with guards active is
 byte-identical to the set generated without them.
@@ -179,6 +188,8 @@ change itself.
 
 | a PASS means | a PASS does NOT mean |
 |---|---|
+| an Executive determination cannot be erased by "fixing" the data it governs | it is filed anywhere with governance standing |
+| episodes may not carry their own emotional progressions | the governed timeline slicing that would give them scoring exists (`B-16`) |
 | the implementation accepts the input and binds it structurally | the input is the right input |
 | the generator carries no value that names or measures one production | the generator's narrative is lineage-neutral — 74.3 % of its emitted text is still literal prose (`B-13`) |
 | a mismatched input pairing stops before anything is written | the 08-24 pairing exists to be tested |

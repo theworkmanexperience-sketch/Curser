@@ -29,6 +29,13 @@ CHECK REGISTER
   G-09  cue registry                     ordered, non-overlapping, in range
   G-10  derived-set provenance           camera runs vs resolved spine census
   G-11  observation bundle completeness  every class the generator reads exists
+  G-12  canonical regeneration scope    ERO-001 §2 - one timeline, one Conductor
+                                        Score, one Narrative Progression, no
+                                        episode-specific emotional progressions
+  G-13  governed narrative boundaries   ERO-001 §1 - the S12/S13 transitional
+                                        overlap is PRESERVED, EPR-05 holds through
+                                        it, EPR-06 begins at its completion, and no
+                                        interpolated or intermediate state exists
 """
 
 OBSERVATION_CLASSES = (
@@ -217,6 +224,114 @@ def run_guards(ctx, obs, timeline, cams, verbose=True):
                       'non-transition spine elements; the derived set was not built from '
                       'this timeline' % (n_cams, n_spine))
     ok('G-10', 'camera runs %d == resolved spine census' % n_cams)
+
+    # -- G-12 canonical regeneration scope (ERO-001 §2) ----------------------
+    scope = ctx.get('regeneration_scope') or {}
+    mode = scope.get('mode')
+    if mode != 'CANONICAL_EDITORIAL_TIMELINE':
+        _fail('G-12', 'context declares regeneration_scope.mode=%r; ERO-001 §2 requires '
+                      'CANONICAL_EDITORIAL_TIMELINE. A run whose scope is undeclared or '
+                      'different is not the run the Order authorises.' % mode)
+    for key in ('episode_progressions', 'episodes', 'episode_emotional_progressions',
+                'per_episode_progressions'):
+        if key in obs:
+            _fail('G-12', 'the observation bundle carries %r. ERO-001 §2 prohibits '
+                          'independent episode-specific emotional progressions; episodes '
+                          'derive their scoring exclusively through governed timeline '
+                          'slicing.' % key)
+    progs = obs.get('progressions') or []
+    if not progs:
+        _fail('G-12', 'the observation bundle carries no narrative progression')
+    prev_end = None
+    for p in progs:
+        pid, a, b = p[0], float(p[2]), float(p[3])
+        if b < a:
+            _fail('G-12', 'progression %s ends (%s) before it starts (%s)' % (pid, b, a))
+        if b > float(lock) + TOL_S:
+            _fail('G-12', 'progression %s ends at %s, beyond the %s s canonical timeline'
+                  % (pid, b, lock))
+        if prev_end is not None and a + TOL_S < prev_end:
+            _fail('G-12', 'progressions %s overlaps its predecessor; ERO-001 §2 requires '
+                          'ONE authoritative narrative progression, which cannot contain '
+                          'competing spans' % pid)
+        prev_end = b
+    slices = ctx.get('episode_slices') or []
+    for s in slices:
+        a, b = float(s.get('start_s')), float(s.get('end_s'))
+        if a < -TOL_S or b > float(lock) + TOL_S:
+            _fail('G-12', 'episode slice %r spans %s-%s, outside the canonical timeline'
+                  % (s.get('id'), a, b))
+        for banned in ('progressions', 'emotional_progression', 'epr', 'beats'):
+            if banned in s:
+                _fail('G-12', 'episode slice %r carries its own %r. Slices derive from the '
+                              'canonical timeline; they do not author scoring.'
+                      % (s.get('id'), banned))
+    ok('G-12', 'canonical timeline scope; %d progression(s), %d derived slice(s)'
+       % (len(progs), len(slices)))
+
+    # -- G-13 governed narrative boundaries (ERO-001 §1) ---------------------
+    gnb = ctx.get('governed_narrative_boundaries') or []
+    seg_by_id = {s[0]: (float(s[1]), float(s[2])) for s in segs}
+    declared_pairs = {(d.get('previous'), d.get('segment'))
+                      for d in (ctx.get('declared_segment_overlaps') or [])}
+    for b in gnb:
+        bid = b.get('id')
+        prev, seg = b.get('previous'), b.get('segment')
+        if (prev, seg) not in declared_pairs:
+            _fail('G-13', '%s governs the %s/%s boundary but no matching declared overlap '
+                          'exists' % (bid, prev, seg))
+        if prev not in seg_by_id or seg not in seg_by_id:
+            _fail('G-13', '%s names segment(s) the observation bundle does not carry '
+                          '(%s, %s)' % (bid, prev, seg))
+        p_start, p_end = seg_by_id[prev]
+        s_start, s_end = seg_by_id[seg]
+        # PRESERVATION. This is the clause that matters most: an Executive
+        # determination can be erased by "fixing" the data it governs.
+        if not (s_start + TOL_S < p_end):
+            _fail('G-13', '%s governs a transitional overlap between %s and %s, but the '
+                          'observation bundle no longer contains one (%s ends %.3f, %s '
+                          'starts %.3f). ERO-001 §1 requires engineering to PRESERVE this '
+                          'overlap as a governed narrative boundary.'
+                  % (bid, prev, seg, prev, p_end, seg, s_start))
+        for key, got, want in (('span_start_s', b.get('span_start_s'), s_start),
+                               ('span_end_s', b.get('span_end_s'), p_end),
+                               ('authority_beat_through_s',
+                                b.get('authority_beat_through_s'), p_end),
+                               ('successor_authority_begins_s',
+                                b.get('successor_authority_begins_s'), p_end)):
+            if got is None or abs(float(got) - want) > TOL_S:
+                _fail('G-13', '%s %s is %r; the segment registry gives %.3f. The governed '
+                              'boundary no longer describes the data it governs.'
+                      % (bid, key, got, want))
+        if abs(float(b.get('overlap_s', -1)) - (p_end - s_start)) > TOL_S:
+            _fail('G-13', '%s overlap_s %r does not equal the registry span %.3f'
+                  % (bid, b.get('overlap_s'), p_end - s_start))
+        if not b.get('retained'):
+            _fail('G-13', '%s is not marked retained; ERO-001 §1 retains the overlap' % bid)
+        if b.get('interpolation') != 'PROHIBITED' or b.get('intermediate_state') != 'PROHIBITED':
+            _fail('G-13', '%s must carry interpolation=PROHIBITED and '
+                          'intermediate_state=PROHIBITED; ERO-001 §1 authorises no '
+                          'mathematical interpolation and no intermediate emotional state'
+                  % bid)
+        # No third segment may reach into the governed span - two beats already
+        # contend for it and a third claimant would make the boundary undecidable.
+        for sid, (a, c) in seg_by_id.items():
+            if sid in (prev, seg):
+                continue
+            if a < p_end - TOL_S and c > s_start + TOL_S:
+                _fail('G-13', '%s: segment %s (%.3f-%.3f) also intersects the governed span '
+                              '%.3f-%.3f' % (bid, sid, a, c, s_start, p_end))
+    if gnb:
+        ok('G-13', '%d governed narrative boundary/boundaries preserved: %s'
+           % (len(gnb), '; '.join('%s %s/%s %.3f-%.3f s, %s through %.3f, %s from %.3f'
+                                  % (b['id'], b['previous'], b['segment'],
+                                     b['span_start_s'], b['span_end_s'],
+                                     b['authority_beat_through_span'],
+                                     b['authority_beat_through_s'],
+                                     b['successor_beat'],
+                                     b['successor_authority_begins_s']) for b in gnb)))
+    else:
+        ok('G-13', 'no governed narrative boundaries declared')
 
     # -- G-11 observation completeness --------------------------------------
     missing = [k for k in OBSERVATION_CLASSES if k not in obs]
