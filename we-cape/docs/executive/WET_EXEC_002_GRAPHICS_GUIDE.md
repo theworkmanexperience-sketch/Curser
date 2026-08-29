@@ -1,8 +1,10 @@
 # WET-EXEC-002 — GRAPHICS GUIDE
 
+**Revised under:** EXECUTIVE REVIEW ORDER — WET-EXEC-003
 **Companion to:** `WET_EXEC_002_PRESENTATION_OUTLINE.md`
 **Targets:** Gamma AI · PowerPoint · Keynote
-**Custody:** `DOCUMENTATION ONLY`
+**Custody:** `EXECUTIVE PRESENTATION PACKAGE ONLY`
+**Coverage:** 35 specifications — `G-01`–`G-24` (original) · `G-25`–`G-35` (added under WET-EXEC-003)
 
 ---
 
@@ -176,6 +178,96 @@ Plot the AI channel high on custody breadth and **at zero on authority**.
 
 ---
 
+## 1A · GRAPHICS ADDED UNDER WET-EXEC-003
+
+Eleven specifications added by Executive Review Order. `G-25`–`G-27` serve Deck A; `G-28`–`G-34` serve Deck B; `G-35` serves Deck C.
+
+### `G-25` · Moment Card Template  *(Deck A: A7–A12 · Deck B: B14–B15)* — **new hero graphic**
+**Form:** one card per moment. Title bar with the moment number, date and commit hash. Five stacked fields beneath, each with a fixed label in small caps and its content in body weight.
+
+```
+MOMENT n · <title>
+<date> · <commit>
+─────────────────────────────────────────
+THE POSITION ON RECORD      <what the artifacts stated>
+WHAT THE EVIDENCE SHOWED    <the measurement or finding>
+DECISION                    <what was done>
+GOVERNANCE ARTIFACT         <the instrument produced>
+LONG-TERM IMPACT            <what changed permanently>
+```
+
+**Rules, and the first one is non-negotiable.**
+
+**The second field is `THE POSITION ON RECORD`, never "What we believed."** `ER-007 §3` prohibits the platform from inferring Executive beliefs, motivations or intent. What a governed artifact *stated* is observable and citable; what a person *believed* is not, and is reserved to `ER-007`'s Executive Reflection column. If the Chairman later authors those reflections, a sixth field may be added and labelled as Executive content — **it may not be inferred to fill the card.**
+
+**`WHAT THE EVIDENCE SHOWED` carries a number or a quotation, never a characterisation.** *"scored 1 of 191"* and *"67 % ungrouped"* are correct; *"the validator was broken"* is not.
+
+**`GOVERNANCE ARTIFACT` cites the instrument by identifier** — `DOC-001`, `CAPE-RAT-20260813`, `GER-001`. This field is what makes the section a bridge to the corpus rather than an anecdote reel.
+
+**Consistency is the whole point.** Ten identical cards read as a system; ten bespoke layouts read as ten stories. Do not vary the treatment for the "important" ones — the uniformity is what lets an engineer, a security lead, a knowledge architect and a board member each read the same card from their own angle.
+
+**Optional accent:** `LONG-TERM IMPACT` in the Evidenced accent; everything else Neutral. One accent per card.
+
+### `G-26` · Why-Now Timing Panel  *(A16)*
+**Form:** four horizontal bands, each a force, each with the platform's corresponding capability set opposite it.
+**Rule:** the left column is external (regulatory / market), the right is internal (what already exists). The visual argument is **alignment, not prediction** — no arrows implying causation, no dates in the future.
+**Do not** draw a market-growth curve. Nothing in this package projects a market.
+
+### `G-27` · Gated Strategic Horizon  *(A18)* — **replaces the vision ladder**
+**Form:** a vertical spine of four horizon blocks, each separated by a **gate bar** that spans the full width and names its prerequisites.
+**Rule 1:** the gates are visually heavier than the horizons. **The conditions are the content; the destinations are the caption.**
+**Rule 2:** the current position marker sits **before Gate A**, drawn explicitly.
+**Rule 3:** Healthcare, Government and Education appear in a **separate detached panel**, visually disconnected from the spine — no arrow, no rung, no adjacency. Label it *"separate regulated programmes, not rungs on this ladder."* Each carries its own readiness requirement (HIPAA posture · FedRAMP / ATO pathway · accessibility and privacy programme).
+**Why the detachment matters:** an ungated ladder that ends in regulated verticals reads as a pitch and costs the deck its credibility with exactly the audiences it is written for. The detached panel converts ambition into discipline.
+
+### `G-28` · System Component Diagram  *(B1)*
+**Form:** left-to-right data flow with real module groups, not conceptual layers.
+```
+sources → wecape/capture → wecape/registry → derived intermediates
+        → intelligence/ pipeline → 7 governed artifacts → gates → publication
+```
+**Rule:** annotate each block with its measured size — `39 modules · 5,802 LOC` and `31 scripts · 6,122 LOC`. **Mark the pipeline block with the testing gap** (`0 unit tests`) in the Open accent. This is the diagram where the disclosure becomes visible rather than verbal.
+**Distinguish** the deterministic engine from the read-only ops layer, and draw the seam between them — that seam is the architectural claim.
+
+### `G-29` · Repository Topology  *(B2)*
+**Form:** treemap or nested-rectangle map of the repository, area = file count, one level of nesting.
+**Rule:** `docs/` and `wecape/` should be visually comparable in weight — that comparability *is* the 2.3 : 1 finding, rendered spatially rather than as a bar.
+**Label** each region with its count and its definition, not just its name.
+
+### `G-30` · Production Workflow  *(B3)*
+**Form:** a horizontal swimlane — Capture · Offload · Organise · Conform · Edit · Observe · Generate · Gate · Publish.
+**Rule:** run a **governance rail** beneath the whole lane, and mark the three publication gates as vertical stops that the flow must pass through. Mark where human decision is required with a distinct glyph — there should be more of those than a reader expects, and that is the point.
+
+### `G-31` · Testing Hierarchy  *(B4)*
+**Form:** four separate blocks, **deliberately not stacked and not summed.**
+`engine unit 384` · `acceptance 99/99` · `ECR conformance 22` · `negatives 6`
+**Rule:** each block carries *what it does not cover* in smaller type beneath it. **Never draw a total.** Four numbers with a map are an asset; four numbers implying 511 tests are a misrepresentation.
+**Pair with** a two-bar comparison: engine 5,802 LOC / 5,823 test LOC against pipeline 6,122 LOC / 0 test LOC. The inversion should be immediately visible.
+
+### `G-32` · Runtime Guard Lifecycle  *(B6)*
+**Form:** a horizontal run showing the fourteen guards as sequential checkpoints, with the first-write stage drawn **beyond** the last guard and rendered as void when a guard fires.
+**Rule:** show both paths — pass (all 14 clear, write proceeds) and fail (guard n fires, exit 2, write stage never reached and drawn as outline only).
+**Annotate** each of the six negative tests at the guard it stops on.
+
+### `G-33` · Local-First Security Architecture  *(B11)*
+**Form:** a boundary diagram — the operator's machine as an enclosing boundary, with the engine path inside it and a **struck-through egress arrow** at the boundary.
+**Rule:** label the boundary `enforced network invariant — engine path has no egress`. Show the three deliberate crossings (encrypted offsite backup, path-redacted logs, published artifacts) as explicitly gated, each with its control named.
+**Do not** draw a cloud. The absence of one is the architecture.
+
+### `G-34` · Risk & Debt Register  *(B16, C10, C11)*
+**Form:** a table rendered as a graphic — one row per item, columns for **likelihood · impact · owner · mitigation · status**.
+**Rule:** **do not** plot it as a heat map or a 2×2 matrix. A heat map is a composite score with a colour instead of a number, and this platform prohibits composites. A table with an **owner column** is what a board actually needs.
+**Rows must include** the governance succession risk, the ADR custody gap, `B-13`, `T11`, `B-3`, `B-16`, the absent dependency manifest, and the soundtrack rights posture.
+**An empty owner cell is a finding, not a formatting problem** — leave it visibly empty rather than filling it.
+
+### `G-35` · Governance Authority Boundaries  *(C1)*
+**Form:** a responsibility grid — actors down the side (Chairman · Engineering channel · Runtime · Registry), actions across the top (**propose · ratify · implement · refuse · decide**).
+**Rule:** the `decide` column has **exactly one mark**, on the Chairman row. Every other cell in that column is empty, and the emptiness is the entire diagram.
+**Second rule:** the `refuse` column has marks on both the Engineering channel and the Runtime rows — **the ability to refuse is distributed; the ability to decide is not.** That asymmetry is the governance model in one picture.
+**Annotate** the Chairman row with the open condition: *"single authority — no quorum, no delegation, no succession instrument."* The diagram should show the risk, not hide it.
+
+---
+
 ## 2 · GRAPHICS THAT MUST NOT APPEAR
 
 Listed because they are the default output of every AI deck tool, and each one contradicts the platform being presented.
@@ -190,6 +282,10 @@ Listed because they are the default output of every AI deck tool, and each one c
 | Stock photography of motorcycles, code, or "AI" | this deck's credibility is its specificity |
 | Any chart of the 85 % utilization figure | **no producing computation exists** |
 | Upward-and-to-the-right projections | nothing in this package projects revenue |
+| **Risk heat maps / 2×2 likelihood-impact grids** | a heat map is a composite score with a colour instead of a number. Use `G-34`'s table with an owner column |
+| **A summed test total** | the four harnesses measure different things and are not additive (`G-31`) |
+| **An ungated roadmap ladder** | superseded by `G-27`; regulated verticals are detached programmes, not rungs |
+| **"What we believed" as a Moment Card field** | `ER-007 §3` prohibits the platform inferring Executive belief — use `THE POSITION ON RECORD` (`G-25`) |
 
 ---
 

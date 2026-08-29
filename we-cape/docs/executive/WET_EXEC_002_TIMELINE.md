@@ -1,8 +1,25 @@
-# WET-EXEC-002 — REPOSITORY GROWTH TIMELINE
+# WET-EXEC-002 — ERA / MILESTONE TIMELINE
 
+**Revised under:** EXECUTIVE REVIEW ORDER — WET-EXEC-003
 **Companion to:** `WET_EXEC_002_EXECUTIVE_BRIEFING.md`
-**Custody:** `DOCUMENTATION ONLY` · **Repository state:** `0f6a123`
-**Method:** derived from `git log` at 242 commits. Era boundaries are drawn from commit density and content, not from any prior narrative. Every entry is citable.
+**Custody:** `EXECUTIVE PRESENTATION PACKAGE ONLY`
+**Repository measured at:** `db69f5b` · 2026-08-29T05:34:51Z · **245 commits**
+**Method:** derived from `git log`. Era boundaries are drawn from commit density and content, not from calendar months. Every entry is citable.
+
+> **Why eras and not months.** A monthly view fails this timeline twice. It cannot render the **eleven-day silence** — the single most informative datum in the repository and the pivot of the narrative — because a gap between two months disappears into the boundary. And it misstates the sequence: governance emerged in **May**, not June, and the intelligence layer emerged in **August**, not July. The era view preserves both facts, and each era is labelled with **what fundamentally changed**, not with what happened.
+
+## ERA / MILESTONE SUMMARY — what fundamentally changed
+
+| era | window | commits | what fundamentally changed |
+|---|---|---|---|
+| **I · Governance first** | May 20–28 | 54 | The project began with **gates, not features**. Governance existed before the platform had a name. |
+| **II · Platform turn** | Jun 5–8 | 14 | Scripts became a system. Test counts enter commit subjects and never leave. |
+| **III · Engineering acceleration** | Jun 19 – Jul 4 | **68** | The densest engineering era: legal entity, **16× measured**, the professional-NLE bridge — and *"all prior reports incorrect."* |
+| **IV · Measurement** | Jul 15–26 | 10 | The **64-hour baseline filed before the platform's own production**, so the comparison could not be tuned. |
+| **— · The silence** | **Jul 27 – Aug 7** | **0** | **Part 1 shipped without the platform.** Every instrument in Eras V–VII traces back to this gap. |
+| **V · Findings become law** | Aug 8–15 | 16 | *finding → tool → doctrine → hash-pinned record* fully formed; **20 clauses ratified**. |
+| **VI · Executive constitution** | **Aug 20–22** | **56** | A constitution assessed, frozen, certified, ratified and specified **in one day**. **22 Aug: 32 commits — the densest day in the repository, and it is governance.** |
+| **VII · Certification** | Aug 24–29 | 24 | Custody crisis, Executive authoring, **22 PASS / 0 FAIL**, `ENGINEERING-CONFORMANT`. |
 
 ---
 
@@ -23,7 +40,7 @@ Aug  ░░░░░░░░░░░░░░░░░░░░░░░░░
                                    densest day in the history
 ```
 
-**242 commits · 7 tags · 4 branches · 102 days · one operator.**
+**245 commits · 7 tags · 4 branches · 102 days · one operator.** *(measured at `db69f5b`)*
 
 ---
 

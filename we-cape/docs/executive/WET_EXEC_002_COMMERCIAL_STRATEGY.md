@@ -1,7 +1,28 @@
 # WET-EXEC-002 — COMMERCIAL STRATEGY
 
+> ### DOCUMENT CLASSIFICATION
+> **Technical & Governance Diligence Package — commercial section.**
+> This is not a fundraising document. It contains no revenue projection, no market sizing, no valuation framing, and no ask. A reader expecting a pitch should read it as an asset inventory with defensibility assessments and stated preconditions.
+
+**Revised under:** EXECUTIVE REVIEW ORDER — WET-EXEC-003
 **Companion to:** `WET_EXEC_002_EXECUTIVE_BRIEFING.md`
-**Custody:** `DOCUMENTATION ONLY` · **Repository state:** `0f6a123`
+**Custody:** `EXECUTIVE PRESENTATION PACKAGE ONLY` · **Repository measured at:** `db69f5b`
+
+---
+
+## WHY NOW
+
+Four forces, none speculative, all external to this entity. `[E]` for the platform's corresponding capability; `[P]` for the market inference.
+
+**Provenance is becoming mandatory.** Platform-level synthetic-media declaration is now a publication requirement rather than a courtesy. This platform records AI disclosure at Gate 3 **before** upload, with retention clocks armed at approval — because `SOP-06` was written before it was needed. `[E]`
+
+**"Human oversight" is being defined in regulation, and most implementations cannot demonstrate it.** A policy stating a human is in the loop is not evidence. Four recorded refusals of explicitly authorised actions — with reasons, exit codes and subsequent vindication — are. `[E]`
+
+**AI-generated content is entering commercial distribution ahead of settled rights frameworks.** This platform has an AI-generated soundtrack in distribution *and* a filed record routing the rights question to specialist review. Demonstration and disclosure in the same artifact. `[E]` `[O]`
+
+**Enterprises are writing AI-governance policy without reference implementations.** Frameworks exist; products exist; working systems whose controls have fired in production and are documented with commit hashes are rare. `[P]`
+
+**The asymmetry that matters:** governance-first was a constraint in May 2026 and is becoming a requirement. The corpus was not repositioned to meet it — it was written for a documentary and already applies. `[E]`
 
 ---
 

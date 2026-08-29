@@ -1,262 +1,255 @@
 # WET-EXEC-002 — PRESENTATION OUTLINE
 
+**Revised under:** EXECUTIVE REVIEW ORDER — WET-EXEC-003
 **Companion to:** `WET_EXEC_002_EXECUTIVE_BRIEFING.md`
 **Targets:** Gamma AI · PowerPoint · Keynote
-**Format:** 24 slides · ~30 minutes · heavy graphical treatment
-**Custody:** `DOCUMENTATION ONLY`
+**Classification:** Technical & Governance Diligence Package
+**Custody:** `EXECUTIVE PRESENTATION PACKAGE ONLY`
+**Certification:** `EXECUTIVE PRESENTATION READY`
 
 ---
 
-## HOW TO USE THIS OUTLINE
+## 0 · THREE DECKS, ONE SOURCE
+
+The package now separates by audience rather than trying to serve five readers with one runtime.
+
+| deck | length | audience | question it answers |
+|---|---|---|---|
+| **A · Executive Story** | 20–30 min · 18 slides | family, partners, general and executive audiences | *What did we build and why does it matter?* |
+| **B · Technical Appendix** | 45–60 min · 16 slides | Marcus, Desmond, principal engineers, CTOs | *How does that actually work, and where is it weak?* |
+| **C · Governance Appendix** | 30–40 min · 12 slides | Valerie, board members, compliance and enterprise governance | *How do I defend this to a regulator or a board?* |
+
+**Deck A stands alone.** B and C are held in reserve and deployed on question — which is how technical depth should behave in an executive room. Every slide in B and C traces to a section of the briefing.
+
+**Two rules across all three decks.** No slide carries a composite score. No slide carries the 85 % utilization figure.
+
+**Every metric slide carries its definition.** Re-measure before any presentation — `DOC-001` applies to the deck as much as to the generator.
+
+---
+
+## 1 · HOW TO USE THIS OUTLINE
 
 Each slide carries five fields. Build in this order — **the visual is specified before the text**, because a heavy-graphics deck fails when copy is written first and pictures are retrofitted.
 
-- **Objective** — the one thing the slide must land
-- **Visual** — the graphic, specified by name from `WET_EXEC_002_GRAPHICS_GUIDE.md`
-- **On-slide text** — what the audience reads (keep to what is written here; resist adding)
-- **Speaker notes** — what is said aloud
-- **Evidence** — the citation, for the appendix and for diligence
-
-**Two rules for the whole deck.** No slide carries a composite score — the platform's reporting standard prohibits it. No slide carries the 85 % utilization figure — it has no producing computation.
+**Objective** · **Visual** (named from `WET_EXEC_002_GRAPHICS_GUIDE.md`) · **On-slide text** · **Speaker notes** · **Evidence**
 
 ---
 
-## ACT I — THE PROBLEM AND THE PERSON (slides 1–5)
+# DECK A — EXECUTIVE STORY
+### 18 slides · 20–30 minutes
 
-### Slide 1 · Twenty-five of seventy-five
+## ACT I — THE PROBLEM AND THE PERSON
+
+### A1 · Twenty-five of seventy-five
 **Objective:** open on the human stake, not the technology.
-**Visual:** `G-01 Rider Wall` — 75 tiles, 25 rendered as outlines rather than fills.
+**Visual:** `G-01 Rider Wall` — 75 tiles, 25 as outlines.
+**On-slide text:** 75 riders told us why they ride. 25 of their names could not be verified. **The registry says so.**
+**Speaker notes:** "We could have guessed twenty-five names. Nobody would ever have known. The system marks them UNCONF and refuses to fill the field. Everything I'm about to show you is an elaboration of that decision."
+
+### A2 · The thesis
+**Objective:** the positioning statement, verbatim.
+**Visual:** `G-03 Authority Pyramid`.
 **On-slide text:**
-> 75 riders told us why they ride.
-> 25 of their names could not be verified.
-> **The registry says so.**
+> **W.E. C.A.P.E. is a governance-first architecture for human-directed AI collaboration** — decisions traceable to evidence, evolution recorded against the evidence that forced it, and an **auditable** boundary between what the machine may do and what only a human may decide.
 
-**Speaker notes:** "This is the whole platform in one slide. We could have guessed twenty-five names. Nobody would ever have known. Instead the system marks them UNCONF — unconfirmed — and refuses to fill the field. Everything I'm about to show you is an elaboration of that decision."
-**Evidence:** `RIDER_REGISTRY.yaml` — 75 riders, 25 `name: UNCONF`, 5 civic speakers.
+**Speaker notes:** "Note the word *auditable*, not *complete*. Seven constitutional decisions in this corpus are not under version control, and that's disclosed on slide 17. I'd rather you hear it from me."
 
-### Slide 2 · The problem nobody governs
-**Objective:** name the market pain in executive terms.
-**Visual:** `G-02 Split Panel` — ungoverned pile vs. governed rail.
-**On-slide text:** Terabytes with no chain of custody · timestamps that lie · rights tracked by memory · AI content with no provenance.
-**Speaker notes:** "A camera wrote wall-clock time and our pipeline read it as UTC. Five hours of error, invisible to any user. We caught it — because the registry's own data caught it, in a five-minute modification-time delta."
-**Evidence:** finding F1, `4d3cb49`.
-
-### Slide 3 · The thesis
-**Objective:** state the founding position in one line.
-**Visual:** `G-03 Authority Pyramid` — Custody → Evidence → Intelligence → Human Decision.
-**On-slide text:**
-> **The engines propose. Humans decide.**
-> Governance was not added to an AI platform. It was the foundation.
-
-**Speaker notes:** "Note the order. This predates the AI features."
-**Evidence:** `DOC-CAND-001` §4.0.
-
-### Slide 4 · One founder, two roles
-**Objective:** executive-maturity evidence without bureaucracy theatre.
-**Visual:** `G-04 Authority Diagram` — Chairman ⇄ Engineering channel ⇄ git custody.
-**On-slide text:** Workman Experience Technologies LLC · W.E.I.C.P. governing body · proposal and ratification held as separate artifacts.
-**Speaker notes:** "A company was incorporated inside a commit message on 19 June. One atomic change: product rename, package rename, legal entity, IP reclassification."
-**Evidence:** `f8c8878`.
-
-### Slide 5 · The proving ground
-**Objective:** real production scale.
-**Visual:** `G-05 Production Stat Band`.
-**On-slide text:** 4 cameras · ~170 source files · 139 curated exports · 75 interviews · 3-part series · 8-track soundtrack in distribution.
-**Speaker notes:** "Smyrna, Tennessee. Four days in June. Everything after this is a consequence of what that shoot broke."
-**Evidence:** `PMR-001`.
-
----
-
-## ACT II — WHAT THE EVIDENCE FORCED (slides 6–12)
-
-> **This is the act that wins the room.** It is a sequence of moments where the platform discovered it was wrong. Do not soften them — the candour is the argument.
-
-### Slide 6 · Eleven days of silence
-**Objective:** the turning point.
-**Visual:** `G-06 Commit Density Strip` — the gap rendered as a void, not a low bar.
-**On-slide text:**
-> 27 July – 7 August 2026
-> **Zero commits.**
-> Part 1 was edited and published in this window.
-
-**Speaker notes:** "The platform was not used to make it. We found that by reading the *absence* of records. Within days: scene clustering, a lineage bridge, and a chronological-sets import — locked in as tooling, doctrine, and a hash-pinned record in a single commit."
-**Evidence:** repository history; `19727ef`.
-
-### Slide 7 · All prior reports incorrect
-**Objective:** the honesty reflex, in the author's own words.
-**Visual:** `G-07 Commit Callout` — the raw commit message, monospaced, oversized.
-**On-slide text:** the verbatim message.
-**Speaker notes:** "Twelve gigabytes versus three hundred and fourteen. Four words invalidating his own published numbers. Nothing was deleted. This is the intellectual birth of our first doctrine: validate the instrument before the measurement."
-**Evidence:** `d402855`.
-
-### Slide 8 · When the spec lost to the field
-**Objective:** deviation as an artifact class.
-**Visual:** `G-08 Before/After Bar` — 67 % ungrouped at spec vs. field-validated value.
-**On-slide text:** ±5 s specified · ±15 s measured · **the disagreement was documented, not resolved by editing either side.**
-**Evidence:** `3973b19`.
-
-### Slide 9 · From finding to law
-**Objective:** the pattern that defines the platform.
-**Visual:** `G-09 The Ratification Loop` — Finding → Tool → Doctrine → Hash-pinned record.
-**On-slide text:** 20 ratified architecture clauses, every one purchased with production evidence.
-**Speaker notes:** "Clause 20: evidence conflicts produce an explicit unresolved state. The platform never picks a silent winner. That clause exists because a camera lied to us about time."
-**Evidence:** `CAPE-RAT-20260813`.
-
-### Slide 10 · Constitution day
-**Objective:** governance accelerates; it does not slow.
-**Visual:** `G-10 Single-Day Timeline Strip` — 20 August, seven governance commits.
-**On-slide text:** Assess → freeze at a hash → certify → ratify → specify → 12 modifications → freeze under tag → launch sprint. **One day.**
-**Speaker notes:** "And in the middle of it, a paste error in the specification being frozen — caught by a size-reconciliation check. The governance process auditing its own authoring."
-**Evidence:** `51d31e2`, `27674d7`, `546918b`, `870ef07`.
-
-### Slide 11 · The densest day is a governance day
-**Objective:** kill the process-tax objection with data.
-**Visual:** `G-11 Commit Density Chart` — 22 August spike highlighted.
-**On-slide text:** **32 commits on 22 August — the densest day in the repository. All governance.**
-**Evidence:** repository history.
-
-### Slide 12 · The second cut
-**Objective:** what the platform does when identity itself is in question.
-**Visual:** `G-12 Divergence Diagram` — two timelines splitting at 00:03:27.
-**On-slide text:**
-> A second cut of the film existed.
-> Diverged at 00:03:27. Ran 157.125 s shorter.
-> **The authorised work order was halted.**
-
-**Speaker notes:** "Every registry we had was pinned to a cut that might not be the film. The decision brief that followed carried one instruction: *do not recommend any option.* Three paths, full consequences, no recommendation. That is what decision preparation looks like when the platform has no business deciding."
-**Evidence:** `7771e44`; `EXECUTIVE_DECISION_BRIEF_CUSTODY_ALERT_001.md`.
-
----
-
-## ACT III — THE ARCHITECTURE THAT RESULTED (slides 13–18)
-
-### Slide 13 · Six layers, and only two of them act
-**Objective:** the whole architecture in one read.
-**Visual:** `G-13 Six-Layer Stack` — verbs emphasised over box labels.
-**On-slide text:** Executive **decides** · Governance **constrains** · Engineering **proposes** · Runtime **refuses** · Production **produces** · Commercial **distributes**.
-**Speaker notes:** "Read the verbs. The Executive layer decides. The Runtime layer refuses. Nothing in between decides anything."
-
-### Slide 14 · Custody is not authority
-**Objective:** the conceptual centre.
-**Visual:** `G-14 Custody vs Authority` — two orthogonal axes, deliberately not a hierarchy.
-**On-slide text:**
-> **Custody is not authority, and custody is immutable.**
-> An actor may hold, author, measure and enforce — and never decide.
-
-**Speaker notes:** "This is the breakthrough. Every AI governance framework I've seen conflates who touched a thing with who may decide about it. Separating them is what lets an AI write a specification and a governance guard without acquiring a single decision right."
+### A3 · Custody is not authority
+**Objective:** seed the central idea early, pay it off in Act III.
+**Visual:** `G-14 Custody vs Authority` — two orthogonal axes.
+**On-slide text:** **Custody is not authority, and custody is immutable.** An actor may hold, author, measure and enforce — and never decide.
+**Speaker notes:** "Keep this in your head for the next ten minutes. Everything that follows is a consequence of separating who touched a thing from who may decide about it."
 **Evidence:** `ER-003`, `ER-004`.
 
-### Slide 15 · The intelligence stack
-**Objective:** the AI story, governed.
-**Visual:** `G-15 Four-Layer Stack` — layers labelled by question, not by engine name.
-**On-slide text:** What exists? · Why does it matter? · How should it feel? · What products result?
-**Speaker notes:** "Two rules keep it honest. Engines consume governed outputs — never raw media without authorisation. And transcript output is evidence of speech, not verified speech. That second rule is why twenty-five names are still unconfirmed."
-**Evidence:** `AIS-001`, `WET-REV-AIS001`.
+### A4 · The problem nobody governs
+**Visual:** `G-02 Split Panel`.
+**On-slide text:** Terabytes with no chain of custody · timestamps that lie · rights tracked by memory · AI content with no provenance.
 
-### Slide 16 · The platform cannot interpolate
-**Objective:** the most counter-market design decision in the deck.
-**Visual:** `G-16 Ordinal Scale` — five discrete steps, with the smooth curve struck through.
-**On-slide text:** LOW → MODERATE → HIGH → ELEVATED → CLIMACTIC · **ordinal, non-numeric, no gradient computable.**
-**Speaker notes:** "Every creative-AI product on the market is racing to interpolate emotional curves. We made it structurally impossible and wrote down why."
-**Evidence:** Invariant B, `EPR-001`.
+### A5 · The proving ground
+**Visual:** `G-05 Production Stat Band`.
+**On-slide text:** 4 cameras · ~170 source files · 139 curated exports · 75 interviews · 3-part series · 8-track soundtrack in distribution.
 
-### Slide 17 · Fourteen guards, and what they refuse
-**Objective:** runtime integrity for the technical audience.
-**Visual:** `G-17 Guard Gate Diagram` — a run halted before the first write.
-**On-slide text:** Four injected faults · four stops · **exit 2 · zero files written.**
-**Speaker notes:** "Not a warning. Nothing was produced. And a control artifact fails shut — a gate missing any required field is treated as CLOSED."
-**Evidence:** `runtime_guards.py`; ECR-GEN-002 negatives.
+## ACT II — WHAT THE EVIDENCE FORCED
 
-### Slide 18 · An empty field remains empty
-**Objective:** the human-authority boundary, demonstrated.
-**Visual:** `G-18 Authoring Boundary` — the EPR workbook with a reserved column.
-**On-slide text:**
-> *"The platform SHALL NOT author, populate, infer, extend, suggest, or default ANY value.*
-> ***An empty field remains empty.***"
+> **This act wins the room. Do not soften it — the candour is the argument.**
 
-**Speaker notes:** "Six emotional beats, authored by the Executive one at a time, transcribed verbatim across eleven registry versions. When he said 'my inclination would be retire,' the platform recorded the inclination and waited for a ruling."
-**Evidence:** `EPR-001` §2.3.
+### A6 · Eleven days of silence
+**Objective:** the turning point.
+**Visual:** `G-06 Commit Density Strip` — the gap as a void.
+**On-slide text:** 27 July – 7 August 2026 · **Zero commits.** Part 1 was edited and published in this window.
+**Speaker notes:** "The platform was not used to make it. We found that by reading the *absence* of records."
 
----
+### A7 · Ten moments — the structure
+**Objective:** set the frame before the moments.
+**Visual:** `G-25 Moment Card Template` — the six-field card, empty.
+**On-slide text:** The position on record · What the evidence showed · Decision · Governance artifact produced · Long-term impact
+**Speaker notes:** "Ten times, evidence forced a change of direction. Each one is recorded the same way. Note what the second field is *not* — it isn't 'what we believed.' The platform is prohibited from telling you what anyone believed. It can only show you what the record said."
 
-## ACT IV — WHAT IT PROVES (slides 19–24)
+### A8–A12 · Five moments, one per slide
+**Visual:** `G-25` populated, one card per slide.
+Use **Moments 2, 4, 5, 7, 9** for Deck A — *all prior reports incorrect* · the eleven silent days · the timestamp that lied · custody is not authority · the refusal to infer.
+**Speaker notes (A12, the refusal):** "An Executive Order authorised a regeneration. The platform refused and filed six exceptions. The shallowest would have taken minutes to fix — and would have produced a running generator emitting the wrong film."
+*(Moments 1, 3, 6, 8, 10 move to Deck B.)*
 
-### Slide 19 · Four refusals
-**Objective:** the single most defensible claim in the deck.
-**Visual:** `G-19 Refusal Ledger` — four rows, each with the authorised action and the reason for refusal.
-**On-slide text:**
-| authorised | refused because |
-|---|---|
-| atomic regeneration (Executive Order) | six preconditions unmet — would have emitted the wrong film |
-| convert an inclination to a disposition | an inclination is not a ruling |
-| accept an unverified host key | silent substitution on the Chairman's behalf |
-| claim fixture equivalence | 3 of 9 columns unrecoverable without inference |
+### A13 · Four refusals
+**Objective:** the most defensible claim in the package.
+**Visual:** `G-19 Refusal Ledger`.
+**On-slide text:** four rows — authorised action | refused because.
+**Speaker notes:** "**A control that has never fired is not a control. These fired.**"
 
-**Speaker notes:** "Four times the easy, permitted, helpful action was available. Four times it was declined. Four times the evidence later showed the refusal was right. **A control that has never fired is not a control.**"
+## ACT III — WHAT IT PROVES
 
-### Slide 20 · The number that was never computed
-**Objective:** the self-audit that proves the model.
-**Visual:** `G-20 Validator Comparison` — 1/191 vs 191/191.
-**On-slide text:** A figure cited in three governed artifacts, for three months, as a hard-coded string. **No committed code had ever produced it.**
-**Speaker notes:** "It was true. Remediation reproduced it exactly. But for three months our foundational measurement was an assertion wearing a measurement's clothes — and we found that ourselves, in our own audit."
-**Evidence:** ECR-GEN-002 §2.1.
+### A14 · Six layers, and only two of them act
+**Visual:** `G-13 Six-Layer Stack` — verbs at display weight.
+**Speaker notes:** "Read the verbs. Executive decides. Runtime refuses. Nothing in between decides anything."
 
-### Slide 21 · Ninety-two to eighty-five
+### A15 · Ninety to thirty-nine
 **Objective:** the ratio that describes the initiative.
-**Visual:** `G-21 Ratio Bar` — governance documents vs engine modules.
-**On-slide text:** **92 governance documents · 85 engine modules.** Nobody planned that ratio.
-**Speaker notes:** "The load-bearing instruments — custody, evidence hierarchy, the reporting standard, the doctrines — contain nothing about video. They were written for a motorcycle documentary and they apply to any governed machine-assisted work. **That is the asset.**"
+**Visual:** `G-21 Ratio Bar` with definitions on-slide.
+**On-slide text:** **90 governance documents** *(Markdown under `docs/`)* · **39 engine modules** *(non-test Python under `wecape/`)* · **2.3 : 1**
+**Speaker notes:** "Nobody planned that ratio. And the load-bearing instruments — custody, the evidence hierarchy, the reporting standard — contain nothing about video. They were written for a motorcycle documentary and they already apply anywhere. **That is the asset.**"
 
-### Slide 22 · Why this matters, by audience
-**Objective:** let each stakeholder find themselves.
-**Visual:** `G-22 Four-Quadrant Audience Map`.
-**On-slide text:** Engineering: *make the wrong comparison unrepresentable* · Security: *you can audit what it declined to do* · Information architecture: *a knowledge base that can say "I don't know" per record* · Governance: *separation of duties with dissent on the record*.
+### A16 · Why now
+**Visual:** `G-26 Why-Now Timing Panel`.
+**On-slide text:** Provenance becoming mandatory · "human oversight" being defined in regulation · AI content entering distribution ahead of rights frameworks · enterprises writing policy without reference implementations.
+**Speaker notes:** "Governance-first was a constraint in May. It's becoming a requirement. We didn't reposition for it — the corpus was written for a documentary and already applies."
 
-### Slide 23 · What this deck does not claim
-**Objective:** disclose before you are asked. **Do not skip this slide.**
-**Visual:** `G-23 Disclosure Panel` — plain, no styling flourishes.
+### A17 · What this deck does not claim
+**Objective:** disclose before you are asked. **Do not skip.**
+**Visual:** `G-23 Disclosure Panel` — deliberately undesigned.
 **On-slide text:**
-- No composite readiness or maturity score appears in this package.
 - The 85 % utilization figure is **not carried forward** — no producing computation exists.
+- Seven constitutional decisions (`ADR-001`–`008`) are **not in version control**.
+- The 6,122-line artifact pipeline has **no unit tests**.
+- **No dependency manifest, no release version since May, no CI, no independent security audit.**
+- **One ratifying authority, no succession instrument.**
 - Every "mature" characterisation rests on **n = 1**.
 - The soundtrack rights posture is **routed to specialist review**.
-- The governed 08-24 lineage has **never been ingested**.
 
-**Speaker notes:** "Every one of these was surfaced by the governance system, not by an outside reviewer. That we can list them precisely is the strongest argument for everything else in this deck."
+**Speaker notes:** "Every one of these was surfaced by the governance system, not by an outside reviewer. That we can list them precisely is the strongest argument for everything else."
 
-### Slide 24 · The system improves itself
-**Objective:** the close.
-**Visual:** `G-24 Improvement Loop` — Produce → Measure → Find → Ratify → Tool → Produce.
-**On-slide text:**
-> A question becomes a finding.
-> A finding becomes law.
-> Law becomes tooling.
-> Tooling changes the next production.
-
-**Speaker notes:** "Nine of the ten moments that changed this platform are moments where it discovered it was wrong. The story isn't what it became. It's what it did every time the evidence disagreed with it." *(pause)* "Seventy-five riders told us why they ride. Twenty-five of those names are still marked unconfirmed. That isn't a gap in the work. **That is the work.**"
+### A18 · The gated horizon, and the close
+**Visual:** `G-27 Gated Strategic Horizon`.
+**On-slide text:** Today → *Gate A* → Multiple productions → *Gate B* → Studio → *Gate C* → Enterprise → *Gate D* → Governed Human–AI Collaboration Platform. **Healthcare · Government · Education: separate regulated programmes, not rungs.**
+**Speaker notes:** "We're before Gate A. Four production inputs are missing. And the highest-value thing available isn't a feature — it's a second production, because every compounding claim we make is unfalsifiable at n = 1." *(pause)* "Nine of the ten moments that changed this platform are moments where it discovered it was wrong. The story isn't what it became. **It's what it did every time the evidence disagreed with it.**" *(pause)* "Seventy-five riders told us why they ride. Twenty-five of those names are still marked unconfirmed. That isn't a gap in the work. **That is the work.**"
 
 ---
 
-## APPENDIX SLIDES (hold in reserve, deploy on question)
+# DECK B — TECHNICAL APPENDIX
+### 16 slides · 45–60 minutes · Marcus · Desmond · principal engineers · CTOs
 
-| # | topic | trigger |
-|---|---|---|
-| A1 | Repository metrics table | *"how big is this really?"* |
-| A2 | The 20 ratified clauses | *"show me the governance"* |
-| A3 | Test and conformance history | *"is it tested?"* |
-| A4 | Seven-era timeline | *"how did it evolve?"* |
-| A5 | Technical debt register | *"what's broken?"* — **answer this one honestly and early** |
-| A6 | Commercial tiers | *"how does this make money?"* |
-| A7 | ER-007 instrument | *"how do you know what you learned?"* |
+### B1 · System architecture
+**Visual:** `G-28 System Component Diagram` — actual modules and data flow.
+**On-slide text:** `wecape/` acquisition engine (39 modules, 5,802 LOC) → derived intermediates → `intelligence/` artifact pipeline (31 scripts, 6,122 LOC) → seven governed artifacts.
+
+### B2 · Repository topology
+**Visual:** `G-29 Repository Topology` — treemap by directory, sized by file count.
+
+### B3 · The workflow
+**Visual:** `G-30 Production Workflow` — capture → offload → organise → conform → edit → observe → generate → gate → publish.
+
+### B4 · Testing hierarchy
+**Visual:** `G-31 Testing Hierarchy`.
+**On-slide text:** four harnesses, **not additive** — engine unit suite 384 · acceptance 99/99 · ECR conformance 22 PASS/0 FAIL · 6 negative tests, each exit 2 with 0 files written.
+**Speaker notes:** "Four numbers, four different things. And the inversion you'll want to know about is next."
+
+### B5 · The testing inversion — disclosed
+**On-slide text:** Engine: 5,802 LOC / **5,823 test LOC**. Artifact pipeline: 6,122 LOC / **0 unit tests**.
+**Speaker notes:** "More test code than engine code — and the pipeline that produces every governed artifact has none. It's covered end-to-end by 22 conformance tests with proven negatives, and that's it. It's the first thing I'd fix."
+
+### B6 · Runtime guard lifecycle
+**Visual:** `G-32 Runtime Guard Lifecycle` — inputs → 14 guards → ✗ → first write never reached.
+
+### B7 · Negative test ledger
+**Visual:** `G-17` ledger strip — six faults, six stops, zero files written.
+
+### B8 · The `zip()` that never compared anything
+**Visual:** `G-20 Validator Comparison` — 1/191 at true scale.
+**Speaker notes:** "**Don't validate the comparison — make the wrong comparison unrepresentable.** Cardinality is now asserted before pairing, so truncation is structurally impossible."
+
+### B9 · The equivalence proof
+**On-slide text:** 205,679 bytes · 7 changed lines · 5 changed bytes · every change explained.
+
+### B10 · Parameterisation as diagnosis
+**On-slide text:** 74.3 % of emitted text is literal prose *(38,056 of 51,237 characters, `traceability_scan.py`)*.
+**Speaker notes:** "*You cannot see an assumption until you try to make it a parameter.*"
+
+### B11 · Local-first security architecture
+**Visual:** `G-33 Local-First Security` — enforced network invariant, no egress from the engine path.
+**On-slide text:** media never leaves the machine · PII gated off by default · path redaction on egress · encrypted offsite · restore-proven 3-2-1.
+
+### B12 · Observability of refusal
+**On-slide text:** `FAILED_SOURCE_IDENTITY` · `FAILED_CARDINALITY` · `FAILED_COMPARISON` · `FAILED_TIMELINE_CLOSURE`
+**Speaker notes:** "You can audit what the system declined to do, not just what it did. In an incident review, that's the log that matters."
+
+### B13 · Dependency and version disclosure
+**On-slide text:** **No `requirements.txt`, no `pyproject.toml`, no `setup.py`. No product release tag since 2026-05-27.** The two later tags are a document freeze and a corpus tag, not releases.
+**Speaker notes:** "Three months of the most significant work carries no release version. Hours of work, not architecture — and it's the first thing procurement asks."
+
+### B14–B15 · Moments 1, 3, 6, 8, 10
+**Visual:** `G-25` populated. The five technical moments held back from Deck A.
+
+### B16 · Technical debt register
+**Visual:** `G-34 Risk & Debt Register`.
+**On-slide text:** `B-13` narrative binding · `T11` stale artifact, three dispositions un-materialised · `B-3` visual producer not fixture-equivalent · `B-16` no timeline slicing · no CI · ADR custody gap.
+
+---
+
+# DECK C — GOVERNANCE APPENDIX
+### 12 slides · 30–40 minutes · Valerie · board · compliance · enterprise governance
+
+### C1 · Governance authority boundaries
+**Visual:** `G-35 Governance Authority Boundaries` — who may propose, who may ratify, who may refuse, who may never decide.
+
+### C2 · The instrument classes
+**On-slide text:** CAR → ADR → SPEC → PDR → ER, plus DOC · DOC-SRC · RE · DWR · Execution Gates. *ADRs govern the platform · PDRs govern productions · Reference Executions govern comparison.*
+
+### C3 · Custody without authority
+**Visual:** `G-14`.
+**Speaker notes:** "Closer to a capability model than to RBAC — and applied to an AI agent."
+
+### C4 · Evidence hierarchy
+**Visual:** `G-09 Ratification Loop` with the five-stage cycle.
+**On-slide text:** *"Evidence does not move. Products do."*
+
+### C5 · Human oversight, tested
+**Visual:** `G-19 Refusal Ledger`.
+**Speaker notes:** "A policy saying a human is in the loop is not evidence. A recorded refusal of an authorised action, with the reason and the vindication, is."
+
+### C6 · Separation of duties, with dissent on the record
+**On-slide text:** the `EXECUTIVE_RULINGS` objection, verbatim, ending `recommendation: NONE — this is a governance decision, not an engineering one`.
+
+### C7 · Fail-shut controls
+**On-slide text:** a gate missing any required field is treated as CLOSED · **the aggregate is computed, never authored**.
+
+### C8 · Regulatory defensibility
+**On-slide text:** consent per person, publication rights **not inferred** · rights filtering at emission · AI disclosure **before** upload · retention clocks armed at approval · every artifact hash-pinned.
+
+### C9 · The composite-score prohibition
+**On-slide text:** *"Composite readiness, health, quality, maturity or intelligence scores are **PROHIBITED**"* — superseded only by an ADR that explicitly does so. **The platform explains rather than rates.**
+
+### C10 · Governance succession — the open risk
+**Visual:** `G-34 Risk & Debt Register`, governance rows.
+**On-slide text:** **One ratifying authority. No quorum, no delegation instrument, no succession clause.**
+**Speaker notes:** "This is the honest state of a one-person operation and it's a governance risk, not a feature. I'd put it first on a board risk register. Any enterprise adoption of this corpus needs a succession instrument that doesn't exist yet."
+
+### C11 · Risk register
+**Visual:** `G-34` full — likelihood × impact × owner × mitigation.
+
+### C12 · What the system found about itself
+**On-slide text:** two live risks disclosed — an AI-generated soundtrack in distribution with an unresolved rights posture, and a single ratifying authority with no succession.
+**Speaker notes:** "Both were surfaced by the governance system, not by an external reviewer. That's the demonstration."
 
 ---
 
 ## DELIVERY NOTES
 
-**Run time.** 24 slides, ~30 minutes. Act II is the longest and should be. If you must cut, cut from Act III, never Act II — the architecture is inferable from the story, but the story is not inferable from the architecture.
+**Deck A run time:** 18 slides, 20–30 minutes. Act II is the longest and should be. If you must cut, cut Act III — the architecture is inferable from the story; the story is not inferable from the architecture.
 
-**The two slides that carry the deck** are 6 (eleven days of silence) and 19 (four refusals). Everything else supports them.
+**The three slides that carry Deck A:** A6 (eleven days), A13 (four refusals), A17 (disclosure). Everything else supports them.
 
-**Slide 23 is not optional.** Every audience named in this Order — security, governance, investors — is trained to look for what a deck omits. Disclosing first converts your biggest vulnerability into your strongest credibility signal.
+**A17 is not optional.** Every audience this package names is trained to look for what a deck omits. Disclosing first converts the biggest vulnerability into the strongest credibility signal.
 
-**Tone.** Nine of the ten moments are failures. Deliver them level, without apology and without drama. The candour is the product.
+**Do not merge B or C into A.** The reason to have three decks is that A stays 20 minutes long. A technical question in an executive room is answered with *"there's a slide for that"* and one slide from Deck B — not by extending A.
+
+**Tone.** Nine of the ten moments are failures. Deliver them level, without apology and without drama.
