@@ -22,7 +22,25 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.11.0"
+registry_version: "1.12.0"
+registry_version_note_1_12_0: >-
+  1.11.0 -> 1.12.0, 2026-08-29. EXECUTIVE SEGMENT CLASSIFICATION ORDER (Q7, Q8).
+  ONLY TWO VALUES CHANGED, BOTH segment_refs:
+    EPR-03 Brotherhood   [S05]                        -> [S04, S05]
+    EPR-06 Celebration   [S13,S14,S15,S16,S18]        -> [S13,S14,S15,S16,S17,S18]
+  NO authored Executive field was inferred, modified or regenerated. NO new EPR entry was
+  created. The entry count is unchanged at seven. Both Executive reasons are recorded verbatim
+  against their entries.
+  undeclared_segments: both S04 and S17 marked RESOLVED with the beat each was incorporated
+  into. The list was NOT emptied and the original notes were NOT deleted - status was updated so
+  the block does not contradict the new segment_refs, and the record still shows what was
+  resolved rather than only that nothing remains.
+  EVERY IN-SCOPE SEGMENT S01-S18 NOW CARRIES AN INTENTIONAL EXECUTIVE DISPOSITION.
+  ONE FACT RECORDED AGAINST BOTH EXPANDED ENTRIES, NO ACTION TAKEN: their four authored fields
+  were declared before the expansion and now govern one segment more than they did when
+  written. The Order forbade modifying them, so none was modified. Whether the declared text
+  should be revisited against the expanded scope is an EXECUTIVE determination, not a defect.
+  Q10 (EPR-07) REMAINS UNDECLARED. Four fields still AWAITING_EXECUTIVE_INPUT.
 registry_version_note_1_11_0: >-
   1.10.0 -> 1.11.0. EXECUTIVE AUTHORING DECLARATION - EPR-06. Transcribed VERBATIM.
   EPR-06 Celebration COMPLETE: dramatic_intensity ELEVATED, governing_theme "Enduring
@@ -499,7 +517,21 @@ entries:
 
   - id: EPR-03
     beat: Brotherhood
-    segment_refs: [S05]
+    # segment_refs EXPANDED 2026-08-29 by EXECUTIVE SEGMENT CLASSIFICATION ORDER, Q7.
+    # S04 ride_brief carries documentary intent and is incorporated into this beat.
+    # Executive reason, verbatim: "The ride brief marks the transformation from individual
+    # preparation to coordinated collective action and therefore belongs to the Brotherhood
+    # narrative beat rather than the interview beat."
+    # ONLY segment_refs was changed. No authored field was touched.
+    segment_refs: [S04, S05]
+    segment_refs_prior: [S05]
+    authored_fields_predate_expansion_note: >-
+      RECORDED AS FACT, NO ACTION TAKEN. dramatic_intensity, governing_theme,
+      editorial_transition and executive_notes were declared on 2026-08-28 when this beat
+      covered S05 alone. They now govern S04 and S05. The Order states "No other
+      Executive-authored fields are modified", so none was. Whether the declared text should be
+      revisited against the expanded scope is an EXECUTIVE determination and is not raised as a
+      defect.
     # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim.
     dramatic_intensity: HIGH
     audience_state: Unity
@@ -639,7 +671,19 @@ entries:
 
   - id: EPR-06
     beat: Celebration
-    segment_refs: [S13, S14, S15, S16, S18]
+    # segment_refs EXPANDED 2026-08-29 by EXECUTIVE SEGMENT CLASSIFICATION ORDER, Q8.
+    # S17 audience_cta carries documentary intent and is incorporated into this beat, closing
+    # the discontinuity that previously sat between S16 and S18.
+    # Executive reason, verbatim: "The audience call-to-action extends the documentary's
+    # invitation into the continuing community and forms part of the concluding celebration
+    # rather than a distinct narrative beat."
+    # ONLY segment_refs was changed. No authored field was touched.
+    segment_refs: [S13, S14, S15, S16, S17, S18]
+    segment_refs_prior: [S13, S14, S15, S16, S18]
+    authored_fields_predate_expansion_note: >-
+      RECORDED AS FACT, NO ACTION TAKEN. The four authored fields were declared when this beat
+      covered five segments; they now govern six. The Order states "No other Executive-authored
+      fields are modified", so none was.
     # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim.
     dramatic_intensity: ELEVATED
     audience_state: Joy
@@ -743,9 +787,23 @@ entries:
 # Reported, never filled. No entry was created for them, because creating one
 # would require authoring a beat - which order 2.3 forbids.
 # ----------------------------------------------------------------------------
+# RESOLVED 2026-08-29 by EXECUTIVE SEGMENT CLASSIFICATION ORDER (Q7, Q8). Both segments are
+# now classified and neither is undeclared any longer. The list is retained rather than emptied
+# so the record shows WHAT WAS RESOLVED, not merely that nothing remains. Leaving these entries
+# unchanged would have contradicted the segment_refs above; deleting them would have erased the
+# fact that the condition existed. Status is updated; original text preserved verbatim.
 undeclared_segments:
-  - {segment: S04, activity: ride_brief, note: "no EMOTIONAL_ARC provenance; no EPR entry"}
-  - {segment: S17, activity: audience_cta, note: "no EMOTIONAL_ARC provenance; no EPR entry"}
+  - {segment: S04, activity: ride_brief, note: "no EMOTIONAL_ARC provenance; no EPR entry",
+     status: RESOLVED, resolved: '2026-08-29', resolution: "incorporated into EPR-03 Brotherhood",
+     resolved_by: "EXECUTIVE SEGMENT CLASSIFICATION ORDER, Q7"}
+  - {segment: S17, activity: audience_cta, note: "no EMOTIONAL_ARC provenance; no EPR entry",
+     status: RESOLVED, resolved: '2026-08-29', resolution: "incorporated into EPR-06 Celebration",
+     resolved_by: "EXECUTIVE SEGMENT CLASSIFICATION ORDER, Q8"}
+undeclared_segments_status: NONE_OUTSTANDING
+undeclared_segments_status_note: >-
+  Every in-scope segment S01-S18 now carries an intentional Executive disposition. No entry was
+  created for either segment - the Order directed incorporation into existing beats and
+  explicitly forbade new entries. The entry count is unchanged at seven.
 undeclared_segments_note: >-
   These two segments were absent from EMOTIONAL_ARC v1.0.0 and remain absent here.
   Whether they should carry documentary intent is an Executive question. Under

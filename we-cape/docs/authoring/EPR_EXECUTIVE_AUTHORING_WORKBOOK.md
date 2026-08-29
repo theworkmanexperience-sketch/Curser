@@ -2,7 +2,7 @@
 
 **For:** Executive Producer / Chairman · **Prepared by:** platform · **Date:** 2026-08-28
 **Authority:** `EXECUTIVE ORDER — CUSTODY_ALERT_001 FINAL DISPOSITION & WORKBOOK GENERATION` §3
-**Subject:** `EMOTIONAL_PROGRESSION_REGISTRY.yaml` (EPR-001) **v1.11.0**
+**Subject:** `EMOTIONAL_PROGRESSION_REGISTRY.yaml` (EPR-001) **v1.12.0**
 **Production:** Alpha RoundUp 2026 — Day 2 Episodic Trilogy (08-24 Lineage) · **Path B**
 
 ---
@@ -43,13 +43,16 @@ ALL SIX IN-SCOPE BEATS ARE AUTHORED.
    Its disposition is Q10, Section 4. UNDECLARED.
 ```
 
-**Three things still stand between here and a ratifiable EPR-001:**
+**Q7 and Q8 are ANSWERED (2026-08-29).** `S04` incorporated into **EPR-03 Brotherhood**;
+`S17` incorporated into **EPR-06 Celebration**. No new entries created, no authored field
+touched. **Every in-scope segment `S01`–`S18` now carries an intentional Executive disposition,
+and `V-5` coverage stands at `observed=19 expected=19`.**
+
+**ONE thing stands between here and a ratifiable EPR-001:**
 
 | # | item | where |
 |---|---|---|
-| **1** | `S04` — does it carry documentary intent? No entry exists. | Section 3.1 · Q7 |
-| **2** | `S17` — same question. No entry exists. | Section 3.2 · Q8 |
-| **3** | **`EPR-07` disposition** — retire · migrate · survive · hold | Section 4 · Q10 |
+| **1** | **`EPR-07` disposition** — retire · migrate · survive · hold | Section 4 · Q10 |
 
 **`Q10` also settles whether `EPR-06` is the terminal beat**, which is why EPR-06 carries
 `terminal_beat_status: CONTINGENT_ON_EPR-07_DISPOSITION`. **The platform has not classified it
@@ -58,7 +61,7 @@ either way.**
 ### 0.2 The definitional gap — **CLOSED 2026-08-28**
 
 The gap this section raised has been answered by the Executive. Both definitions are transcribed
-verbatim into EPR-001 v1.11.0. **They are reproduced here because you will use them on every
+verbatim into EPR-001 v1.12.0. **They are reproduced here because you will use them on every
 page.**
 
 #### `governing_theme` — **Narrative Anchor**
@@ -452,6 +455,16 @@ _________________________________________________________________
 `beat`, which the platform may not do. It has been reported and never filled since EPR-001 was
 first written.
 
+**Q7 · ANSWERED 2026-08-29 — carries intent; incorporated into `EPR-03` Brotherhood** ✔
+
+> *"The ride brief marks the transformation from individual preparation to coordinated
+> collective action and therefore belongs to the Brotherhood narrative beat rather than the
+> interview beat."*
+
+`EPR-03.segment_refs` `[S05]` → `[S04, S05]`. **No new entry, no authored field modified.**
+
+<details><summary>original question, retained</summary>
+
 **Q7.1 · Does `S04` carry documentary intent?**
 
 ```
@@ -474,6 +487,19 @@ executive_notes:      ______________
 ### 3.2 · `S17` — `audience_cta`
 
 Same standing as `S04`: no entry, never filled.
+
+</details>
+
+**Q8 · ANSWERED 2026-08-29 — carries intent; incorporated into `EPR-06` Celebration** ✔
+
+> *"The audience call-to-action extends the documentary's invitation into the continuing
+> community and forms part of the concluding celebration rather than a distinct narrative
+> beat."*
+
+`EPR-06.segment_refs` `[S13,S14,S15,S16,S18]` → `[S13,S14,S15,S16,S17,S18]`, closing the
+discontinuity that sat between `S16` and `S18`. **No new entry, no authored field modified.**
+
+<details><summary>original question, retained</summary>
 
 **Q8.1 · Does `S17` carry documentary intent?**
 
@@ -511,6 +537,10 @@ opaque string.
 
 **No action was taken, because the ruling was to take none.** `"Empathy -> Reverence"` stands
 byte-for-byte as carried through from `EMOTIONAL_ARC` v1.0.0, and `EPR-05` was not split.
+
+---
+
+</details>
 
 ---
 
@@ -559,7 +589,7 @@ executive_notes:      ______________
 
 **Q11 is closed.** `intensity_scale.ordered: true`; `scale_class: ORDERED_CATEGORICAL`;
 `measures: "narrative significance within the documentary"`;
-`order: [LOW, MODERATE, HIGH, ELEVATED, CLIMACTIC]`. Transcribed into EPR-001 v1.11.0 with the
+`order: [LOW, MODERATE, HIGH, ELEVATED, CLIMACTIC]`. Transcribed into EPR-001 v1.12.0 with the
 four ordinal constraints verbatim. **`PBC-4` is discharged.**
 
 ### 5.1a · The two questions the foundation raised — **both RESOLVED 2026-08-28** ✔
@@ -604,7 +634,7 @@ authored_by: "Executive Producer / Chairman"
 date: ""
 
 # field_definitions and intensity_scale.ordered were DECLARED 2026-08-28 and are already
-# transcribed into EPR-001 v1.11.0. They are not asked again here.
+# transcribed into EPR-001 v1.12.0. They are not asked again here.
 
 entries:
   EPR-01:  # Arrival · S01, S02
@@ -670,7 +700,7 @@ undeclared_segments:
 
 registry_declarations:
   # intensity_scale_ordered: ANSWERED 2026-08-28 — ORDERED_CATEGORICAL, LOW..CLIMACTIC
-  # four_question_mapping · OQ-1 · OQ-2 : all ANSWERED 2026-08-28, in EPR-001 v1.11.0
+  # four_question_mapping · OQ-1 · OQ-2 : all ANSWERED 2026-08-28, in EPR-001 v1.12.0
   OQ_2a_episodic_terminal_scope: ""     # one terminal beat for the film | one per episode
                                         # (deferred — blocked by PBC-3, not blocking authoring)
   missing_field_needed: ""              # Q12
@@ -747,7 +777,7 @@ propagates as unknown and is never defaulted, in this round or any later one.
 | values inferred, suggested, defaulted or exampled | **none** |
 | intensity tokens | the five ratified tokens, verbatim, **presented without an ordering** |
 | segment facts | transcribed from `TIMELINE_REGISTRY` v1.0.0 |
-| declared beats and `audience_state` values | transcribed from EPR-001 v1.11.0 |
+| declared beats and `audience_state` values | transcribed from EPR-001 v1.12.0 |
 | positions | **withheld from the question pages by design**; Appendix A only, marked superseded |
 | episode groupings | **none offered** — not derivable without inference (`PBC-3`) |
 | definitions of `governing_theme` and `editorial_transition` | **not supplied** — the gap is raised in §0.2 and left to you |
