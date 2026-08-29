@@ -5,6 +5,11 @@
 **Custody:** `PRESENTATION PACKAGE ONLY` · **Status:** `CANONICAL SOURCE`
 **Repository measured at:** `0acf42a` · 2026-08-29T06:37:02Z
 
+> ### BASELINE FROZEN — WET-EXEC-006, 2026-08-29
+> This file is the canonical source of **Presentation Package Version 2.0**, the governed baseline.
+> **Publication snapshot: `0acf42a` · 2026-08-29T06:37:02Z · repository version `governance-v1.0`.**
+> **Metrics are frozen at this snapshot and are not refreshed during document generation.** Any repository change after measurement constitutes a **new publication cycle**, not an edit — this supersedes the earlier *"re-measure before every presentation"* condition. Structural additions require a new Executive Order; see `WET_EXEC_006_BASELINE_FREEZE.md` §2 for the boundary and `WET_EXEC_SERIES_INDEX.md` for the program record.
+
 > ## CANONICAL RULE
 > **All presentation variants derive exclusively from this file.**
 > No derivative deck may introduce a fact not present here. No derivative deck is independently edited.
@@ -100,7 +105,9 @@ executive documents    6 →   7
 
 **The drift was caused by this package's own commits.** The package is a set of files in the repository it describes, so describing the repository changes it.
 
-`S-00` · **A measured figure is true at a commit, not in general.** Every derivative deck carries the measurement commit and timestamp on its metrics slide, and **re-measurement precedes every presentation.** This is `DOC-001` — *validate the instrument before the measurement* — applied to the package itself.
+`S-00` · **A measured figure is true at a commit, not in general.** Every derivative deck carries the measurement commit and timestamp on its metrics slide.
+
+**Amended by WET-EXEC-006.** The original form of `S-00` required re-measurement before every presentation — which permitted a document to silently become a different document. **The governed form freezes the snapshot: figures are true of `0acf42a` and say so, and a repository change after measurement opens a new publication cycle rather than an edit.** This is `DOC-001` and `DOC-002` applied together to the package itself — *validate the instrument before the measurement*, then *regenerate, never patch.*
 
 ---
 
