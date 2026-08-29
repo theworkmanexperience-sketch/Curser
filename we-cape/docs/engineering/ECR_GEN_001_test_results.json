@@ -1,0 +1,86 @@
+[
+ {
+  "id": "T1",
+  "test": "FCPXML ingestion (08-24)",
+  "status": "PASS",
+  "measurement": "1096 elements resolved; spine closes at 4689.5 s vs sequence 4689.5 s",
+  "note": "resolver ran without an ETC; see T3"
+ },
+ {
+  "id": "T2",
+  "test": "SRT ingestion (08-24)",
+  "status": "PASS",
+  "measurement": "2036 cues parsed; sha 2a16dd700148488f...; last cue ends 4688.958 s vs runtime 4689.5 s",
+  "note": ""
+ },
+ {
+  "id": "T3",
+  "test": "Editorial Timing Contract binding",
+  "status": "BLOCKED",
+  "measurement": "CTX.sha.etc = NOT_PRODUCED; CTX.source_files.etc = NOT_PRODUCED",
+  "note": "IP-1. No ETC exists for the 08-24 lineage. The resolver reports etc_validation NOT_VALIDATED rather than silently proceeding. DOC-001 instrument agreement CANNOT be demonstrated for this lineage until an ETC is produced."
+ },
+ {
+  "id": "T4",
+  "test": "Segment binding (08-24)",
+  "status": "BLOCKED",
+  "measurement": "no observation dataset exists for the 08-24 lineage",
+  "note": "IP-6. The segment set must be re-derived against the governed timeline and ratified by the Executive. The generator now ACCEPTS a segment table as data - it no longer contains one."
+ },
+ {
+  "id": "T5",
+  "test": "Caption binding (08-24)",
+  "status": "PASS",
+  "measurement": "65 title elements resolved from the 08-24 FCPXML; SRT carries 2036 cues",
+  "note": "structural binding only; a collapse rule for doubled Parent-SRT cues is still undeclared (IP-4)"
+ },
+ {
+  "id": "T6",
+  "test": "EPR-001 integration",
+  "status": "PASS",
+  "measurement": "EPR-001 v1.13.0 loads; 7 entries; 19 distinct segment_refs S01..S19",
+  "note": "EPR is segment-keyed, so it binds by identifier and needs no timecode. Resolving those identifiers to spans still requires the re-derived segment set (T4)."
+ },
+ {
+  "id": "T7",
+  "test": "EPR-07 retirement handled without exception",
+  "status": "PASS",
+  "measurement": "retirement.disposition=RETIRE; consumer skipped it and returned 6 active beats; exception=None",
+  "note": "EPR-07 remains present with beat, audience_state and segment_refs intact; only the consumer skips it."
+ },
+ {
+  "id": "T8",
+  "test": "Parameterized RUN_ID generation",
+  "status": "PASS",
+  "measurement": "--run-id auto -> WECAPE-AR2-0822-20260829-005139; --run-id pinned -> WECAPE-AR2-SPRINT3A-20260822-114028",
+  "note": ""
+ },
+ {
+  "id": "T9",
+  "test": "No 08-22 constants remain in the generator",
+  "status": "PASS",
+  "measurement": "{\"runtime\": 0, \"mp4_sha\": 0, \"fcpxml_sha\": 0, \"srt_sha\": 0, \"etc_sha\": 0, \"run_id\": 0, \"git\": 0, \"segment_table\": 0, \"cue_table\": 0, \"abs_path\": 0}",
+  "note": ""
+ },
+ {
+  "id": "T10",
+  "test": "Refactor equivalence v1 == v2 on identical inputs",
+  "status": "PASS",
+  "measurement": "7/7 artifacts byte-identical",
+  "note": ""
+ },
+ {
+  "id": "T11",
+  "test": "Committed artifacts match the committed generator",
+  "status": "FAIL",
+  "measurement": "1 of 7 committed artifacts differ: ['CONDUCTOR_SCORE.yaml']",
+  "note": "gen_artifacts.py was committed twice AFTER CONDUCTOR_SCORE.yaml was last regenerated (319f234 Option C, 0f3d12c MOTION sidechain). Under DOC-002 the artifact is stale."
+ },
+ {
+  "id": "T12",
+  "test": "Every pipeline input has a producer",
+  "status": "FAIL",
+  "measurement": "2 inputs unproduceable; camera_runs.json RESOLVED by derive_camera_runs.py this task",
+  "note": "video_obs_2fps.npy (required by die_v_observables.py) - no producer in the repository; audio_rms_0p25.npy (required by step0_offset.py) - no producer in the repository"
+ }
+]

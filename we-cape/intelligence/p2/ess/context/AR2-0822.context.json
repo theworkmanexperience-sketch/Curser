@@ -1,0 +1,48 @@
+{
+ "production_id": "AR2-0822",
+ "lineage": "2026-08-22 editorial lock",
+ "lineage_status": "SUPERSEDED_ASSEMBLY",
+ "runtime_s": 4846.625,
+ "frame_rate": "24/1",
+ "ndf": true,
+ "resolution": "3840x2160",
+ "git_commit": "ff0c45f77b2fb612606e1d5b8ef86641822e5e4a",
+ "run_id": "WECAPE-AR2-SPRINT3A-20260822-114028",
+ "regen_run_id": "WECAPE-AR2-ESS004-REGEN-20260822-174500",
+ "sha": {
+  "mp4": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8",
+  "fcpxml": "2bf0685373d6963bc151b982fd8b16b072d47ca88bb36f3c4dcd4cf5563858e7",
+  "srt": "89d61f965aa17e4d3dade14173869b34efb0c09d689b1c347d3c9c8f6eca1c6b",
+  "etc": "e91318a6719c81e448e6c57267dff7a807076cb9aded822a459fb6353e80010d"
+ },
+ "proxy": {
+  "name": "Filmage_Editor.mp4",
+  "video_duration_s": 4846.633,
+  "container_duration_s": 4846.747,
+  "resolution": "320x180",
+  "fps": 30
+ },
+ "srt": {
+  "cues": 2291,
+  "first_s": 0.333,
+  "last_s": 4841.208
+ },
+ "etc": {
+  "spine": 191,
+  "connected": 404
+ },
+ "ruling": {
+  "id": "ESS-004-RULING",
+  "date": "2026-08-22",
+  "authority": "Executive Producer",
+  "session": "ELS-001",
+  "definition": "MANDATORY_SILENCE prohibits WE CAPE-ADDED NON-DIEGETIC SCORE only. Existing production audio - speech, ambience, engine noise, wind, and any source audio captured as part of the documentary record - remains permissible unless otherwise directed by an Executive PDR.",
+  "test": "PROVENANCE, not acoustics. An element breaches a silence zone if and only if WE CAPE added it as score. Read from the FCPXML asset media-rep path: /Soundtrack/ = WE CAPE-added score; Original Media or CONTRIBUTED = documentary record. No listening judgement is required, and none is permitted as the basis of a compliance verdict.",
+  "finding": "ELS-001: the span is a composite production soundscape - music/vocals, engine rumble, wind, speech. The proxy does not conclusively distinguish the provenance of the musical content, and that distinction is NOT required under this ruling."
+ },
+ "source_files": {
+  "srt": "inputs/lock_srt2.srt",
+  "fcpxml": "inputs/Info.fcpxml",
+  "etc": "inputs/P2_LOCK_timing.json"
+ }
+}

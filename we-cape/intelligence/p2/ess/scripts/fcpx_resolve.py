@@ -72,6 +72,8 @@ class Resolver:
                 self.walk(ch, ch_abs, start, depth+1, name or ch.tag, path + '/' + ch.tag)
 
 def main(fcpxml, etc_json, outjson):
+    # etc_json may be the literal string NONE: the resolver then runs without
+    # ETC validation and reports etc_validation: NOT_VALIDATED (DOC-001).
     tree = ET.parse(fcpxml); root = tree.getroot()
     seq = root.find('.//sequence')
     seq_dur = rt(seq.get('duration')); tc0 = rt(seq.get('tcStart') or '0s')
@@ -87,6 +89,18 @@ def main(fcpxml, etc_json, outjson):
                              height=fmt.get('height')),
                elements=rows)
     # ---- validation vs ETC ----
+    if etc_json in ('NONE','none',None):
+        out['validation'] = dict(etc_validation='NOT_VALIDATED',
+            reason='no Editorial Timing Contract supplied for this lineage',
+            resolved_spine_n=len([x for x in rows if x['depth']==0]),
+            sequence_duration_s=f2(seq_dur),
+            spine_end_s=[x for x in rows if x['depth']==0][-1]['abs_out_s'])
+        json.dump(out, open(outjson,'w'), indent=1)
+        print(json.dumps(out['validation'], indent=1))
+        import collections
+        print('total resolved elements:', len(rows))
+        print('by tag:', collections.Counter(x['tag'] for x in rows))
+        return
     etc = json.load(open(etc_json))
     etc_spine = etc['spine']
     mine_spine = [x for x in rows if x['depth'] == 0]

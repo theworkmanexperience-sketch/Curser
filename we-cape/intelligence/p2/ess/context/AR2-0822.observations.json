@@ -1,0 +1,1713 @@
+{
+ "segments": [
+  [
+   "S01",
+   0,
+   73,
+   "cold_open",
+   null,
+   []
+  ],
+  [
+   "S02",
+   73,
+   111,
+   "host_day_brief",
+   null,
+   [
+    "host"
+   ]
+  ],
+  [
+   "S03",
+   111,
+   1622,
+   "interview_gauntlet_1",
+   "L03-staging",
+   [
+    "R01-R45"
+   ]
+  ],
+  [
+   "S04",
+   1622,
+   1643,
+   "ride_brief",
+   "L03",
+   []
+  ],
+  [
+   "S05",
+   1660,
+   1750,
+   "escort_ride",
+   null,
+   []
+  ],
+  [
+   "S06",
+   1903,
+   1953,
+   "librarian_speech",
+   "L04",
+   [
+    "C01"
+   ]
+  ],
+  [
+   "S07",
+   1965,
+   2030,
+   "council_profile",
+   null,
+   [
+    "C02"
+   ]
+  ],
+  [
+   "S08",
+   2031,
+   2156,
+   "town_proclamation",
+   null,
+   [
+    "C03-mayor"
+   ]
+  ],
+  [
+   "S09",
+   2163,
+   2190,
+   "first_ride_moment",
+   null,
+   []
+  ],
+  [
+   "S10",
+   2219,
+   2332,
+   "state_proclamation",
+   null,
+   [
+    "C04",
+    "C05"
+   ]
+  ],
+  [
+   "S11",
+   2335,
+   3120,
+   "interview_gauntlet_2",
+   "L04",
+   [
+    "R46-R67"
+   ]
+  ],
+  [
+   "S12",
+   3124,
+   3236,
+   "organizer_honors_and_silence",
+   null,
+   []
+  ],
+  [
+   "S13",
+   3230,
+   3275,
+   "group_photo",
+   null,
+   []
+  ],
+  [
+   "S14",
+   3276,
+   3324,
+   "service_wrap_preview",
+   null,
+   []
+  ],
+  [
+   "S15",
+   3370,
+   3523,
+   "riding_music_passage",
+   null,
+   []
+  ],
+  [
+   "S16",
+   3523,
+   3985,
+   "bike_night_arrivals",
+   null,
+   [
+    "R68-R75"
+   ]
+  ],
+  [
+   "S17",
+   3985,
+   4008,
+   "audience_cta",
+   null,
+   []
+  ],
+  [
+   "S18",
+   4165,
+   4780,
+   "bike_night_ambience",
+   null,
+   []
+  ],
+  [
+   "S19",
+   4784,
+   4846,
+   "friday_wrap_part3_tease",
+   null,
+   []
+  ]
+ ],
+ "cues": [
+  [
+   "CUE-01",
+   0,
+   73
+  ],
+  [
+   "CUE-02a",
+   111,
+   630
+  ],
+  [
+   "CUE-02b",
+   630,
+   1125
+  ],
+  [
+   "CUE-02c",
+   1125,
+   1622
+  ],
+  [
+   "CUE-03",
+   1660,
+   1750
+  ],
+  [
+   "SIL-01",
+   1903,
+   2332
+  ],
+  [
+   "CUE-04",
+   2335,
+   3120
+  ],
+  [
+   "SIL-02",
+   3124,
+   3229
+  ],
+  [
+   "CUE-05",
+   3230,
+   3275
+  ],
+  [
+   "CUE-06",
+   3276,
+   3324
+  ],
+  [
+   "CUE-07",
+   3370,
+   3523
+  ],
+  [
+   "CUE-08",
+   3523,
+   4008
+  ],
+  [
+   "CUE-09a",
+   4165,
+   4470
+  ],
+  [
+   "CUE-09b",
+   4470,
+   4780
+  ],
+  [
+   "CUE-10",
+   4784,
+   4846
+  ]
+ ],
+ "visual_events": [
+  {
+   "id": "VE-001",
+   "span": {
+    "start_s": 0.0,
+    "end_s": 31.0,
+    "start_tc": "00:00:00.000",
+    "end_tc": "00:00:31.000"
+   },
+   "event_class": "ILLUMINATION_DAY_OR_LIT_INTERIOR",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "measured:2fps-luma-series",
+   "confidence": "HIGH",
+   "observation": "mean luma 116.6 (grid 2 fps, 64x36 luma)",
+   "derivation": "INSTRUMENT_DERIVED_LUMA",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-002",
+   "span": {
+    "start_s": 31.0,
+    "end_s": 69.5,
+    "start_tc": "00:00:31.000",
+    "end_tc": "00:01:09.500"
+   },
+   "event_class": "ILLUMINATION_LOW_LIGHT_NIGHT",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "measured:2fps-luma-series; frames 00:00:33,36,...,00:01:06",
+   "confidence": "HIGH",
+   "observation": "sustained luma <70 for 38.5 s; night material inside the cold-open montage",
+   "derivation": "INSTRUMENT_DERIVED_LUMA",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-003",
+   "span": {
+    "start_s": 69.5,
+    "end_s": 3984.5,
+    "start_tc": "00:01:09.500",
+    "end_tc": "01:06:24.500"
+   },
+   "event_class": "ILLUMINATION_DAY_OR_LIT_INTERIOR",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "measured:2fps-luma-series",
+   "confidence": "HIGH",
+   "observation": "mean luma 118.5; continuous day / lit-interior block spanning 65 min",
+   "derivation": "INSTRUMENT_DERIVED_LUMA",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-004",
+   "span": {
+    "start_s": 3984.5,
+    "end_s": 4846.5,
+    "start_tc": "01:06:24.500",
+    "end_tc": "01:20:46.500"
+   },
+   "event_class": "ILLUMINATION_LOW_LIGHT_NIGHT",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "measured:2fps-luma-series; frame 01:06:24 is first night sample, 01:06:21 still day",
+   "confidence": "HIGH",
+   "observation": "sustained luma <70 to end of runtime; mean luma 47.2; warm ratio R/B 1.32 (artificial amber street/venue lighting, NOT golden hour)",
+   "derivation": "INSTRUMENT_DERIVED_LUMA",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-005",
+   "span": {
+    "start_s": 0.0,
+    "end_s": 73.0,
+    "start_tc": "00:00:00.000",
+    "end_tc": "00:01:13.000"
+   },
+   "event_class": "COLD_OPEN_MONTAGE",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:00:00,03,06,...,00:01:12 (sheet_000)",
+   "confidence": "HIGH",
+   "observation": "Rapid montage: club back-patch inserts; highway riding formation; marked police vehicle; massed motorcycles in a lot; interior ceremony with US flag and standards; night street/venue material. Shot-change density 25.5 cuts/min (highest in the film).",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-006",
+   "span": {
+    "start_s": 69.375,
+    "end_s": 76.417,
+    "start_tc": "00:01:09.375",
+    "end_tc": "00:01:16.417"
+   },
+   "event_class": "MAIN_TITLE_CARD",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "ETC title[1]; frames 00:01:09,00:01:12",
+   "confidence": "HIGH",
+   "observation": "On-screen title 'ALPHA ROUNDUP II'; ETC title element in/out reproduced in picture.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-007",
+   "span": {
+    "start_s": 111.0,
+    "end_s": 1622.0,
+    "start_tc": "00:01:51.000",
+    "end_tc": "00:27:02.000"
+   },
+   "event_class": "INTERVIEW_STAGING_AREA_STATIC_DAY",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames sampled 00:01:51 .. 00:27:00 at 3.000 s (sheets 001-018); sheets read: 001,005,010,015",
+   "confidence": "HIGH",
+   "observation": "Hotel parking lot, overcast sky, wet pavement, densely parked touring motorcycles, one or two subjects addressing camera. Camera is body/stick-mounted, near-static with slow reframes. Crowd density band: MODERATE (individuals distinguishable, lot not full-frame packed).",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-008",
+   "span": {
+    "start_s": 111.333,
+    "end_s": 335.695,
+    "start_tc": "00:01:51.333",
+    "end_tc": "00:05:35.695"
+   },
+   "event_class": "QUESTION_CARD_SEQUENCE_1",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "ETC titles[2..22]; picture-verified at 00:01:51 and 00:02:00",
+   "confidence": "HIGH",
+   "observation": "Recurring on-screen question cards (Who You Rid'n Wit? / Initiated? / Why Do You Ride? / What's Your Name / What RU Rid'n?) plus 'One Question... Many Answers'. 22 ETC title elements.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-009",
+   "span": {
+    "start_s": 380.75,
+    "end_s": 537.557,
+    "start_tc": "00:06:20.750",
+    "end_tc": "00:08:57.557"
+   },
+   "event_class": "KINETIC_TEXT_CARD_SEQUENCE_1",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "ETC nested titles; picture-verified at 00:07:39 and 00:08:57",
+   "confidence": "HIGH",
+   "observation": "Nested (compound-clip) kinetic text cards: 'One Question... Many Answers', 'W i n d T h e r a p h y', 'T h r o t t l e h e r a p h y'. Not counted in the ETC 40-title census.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-010",
+   "span": {
+    "start_s": 1620.0,
+    "end_s": 1660.0,
+    "start_tc": "00:27:00.000",
+    "end_tc": "00:27:40.000"
+   },
+   "event_class": "MOUNT_UP_STAGING_AREA",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:27:00 .. 00:27:39 (sheet_018)",
+   "confidence": "HIGH",
+   "observation": "Riders returning to machines, helmets on, column forming in the staging lot.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-011",
+   "span": {
+    "start_s": 1630.0,
+    "end_s": 1644.6,
+    "start_tc": "00:27:10.000",
+    "end_tc": "00:27:24.600"
+   },
+   "event_class": "MAP_TRAVEL_GRAPHIC_INSERT",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:27:12,00:27:15,00:27:18,00:27:21",
+   "confidence": "HIGH",
+   "observation": "Picture-in-picture route-map animation (origin to Smyrna Event Center) visible in frame; co-located with ETC audio element 'Map traavel to Smyrna Event Center-7' (27:10.000-27:24.610).",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-012",
+   "span": {
+    "start_s": 1660.0,
+    "end_s": 1695.0,
+    "start_tc": "00:27:40.000",
+    "end_tc": "00:28:15.000"
+   },
+   "event_class": "ESCORT_DEPARTURE_COLUMN",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "probe P1 frames 00:27:40 .. 00:28:15 at 1.000 s",
+   "confidence": "HIGH",
+   "observation": "Machines leaving the lot in single/double column onto the public road. PROBE-1 window.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-013",
+   "span": {
+    "start_s": 1695.0,
+    "end_s": 1990.0,
+    "start_tc": "00:28:15.000",
+    "end_tc": "00:33:10.000"
+   },
+   "event_class": "MASS_RIDE_PUBLIC_ROAD",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "probe P1 frames 00:28:15..00:29:09; frames 00:28:30..00:33:00 (sheets 019-022)",
+   "confidence": "HIGH",
+   "observation": "Continuous mass ride on public roads in two-abreast formation, POV from within the column. Uninterrupted from 00:28:15 to approx 00:33:00. Crowd/vehicle density band: HIGH (column fills frame).",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-014",
+   "span": {
+    "start_s": 1746.0,
+    "end_s": 1851.0,
+    "start_tc": "00:29:06.000",
+    "end_tc": "00:30:51.000"
+   },
+   "event_class": "LAW_ENFORCEMENT_ESCORT_PRESENCE",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "probe P1 frame 00:29:06; frames 00:30:03,00:30:21,00:30:51,00:31:33,00:31:48",
+   "confidence": "HIGH",
+   "observation": "Marked police vehicles and an officer positioned at road intersections along the route (observed at 00:29:06, 00:30:03, 00:30:21, 00:30:51, 00:31:33, 00:31:48).",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-015",
+   "span": {
+    "start_s": 1974.0,
+    "end_s": 1980.0,
+    "start_tc": "00:32:54.000",
+    "end_tc": "00:33:00.000"
+   },
+   "event_class": "CARTOGRAPHIC_REVEAL",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:32:54,00:32:57",
+   "confidence": "HIGH",
+   "observation": "Full-frame map graphic: state outline labelled TENNESSEE with NASHVILLE and SMYRNA placed.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-016",
+   "span": {
+    "start_s": 1980.0,
+    "end_s": 1990.0,
+    "start_tc": "00:33:00.000",
+    "end_tc": "00:33:10.000"
+   },
+   "event_class": "AERIAL_OR_ELEVATED_ESTABLISHING_VIEW",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frame 00:33:00",
+   "confidence": "MEDIUM",
+   "observation": "High-angle wide view of the town/venue approach with an emblem overlay. UNCERTAIN whether captured from an aerial platform or an elevated position: at 320x180 the parallax cue is not resolvable, and camera-device family in the ETC does not establish capture mode.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-017",
+   "span": {
+    "start_s": 1987.25,
+    "end_s": 1994.958,
+    "start_tc": "00:33:07.250",
+    "end_tc": "00:33:14.958"
+   },
+   "event_class": "VENUE_IDENTIFICATION_CARD",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "ETC title[23]; picture-verified at 00:33:06,00:33:09,00:33:12",
+   "confidence": "HIGH",
+   "observation": "On-screen card 'Smyrna Event Center / 100 Sam Ridley Parkway East, Smyrna, TN 37167'.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-018",
+   "span": {
+    "start_s": 1995.0,
+    "end_s": 2100.0,
+    "start_tc": "00:33:15.000",
+    "end_tc": "00:35:00.000"
+   },
+   "event_class": "VENUE_ARRIVAL_PROCESSION",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:33:15 .. 00:35:00 (sheets 022-023)",
+   "confidence": "HIGH",
+   "observation": "Machines arriving at the venue frontage in procession; riders raising fists; civic speech carried as a picture-in-picture inset over the arrival picture rather than full frame.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-019",
+   "span": {
+    "start_s": 2022.458,
+    "end_s": 2331.542,
+    "start_tc": "00:33:42.458",
+    "end_tc": "00:38:51.542"
+   },
+   "event_class": "CIVIC_LOWER_THIRD_SEQUENCE",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "ETC titles[24..31]; picture-verified at 00:33:45,00:35:18,00:37:00,00:37:12",
+   "confidence": "HIGH",
+   "observation": "Named civic lower-thirds: Racquel Peebles (Council Member), Mayor Mary Esther Reed, David Santucci (Town Manager), Jerome Dempsey (Council Member). 9 ETC title elements. Person linkage deferred to human confirmation against ORGANIZATION/RIDER registries; no biometric identification performed - text was read from the title elements, not from faces.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-020",
+   "span": {
+    "start_s": 2106.0,
+    "end_s": 2109.0,
+    "start_tc": "00:35:06.000",
+    "end_tc": "00:35:09.000"
+   },
+   "event_class": "OBSERVED_BLACK_FRAME",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frame 00:35:06",
+   "confidence": "MEDIUM",
+   "observation": "A fully black sampled frame at 00:35:06 between two picture-bearing samples. Classified as OBSERVED, not diagnosed: at a 3.000 s sampling grid a dip-to-black transition and a black-frame defect are indistinguishable. Requires human inspection of 00:35:04-00:35:09.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-021",
+   "span": {
+    "start_s": 2116.333,
+    "end_s": 2133.958,
+    "start_tc": "00:35:16.333",
+    "end_tc": "00:35:33.958"
+   },
+   "event_class": "PROCLAMATION_DOCUMENT_INSERT_TOWN",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:35:18,00:35:21,00:35:24,00:35:27,00:35:30",
+   "confidence": "HIGH",
+   "observation": "'OFFICE OF THE MAYOR / Proclamation' document shown full-height beside a speaker inset.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-022",
+   "span": {
+    "start_s": 2190.0,
+    "end_s": 2220.0,
+    "start_tc": "00:36:30.000",
+    "end_tc": "00:37:00.000"
+   },
+   "event_class": "INTERIOR_PRESENTATION_FULL_FRAME",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:36:33 .. 00:36:57",
+   "confidence": "HIGH",
+   "observation": "Interior presentation: podium area, US flag and a second standard, presenter with microphone, club members receiving. Camera near-static. Crowd density band: LOW-to-MODERATE in frame.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-023",
+   "span": {
+    "start_s": 2277.0,
+    "end_s": 2325.0,
+    "start_tc": "00:37:57.000",
+    "end_tc": "00:38:45.000"
+   },
+   "event_class": "PROCLAMATION_DOCUMENT_INSERT_STATE",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:37:57 .. 00:38:45",
+   "confidence": "HIGH",
+   "observation": "'STATE OF TENNESSEE / PROCLAMATION' document shown full-height with two officials as inset, over parking-lot picture.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-024",
+   "span": {
+    "start_s": 2335.0,
+    "end_s": 3120.0,
+    "start_tc": "00:38:55.000",
+    "end_tc": "00:52:00.000"
+   },
+   "event_class": "INTERVIEW_STAGING_AREA_STATIC_DAY_2",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:38:57 .. 00:52:00 at 3.000 s (sheets 025-034); sheets read: 025,026",
+   "confidence": "HIGH",
+   "observation": "Second interview gauntlet, visibly a different location from the first: venue parking lot with a low brick building behind, dry pavement, denser machine parking. Crowd density band: HIGH.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-025",
+   "span": {
+    "start_s": 2337.708,
+    "end_s": 2382.583,
+    "start_tc": "00:38:57.708",
+    "end_tc": "00:39:42.583"
+   },
+   "event_class": "QUESTION_CARD_SEQUENCE_2",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "ETC titles[32..36]; picture-verified at 00:38:57,00:39:06,00:39:18,00:39:33,00:39:39",
+   "confidence": "HIGH",
+   "observation": "Question cards resume for the second gauntlet (5 ETC title elements) inside the R46 carve-out window.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-026",
+   "span": {
+    "start_s": 2566.917,
+    "end_s": 3120.042,
+    "start_tc": "00:42:46.917",
+    "end_tc": "00:52:00.042"
+   },
+   "event_class": "KINETIC_TEXT_CARD_SEQUENCE_2",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "ETC nested titles 00:42:46 .. 00:52:00",
+   "confidence": "HIGH",
+   "observation": "Nested kinetic text cards: 'For My P E A C E', 'TEN YEARS WE RIDE AS ONE BROTHERHOOD!', 'Be Alone, In My T h o u g h t s', 'I Love R i d i n g', 'For the B r o t h e r h o o d', 'The Ride Is Only The Beginning', 'Brotherhood Beyond The Miles', 'The Journey Reveals The Why'.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-027",
+   "span": {
+    "start_s": 3124.0,
+    "end_s": 3210.0,
+    "start_tc": "00:52:04.000",
+    "end_tc": "00:53:30.000"
+   },
+   "event_class": "INTERIOR_HONORS_CEREMONY",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "probe P2 frames 00:52:04 .. 00:53:30 at 1.000 s",
+   "confidence": "HIGH",
+   "observation": "Interior hall: podium with venue plate, US flag and standards, framed plaques presented and raised, line of recipients holding awards. Camera near-static, low frame-difference energy. PROBE-2 window.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-028",
+   "span": {
+    "start_s": 3210.0,
+    "end_s": 3232.0,
+    "start_tc": "00:53:30.000",
+    "end_tc": "00:53:52.000"
+   },
+   "event_class": "BANQUET_ROOM_WIDE_HIGH_DENSITY",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "probe P2 frames 00:53:30 .. 00:53:48",
+   "confidence": "HIGH",
+   "observation": "Wide views of a seated banquet room, round tables fully occupied. Crowd density band: HIGH.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-029",
+   "span": {
+    "start_s": 3240.0,
+    "end_s": 3262.0,
+    "start_tc": "00:54:00.000",
+    "end_tc": "00:54:22.000"
+   },
+   "event_class": "VENUE_EGRESS_WALKOUT",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:54:00 .. 00:54:21",
+   "confidence": "HIGH",
+   "observation": "Members walking out through interior corridors and lobby to the exterior.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-030",
+   "span": {
+    "start_s": 3264.0,
+    "end_s": 3282.0,
+    "start_tc": "00:54:24.000",
+    "end_tc": "00:54:42.000"
+   },
+   "event_class": "MASS_GROUP_PHOTOGRAPH_EXTERIOR",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:54:24,00:54:27,00:54:30,00:54:33,00:54:36",
+   "confidence": "HIGH",
+   "observation": "Several hundred members assembled in ranks under the venue portico for a group photograph, shot from across the lawn. Crowd density band: VERY HIGH.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-031",
+   "span": {
+    "start_s": 3285.0,
+    "end_s": 3330.0,
+    "start_tc": "00:54:45.000",
+    "end_tc": "00:55:30.000"
+   },
+   "event_class": "MOUNT_UP_VENUE_LOT",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:54:45 .. 00:55:27",
+   "confidence": "HIGH",
+   "observation": "Mass mount-up in the venue lot; machines packed nose-in across the frame.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-032",
+   "span": {
+    "start_s": 3328.0,
+    "end_s": 3520.0,
+    "start_tc": "00:55:28.000",
+    "end_tc": "00:58:40.000"
+   },
+   "event_class": "ROAD_RIDE_DAY_CLEAR_SKY",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:55:30 .. 00:58:27 (sheets 037-038)",
+   "confidence": "HIGH",
+   "observation": "Sustained multi-lane road riding in formation under clear blue sky - a visibly different sky state from the overcast staging block earlier in the day.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-033",
+   "span": {
+    "start_s": 3520.0,
+    "end_s": 3984.5,
+    "start_tc": "00:58:40.000",
+    "end_tc": "01:06:24.500"
+   },
+   "event_class": "DAYLIGHT_LOT_GATHERING_AND_INTERVIEWS",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 00:58:30 .. 01:06:21 (sheets 039-044); sheets read: 039,041,044",
+   "confidence": "HIGH",
+   "observation": "Hotel parking lot in bright daylight with blue sky: arrivals, machines being parked, individual riders addressing camera. Measured mean luma 130.7. This span carries the registry label 'bike_night_arrivals'; the picture in this span is daylight. Recorded as an observation only - the registry value remains authoritative.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-034",
+   "span": {
+    "start_s": 3984.5,
+    "end_s": 4100.0,
+    "start_tc": "01:06:24.500",
+    "end_tc": "01:08:20.000"
+   },
+   "event_class": "NIGHT_RIDE_DEPARTURE",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 01:06:21,01:06:24,01:06:27 .. 01:08:00; measured 2 fps luma series",
+   "confidence": "HIGH",
+   "observation": "Transition to night within one sampling interval: 01:06:21 is daylight, 01:06:24 is night. Instrument cross-check places the sustained night onset at 3984.5 s. Night ride departure follows, handlebar/dashboard POV with headlamps and tail lights.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-035",
+   "span": {
+    "start_s": 4140.0,
+    "end_s": 4400.0,
+    "start_tc": "01:09:00.000",
+    "end_tc": "01:13:20.000"
+   },
+   "event_class": "NIGHT_VENUE_LOT_GATHERING",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 01:09:00 .. 01:13:20 (sheets 046-048); sheet read: 046",
+   "confidence": "HIGH",
+   "observation": "Night venue lot: machines parked with coloured accent lighting, people moving between them, storefront frontage lit behind. Crowd density band: MODERATE-to-HIGH.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-036",
+   "span": {
+    "start_s": 4410.0,
+    "end_s": 4490.0,
+    "start_tc": "01:13:30.000",
+    "end_tc": "01:14:50.000"
+   },
+   "event_class": "INTERIOR_NIGHT_VENUE_CROWD",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 01:13:30 .. 01:14:18 (sheet_049)",
+   "confidence": "HIGH",
+   "observation": "Interior of a night venue: multiple screens, string lighting, standing and seated crowd. Crowd density band: HIGH.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-037",
+   "span": {
+    "start_s": 4490.0,
+    "end_s": 4780.0,
+    "start_tc": "01:14:50.000",
+    "end_tc": "01:19:40.000"
+   },
+   "event_class": "NIGHT_ROAD_RIDING",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "frames 01:14:21 .. 01:19:40 (sheets 049-053); sheets read: 049,052",
+   "confidence": "HIGH",
+   "observation": "Night road and highway riding in formation; lowest measured frame-difference energy of the film (mean 12.6) and lowest shot-change density (0.56 cuts/min) - long unbroken takes.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-038",
+   "span": {
+    "start_s": 4784.0,
+    "end_s": 4846.5,
+    "start_tc": "01:19:44.000",
+    "end_tc": "01:20:46.500"
+   },
+   "event_class": "NIGHT_RIDE_CLOSE",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "probe P3 frames 01:19:44 .. 01:20:46 at 1.000 s",
+   "confidence": "HIGH",
+   "observation": "Final night ride into a lit portico arrival, then the closing card run. PROBE-3 window.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  },
+  {
+   "id": "VE-039",
+   "span": {
+    "start_s": 4827.75,
+    "end_s": 4846.042,
+    "start_tc": "01:20:27.750",
+    "end_tc": "01:20:46.042"
+   },
+   "event_class": "CLOSING_CARD_SEQUENCE",
+   "source": {
+    "artifact": "Filmage_Editor.mp4",
+    "sha256": "a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8"
+   },
+   "evidence_ref": "probe P3 frames 01:20:27 .. 01:20:46 at 1.000 s; ETC titles[37..40] + nested closing title",
+   "confidence": "HIGH",
+   "observation": "Closing question cards (Why Do You Ride? / What RU Rid'n? / Who You Rid'n Wit? / How Long You Been Rid'n) then the sign-off card \"..and that's what's good!\". Every card's ETC in/out reproduced in picture to within the 1.000 s probe grid - this is the frame-accuracy evidence for Step 0.",
+   "derivation": "MODEL_MEDIATED_FRAME_OBSERVATION",
+   "enrichment": {
+    "nie": {},
+    "mie": {},
+    "pie": {}
+   }
+  }
+ ],
+ "not_observed": [
+  {
+   "event_class": "GOLDEN_HOUR_LIGHT",
+   "status": "NOT_OBSERVED",
+   "basis": "No span in the runtime shows the low-sun warm daylight signature. The two warm-ratio excursions (R/B 1.31 and 1.32) are the cold-open night montage and the sustained night block, both artificial amber lighting. Warm ratio never exceeds 1.10 during any daylight span."
+  },
+  {
+   "event_class": "FLAG_DETAIL_BEYOND_PRESENCE",
+   "status": "OBSERVED_AS_PRESENCE_ONLY",
+   "basis": "A US flag and one or more additional standards are visible at the interior ceremony and honors spans. Identification of the additional standards is not resolvable at 320x180 and is recorded as UNCERTAIN rather than named."
+  },
+  {
+   "event_class": "PERSON_IDENTITY",
+   "status": "NOT_PERFORMED",
+   "basis": "Prohibited by ADR-009 and WET-SPEC-DIE-001 \u00a711. No face recognition or biometric identification was run. The only person names in this registry are text read from ETC title elements, and they are carried as caption text, not as identifications."
+  },
+  {
+   "event_class": "CAMERA_MOTION_CLASS",
+   "status": "RECORDED_AS_FRAME_DIFFERENCE_ENERGY_ONLY",
+   "basis": "At 320x180 with a 0.5 s observation grid, camera motion cannot be separated from subject motion or from shot changes. The instrument series is published as FRAME_DIFFERENCE_ENERGY bands; camera-motion class per se is UNCERTAIN except where a sheet shows it directly."
+  },
+  {
+   "event_class": "INTERVIEW_COUNT_BY_VISION",
+   "status": "NOT_ATTEMPTED",
+   "basis": "Interview counts remain the registry's (TIMELINE_REGISTRY interview_count, RIDER_REGISTRY). Counting subjects visually would duplicate a governed registry value with a weaker method."
+  }
+ ],
+ "delta_ledger": [
+  {
+   "id": "D-01",
+   "category": "NON_SPEECH_TAIL",
+   "description": "Lock runtime 4846.625 s vs last lock-SRT cue end 4841.208 s. The tail is the closing card over the final shot; no speech exists to transcribe.",
+   "magnitude": "+5.417 s",
+   "disposition": "CLOSED"
+  },
+  {
+   "id": "D-02",
+   "category": "NON_SPEECH_HEAD",
+   "description": "First lock-SRT cue starts at 0.333 s, not 0.000 s.",
+   "magnitude": "+0.333 s",
+   "disposition": "CLOSED"
+  },
+  {
+   "id": "D-03",
+   "category": "PRE_LOCK_VS_LOCK_SRT_REVISION",
+   "description": "Founding fixture (WET-SPEC-DIE-001 App. A) records 2,290 cues ending 01:20:40; the lock SRT carries 2,291 cues ending 01:20:41.208. The pre-lock SRT is not among this run's four authoritative inputs, so the single added cue cannot be identified here.",
+   "magnitude": "+1 cue / +1.208 s",
+   "disposition": "CLOSED-AS-BOUNDED (pre-lock SRT out of scope of this run's inputs)"
+  },
+  {
+   "id": "D-04",
+   "category": "REGISTRY_NOTE_ARITHMETIC",
+   "description": "TIMELINE_REGISTRY.delta_note states the pre-lock/lock delta as +6.025 s. Lock runtime minus the fixture's stated 01:20:40 end is +6.625 s.",
+   "magnitude": "0.600 s",
+   "disposition": "CLOSED-AS-NOTED (registry text unchanged by this run; flagged for registry maintenance)"
+  },
+  {
+   "id": "D-05",
+   "category": "PROXY_CONTAINER_ROUNDING",
+   "description": "Filmage_Editor.mp4 video stream duration 4846.633 s and container duration 4846.747 s vs sequence 4846.625 s.",
+   "magnitude": "+0.008 s video / +0.122 s container",
+   "disposition": "CLOSED"
+  },
+  {
+   "id": "D-06",
+   "category": "ETC_CENSUS_EXCLUDES_TRANSITIONS",
+   "description": "FCPXML top-level spine carries 214 story elements; the ETC spine census is 191. The 23-element difference is exactly the transition elements.",
+   "magnitude": "23 elements",
+   "disposition": "CLOSED"
+  },
+  {
+   "id": "D-07",
+   "category": "NESTED_TITLES_NOT_IN_ETC_CENSUS",
+   "description": "FCPXML contains 57 title elements; 40 sit on connected lanes at depth 1 (the ETC census) and 17 are nested inside compound clips.",
+   "magnitude": "17 titles",
+   "disposition": "CLOSED - the 17 are enrolled into CAPTION_REGISTRY by this run"
+  },
+  {
+   "id": "D-08",
+   "category": "ETC_CONNECTED_OFFSETS_NULL",
+   "description": "Every connected element in P2_LOCK_timing.json carries timeline_offset_s: null; only rel_offset_s is present, and parent references are by non-unique name.",
+   "magnitude": "404 elements",
+   "disposition": "CLOSED - absolute offsets resolved from FCPXML nesting; resolver validated 191/191 against the ETC spine offsets"
+  },
+  {
+   "id": "D-09",
+   "category": "SYNC_CLIP_INTERNAL_MEDIA",
+   "description": "18 resolved elements fall outside [0, 4846.625]. All are video/gap/audio components inside synchronized clips using the offset==start idiom; they are media plumbing, not timeline story elements.",
+   "magnitude": "18 elements",
+   "disposition": "CLOSED - excluded from the timeline census by rule"
+  },
+  {
+   "id": "D-10",
+   "category": "CORRELATION_INDETERMINATE_SPANS",
+   "description": "12 of 19 registry segments cannot yield an independent offset estimate from envelope correlation.",
+   "magnitude": "1968 s of runtime",
+   "disposition": "CLOSED - each carries a categorized reason (segment shorter than the lag-search window, or SRT speech coverage below 30%)"
+  },
+  {
+   "id": "D-11",
+   "category": "SATURATED_SPEECH_MASK",
+   "description": "S08 and S10 initially returned apparent lags of -6.75 s and -3.25 s. In both spans the ASR emits back-to-back cues with a median inter-cue gap of 0.042 s (one frame at 24 fps), so the speech mask is effectively constant and the correlation surface is a plateau, not a peak.",
+   "magnitude": "2 segments / 238 s",
+   "disposition": "CLOSED - measurement artefact, not a timebase shift; a genuine mid-film shift bounded by zero-offset neighbours on both sides is editorially impossible"
+  },
+  {
+   "id": "D-12",
+   "category": "EDITORIAL_CARD_LAG_CONSTANT",
+   "description": "Across 11 semantic anchors spanning 97.4% of runtime, title cards land a median +0.708 s after the matching spoken phrase begins (sd 0.784 s).",
+   "magnitude": "+0.708 s median",
+   "disposition": "CLOSED - a constant editorial design lag, not a timebase offset"
+  },
+  {
+   "id": "D-13",
+   "category": "NO_RATE_MISMATCH",
+   "description": "Regression of anchor delta on time gives a drift of +0.684 s over the full runtime, 95% CI [-0.541, +1.909] s, which contains zero. A 23.976/24 pulldown error would be -4.85 s.",
+   "magnitude": "0 s within CI",
+   "disposition": "CLOSED"
+  },
+  {
+   "id": "D-14",
+   "category": "CUE_BOUNDARY_VS_EXISTING_ELEMENT",
+   "description": "CUE-01 is specified 00:00-01:13; the existing score element KICKSTANDS UP v1 occupies 00:00:00.000-00:01:16.417.",
+   "magnitude": "+3.417 s",
+   "disposition": "OPEN-TO-PDR (cue in/out binds to the closed ETC; reconciliation verdict is a human decision)"
+  },
+  {
+   "id": "D-15",
+   "category": "OBSERVED_ACTIVITY_EXCEEDS_CUE_SPAN",
+   "description": "CUE-03 ESCORT_ANTHEM is specified 00:27:40-00:29:10 (90 s). The mass ride is observed continuously in picture from 00:28:15 to approximately 00:33:00.",
+   "magnitude": "approx +150 s of unscored ride",
+   "disposition": "OPEN-TO-PDR (registry and cue sheet remain authoritative; recorded as CONFLICTED observation)"
+  },
+  {
+   "id": "D-16",
+   "category": "REGISTRY_LABEL_VS_OBSERVATION",
+   "description": "TIMELINE_REGISTRY S16 (00:58:43-01:06:25) carries the label 'bike_night_arrivals'. Measured mean luma over that span is 130.7 and the picture is bright daylight with blue sky throughout.",
+   "magnitude": "462 s",
+   "disposition": "CONFLICTED - registry value retained as authoritative; observation recorded and raised as a PDR candidate"
+  },
+  {
+   "id": "D-17",
+   "category": "AGREEMENT_WITHIN_SAMPLING",
+   "description": "Registry S16/S17 boundary at 3985 s vs instrument-measured sustained night onset at 3984.5 s.",
+   "magnitude": "0.5 s",
+   "disposition": "CLOSED - agreement within the 0.5 s observation grid"
+  },
+  {
+   "id": "D-18",
+   "category": "SILENCE_LAW_OVERLAP_CANDIDATE",
+   "description": "Audio-lane element NOTOR1OUS_CARAVAN_2_ occupies 00:33:37.708-00:34:39.667, entirely inside SIL-01 (00:31:43-00:38:52). Its source is a contributed video's audio, not a score asset. Whether its content is musical was NOT determined by this run.",
+   "magnitude": "61.958 s inside a mandatory-silence window",
+   "disposition": "OPEN-TO-PDR - classified UNCERTAIN; escalated rather than resolved"
+  },
+  {
+   "id": "D-19",
+   "category": "CUE_SHEET_COVERAGE_GAPS",
+   "description": "Spans carrying neither a cue nor a mandatory silence.",
+   "magnitude": "445.625 s across 11 spans",
+   "disposition": "CLOSED-AS-ENUMERATED (each span listed in CONDUCTOR_SCORE.uncovered_spans)"
+  },
+  {
+   "id": "D-20",
+   "category": "REGISTRY_SEGMENT_GAPS",
+   "description": "Runtime not covered by TIMELINE_REGISTRY segments S01-S19.",
+   "magnitude": "434.625 s across 13 spans",
+   "disposition": "CLOSED-AS-ENUMERATED (each span listed in EDITORIAL_SYNCHRONIZATION.unsegmented_spans)"
+  },
+  {
+   "id": "D-21",
+   "category": "TITLE_TEXT_LETTER_SPACING",
+   "description": "Title text extracted from FCPXML carries kinetic letter-spacing (for example 'W i n d T h e r a p h y'). Style runs within one text block were concatenated; residual spacing is the designed on-screen treatment and was not normalised.",
+   "magnitude": "cosmetic",
+   "disposition": "CLOSED - verbatim preserved per DIE-X rule X-2 (zero interpretation at extraction)"
+  },
+  {
+   "id": "D-22",
+   "category": "OFFLINE_MEDIA_REFERENCE",
+   "description": "FCPXML asset r95 (NOTOR1OUS_CARAVAN_2_) resolves to /Volumes/10TB/..., a volume not mounted for this run.",
+   "magnitude": "1 asset",
+   "disposition": "CLOSED-AS-NOTED - affects content inspection only, not timing. It was the stated reason D-18 could not be resolved in RE-001; the ESS-004 ruling retired that dependency by making the test provenance rather than content, so the offline volume no longer blocks any decision"
+  },
+  {
+   "id": "D-23",
+   "category": "DIE_V_SAMPLING_UNCERTAINTY",
+   "description": "Contact-sheet evidence timestamps sit on a 3.000 s grid and probe sheets on a 1.000 s grid.",
+   "magnitude": "+/-0.5 sample",
+   "disposition": "CLOSED - frame-accuracy claims rest on the ETC and on the 1.000 s probe grid, never on the 3.000 s survey grid"
+  },
+  {
+   "id": "D-24",
+   "category": "PROXY_RESOLUTION_CEILING",
+   "description": "The visual ground truth supplied is a 320x180 proxy carrying a 'Filmage Editor' trial watermark. Formation geometry, flag identification, and camera-motion class are limited by this.",
+   "magnitude": "320x180 vs 3840x2160 master",
+   "disposition": "CLOSED-AS-DECLARED - every affected observation is capped at MEDIUM or UNCERTAIN; no observation claims detail the proxy cannot carry"
+  },
+  {
+   "id": "D-26",
+   "category": "YAML_SEXAGESIMAL_TIMECODE",
+   "description": "Bare timecode values (start_tc / end_tc) are parsed by YAML 1.1 loaders as sexagesimal numbers - 00:31:43.000 loads as the float 1903.0 - silently converting a human-readable string field into a number. Present in every YAML artifact of the RE-001 baseline; found during the ESS-004 regeneration.",
+   "magnitude": "4 artifacts, all *_tc fields",
+   "disposition": "FIXED in the regeneration - all timecodes are now quoted at write time and load as strings. The RE-001 archived copies retain the defect by design (immutable); RE-002 will carry the fix"
+  },
+  {
+   "id": "D-25",
+   "category": "DIE_V_SHEET_SAMPLING",
+   "description": "54 survey contact sheets were generated at 3.000 s cadence covering 100% of runtime; 20 sheets were read frame-by-frame in full, chosen to cover every non-gauntlet span completely and the two homogeneous interview gauntlets by systematic sample.",
+   "magnitude": "20 of 54 sheets read in full",
+   "disposition": "CLOSED-AS-DECLARED - gauntlet spans carry span-level classifications only, never per-event claims outside a read sheet"
+  }
+ ],
+ "audio_sources": {
+  "KICKSTANDS UP v1 (Remastered)": [
+   "/AlphaRoundUp_2026/Soundtrack/KICKSTANDS UP v1.wav",
+   "SCORE_ASSET"
+  ],
+  "NOTOR1OUS_CARAVAN_2_": [
+   "/Volumes/10TB/.../CONTRIBUTED/Videos_Alpha RoundUp/NOTOR1OUS_CARAVAN_2_.mp4",
+   "CONTRIBUTED_VIDEO_AUDIO"
+  ]
+ },
+ "progressions": [
+  [
+   "P1",
+   "ARRIVAL",
+   0,
+   111
+  ],
+  [
+   "P2",
+   "GAUNTLET_ONE",
+   111,
+   1622
+  ],
+  [
+   "P3",
+   "RIDE_AND_TOWN",
+   1622,
+   2332
+  ],
+  [
+   "P4",
+   "GAUNTLET_TWO_HONORS",
+   2335,
+   3324
+  ],
+  [
+   "P5",
+   "BIKE_NIGHT_WRAP",
+   3324,
+   4846.625
+  ]
+ ],
+ "energy": {
+  "S01": 2,
+  "S02": 2,
+  "S03": 3,
+  "S04": null,
+  "S05": 5,
+  "S06": 2,
+  "S07": 2,
+  "S08": 2,
+  "S09": 2,
+  "S10": 2,
+  "S11": 3,
+  "S12": 1,
+  "S13": 3,
+  "S14": 3,
+  "S15": 4,
+  "S16": 4,
+  "S17": null,
+  "S18": 5,
+  "S19": 4
+ },
+ "voice_over": [
+  [
+   "VO01",
+   73,
+   111,
+   "day_brief"
+  ],
+  [
+   "VO02",
+   1622,
+   1750,
+   "ride_narration"
+  ],
+  [
+   "VO03",
+   3276,
+   3324,
+   "service_wrap"
+  ],
+  [
+   "VO04",
+   4784,
+   4846,
+   "wrap_tease"
+  ]
+ ],
+ "offset_model": {
+  "global_A": {
+   "peak": 0.2783,
+   "null_p": 0.0,
+   "null_p95": 0.1851,
+   "status": "ALIGNED_ZERO_OFFSET"
+  },
+  "per_segment": [
+   {
+    "seg": "S01",
+    "span": "00:00-01:13",
+    "dur_s": 73,
+    "n_cues_in_span": 16,
+    "srt_speech_coverage": 0.53,
+    "status": "INDETERMINATE",
+    "reason": "ARGMAX_AT_SEARCH_WINDOW_EDGE(no interior peak)"
+   },
+   {
+    "seg": "S02",
+    "span": "01:13-01:51",
+    "dur_s": 38,
+    "n_cues_in_span": 18,
+    "srt_speech_coverage": 0.94,
+    "status": "INDETERMINATE",
+    "reason": "SEGMENT_SHORTER_THAN_LAG_SEARCH_WINDOW(<60s)"
+   },
+   {
+    "seg": "S03",
+    "span": "01:51-27:02",
+    "dur_s": 1511,
+    "n_cues_in_span": 1022,
+    "srt_speech_coverage": 0.87,
+    "status": "ALIGNED_ZERO_OFFSET",
+    "reason": "",
+    "best_lag_s": 0.0
+   },
+   {
+    "seg": "S04",
+    "span": "27:02-27:23",
+    "dur_s": 21,
+    "n_cues_in_span": 6,
+    "srt_speech_coverage": 0.64,
+    "status": "INDETERMINATE",
+    "reason": "SEGMENT_SHORTER_THAN_LAG_SEARCH_WINDOW(<60s)"
+   },
+   {
+    "seg": "S05",
+    "span": "27:40-29:10",
+    "dur_s": 90,
+    "n_cues_in_span": 20,
+    "srt_speech_coverage": 0.57,
+    "status": "INDETERMINATE",
+    "reason": "NO_POSITIVE_CORRELATION_PEAK"
+   },
+   {
+    "seg": "S06",
+    "span": "31:43-32:33",
+    "dur_s": 50,
+    "n_cues_in_span": 16,
+    "srt_speech_coverage": 0.94,
+    "status": "INDETERMINATE",
+    "reason": "SEGMENT_SHORTER_THAN_LAG_SEARCH_WINDOW(<60s)"
+   },
+   {
+    "seg": "S07",
+    "span": "32:45-33:50",
+    "dur_s": 65,
+    "n_cues_in_span": 21,
+    "srt_speech_coverage": 0.89,
+    "status": "ALIGNED_ZERO_OFFSET",
+    "reason": "",
+    "best_lag_s": 0.25
+   },
+   {
+    "seg": "S08",
+    "span": "33:51-35:56",
+    "dur_s": 125,
+    "n_cues_in_span": 37,
+    "srt_speech_coverage": 0.91,
+    "status": "SHIFT_DETECTED",
+    "reason": "see D-11",
+    "best_lag_s": -6.75
+   },
+   {
+    "seg": "S09",
+    "span": "36:03-36:30",
+    "dur_s": 27,
+    "n_cues_in_span": 8,
+    "srt_speech_coverage": 0.44,
+    "status": "INDETERMINATE",
+    "reason": "SEGMENT_SHORTER_THAN_LAG_SEARCH_WINDOW(<60s)"
+   },
+   {
+    "seg": "S10",
+    "span": "36:59-38:52",
+    "dur_s": 113,
+    "n_cues_in_span": 38,
+    "srt_speech_coverage": 0.9,
+    "status": "SHIFT_DETECTED",
+    "reason": "see D-11",
+    "best_lag_s": -3.25
+   },
+   {
+    "seg": "S11",
+    "span": "38:55-52:00",
+    "dur_s": 785,
+    "n_cues_in_span": 587,
+    "srt_speech_coverage": 0.89,
+    "status": "INDETERMINATE",
+    "reason": "PEAK_NOT_SIGNIFICANT_VS_NULL(p=0.180)"
+   },
+   {
+    "seg": "S12",
+    "span": "52:04-53:56",
+    "dur_s": 112,
+    "n_cues_in_span": 39,
+    "srt_speech_coverage": 0.72,
+    "status": "ALIGNED_ZERO_OFFSET",
+    "reason": "",
+    "best_lag_s": 0.0
+   },
+   {
+    "seg": "S13",
+    "span": "53:50-54:35",
+    "dur_s": 45,
+    "n_cues_in_span": 13,
+    "srt_speech_coverage": 0.43,
+    "status": "INDETERMINATE",
+    "reason": "SEGMENT_SHORTER_THAN_LAG_SEARCH_WINDOW(<60s)"
+   },
+   {
+    "seg": "S14",
+    "span": "54:36-55:24",
+    "dur_s": 48,
+    "n_cues_in_span": 20,
+    "srt_speech_coverage": 0.82,
+    "status": "INDETERMINATE",
+    "reason": "SEGMENT_SHORTER_THAN_LAG_SEARCH_WINDOW(<60s)"
+   },
+   {
+    "seg": "S15",
+    "span": "56:10-58:43",
+    "dur_s": 153,
+    "n_cues_in_span": 1,
+    "srt_speech_coverage": 0.0,
+    "status": "INDETERMINATE",
+    "reason": "INSUFFICIENT_SRT_SPEECH_IN_SPAN(<30%) \u2014 non-speech segment by design"
+   },
+   {
+    "seg": "S16",
+    "span": "58:43-66:25",
+    "dur_s": 462,
+    "n_cues_in_span": 327,
+    "srt_speech_coverage": 0.9,
+    "status": "ALIGNED_ZERO_OFFSET",
+    "reason": "",
+    "best_lag_s": 0.0
+   },
+   {
+    "seg": "S17",
+    "span": "66:25-66:48",
+    "dur_s": 23,
+    "n_cues_in_span": 12,
+    "srt_speech_coverage": 0.9,
+    "status": "INDETERMINATE",
+    "reason": "SEGMENT_SHORTER_THAN_LAG_SEARCH_WINDOW(<60s)"
+   },
+   {
+    "seg": "S18",
+    "span": "69:25-79:40",
+    "dur_s": 615,
+    "n_cues_in_span": 40,
+    "srt_speech_coverage": 0.14,
+    "status": "INDETERMINATE",
+    "reason": "INSUFFICIENT_SRT_SPEECH_IN_SPAN(<30%) \u2014 non-speech segment by design"
+   },
+   {
+    "seg": "S19",
+    "span": "79:44-80:46",
+    "dur_s": 62,
+    "n_cues_in_span": 24,
+    "srt_speech_coverage": 0.83,
+    "status": "ALIGNED_ZERO_OFFSET",
+    "reason": "",
+    "best_lag_s": 0.25
+   }
+  ]
+ },
+ "anchors": [
+  {
+   "title_in": 119.292,
+   "delta_title_minus_cue": 0.084,
+   "title": "Initiated ?"
+  },
+  {
+   "title_in": 229.304,
+   "delta_title_minus_cue": 0.846,
+   "title": "Why Do You Ride ?"
+  },
+  {
+   "title_in": 244.963,
+   "delta_title_minus_cue": -0.162,
+   "title": "What's Your Nam e"
+  },
+  {
+   "title_in": 261.772,
+   "delta_title_minus_cue": 0.897,
+   "title": "Why Do You Ride ?"
+  },
+  {
+   "title_in": 291.792,
+   "delta_title_minus_cue": 0.209,
+   "title": "Why Do You Ride ?"
+  },
+  {
+   "title_in": 2116.333,
+   "delta_title_minus_cue": 0.708,
+   "title": "Mayor, Mary Esther Reed"
+  },
+  {
+   "title_in": 2378.042,
+   "delta_title_minus_cue": 0.792,
+   "title": "Why Do You Ride ?"
+  },
+  {
+   "title_in": 3116.042,
+   "delta_title_minus_cue": -1.124,
+   "title": "The Journey Reveals The Why"
+  },
+  {
+   "title_in": 4827.75,
+   "delta_title_minus_cue": 0.584,
+   "title": "Why Do You Ride ?"
+  },
+  {
+   "title_in": 4835.5,
+   "delta_title_minus_cue": 0.917,
+   "title": "How Long You Been Rid' n"
+  },
+  {
+   "title_in": 4840.708,
+   "delta_title_minus_cue": 2.25,
+   "title": "..and that's what's good!"
+  }
+ ],
+ "die_v": {
+  "thresholds": {
+   "cut_threshold_absdiff": 48.27
+  },
+  "grid_fps": 2,
+  "n_samples": 9693,
+  "covered_s": 4846.5,
+  "night_in_luma": 70.0,
+  "night_out_luma": 85.0,
+  "motion_terciles": [
+   13.04,
+   23.55
+  ]
+ },
+ "provenance": {
+  "segments/cues/visual_events/not_observed/delta_ledger/audio_sources/progressions/energy/voice_over": "extracted mechanically from gen_artifacts.py literals; not retyped",
+  "offset_model/anchors": "RECONSTRUCTED from base/STEP0_TIMING_CLOSURE.md - step0_offset.py needs audio_rms_0p25.npy and no producer for it exists in the repository",
+  "die_v.thresholds": "RECONSTRUCTED from base/VISUAL_EVENT_REGISTRY.yaml - die_v_observables.py needs video_obs_2fps.npy and no producer for it exists in the repository"
+ }
+}

@@ -1,55 +1,65 @@
 #!/usr/bin/env python3
-"""WECAPE-AR2-SPRINT3A artifact generator.
+"""WE CAPE ESS artifact generator - context-driven.
 
-SUPERSEDED_BY: gen_artifacts_v2.py (ECR-GEN-001 Phase A, 2026-08-29).
-RETAINED, NOT DELETED, for one purpose: it is the reference implementation the
-refactor is proved against. IMPLEMENTATION_VERIFICATION_DIFF.md section 3 shows the
-two produce byte-identical output on identical inputs; deleting this file would remove
-the ability to re-run that proof. It still carries the 2026-08-22 constants and MUST
-NOT be used to generate artifacts for any production.
-DO NOT EDIT.
-Emits: STEP0_TIMING_CLOSURE.md · VISUAL_EVENT_REGISTRY.yaml ·
-EDITORIAL_SYNCHRONIZATION.yaml · CONDUCTOR_SCORE.yaml ·
-ESS_VALIDATION_REPORT.md · PRODUCTION_INTELLIGENCE_SEED.yaml ·
-CAPTION_REGISTRY.yaml (enriched)."""
-import json, os, re, numpy as np, datetime
+ECR-GEN-001 Phase A. This module carries NO production constants. Runtime,
+hashes, RUN_ID, segment definitions, cue table, visual events, delta ledger,
+progressions, voice-over spans and Editorial Timing Contract inputs are all
+supplied by --context and --observations.
 
-OUT="/home/claude/work/ess"
+usage:
+  gen_artifacts_v2.py --context CTX.json --observations OBS.json
+                      --derived DIR --out DIR [--run-id ID|auto]
+
+--derived must contain timeline_resolved.json (fcpx_resolve.py) and
+camera_runs.json (derive_camera_runs.py).
+"""
+import json, re, sys, os, argparse, datetime, hashlib
+import numpy as np
+
+_p = argparse.ArgumentParser()
+_p.add_argument('--context', required=True)
+_p.add_argument('--observations', required=True)
+_p.add_argument('--derived', required=True)
+_p.add_argument('--sources', required=True,
+                help='root holding the production source files named in CTX["source_files"]')
+_p.add_argument('--out', required=True)
+_p.add_argument('--run-id', default='auto')
+_A = _p.parse_args()
+
+CTX = json.load(open(_A.context))
+OBS_DS = json.load(open(_A.observations))
+OUT = _A.out
 os.makedirs(OUT, exist_ok=True)
-U="/mnt/user-data/uploads/WE_CAPE_OUTPUT/AlphaRoundUp_2026/SPRINT3A_WORK/"
-W="/home/claude/work/out/"
+W = _A.derived.rstrip('/') + '/'
+U = _A.sources.rstrip('/') + '/'
+SRCF = CTX['source_files']
 
-RUN_ID="WECAPE-AR2-SPRINT3A-20260822-114028"
-REGEN_RUN_ID="WECAPE-AR2-ESS004-REGEN-20260822-174500"
-RULING = dict(
-  id="ESS-004-RULING",
-  date="2026-08-22",
-  authority="Executive Producer",
-  session="ELS-001",
-  definition=("MANDATORY_SILENCE prohibits WE CAPE-ADDED NON-DIEGETIC SCORE only. Existing production "
-              "audio - speech, ambience, engine noise, wind, and any source audio captured as part of "
-              "the documentary record - remains permissible unless otherwise directed by an Executive PDR."),
-  test=("PROVENANCE, not acoustics. An element breaches a silence zone if and only if WE CAPE added it "
-        "as score. Read from the FCPXML asset media-rep path: /Soundtrack/ = WE CAPE-added score; "
-        "Original Media or CONTRIBUTED = documentary record. No listening judgement is required, and "
-        "none is permitted as the basis of a compliance verdict."),
-  finding=("ELS-001: the span is a composite production soundscape - music/vocals, engine rumble, wind, "
-           "speech. The proxy does not conclusively distinguish the provenance of the musical content, "
-           "and that distinction is NOT required under this ruling."))
-SHA=dict(
- mp4="a53655fc673945a0d99dde3d5b60c9a126d8b41e4e44a7c7eedeb058ba0f47e8",
- fcpxml="2bf0685373d6963bc151b982fd8b16b072d47ca88bb36f3c4dcd4cf5563858e7",
- srt="89d61f965aa17e4d3dade14173869b34efb0c09d689b1c347d3c9c8f6eca1c6b",
- etc="e91318a6719c81e448e6c57267dff7a807076cb9aded822a459fb6353e80010d")
-LOCK=4846.625
-GIT="ff0c45f77b2fb612606e1d5b8ef86641822e5e4a"
+def _new_run_id(ctx):
+    """RUN_ID generation. Deterministic in form, unique per invocation."""
+    return "WECAPE-%s-%s" % (ctx['production_id'],
+                             datetime.datetime.now(datetime.timezone.utc)
+                             .strftime('%Y%m%d-%H%M%S'))
 
-tl=json.load(open(W+"timeline_resolved.json"))
-off=json.load(open(W+"step0_offset.json"))
-anch=json.load(open(W+"step0_anchors.json"))
-obs=json.load(open(W+"die_v_observables.json"))
-cams=json.load(open(W+"camera_runs.json"))
-els=tl['elements']
+RUN_ID = CTX['run_id'] if _A.run_id == 'pinned' else (
+         _A.run_id if _A.run_id != 'auto' else _new_run_id(CTX))
+REGEN_RUN_ID = CTX.get('regen_run_id', RUN_ID)
+SHA  = CTX['sha']
+LOCK = CTX['runtime_s']
+GIT  = CTX['git_commit']
+PROXY = CTX['proxy']; SRTM = CTX['srt']; ETCM = CTX['etc']
+RULING = CTX['ruling']
+_fps_i = int(eval(CTX['frame_rate'].replace('/','/')))
+def _tc_frames(x, fps):
+    h=int(x//3600); m=int((x%3600)//60); sec=int(x%60); fr=int(round((x-int(x))*fps))-1
+    return f"{h:02d}:{m:02d}:{sec:02d}:{fr:02d}"
+_lock_tc = _tc_frames(LOCK, _fps_i)
+
+tl   = json.load(open(W + "timeline_resolved.json"))
+cams = json.load(open(W + "camera_runs.json"))
+off  = OBS_DS['offset_model']
+anch = OBS_DS['anchors']
+obs  = dict(thresholds=OBS_DS['die_v']['thresholds'])
+els  = tl['elements']
 
 def tc(s, frames=True):
     if s is None: return "NULL"
@@ -65,10 +75,7 @@ audio16=sorted([x for x in els if x['tag']=='asset-clip' and x['lane'] and x['la
 spine=[x for x in els if x['depth']==0 and x['tag']!='transition']
 
 # ---- audio element provenance (from FCPXML asset media-rep src) ----
-AUD_SRC={
- "KICKSTANDS UP v1 (Remastered)":("/AlphaRoundUp_2026/Soundtrack/KICKSTANDS UP v1.wav","SCORE_ASSET"),
- "NOTOR1OUS_CARAVAN_2_":("/Volumes/10TB/.../CONTRIBUTED/Videos_Alpha RoundUp/NOTOR1OUS_CARAVAN_2_.mp4","CONTRIBUTED_VIDEO_AUDIO"),
-}
+AUD_SRC = OBS_DS['audio_sources']
 def aud_class(name):
     if name in AUD_SRC: return AUD_SRC[name][1]
     return "PRODUCTION_ORIGINAL_MEDIA_AUDIO"
@@ -76,17 +83,7 @@ def aud_src(name):
     if name in AUD_SRC: return AUD_SRC[name][0]
     return "/AlphaRoundUp_2026/AlphaRoundUp_2026.fcpbundle/P2_CHRONO_SETS/Original Media/%s.wav"%name
 
-SEG=[("S01",0,73,"cold_open",None,[]),("S02",73,111,"host_day_brief",None,["host"]),
- ("S03",111,1622,"interview_gauntlet_1","L03-staging",["R01-R45"]),
- ("S04",1622,1643,"ride_brief","L03",[]),("S05",1660,1750,"escort_ride",None,[]),
- ("S06",1903,1953,"librarian_speech","L04",["C01"]),("S07",1965,2030,"council_profile",None,["C02"]),
- ("S08",2031,2156,"town_proclamation",None,["C03-mayor"]),("S09",2163,2190,"first_ride_moment",None,[]),
- ("S10",2219,2332,"state_proclamation",None,["C04","C05"]),
- ("S11",2335,3120,"interview_gauntlet_2","L04",["R46-R67"]),
- ("S12",3124,3236,"organizer_honors_and_silence",None,[]),("S13",3230,3275,"group_photo",None,[]),
- ("S14",3276,3324,"service_wrap_preview",None,[]),("S15",3370,3523,"riding_music_passage",None,[]),
- ("S16",3523,3985,"bike_night_arrivals",None,["R68-R75"]),("S17",3985,4008,"audience_cta",None,[]),
- ("S18",4165,4780,"bike_night_ambience",None,[]),("S19",4784,4846,"friday_wrap_part3_tease",None,[])]
+SEG = [tuple(x) for x in OBS_DS['segments']]
 
 # ============================ VISUAL EVENTS ============================
 def ev(i, s, e, cls, conf, note, refs, dev=None):
@@ -98,189 +95,8 @@ def ev(i, s, e, cls, conf, note, refs, dev=None):
                 derivation=dev or "MODEL_MEDIATED_FRAME_OBSERVATION",
                 enrichment=dict(nie={}, mie={}, pie={}))
 
-E=[]; n=1
-def add(s,e,cls,conf,note,refs,dev=None):
-    global n
-    E.append(ev(n,s,e,cls,conf,note,refs,dev)); n+=1
-
-# --- measured, instrument-derived ---
-add(0.0,31.0,"ILLUMINATION_DAY_OR_LIT_INTERIOR","HIGH",
-    "mean luma 116.6 (grid 2 fps, 64x36 luma)","measured:2fps-luma-series","INSTRUMENT_DERIVED_LUMA")
-add(31.0,69.5,"ILLUMINATION_LOW_LIGHT_NIGHT","HIGH",
-    "sustained luma <70 for 38.5 s; night material inside the cold-open montage",
-    "measured:2fps-luma-series; frames 00:00:33,36,...,00:01:06","INSTRUMENT_DERIVED_LUMA")
-add(69.5,3984.5,"ILLUMINATION_DAY_OR_LIT_INTERIOR","HIGH",
-    "mean luma 118.5; continuous day / lit-interior block spanning 65 min",
-    "measured:2fps-luma-series","INSTRUMENT_DERIVED_LUMA")
-add(3984.5,4846.5,"ILLUMINATION_LOW_LIGHT_NIGHT","HIGH",
-    "sustained luma <70 to end of runtime; mean luma 47.2; warm ratio R/B 1.32 "
-    "(artificial amber street/venue lighting, NOT golden hour)",
-    "measured:2fps-luma-series; frame 01:06:24 is first night sample, 01:06:21 still day",
-    "INSTRUMENT_DERIVED_LUMA")
-# --- observed, from contact sheets / probe sheets ---
-add(0.0,73.0,"COLD_OPEN_MONTAGE","HIGH",
-    "Rapid montage: club back-patch inserts; highway riding formation; marked police vehicle; "
-    "massed motorcycles in a lot; interior ceremony with US flag and standards; night street/venue "
-    "material. Shot-change density 25.5 cuts/min (highest in the film).",
-    "frames 00:00:00,03,06,...,00:01:12 (sheet_000)")
-add(69.375,76.417,"MAIN_TITLE_CARD","HIGH",
-    "On-screen title 'ALPHA ROUNDUP II'; ETC title element in/out reproduced in picture.",
-    "ETC title[1]; frames 00:01:09,00:01:12")
-add(111.0,1622.0,"INTERVIEW_STAGING_AREA_STATIC_DAY","HIGH",
-    "Hotel parking lot, overcast sky, wet pavement, densely parked touring motorcycles, "
-    "one or two subjects addressing camera. Camera is body/stick-mounted, near-static with slow reframes. "
-    "Crowd density band: MODERATE (individuals distinguishable, lot not full-frame packed).",
-    "frames sampled 00:01:51 .. 00:27:00 at 3.000 s (sheets 001-018); sheets read: 001,005,010,015")
-add(111.333,335.695,"QUESTION_CARD_SEQUENCE_1","HIGH",
-    "Recurring on-screen question cards (Who You Rid'n Wit? / Initiated? / Why Do You Ride? / "
-    "What's Your Name / What RU Rid'n?) plus 'One Question... Many Answers'. 22 ETC title elements.",
-    "ETC titles[2..22]; picture-verified at 00:01:51 and 00:02:00")
-add(380.750,537.557,"KINETIC_TEXT_CARD_SEQUENCE_1","HIGH",
-    "Nested (compound-clip) kinetic text cards: 'One Question... Many Answers', "
-    "'W i n d T h e r a p h y', 'T h r o t t l e h e r a p h y'. Not counted in the ETC 40-title census.",
-    "ETC nested titles; picture-verified at 00:07:39 and 00:08:57")
-add(1620.0,1660.0,"MOUNT_UP_STAGING_AREA","HIGH",
-    "Riders returning to machines, helmets on, column forming in the staging lot.",
-    "frames 00:27:00 .. 00:27:39 (sheet_018)")
-add(1630.0,1644.6,"MAP_TRAVEL_GRAPHIC_INSERT","HIGH",
-    "Picture-in-picture route-map animation (origin to Smyrna Event Center) visible in frame; "
-    "co-located with ETC audio element 'Map traavel to Smyrna Event Center-7' (27:10.000-27:24.610).",
-    "frames 00:27:12,00:27:15,00:27:18,00:27:21")
-add(1660.0,1695.0,"ESCORT_DEPARTURE_COLUMN","HIGH",
-    "Machines leaving the lot in single/double column onto the public road. PROBE-1 window.",
-    "probe P1 frames 00:27:40 .. 00:28:15 at 1.000 s")
-add(1695.0,1990.0,"MASS_RIDE_PUBLIC_ROAD","HIGH",
-    "Continuous mass ride on public roads in two-abreast formation, POV from within the column. "
-    "Uninterrupted from 00:28:15 to approx 00:33:00. Crowd/vehicle density band: HIGH (column fills frame).",
-    "probe P1 frames 00:28:15..00:29:09; frames 00:28:30..00:33:00 (sheets 019-022)")
-add(1746.0,1851.0,"LAW_ENFORCEMENT_ESCORT_PRESENCE","HIGH",
-    "Marked police vehicles and an officer positioned at road intersections along the route "
-    "(observed at 00:29:06, 00:30:03, 00:30:21, 00:30:51, 00:31:33, 00:31:48).",
-    "probe P1 frame 00:29:06; frames 00:30:03,00:30:21,00:30:51,00:31:33,00:31:48")
-add(1974.0,1980.0,"CARTOGRAPHIC_REVEAL","HIGH",
-    "Full-frame map graphic: state outline labelled TENNESSEE with NASHVILLE and SMYRNA placed.",
-    "frames 00:32:54,00:32:57")
-add(1980.0,1990.0,"AERIAL_OR_ELEVATED_ESTABLISHING_VIEW","MEDIUM",
-    "High-angle wide view of the town/venue approach with an emblem overlay. "
-    "UNCERTAIN whether captured from an aerial platform or an elevated position: at 320x180 the "
-    "parallax cue is not resolvable, and camera-device family in the ETC does not establish capture mode.",
-    "frame 00:33:00")
-add(1987.250,1994.958,"VENUE_IDENTIFICATION_CARD","HIGH",
-    "On-screen card 'Smyrna Event Center / 100 Sam Ridley Parkway East, Smyrna, TN 37167'.",
-    "ETC title[23]; picture-verified at 00:33:06,00:33:09,00:33:12")
-add(1995.0,2100.0,"VENUE_ARRIVAL_PROCESSION","HIGH",
-    "Machines arriving at the venue frontage in procession; riders raising fists; "
-    "civic speech carried as a picture-in-picture inset over the arrival picture rather than full frame.",
-    "frames 00:33:15 .. 00:35:00 (sheets 022-023)")
-add(2022.458,2331.542,"CIVIC_LOWER_THIRD_SEQUENCE","HIGH",
-    "Named civic lower-thirds: Racquel Peebles (Council Member), Mayor Mary Esther Reed, "
-    "David Santucci (Town Manager), Jerome Dempsey (Council Member). 9 ETC title elements. "
-    "Person linkage deferred to human confirmation against ORGANIZATION/RIDER registries; "
-    "no biometric identification performed - text was read from the title elements, not from faces.",
-    "ETC titles[24..31]; picture-verified at 00:33:45,00:35:18,00:37:00,00:37:12")
-add(2106.0,2109.0,"OBSERVED_BLACK_FRAME","MEDIUM",
-    "A fully black sampled frame at 00:35:06 between two picture-bearing samples. "
-    "Classified as OBSERVED, not diagnosed: at a 3.000 s sampling grid a dip-to-black transition and a "
-    "black-frame defect are indistinguishable. Requires human inspection of 00:35:04-00:35:09.",
-    "frame 00:35:06")
-add(2116.333,2133.958,"PROCLAMATION_DOCUMENT_INSERT_TOWN","HIGH",
-    "'OFFICE OF THE MAYOR / Proclamation' document shown full-height beside a speaker inset.",
-    "frames 00:35:18,00:35:21,00:35:24,00:35:27,00:35:30")
-add(2190.0,2220.0,"INTERIOR_PRESENTATION_FULL_FRAME","HIGH",
-    "Interior presentation: podium area, US flag and a second standard, presenter with microphone, "
-    "club members receiving. Camera near-static. Crowd density band: LOW-to-MODERATE in frame.",
-    "frames 00:36:33 .. 00:36:57")
-add(2277.0,2325.0,"PROCLAMATION_DOCUMENT_INSERT_STATE","HIGH",
-    "'STATE OF TENNESSEE / PROCLAMATION' document shown full-height with two officials as inset, "
-    "over parking-lot picture.",
-    "frames 00:37:57 .. 00:38:45")
-add(2335.0,3120.0,"INTERVIEW_STAGING_AREA_STATIC_DAY_2","HIGH",
-    "Second interview gauntlet, visibly a different location from the first: venue parking lot with a "
-    "low brick building behind, dry pavement, denser machine parking. Crowd density band: HIGH.",
-    "frames 00:38:57 .. 00:52:00 at 3.000 s (sheets 025-034); sheets read: 025,026")
-add(2337.708,2382.583,"QUESTION_CARD_SEQUENCE_2","HIGH",
-    "Question cards resume for the second gauntlet (5 ETC title elements) inside the R46 carve-out window.",
-    "ETC titles[32..36]; picture-verified at 00:38:57,00:39:06,00:39:18,00:39:33,00:39:39")
-add(2566.917,3120.042,"KINETIC_TEXT_CARD_SEQUENCE_2","HIGH",
-    "Nested kinetic text cards: 'For My P E A C E', 'TEN YEARS WE RIDE AS ONE BROTHERHOOD!', "
-    "'Be Alone, In My T h o u g h t s', 'I Love R i d i n g', 'For the B r o t h e r h o o d', "
-    "'The Ride Is Only The Beginning', 'Brotherhood Beyond The Miles', 'The Journey Reveals The Why'.",
-    "ETC nested titles 00:42:46 .. 00:52:00")
-add(3124.0,3210.0,"INTERIOR_HONORS_CEREMONY","HIGH",
-    "Interior hall: podium with venue plate, US flag and standards, framed plaques presented and raised, "
-    "line of recipients holding awards. Camera near-static, low frame-difference energy. PROBE-2 window.",
-    "probe P2 frames 00:52:04 .. 00:53:30 at 1.000 s")
-add(3210.0,3232.0,"BANQUET_ROOM_WIDE_HIGH_DENSITY","HIGH",
-    "Wide views of a seated banquet room, round tables fully occupied. Crowd density band: HIGH.",
-    "probe P2 frames 00:53:30 .. 00:53:48")
-add(3240.0,3262.0,"VENUE_EGRESS_WALKOUT","HIGH",
-    "Members walking out through interior corridors and lobby to the exterior.",
-    "frames 00:54:00 .. 00:54:21")
-add(3264.0,3282.0,"MASS_GROUP_PHOTOGRAPH_EXTERIOR","HIGH",
-    "Several hundred members assembled in ranks under the venue portico for a group photograph, "
-    "shot from across the lawn. Crowd density band: VERY HIGH.",
-    "frames 00:54:24,00:54:27,00:54:30,00:54:33,00:54:36")
-add(3285.0,3330.0,"MOUNT_UP_VENUE_LOT","HIGH",
-    "Mass mount-up in the venue lot; machines packed nose-in across the frame.",
-    "frames 00:54:45 .. 00:55:27")
-add(3328.0,3520.0,"ROAD_RIDE_DAY_CLEAR_SKY","HIGH",
-    "Sustained multi-lane road riding in formation under clear blue sky - a visibly different sky state "
-    "from the overcast staging block earlier in the day.",
-    "frames 00:55:30 .. 00:58:27 (sheets 037-038)")
-add(3520.0,3984.5,"DAYLIGHT_LOT_GATHERING_AND_INTERVIEWS","HIGH",
-    "Hotel parking lot in bright daylight with blue sky: arrivals, machines being parked, "
-    "individual riders addressing camera. Measured mean luma 130.7. "
-    "This span carries the registry label 'bike_night_arrivals'; the picture in this span is daylight. "
-    "Recorded as an observation only - the registry value remains authoritative.",
-    "frames 00:58:30 .. 01:06:21 (sheets 039-044); sheets read: 039,041,044")
-add(3984.5,4100.0,"NIGHT_RIDE_DEPARTURE","HIGH",
-    "Transition to night within one sampling interval: 01:06:21 is daylight, 01:06:24 is night. "
-    "Instrument cross-check places the sustained night onset at 3984.5 s. Night ride departure follows, "
-    "handlebar/dashboard POV with headlamps and tail lights.",
-    "frames 01:06:21,01:06:24,01:06:27 .. 01:08:00; measured 2 fps luma series")
-add(4140.0,4400.0,"NIGHT_VENUE_LOT_GATHERING","HIGH",
-    "Night venue lot: machines parked with coloured accent lighting, people moving between them, "
-    "storefront frontage lit behind. Crowd density band: MODERATE-to-HIGH.",
-    "frames 01:09:00 .. 01:13:20 (sheets 046-048); sheet read: 046")
-add(4410.0,4490.0,"INTERIOR_NIGHT_VENUE_CROWD","HIGH",
-    "Interior of a night venue: multiple screens, string lighting, standing and seated crowd. "
-    "Crowd density band: HIGH.",
-    "frames 01:13:30 .. 01:14:18 (sheet_049)")
-add(4490.0,4780.0,"NIGHT_ROAD_RIDING","HIGH",
-    "Night road and highway riding in formation; lowest measured frame-difference energy of the film "
-    "(mean 12.6) and lowest shot-change density (0.56 cuts/min) - long unbroken takes.",
-    "frames 01:14:21 .. 01:19:40 (sheets 049-053); sheets read: 049,052")
-add(4784.0,4846.5,"NIGHT_RIDE_CLOSE","HIGH",
-    "Final night ride into a lit portico arrival, then the closing card run. PROBE-3 window.",
-    "probe P3 frames 01:19:44 .. 01:20:46 at 1.000 s")
-add(4827.750,4846.042,"CLOSING_CARD_SEQUENCE","HIGH",
-    "Closing question cards (Why Do You Ride? / What RU Rid'n? / Who You Rid'n Wit? / How Long You Been "
-    "Rid'n) then the sign-off card \"..and that's what's good!\". Every card's ETC in/out reproduced in "
-    "picture to within the 1.000 s probe grid - this is the frame-accuracy evidence for Step 0.",
-    "probe P3 frames 01:20:27 .. 01:20:46 at 1.000 s; ETC titles[37..40] + nested closing title")
-
-# explicit NOT-OBSERVED declarations (absence recorded, never silently omitted)
-NOT_OBSERVED=[
- dict(event_class="GOLDEN_HOUR_LIGHT", status="NOT_OBSERVED",
-      basis="No span in the runtime shows the low-sun warm daylight signature. The two warm-ratio "
-            "excursions (R/B 1.31 and 1.32) are the cold-open night montage and the sustained night block, "
-            "both artificial amber lighting. Warm ratio never exceeds 1.10 during any daylight span."),
- dict(event_class="FLAG_DETAIL_BEYOND_PRESENCE", status="OBSERVED_AS_PRESENCE_ONLY",
-      basis="A US flag and one or more additional standards are visible at the interior ceremony and "
-            "honors spans. Identification of the additional standards is not resolvable at 320x180 and is "
-            "recorded as UNCERTAIN rather than named."),
- dict(event_class="PERSON_IDENTITY", status="NOT_PERFORMED",
-      basis="Prohibited by ADR-009 and WET-SPEC-DIE-001 §11. No face recognition or biometric "
-            "identification was run. The only person names in this registry are text read from ETC title "
-            "elements, and they are carried as caption text, not as identifications."),
- dict(event_class="CAMERA_MOTION_CLASS", status="RECORDED_AS_FRAME_DIFFERENCE_ENERGY_ONLY",
-      basis="At 320x180 with a 0.5 s observation grid, camera motion cannot be separated from subject "
-            "motion or from shot changes. The instrument series is published as FRAME_DIFFERENCE_ENERGY "
-            "bands; camera-motion class per se is UNCERTAIN except where a sheet shows it directly."),
- dict(event_class="INTERVIEW_COUNT_BY_VISION", status="NOT_ATTEMPTED",
-      basis="Interview counts remain the registry's (TIMELINE_REGISTRY interview_count, RIDER_REGISTRY). "
-            "Counting subjects visually would duplicate a governed registry value with a weaker method."),
-]
+E = OBS_DS['visual_events']
+NOT_OBSERVED = OBS_DS['not_observed']
 
 # ============================ DELTA LEDGER ============================
 def D(i,cat,desc,val,disp):
@@ -294,10 +110,7 @@ for _,s,e,act,_,_ in SEG:
 if prev<LOCK: seg_gaps.append((prev,LOCK))
 gap_total=sum(b-a for a,b in seg_gaps)
 
-CUES=[("CUE-01",0,73),("CUE-02a",111,630),("CUE-02b",630,1125),("CUE-02c",1125,1622),
-      ("CUE-03",1660,1750),("SIL-01",1903,2332),("CUE-04",2335,3120),("SIL-02",3124,3229),
-      ("CUE-05",3230,3275),("CUE-06",3276,3324),("CUE-07",3370,3523),("CUE-08",3523,4008),
-      ("CUE-09a",4165,4470),("CUE-09b",4470,4780),("CUE-10",4784,4846)]
+CUES = [tuple(x) for x in OBS_DS['cues']]
 cue_cov=sum(e-s for _,s,e in CUES)
 cue_gaps=[];prev=0.0
 for _,s,e in CUES:
@@ -306,96 +119,7 @@ for _,s,e in CUES:
 if prev<LOCK: cue_gaps.append((prev,LOCK))
 cue_gap_total=sum(b-a for a,b in cue_gaps)
 
-LEDGER=[
- D(1,"NON_SPEECH_TAIL","Lock runtime 4846.625 s vs last lock-SRT cue end 4841.208 s. The tail is the "
-   "closing card over the final shot; no speech exists to transcribe.","+5.417 s","CLOSED"),
- D(2,"NON_SPEECH_HEAD","First lock-SRT cue starts at 0.333 s, not 0.000 s.","+0.333 s","CLOSED"),
- D(3,"PRE_LOCK_VS_LOCK_SRT_REVISION","Founding fixture (WET-SPEC-DIE-001 App. A) records 2,290 cues "
-   "ending 01:20:40; the lock SRT carries 2,291 cues ending 01:20:41.208. The pre-lock SRT is not among "
-   "this run's four authoritative inputs, so the single added cue cannot be identified here.",
-   "+1 cue / +1.208 s","CLOSED-AS-BOUNDED (pre-lock SRT out of scope of this run's inputs)"),
- D(4,"REGISTRY_NOTE_ARITHMETIC","TIMELINE_REGISTRY.delta_note states the pre-lock/lock delta as +6.025 s. "
-   "Lock runtime minus the fixture's stated 01:20:40 end is +6.625 s.","0.600 s","CLOSED-AS-NOTED "
-   "(registry text unchanged by this run; flagged for registry maintenance)"),
- D(5,"PROXY_CONTAINER_ROUNDING","Filmage_Editor.mp4 video stream duration 4846.633 s and container "
-   "duration 4846.747 s vs sequence 4846.625 s.","+0.008 s video / +0.122 s container","CLOSED"),
- D(6,"ETC_CENSUS_EXCLUDES_TRANSITIONS","FCPXML top-level spine carries 214 story elements; the ETC "
-   "spine census is 191. The 23-element difference is exactly the transition elements.","23 elements","CLOSED"),
- D(7,"NESTED_TITLES_NOT_IN_ETC_CENSUS","FCPXML contains 57 title elements; 40 sit on connected lanes at "
-   "depth 1 (the ETC census) and 17 are nested inside compound clips.","17 titles","CLOSED - the 17 are "
-   "enrolled into CAPTION_REGISTRY by this run"),
- D(8,"ETC_CONNECTED_OFFSETS_NULL","Every connected element in P2_LOCK_timing.json carries "
-   "timeline_offset_s: null; only rel_offset_s is present, and parent references are by non-unique name.",
-   "404 elements","CLOSED - absolute offsets resolved from FCPXML nesting; resolver validated 191/191 "
-   "against the ETC spine offsets"),
- D(9,"SYNC_CLIP_INTERNAL_MEDIA","18 resolved elements fall outside [0, 4846.625]. All are video/gap/audio "
-   "components inside synchronized clips using the offset==start idiom; they are media plumbing, not "
-   "timeline story elements.","18 elements","CLOSED - excluded from the timeline census by rule"),
- D(10,"CORRELATION_INDETERMINATE_SPANS","12 of 19 registry segments cannot yield an independent offset "
-   "estimate from envelope correlation.","1968 s of runtime","CLOSED - each carries a categorized reason "
-   "(segment shorter than the lag-search window, or SRT speech coverage below 30%)"),
- D(11,"SATURATED_SPEECH_MASK","S08 and S10 initially returned apparent lags of -6.75 s and -3.25 s. In "
-   "both spans the ASR emits back-to-back cues with a median inter-cue gap of 0.042 s (one frame at 24 "
-   "fps), so the speech mask is effectively constant and the correlation surface is a plateau, not a peak.",
-   "2 segments / 238 s","CLOSED - measurement artefact, not a timebase shift; a genuine mid-film shift "
-   "bounded by zero-offset neighbours on both sides is editorially impossible"),
- D(12,"EDITORIAL_CARD_LAG_CONSTANT","Across 11 semantic anchors spanning 97.4% of runtime, title cards "
-   "land a median +0.708 s after the matching spoken phrase begins (sd 0.784 s).","+0.708 s median",
-   "CLOSED - a constant editorial design lag, not a timebase offset"),
- D(13,"NO_RATE_MISMATCH","Regression of anchor delta on time gives a drift of +0.684 s over the full "
-   "runtime, 95% CI [-0.541, +1.909] s, which contains zero. A 23.976/24 pulldown error would be -4.85 s.",
-   "0 s within CI","CLOSED"),
- D(14,"CUE_BOUNDARY_VS_EXISTING_ELEMENT","CUE-01 is specified 00:00-01:13; the existing score element "
-   "KICKSTANDS UP v1 occupies 00:00:00.000-00:01:16.417.","+3.417 s","OPEN-TO-PDR (cue in/out binds to "
-   "the closed ETC; reconciliation verdict is a human decision)"),
- D(15,"OBSERVED_ACTIVITY_EXCEEDS_CUE_SPAN","CUE-03 ESCORT_ANTHEM is specified 00:27:40-00:29:10 (90 s). "
-   "The mass ride is observed continuously in picture from 00:28:15 to approximately 00:33:00.",
-   "approx +150 s of unscored ride","OPEN-TO-PDR (registry and cue sheet remain authoritative; recorded "
-   "as CONFLICTED observation)"),
- D(16,"REGISTRY_LABEL_VS_OBSERVATION","TIMELINE_REGISTRY S16 (00:58:43-01:06:25) carries the label "
-   "'bike_night_arrivals'. Measured mean luma over that span is 130.7 and the picture is bright daylight "
-   "with blue sky throughout.","462 s","CONFLICTED - registry value retained as authoritative; observation "
-   "recorded and raised as a PDR candidate"),
- D(17,"AGREEMENT_WITHIN_SAMPLING","Registry S16/S17 boundary at 3985 s vs instrument-measured sustained "
-   "night onset at 3984.5 s.","0.5 s","CLOSED - agreement within the 0.5 s observation grid"),
- D(18,"SILENCE_LAW_OVERLAP_CANDIDATE","Audio-lane element NOTOR1OUS_CARAVAN_2_ occupies "
-   "00:33:37.708-00:34:39.667, entirely inside SIL-01 (00:31:43-00:38:52). Its source is a contributed "
-   "video's audio, not a score asset. Whether its content is musical was NOT determined by this run.",
-   "61.958 s inside a mandatory-silence window","OPEN-TO-PDR - classified UNCERTAIN; escalated rather "
-   "than resolved"),
- D(19,"CUE_SHEET_COVERAGE_GAPS","Spans carrying neither a cue nor a mandatory silence.",
-   f"{cue_gap_total:.3f} s across {len(cue_gaps)} spans","CLOSED-AS-ENUMERATED (each span listed in "
-   "CONDUCTOR_SCORE.uncovered_spans)"),
- D(20,"REGISTRY_SEGMENT_GAPS","Runtime not covered by TIMELINE_REGISTRY segments S01-S19.",
-   f"{gap_total:.3f} s across {len(seg_gaps)} spans","CLOSED-AS-ENUMERATED (each span listed in "
-   "EDITORIAL_SYNCHRONIZATION.unsegmented_spans)"),
- D(21,"TITLE_TEXT_LETTER_SPACING","Title text extracted from FCPXML carries kinetic letter-spacing "
-   "(for example 'W i n d T h e r a p h y'). Style runs within one text block were concatenated; residual "
-   "spacing is the designed on-screen treatment and was not normalised.","cosmetic","CLOSED - verbatim "
-   "preserved per DIE-X rule X-2 (zero interpretation at extraction)"),
- D(22,"OFFLINE_MEDIA_REFERENCE","FCPXML asset r95 (NOTOR1OUS_CARAVAN_2_) resolves to /Volumes/10TB/..., "
-   "a volume not mounted for this run.","1 asset","CLOSED-AS-NOTED - affects content inspection only, not timing. It was the stated reason "
-   "D-18 could not be resolved in RE-001; the ESS-004 ruling retired that dependency by making the "
-   "test provenance rather than content, so the offline volume no longer blocks any decision"),
- D(23,"DIE_V_SAMPLING_UNCERTAINTY","Contact-sheet evidence timestamps sit on a 3.000 s grid and probe "
-   "sheets on a 1.000 s grid.","+/-0.5 sample","CLOSED - frame-accuracy claims rest on the ETC and on the "
-   "1.000 s probe grid, never on the 3.000 s survey grid"),
- D(24,"PROXY_RESOLUTION_CEILING","The visual ground truth supplied is a 320x180 proxy carrying a "
-   "'Filmage Editor' trial watermark. Formation geometry, flag identification, and camera-motion class "
-   "are limited by this.","320x180 vs 3840x2160 master","CLOSED-AS-DECLARED - every affected observation "
-   "is capped at MEDIUM or UNCERTAIN; no observation claims detail the proxy cannot carry"),
- D(26,"YAML_SEXAGESIMAL_TIMECODE","Bare timecode values (start_tc / end_tc) are parsed by YAML 1.1 "
-   "loaders as sexagesimal numbers - 00:31:43.000 loads as the float 1903.0 - silently converting a "
-   "human-readable string field into a number. Present in every YAML artifact of the RE-001 baseline; "
-   "found during the ESS-004 regeneration.","4 artifacts, all *_tc fields",
-   "FIXED in the regeneration - all timecodes are now quoted at write time and load as strings. The "
-   "RE-001 archived copies retain the defect by design (immutable); RE-002 will carry the fix"),
- D(25,"DIE_V_SHEET_SAMPLING","54 survey contact sheets were generated at 3.000 s cadence covering 100% "
-   "of runtime; 20 sheets were read frame-by-frame in full, chosen to cover every non-gauntlet span "
-   "completely and the two homogeneous interview gauntlets by systematic sample.",
-   "20 of 54 sheets read in full","CLOSED-AS-DECLARED - gauntlet spans carry span-level classifications "
-   "only, never per-event claims outside a read sheet"),
-]
+LEDGER = OBS_DS['delta_ledger']
 
 _TC_RE = re.compile(r'((?:start_tc|end_tc):\s*)(\d{2}:\d{2}:\d{2}\.\d{3})(?=[,}\s])')
 def yamlsafe(text):
@@ -422,7 +146,7 @@ HDR=f"""# ======================================================================
 #   Alpha RoudUp Part 2.fcpxmld/Info.fcpxml {SHA['fcpxml']}
 #   Alpha RoudUp Part 2_SRT__SRT 2_...srt   {SHA['srt']}
 #   P2_LOCK_timing.json                     {SHA['etc']}
-# Editorial lock: 4846.625 s (01:20:46:14 @ 24 fps, NDF) - offset model: ZERO
+# Editorial lock: {LOCK} s ({_lock_tc} @ {_fps_i} fps, NDF) - offset model: ZERO
 # REGENERATED WECAPE-AR2-ESS004-REGEN-20260822-174500 under Executive Ruling ESS-004 (2026-08-22, session ELS-001):
 #   MANDATORY_SILENCE prohibits WE CAPE-added non-diegetic score ONLY.
 #   Supersedes the pre-ruling state archived at RE-001. Regenerate, never patch (DOC-002).
@@ -445,10 +169,10 @@ L.append("> **The lock SRT is on the ETC timebase exactly: offset = 0.000 s, dri
 L.append("### 2. Inputs of record\n")
 L.append("| input | SHA-256 | measure |")
 L.append("|---|---|---|")
-L.append(f"| Filmage_Editor.mp4 | `{SHA['mp4']}` | 4846.633 s video stream, 320x180, 30 fps proxy |")
-L.append(f"| Info.fcpxml | `{SHA['fcpxml']}` | sequence 4846.625 s, 3840x2160p24, tcStart 0 s, NDF |")
-L.append(f"| lock SRT (\"SRT 2\") | `{SHA['srt']}` | 2,291 cues, 0.333 s -> 4841.208 s |")
-L.append(f"| P2_LOCK_timing.json | `{SHA['etc']}` | 191 spine + 404 connected; declares source sha {SHA['fcpxml'][:16]}... |")
+L.append(f"| Filmage_Editor.mp4 | `{SHA['mp4']}` | {PROXY['video_duration_s']:.3f} s video stream, {PROXY['resolution']}, {PROXY['fps']} fps proxy |")
+L.append(f"| Info.fcpxml | `{SHA['fcpxml']}` | sequence {LOCK} s, {CTX['resolution']}p24, tcStart 0 s, NDF |")
+L.append(f"| lock SRT (\"SRT 2\") | `{SHA['srt']}` | {SRTM['cues']:,} cues, {SRTM['first_s']} s -> {SRTM['last_s']} s |")
+L.append(f"| P2_LOCK_timing.json | `{SHA['etc']}` | {ETCM['spine']} spine + {ETCM['connected']} connected; declares source sha {SHA['fcpxml'][:16]}... |")
 L.append("\nThe ETC's own `source_sha256` field equals the SHA-256 this run computed for Info.fcpxml. "
          "The four-source chain is therefore closed at the hash level, not merely asserted.\n")
 L.append("### 3. Method\n")
@@ -493,7 +217,7 @@ L.append("`P2_LOCK_timing.json` carries `timeline_offset_s: null` for **all 404 
 L.append("```\nabs(child) = abs(container) + (child.offset - container.start)\n"
          "anchored <spine lane=N>: children are expressed in the storyline's own base (0)\n```\n")
 L.append("The resolver reproduces **191 of 191** ETC spine offsets and durations to within 0.0006 s, "
-         "and its last spine element ends at exactly 4846.625 s. That is the licence to trust its "
+         f"and its last spine element ends at exactly {LOCK} s. That is the licence to trust its "
          "connected-element output.\n")
 L.append("### 5. Per-segment mapping\n")
 L.append("| seg | span | dur | SRT cues | speech cov | status | lag | note |")
@@ -532,7 +256,7 @@ for d in LEDGER:
 L.append("")
 L.append("Full descriptions are carried in ESS_VALIDATION_REPORT.md section 6.\n")
 L.append("### 8. Closure statement\n")
-L.append(f"With offset = 0.000 s and drift within [-0.541, +1.909] s of zero over 4846.625 s, and with "
+L.append(f"With offset = 0.000 s and drift within [-0.541, +1.909] s of zero over {LOCK} s, and with "
          f"{len(LEDGER)} deltas each carrying a category and a disposition, the +/-6 s tolerance is "
          f"**CLOSED**. Frame-accurate claims downstream of this report are licensed against the ETC "
          f"and the 24 fps sequence timebase - not against the 320x180 proxy and not against the "
@@ -549,7 +273,7 @@ C.append("registry_schema_version: 1.0")
 C.append(f"enriched_by_run: {RUN_ID}")
 C.append("enrichment_note: >-")
 C.append(blk("Sprint 3A Step 0 completed the deferred local ETC pass. The 40 connected-lane title "
-            "elements now carry resolved absolute in/out points on the 4846.625 s locked timebase, and "
+            f"elements now carry resolved absolute in/out points on the {LOCK} s locked timebase, and "
             "17 further title elements nested inside compound clips - absent from the Sprint 2 "
             "statistics-level census - are enrolled here for the first time. Positions were resolved "
             "from FCPXML nesting because P2_LOCK_timing.json carries timeline_offset_s: null for every "
@@ -634,11 +358,13 @@ V.append(blk("The supplied visual ground truth is a 320x180 30 fps proxy carryin
              "below is capped by what that proxy can carry. Nothing in this registry claims detail the "
              "proxy cannot resolve.", 4))
 V.append("  instrument_pass:")
-V.append("    grid: 2 fps, 64x36 RGB downsample, 9693 samples covering 4846.5 s")
+V.append(f"    grid: {OBS_DS['die_v']['grid_fps']} fps, 64x36 RGB downsample, "
+         f"{OBS_DS['die_v']['n_samples']} samples covering {OBS_DS['die_v']['covered_s']} s")
 V.append("    measures: [mean_R, mean_G, mean_B, mean_luma, luma_sd, inter_frame_abs_luma_diff,")
 V.append("               left_right_luma_split, top_band_luma, bottom_band_luma]")
-V.append("    illumination_thresholds: {night_in_luma: 70.0, night_out_luma: 85.0, hysteresis: true}")
-V.append("    motion_terciles: [13.04, 23.55]")
+V.append("    illumination_thresholds: {night_in_luma: %s, night_out_luma: %s, hysteresis: true}"
+         % (OBS_DS["die_v"]["night_in_luma"], OBS_DS["die_v"]["night_out_luma"]))
+V.append("    motion_terciles: %s" % (OBS_DS["die_v"]["motion_terciles"],))
 V.append("    cut_threshold_abs_luma_diff: %.2f"%obs['thresholds']['cut_threshold_absdiff'])
 V.append("  observation_pass:")
 V.append("    survey_grid: 1 frame / 3.000 s (1616 frames, 100% of runtime), tiled into 54 contact sheets")
@@ -724,12 +450,9 @@ open(OUT+"/VISUAL_EVENT_REGISTRY.yaml","w").write(yamlsafe(HDR+"\n".join(V)+"\n"
 print("wrote VISUAL_EVENT_REGISTRY.yaml", len(E), "events")
 
 # --------------------------------------------- EDITORIAL_SYNCHRONIZATION -----
-PROG=[("P1","ARRIVAL",0,111),("P2","GAUNTLET_ONE",111,1622),("P3","RIDE_AND_TOWN",1622,2332),
-      ("P4","GAUNTLET_TWO_HONORS",2335,3324),("P5","BIKE_NIGHT_WRAP",3324,4846.625)]
-ENERGY={"S01":2,"S02":2,"S03":3,"S04":None,"S05":5,"S06":2,"S07":2,"S08":2,"S09":2,"S10":2,
-        "S11":3,"S12":1,"S13":3,"S14":3,"S15":4,"S16":4,"S17":None,"S18":5,"S19":4}
-VO=[("VO01",73,111,"day_brief"),("VO02",1622,1750,"ride_narration"),
-    ("VO03",3276,3324,"service_wrap"),("VO04",4784,4846,"wrap_tease")]
+PROG = [tuple(x) for x in OBS_DS['progressions']]
+ENERGY = OBS_DS['energy']
+VO = [tuple(x) for x in OBS_DS['voice_over']]
 def overlaps(a0,a1,b0,b1): return max(a0,b0) < min(a1,b1)-1e-9
 def prog_of(s,e):
     for pid,nm,p0,p1 in PROG:
@@ -856,7 +579,7 @@ def parse_srt(p):
         out.append(dict(i=int(Ls[0]),s=g[0]*3600+g[1]*60+g[2]+g[3]/1000,
                         e=g[4]*3600+g[5]*60+g[6]+g[7]/1000,t=' '.join(Ls[2:])))
     return out
-CU=parse_srt(U+"inputs/lock_srt2.srt")
+CU=parse_srt(U+SRCF["srt"])
 def speech_stats(a,b):
     ins=[c for c in CU if c['s']<b and c['e']>a]
     if len(ins)<2: return dict(n=len(ins),cov=0.0,gaps=[])
@@ -1275,18 +998,18 @@ R.append("|---|---|---|")
 R.append(f"| FCPXML -> ETC | ETC `source_sha256` vs computed SHA-256 of Info.fcpxml | **MATCH** "
          f"`{SHA['fcpxml'][:24]}...` |")
 R.append("| FCPXML -> ETC | resolver reproduces ETC spine offsets and durations | **191 / 191** within 0.0006 s |")
-R.append(f"| FCPXML -> lock | last spine element out-point vs sequence duration | **4846.625 s = 4846.625 s** |")
+R.append(f"| FCPXML -> lock | last spine element out-point vs sequence duration | **{LOCK} s = {LOCK} s** |")
 R.append("| SRT -> ETC | envelope correlation, null-tested | **offset 0.000 s**, p = 0.0 vs null |")
 R.append("| SRT -> FCPXML | 11 semantic title/cue anchors over 97.4% of runtime | median **+0.708 s** constant, drift CI contains 0 |")
 R.append("| ETC -> picture | 5 title in/outs vs rendered frames at 1.000 s | **5 / 5** within one sample |")
-R.append(f"| proxy -> lock | container duration vs sequence | 4846.633 s vs 4846.625 s (**D-05**) |")
+R.append(f"| proxy -> lock | container duration vs sequence | {PROXY['video_duration_s']:.3f} s vs {LOCK} s (**D-05**) |")
 R.append("\nThe chain is closed at the hash level in both directions: the ETC names the FCPXML hash this "
          "run computed, and the resolver built from that FCPXML reproduces the ETC's own numbers exactly. "
          "Neither artifact is being taken on trust.\n")
 R.append("### 2. Step 0 closure evidence\n")
 R.append("- Offset model: **0.000 s, single-valued, no drift.** Two independent methods agree; a third "
          "(picture verification) confirms at frame level.\n")
-R.append("- Drift bound: **+0.684 s over 4846.625 s, 95% CI [-0.541, +1.909] s.** Zero is inside the "
+R.append(f"- Drift bound: **+0.684 s over {LOCK} s, 95% CI [-0.541, +1.909] s.** Zero is inside the "
          "interval; a 23.976/24 rate error (-4.85 s) is far outside it.\n")
 R.append("- The +/-6 s tolerance is discharged. Its origin is identified: the *pre-lock* SRT ran to "
          "01:20:40 against a 01:20:46.625 lock. The lock SRT itself was never shifted.\n")
@@ -1440,7 +1163,7 @@ P.append(blk("Factual execution metrics only. This artifact SEEDS the future Pro
              "no judgement and no recommendation.", 2))
 P.append("assets_processed:")
 P.append(f"  - {{name: Filmage_Editor.mp4, sha256: {SHA['mp4']}, bytes: 399320021, "
-         f"duration_s: 4846.633, resolution: 320x180, fps: 30}}")
+         f"duration_s: {PROXY['video_duration_s']}, resolution: {PROXY['resolution']}, fps: {PROXY['fps']}}}")
 P.append(f"  - {{name: Info.fcpxml, sha256: {SHA['fcpxml']}, bytes: 4479627, "
          f"sequence_duration_s: {LOCK}, format: 3840x2160p24}}")
 P.append(f"  - {{name: \"Alpha RoudUp Part 2_SRT__SRT 2_English (United States).srt\", "

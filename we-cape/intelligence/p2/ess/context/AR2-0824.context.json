@@ -1,0 +1,48 @@
+{
+ "production_id": "AR2-0824",
+ "lineage": "2026-08-24 episodic trilogy lineage",
+ "lineage_status": "PRODUCTION",
+ "runtime_s": 4689.5,
+ "frame_rate": "24/1",
+ "ndf": true,
+ "resolution": "3840x2160",
+ "git_commit": "AWAITING_INGESTION",
+ "run_id": "auto",
+ "regen_run_id": "AWAITING_INGESTION",
+ "sha": {
+  "fcpxml": "1ab3d12f0dd150c63907a4b2e4bac4253baf8100910dfda74daa3a5378b6b4d2",
+  "srt": "2a16dd700148488fc4d103f91a93421e0d88b35cbce0463c3cbd915fbbc33869",
+  "mp4": "NOT_DESIGNATED",
+  "etc": "NOT_PRODUCED"
+ },
+ "proxy": {
+  "name": "NOT_DESIGNATED",
+  "video_duration_s": null,
+  "container_duration_s": null,
+  "resolution": "NOT_DESIGNATED",
+  "fps": null
+ },
+ "srt": {
+  "cues": 2036,
+  "first_s": 0.375,
+  "last_s": 4688.958
+ },
+ "etc": {
+  "spine": null,
+  "connected": null
+ },
+ "source_files": {
+  "fcpxml": "analysis_cut/Info_analysiscut.fcpxml",
+  "srt": "analysis_cut/srt_analysiscut.srt",
+  "etc": "NOT_PRODUCED"
+ },
+ "ruling": {
+  "id": "ESS-004-RULING",
+  "date": "2026-08-22",
+  "authority": "Executive Producer",
+  "session": "ELS-001",
+  "definition": "MANDATORY_SILENCE prohibits WE CAPE-ADDED NON-DIEGETIC SCORE only. Existing production audio - speech, ambience, engine noise, wind, and any source audio captured as part of the documentary record - remains permissible unless otherwise directed by an Executive PDR.",
+  "test": "PROVENANCE, not acoustics. An element breaches a silence zone if and only if WE CAPE added it as score. Read from the FCPXML asset media-rep path: /Soundtrack/ = WE CAPE-added score; Original Media or CONTRIBUTED = documentary record. No listening judgement is required, and none is permitted as the basis of a compliance verdict.",
+  "finding": "ELS-001: the span is a composite production soundscape - music/vocals, engine rumble, wind, speech. The proxy does not conclusively distinguish the provenance of the musical content, and that distinction is NOT required under this ruling."
+ }
+}
