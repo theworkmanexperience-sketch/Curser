@@ -1,5 +1,15 @@
 # DECISION PACKET — B-5 / B-14
 
+> **CORRECTION NOTICE (2026-09-30, Chairman-authorized; the issued text below is preserved unaltered).**
+> The mapping instrument (v1) could not see picture in a secondary storyline attached to a spine clip
+> and running over a following gap. It therefore booked the 08-22 **S14** body as removed (R5) and the
+> same footage in 08-24 as added (**A2**). The §6.3 and §5.2 readings of A2, the S14 row of §4, and
+> §4.2's S14-end `CORROBORATED` are **superseded** by v2 (`decision_packet_b5_b14/v2/`,
+> `rederivation_v2.json` `5bd4af486e9eb745660504b41290154fb5d8c0b511b6bc74cca5102dd4b0a28b`). Under v2, S14 = 3205.702 → 3246.432 (40.730 s, end MAPPED),
+> and A2 does not exist as added material. The lock-to-lock identity still closes at −157.125 s.
+> **Every other segment boundary is unchanged.** v2 is a candidate pending Chairman G8 ratification;
+> v1 (`5d6994b3…`) is unmodified. Full diff: `decision_packet_b5_b14/v2/README_V2.md`.
+
 **Instrument:** Decision Packet (engineering evidence for an Executive ruling)
 **Executed under:** `EO-2026-09-29` D-2 (B-5 mechanical re-derivation) and D-3 (B-14 folded in) · D-1 Parent scope
 **Production:** Alpha RoundUp 2026 Day 2, 08-24 lineage, `AR2-0824` (**Parent assembly only**)

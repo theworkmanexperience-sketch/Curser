@@ -31,6 +31,13 @@ only by explicit Chairman approval under §2.3.
 > Scope: STRUCTURAL ONLY. Tier 1/2 boundaries ratified per Addendum A;
 > Tier 3 (S12–S16, EPR-05→EPR-06 edge 3193.167s) PROVISIONAL. No
 > semantic EPR approval inferred; EPR-001 v1.13.0 unmodified.
+>
+> **G8 CANDIDATE RE-RECORD — v2 — PENDING CHAIRMAN RATIFICATION** (appended 2026-09-30;
+> the ratification above is unaltered and REMAINS IN FORCE for v1 until the Chairman rules)
+> Candidate: `intelligence/p2/ess/decision_packet_b5_b14/v2/rederivation_v2.json`
+> SHA-256: `5bd4af486e9eb745660504b41290154fb5d8c0b511b6bc74cca5102dd4b0a28b`
+> Reason: mapping correction (C1–C3; v2/README_V2.md). It changes the S14 boundary only; every
+> other segment is unchanged. NOT ratified by this entry.
 
 ## F-1 / F-3 — NARROW TEXT REPAIRS AUTHORIZED
 By correction notice, never by rewriting issued text: F-1 — the

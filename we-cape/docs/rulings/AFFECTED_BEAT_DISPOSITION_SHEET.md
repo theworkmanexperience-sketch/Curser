@@ -251,3 +251,15 @@ and S14. That second clip overlaps A2 by 0.049s and no more: a
 boundary fact only, not an explanation of A2. ROW 9's prior ◆ note is
 withdrawn as mislocated; A2's size, position, and title evidence
 stand unchanged. The cross-reference attributes nothing to any row.
+NOTICE 3 — MAPPING CORRECTION (2026-09-30, Chairman-authorized; issued text and ALL nine
+decision cells, including the recorded ROW 6 decision, are preserved unchanged).
+The v1 mapping could not see picture in a secondary storyline attached to a spine clip and running
+over a following gap. By source identity, the 08-24 interval called A2 (3212.743–3247.583)
+is the 08-22 S14 body relocated: the same X5 044 footage, the same host-wrap audio clip, and the
+same speech (99 words, lag +69.746). Corrected mapping v2 (candidate, pending G8 ratification;
+rederivation_v2.json 5bd4af486e9eb745660504b41290154fb5d8c0b511b6bc74cca5102dd4b0a28b):
+S14 = 3205.702 → 3246.432 (40.730s, end MAPPED), not 3205.702 → 3212.743 (7.041s). A2 does
+not exist as added material. ROW 6's MEASURED premise and ROW 9's premise are therefore
+superseded. By Chairman direction, ROW 6 is REOPENED for re-presentation on the corrected S14;
+its recorded cell stands until the Chairman rules again. Rows 1–5, 7 and 8 rest on unchanged
+boundaries (v2 diff: decision_packet_b5_b14/v2/README_V2.md).
