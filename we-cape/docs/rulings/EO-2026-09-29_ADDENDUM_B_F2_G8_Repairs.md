@@ -53,7 +53,15 @@ Parent-first unchanged · episode-generator engineering outside this
 Order · only work with satisfied prerequisites proceeds.
 
 ## B-7 — 08-24 PROXY DESIGNATED (Chairman, 2026-09-30)
-Designated Parent proxy: /Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/<your chosen path>/<file>.mp4
-SHA-256: 
+Designated Parent proxy (review source): /Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Corrected Video Analysis Files/Alpha RoudUp Part 2.mov
+(exact path; note the trailing space in the directory "Alpha RoundUp Part 2 ")
+SHA-256: ff34278fe1f47f678b36066780c3498633d27761655001ea97163099da9bbffe
+Size: 29,321,383,259 bytes · h264 High 3840x2160 24/1 + AAC LC 48 kHz stereo · 4689.500 s
+(measured 2026-09-30; SHA-256 corroborates ED-003 §1 prefix ff34278fe1f47f67)
+Designated by the Chairman in session ("DESIGNATE", 2026-09-30) as the B-7 Parent
+review source, LIMITED TO governed review/excerpt generation. It does not ratify
+EPR-001 or TIMELINE, does not decide R1, and authorizes neither regeneration nor
+episode-generator work.
+Corrects the unfilled template committed at 9a69c35; that commit's designation claim was premature.
 Designated for review-excerpt and observation use under the standing
 Orders. The B-15 look-alike is NOT this file unless this hash says so.
