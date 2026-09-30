@@ -1,0 +1,1484 @@
+{
+ "instrument": "rederive_segments.py",
+ "authority": "EO-2026-09-29 D-2 (machine proposal only)",
+ "inputs": {
+  "fcpxml_0822": {
+   "path": "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/SPRINT3A_WORK/inputs/Info.fcpxml",
+   "sha256": "2bf0685373d6963bc151b982fd8b16b072d47ca88bb36f3c4dcd4cf5563858e7"
+  },
+  "fcpxml_0824": {
+   "path": "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Corrected Video Analysis Files/Alpha RoudUp Part 2.fcpxmld/Info.fcpxml",
+   "sha256": "d82c2c3ec0f788cf47262194d6fbb8aefcd5fc9b7eee899b04bd3487f02e3a80"
+  },
+  "srt_0822": {
+   "path": "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/SPRINT3A_WORK/inputs/lock_srt2.srt",
+   "sha256": "89d61f965aa17e4d3dade14173869b34efb0c09d689b1c347d3c9c8f6eca1c6b"
+  },
+  "srt_0824": {
+   "path": "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Corrected Video Analysis Files/Alpha RoudUp Part 2_SRT_English (United States).srt",
+   "sha256": "d93d86a1b7cd99c9baad2ce8e625f486056a5cb8b6229918d04b3bdcb304ef82"
+  }
+ },
+ "observations_0822": {
+  "path": "/Users/twork/Curser/we-cape/intelligence/p2/ess/decision_packet_b5_b14/../context/AR2-0822.observations.json",
+  "sha256": "b325d9ea867d4c7831e49294cf5817e1f251010ea67fb6c22a9e772211b83e6a"
+ },
+ "timelines": {
+  "d22": 4846.625,
+  "d24": 4689.5,
+  "delta": -157.125,
+  "tiles22": 191,
+  "tiles24": 201,
+  "lane_tiles22": 9,
+  "lane_tiles24": 11,
+  "caption_cues_0822": 2291,
+  "caption_cues_0824": 2034
+ },
+ "ledger": {
+  "retained_0822_s": 4628.078,
+  "retained_0824_s": 4628.078,
+  "removed_s": 218.547,
+  "added_s": 61.422,
+  "reused_0822_time_s": 0.0,
+  "gaps_0822_s": 292.333,
+  "gaps_0824_s": 212.042,
+  "identity_check": "4846.625 - 218.547 + 61.422 = 4689.500 vs 4689.5",
+  "closes": true,
+  "retime_differs_pieces": 0,
+  "pieces_total": 221,
+  "pieces_chained": 207,
+  "pieces_excluded": 14,
+  "excluded_len_s": 72.083
+ },
+ "excluded_pieces": [
+  {
+   "t22_in": 8.333,
+   "t24_in": 1730.062,
+   "len": 5.0,
+   "lag": 1721.729,
+   "via": "asset-clip '013 \u00b7 06-26 10:27:18 \u00b7 X5 \u00b7 VID_20260626_102715_'"
+  },
+  {
+   "t22_in": 13.333,
+   "t24_in": 1936.688,
+   "len": 4.0,
+   "lag": 1923.354,
+   "via": "asset-clip '014 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_'"
+  },
+  {
+   "t22_in": 46.125,
+   "t24_in": 4184.936,
+   "len": 4.125,
+   "lag": 4138.811,
+   "via": "asset-clip '070 \u00b7 06-26 21:19:36 \u00b7 DJI \u00b7 DJI_20260626211936_'"
+  },
+  {
+   "t22_in": 64.792,
+   "t24_in": 4320.292,
+   "len": 4.583,
+   "lag": 4255.5,
+   "via": "asset-clip '079 \u00b7 06-26 22:48:24 \u00b7 X5 \u00b7 VID_20260626_224824_'"
+  },
+  {
+   "t22_in": 1726.562,
+   "t24_in": 8.333,
+   "len": 5.0,
+   "lag": -1718.229,
+   "via": "asset-clip '013 \u00b7 06-26 10:27:18 \u00b7 X5 \u00b7 VID_20260626_102715_'"
+  },
+  {
+   "t22_in": 1964.396,
+   "t24_in": 13.333,
+   "len": 4.0,
+   "lag": -1951.062,
+   "via": "asset-clip '014 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_'"
+  },
+  {
+   "t22_in": 2061.333,
+   "t24_in": 2051.958,
+   "len": 3.875,
+   "lag": -9.375,
+   "via": "asset-clip '015 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_'"
+  },
+  {
+   "t22_in": 2065.208,
+   "t24_in": 2055.833,
+   "len": 4.125,
+   "lag": -9.375,
+   "via": "asset-clip '015 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_'"
+  },
+  {
+   "t22_in": 2069.333,
+   "t24_in": 2059.958,
+   "len": 10.333,
+   "lag": -9.375,
+   "via": "asset-clip '015 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_'"
+  },
+  {
+   "t22_in": 2079.667,
+   "t24_in": 2033.625,
+   "len": 3.875,
+   "lag": -46.042,
+   "via": "asset-clip '015 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_'"
+  },
+  {
+   "t22_in": 2083.542,
+   "t24_in": 2037.5,
+   "len": 4.125,
+   "lag": -46.042,
+   "via": "asset-clip '015 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_'"
+  },
+  {
+   "t22_in": 2087.667,
+   "t24_in": 2041.625,
+   "len": 10.333,
+   "lag": -46.042,
+   "via": "asset-clip '015 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_'"
+  },
+  {
+   "t22_in": 4342.061,
+   "t24_in": 46.125,
+   "len": 4.125,
+   "lag": -4295.936,
+   "via": "asset-clip '070 \u00b7 06-26 21:19:36 \u00b7 DJI \u00b7 DJI_20260626211936_'"
+  },
+  {
+   "t22_in": 4477.417,
+   "t24_in": 64.792,
+   "len": 4.583,
+   "lag": -4412.625,
+   "via": "asset-clip '079 \u00b7 06-26 22:48:24 \u00b7 X5 \u00b7 VID_20260626_224824_'"
+  }
+ ],
+ "lag_blocks": [
+  {
+   "t22_in": 0.0,
+   "t22_out": 136.792,
+   "lag": 0.0,
+   "pieces": 25
+  },
+  {
+   "t22_in": 136.792,
+   "t22_out": 216.875,
+   "lag": 0.042,
+   "pieces": 2
+  },
+  {
+   "t22_in": 216.875,
+   "t22_out": 230.497,
+   "lag": 3.503,
+   "pieces": 1
+  },
+  {
+   "t22_in": 230.5,
+   "t22_out": 353.958,
+   "lag": 3.5,
+   "pieces": 6
+  },
+  {
+   "t22_in": 354.009,
+   "t22_out": 428.167,
+   "lag": 3.449,
+   "pieces": 1
+  },
+  {
+   "t22_in": 428.167,
+   "t22_out": 1232.125,
+   "lag": 3.5,
+   "pieces": 12
+  },
+  {
+   "t22_in": 1232.159,
+   "t22_out": 1239.201,
+   "lag": 3.466,
+   "pieces": 1
+  },
+  {
+   "t22_in": 1239.208,
+   "t22_out": 1298.667,
+   "lag": 3.459,
+   "pieces": 1
+  },
+  {
+   "t22_in": 1298.667,
+   "t22_out": 1618.375,
+   "lag": 3.5,
+   "pieces": 12
+  },
+  {
+   "t22_in": 1618.421,
+   "t22_out": 1629.542,
+   "lag": 3.454,
+   "pieces": 1
+  },
+  {
+   "t22_in": 1629.542,
+   "t22_out": 1820.667,
+   "lag": 3.5,
+   "pieces": 11
+  },
+  {
+   "t22_in": 1851.875,
+   "t22_out": 2409.708,
+   "lag": -27.708,
+   "pieces": 30
+  },
+  {
+   "t22_in": 2410.875,
+   "t22_out": 2425.333,
+   "lag": -28.875,
+   "pieces": 1
+  },
+  {
+   "t22_in": 2425.417,
+   "t22_out": 2972.042,
+   "lag": -28.958,
+   "pieces": 27
+  },
+  {
+   "t22_in": 2994.75,
+   "t22_out": 3214.75,
+   "lag": -28.958,
+   "pieces": 11
+  },
+  {
+   "t22_in": 3222.299,
+   "t22_out": 3225.966,
+   "lag": -36.507,
+   "pieces": 1
+  },
+  {
+   "t22_in": 3225.969,
+   "t22_out": 3229.678,
+   "lag": -36.511,
+   "pieces": 1
+  },
+  {
+   "t22_in": 3263.465,
+   "t22_out": 3283.042,
+   "lag": -70.298,
+   "pieces": 1
+  },
+  {
+   "t22_in": 3325.125,
+   "t22_out": 3368.125,
+   "lag": -77.542,
+   "pieces": 3
+  },
+  {
+   "t22_in": 3410.208,
+   "t22_out": 3471.625,
+   "lag": -119.542,
+   "pieces": 6
+  },
+  {
+   "t22_in": 3471.75,
+   "t22_out": 3947.208,
+   "lag": -119.542,
+   "pieces": 12
+  },
+  {
+   "t22_in": 3984.792,
+   "t22_out": 4209.583,
+   "lag": -157.125,
+   "pieces": 14
+  },
+  {
+   "t22_in": 4209.604,
+   "t22_out": 4212.562,
+   "lag": -157.146,
+   "pieces": 1
+  },
+  {
+   "t22_in": 4212.565,
+   "t22_out": 4227.0,
+   "lag": -157.149,
+   "pieces": 1
+  },
+  {
+   "t22_in": 4227.0,
+   "t22_out": 4846.625,
+   "lag": -157.125,
+   "pieces": 25
+  }
+ ],
+ "removed": [
+  {
+   "t22_in": 230.497,
+   "t22_out": 230.5,
+   "dur": 0.003,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ]
+  },
+  {
+   "t22_in": 353.958,
+   "t22_out": 354.009,
+   "dur": 0.051,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ]
+  },
+  {
+   "t22_in": 1232.125,
+   "t22_out": 1232.159,
+   "dur": 0.034,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ]
+  },
+  {
+   "t22_in": 1239.201,
+   "t22_out": 1239.208,
+   "dur": 0.007,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ]
+  },
+  {
+   "t22_in": 1618.375,
+   "t22_out": 1618.421,
+   "dur": 0.046,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ]
+  },
+  {
+   "t22_in": 1820.667,
+   "t22_out": 1851.875,
+   "dur": 31.208,
+   "elements": [
+    "asset-clip:016 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_",
+    "asset-clip:016 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_"
+   ]
+  },
+  {
+   "t22_in": 2409.708,
+   "t22_out": 2410.875,
+   "dur": 1.167,
+   "elements": [
+    "asset-clip:018 \u00b7 06-26 10:47:32 \u00b7 X5 \u00b7 VID_20260626_104732_"
+   ]
+  },
+  {
+   "t22_in": 2425.333,
+   "t22_out": 2425.417,
+   "dur": 0.083,
+   "elements": [
+    "asset-clip:018 \u00b7 06-26 10:47:32 \u00b7 X5 \u00b7 VID_20260626_104732_"
+   ]
+  },
+  {
+   "t22_in": 2972.042,
+   "t22_out": 2994.75,
+   "dur": 22.708,
+   "elements": [
+    "gap"
+   ]
+  },
+  {
+   "t22_in": 3214.75,
+   "t22_out": 3222.299,
+   "dur": 7.549,
+   "elements": [
+    "asset-clip:056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_",
+    "asset-clip:056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_"
+   ]
+  },
+  {
+   "t22_in": 3225.966,
+   "t22_out": 3225.969,
+   "dur": 0.004,
+   "elements": [
+    "asset-clip:056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_"
+   ]
+  },
+  {
+   "t22_in": 3229.678,
+   "t22_out": 3263.465,
+   "dur": 33.787,
+   "elements": [
+    "asset-clip:056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_"
+   ]
+  },
+  {
+   "t22_in": 3283.042,
+   "t22_out": 3325.125,
+   "dur": 42.083,
+   "elements": [
+    "gap"
+   ]
+  },
+  {
+   "t22_in": 3368.125,
+   "t22_out": 3410.208,
+   "dur": 42.083,
+   "elements": [
+    "gap",
+    "lane:asset-clip:044 \u00b7 06-26 13:31:07 \u00b7 X5 \u00b7 VID_20260626_133107_"
+   ]
+  },
+  {
+   "t22_in": 3471.625,
+   "t22_out": 3471.75,
+   "dur": 0.125,
+   "elements": [
+    "gap"
+   ]
+  },
+  {
+   "t22_in": 3947.208,
+   "t22_out": 3984.792,
+   "dur": 37.583,
+   "elements": [
+    "asset-clip:055 \u00b7 06-26 13:46:01 \u00b7 X5 \u00b7 VID_20260626_134556_",
+    "gap",
+    "asset-clip:048 \u00b7 06-26 13:35:09 \u00b7 DJI \u00b7 DJI_20260626133509_"
+   ]
+  },
+  {
+   "t22_in": 4209.583,
+   "t22_out": 4209.604,
+   "dur": 0.021,
+   "elements": [
+    "asset-clip:065 \u00b7 06-26 21:05:23 \u00b7 DJI \u00b7 DJI_20260626210523_"
+   ]
+  },
+  {
+   "t22_in": 4212.562,
+   "t22_out": 4212.565,
+   "dur": 0.003,
+   "elements": [
+    "asset-clip:065 \u00b7 06-26 21:05:23 \u00b7 DJI \u00b7 DJI_20260626210523_"
+   ]
+  }
+ ],
+ "added": [
+  {
+   "t24_in": 136.792,
+   "t24_out": 136.833,
+   "dur": 0.042,
+   "elements": [
+    "asset-clip:HO11YWOOD_GP"
+   ]
+  },
+  {
+   "t24_in": 216.917,
+   "t24_out": 220.378,
+   "dur": 3.462,
+   "elements": [
+    "asset-clip:HO11YWOOD_GP",
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ]
+  },
+  {
+   "t24_in": 431.616,
+   "t24_out": 431.667,
+   "dur": 0.051,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ]
+  },
+  {
+   "t24_in": 1302.126,
+   "t24_out": 1302.167,
+   "dur": 0.041,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ]
+  },
+  {
+   "t24_in": 1632.995,
+   "t24_out": 1633.042,
+   "dur": 0.046,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ]
+  },
+  {
+   "t24_in": 2943.083,
+   "t24_out": 2965.792,
+   "dur": 22.708,
+   "elements": [
+    "gap"
+   ]
+  },
+  {
+   "t24_in": 3212.743,
+   "t24_out": 3247.583,
+   "dur": 34.84,
+   "elements": [
+    "asset-clip:056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_",
+    "gap",
+    "gap",
+    "lane:asset-clip:044 \u00b7 06-26 13:31:07 \u00b7 X5 \u00b7 VID_20260626_133107_"
+   ]
+  },
+  {
+   "t24_in": 3290.583,
+   "t24_out": 3290.667,
+   "dur": 0.083,
+   "elements": [
+    "gap"
+   ]
+  },
+  {
+   "t24_in": 3352.083,
+   "t24_out": 3352.208,
+   "dur": 0.125,
+   "elements": [
+    "gap"
+   ]
+  },
+  {
+   "t24_in": 4069.851,
+   "t24_out": 4069.875,
+   "dur": 0.024,
+   "elements": [
+    "asset-clip:065 \u00b7 06-26 21:05:23 \u00b7 DJI \u00b7 DJI_20260626210523_"
+   ]
+  }
+ ],
+ "segments": [
+  {
+   "segment": "S01",
+   "label": "cold_open",
+   "old_start": 0.0,
+   "old_end": 73.0,
+   "old_dur": 73.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 0.0,
+    "lag": 0.0,
+    "snap_s": null,
+    "via": "asset-clip '005 \u00b7 06-25 10:12:32 \u00b7 OM1 \u00b7 P6250014.MOV'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 73.0,
+    "lag": 0.0,
+    "snap_s": null,
+    "via": "asset-clip '001 \u00b7 06-25 07:52:22 \u00b7 OM1 \u00b7 P6250003.MOV'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 73.0,
+   "removed_in_segment_s": 0.0,
+   "lags_inside_segment": [
+    0.0
+   ],
+   "caption_start": {
+    "status": "INCOHERENT_CAPTION_MATCH",
+    "words_in_window": 20,
+    "words_matched": 7,
+    "caption_lag_median": 3259.991,
+    "caption_lag_iqr": 503.509,
+    "picture_minus_caption_s": -3259.991
+   },
+   "caption_end": {
+    "status": "INSUFFICIENT_CAPTION_MATCH",
+    "words_in_window": 11,
+    "words_matched": 3
+   },
+   "new_start": 0.0,
+   "new_end": 73.0,
+   "new_dur": 73.0,
+   "d_start": 0.0,
+   "d_end": 0.0,
+   "d_dur": 0.0
+  },
+  {
+   "segment": "S02",
+   "label": "host_day_brief",
+   "old_start": 73.0,
+   "old_end": 111.0,
+   "old_dur": 38.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 73.0,
+    "lag": 0.0,
+    "snap_s": null,
+    "via": "asset-clip '001 \u00b7 06-25 07:52:22 \u00b7 OM1 \u00b7 P6250003.MOV'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 111.0,
+    "lag": 0.0,
+    "snap_s": null,
+    "via": "asset-clip '003 \u00b7 06-25 08:01:38 \u00b7 OM1 \u00b7 P6250005.MOV'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 38.0,
+   "removed_in_segment_s": 0.0,
+   "lags_inside_segment": [
+    0.0
+   ],
+   "caption_start": {
+    "status": "INCOHERENT_CAPTION_MATCH",
+    "words_in_window": 69,
+    "words_matched": 14,
+    "caption_lag_median": 4554.03,
+    "caption_lag_iqr": 2631.062,
+    "picture_minus_caption_s": -4554.03
+   },
+   "caption_end": {
+    "status": "CORROBORATED",
+    "words_in_window": 85,
+    "words_matched": 66,
+    "caption_lag_median": 0.108,
+    "caption_lag_iqr": 0.107,
+    "picture_minus_caption_s": -0.108
+   },
+   "new_start": 73.0,
+   "new_end": 111.0,
+   "new_dur": 38.0,
+   "d_start": 0.0,
+   "d_end": 0.0,
+   "d_dur": 0.0
+  },
+  {
+   "segment": "S03",
+   "label": "interview_gauntlet_1",
+   "old_start": 111.0,
+   "old_end": 1622.0,
+   "old_dur": 1511.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 111.0,
+    "lag": 0.0,
+    "snap_s": null,
+    "via": "asset-clip '003 \u00b7 06-25 08:01:38 \u00b7 OM1 \u00b7 P6250005.MOV'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 1625.454,
+    "lag": 3.454,
+    "snap_s": null,
+    "via": "asset-clip '028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_0016_D.MP4'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 1510.858,
+   "removed_in_segment_s": 0.142,
+   "lags_inside_segment": [
+    0.0,
+    0.042,
+    3.449,
+    3.454,
+    3.459,
+    3.466,
+    3.5,
+    3.503
+   ],
+   "caption_start": {
+    "status": "CORROBORATED",
+    "words_in_window": 81,
+    "words_matched": 75,
+    "caption_lag_median": 0.128,
+    "caption_lag_iqr": 0.257,
+    "picture_minus_caption_s": -0.128
+   },
+   "caption_end": {
+    "status": "CORROBORATED",
+    "words_in_window": 67,
+    "words_matched": 41,
+    "caption_lag_median": 3.584,
+    "caption_lag_iqr": 0.11,
+    "picture_minus_caption_s": -0.13
+   },
+   "new_start": 111.0,
+   "new_end": 1625.454,
+   "new_dur": 1514.454,
+   "d_start": 0.0,
+   "d_end": 3.454,
+   "d_dur": 3.454
+  },
+  {
+   "segment": "S04",
+   "label": "ride_brief",
+   "old_start": 1622.0,
+   "old_end": 1643.0,
+   "old_dur": 21.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 1625.454,
+    "lag": 3.454,
+    "snap_s": null,
+    "via": "asset-clip '028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_0016_D.MP4'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 1646.5,
+    "lag": 3.5,
+    "snap_s": null,
+    "via": "asset-clip '028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_0016_D.MP4'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 21.0,
+   "removed_in_segment_s": 0.0,
+   "lags_inside_segment": [
+    3.454,
+    3.5
+   ],
+   "caption_start": {
+    "status": "DIVERGENT",
+    "words_in_window": 46,
+    "words_matched": 29,
+    "caption_lag_median": 6.634,
+    "caption_lag_iqr": 0.529,
+    "picture_minus_caption_s": -3.18
+   },
+   "caption_end": {
+    "status": "DIVERGENT",
+    "words_in_window": 50,
+    "words_matched": 29,
+    "caption_lag_median": 6.634,
+    "caption_lag_iqr": 0.529,
+    "picture_minus_caption_s": -3.134
+   },
+   "new_start": 1625.454,
+   "new_end": 1646.5,
+   "new_dur": 21.046,
+   "d_start": 3.454,
+   "d_end": 3.5,
+   "d_dur": 0.046
+  },
+  {
+   "segment": "S05",
+   "label": "escort_ride",
+   "old_start": 1660.0,
+   "old_end": 1750.0,
+   "old_dur": 90.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 1663.5,
+    "lag": 3.5,
+    "snap_s": null,
+    "via": "asset-clip '028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_0016_D.MP4'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 1753.5,
+    "lag": 3.5,
+    "snap_s": null,
+    "via": "asset-clip '013 \u00b7 06-26 10:27:18 \u00b7 X5 \u00b7 VID_20260626_102715_00_022(3).mp'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 90.0,
+   "removed_in_segment_s": 0.0,
+   "lags_inside_segment": [
+    3.5
+   ],
+   "caption_start": {
+    "status": "CORROBORATED",
+    "words_in_window": 81,
+    "words_matched": 72,
+    "caption_lag_median": 3.583,
+    "caption_lag_iqr": 0.051,
+    "picture_minus_caption_s": -0.083
+   },
+   "caption_end": {
+    "status": "INCOHERENT_CAPTION_MATCH",
+    "words_in_window": 57,
+    "words_matched": 6,
+    "caption_lag_median": -1334.297,
+    "caption_lag_iqr": 287.015,
+    "picture_minus_caption_s": 1337.797
+   },
+   "new_start": 1663.5,
+   "new_end": 1753.5,
+   "new_dur": 90.0,
+   "d_start": 3.5,
+   "d_end": 3.5,
+   "d_dur": 0.0
+  },
+  {
+   "segment": "S06",
+   "label": "librarian_speech",
+   "old_start": 1903.0,
+   "old_end": 1953.0,
+   "old_dur": 50.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 1875.292,
+    "lag": -27.708,
+    "snap_s": null,
+    "via": "asset-clip '016 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_00_022(4).mo'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 1925.292,
+    "lag": -27.708,
+    "snap_s": null,
+    "via": "asset-clip '014 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_00_022(4)(1)'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 50.0,
+   "removed_in_segment_s": 0.0,
+   "lags_inside_segment": [
+    -27.708
+   ],
+   "caption_start": {
+    "status": "CORROBORATED",
+    "words_in_window": 60,
+    "words_matched": 45,
+    "caption_lag_median": -27.512,
+    "caption_lag_iqr": 0.505,
+    "picture_minus_caption_s": -0.197
+   },
+   "caption_end": {
+    "status": "CORROBORATED",
+    "words_in_window": 58,
+    "words_matched": 58,
+    "caption_lag_median": -27.582,
+    "caption_lag_iqr": 0.113,
+    "picture_minus_caption_s": -0.126
+   },
+   "new_start": 1875.292,
+   "new_end": 1925.292,
+   "new_dur": 50.0,
+   "d_start": -27.708,
+   "d_end": -27.708,
+   "d_dur": 0.0
+  },
+  {
+   "segment": "S07",
+   "label": "council_profile",
+   "old_start": 1965.0,
+   "old_end": 2030.0,
+   "old_dur": 65.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 1937.292,
+    "lag": -27.708,
+    "snap_s": null,
+    "via": "asset-clip '014 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_00_022(4)(1)'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 2002.292,
+    "lag": -27.708,
+    "snap_s": null,
+    "via": "asset-clip '015 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_00_022(4)(2)'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 65.0,
+   "removed_in_segment_s": 0.0,
+   "lags_inside_segment": [
+    -27.708
+   ],
+   "caption_start": {
+    "status": "CORROBORATED",
+    "words_in_window": 57,
+    "words_matched": 49,
+    "caption_lag_median": -27.65,
+    "caption_lag_iqr": 0.266,
+    "picture_minus_caption_s": -0.058
+   },
+   "caption_end": {
+    "status": "CORROBORATED",
+    "words_in_window": 44,
+    "words_matched": 37,
+    "caption_lag_median": -27.75,
+    "caption_lag_iqr": 0.284,
+    "picture_minus_caption_s": 0.042
+   },
+   "new_start": 1937.292,
+   "new_end": 2002.292,
+   "new_dur": 65.0,
+   "d_start": -27.708,
+   "d_end": -27.708,
+   "d_dur": 0.0
+  },
+  {
+   "segment": "S08",
+   "label": "town_proclamation",
+   "old_start": 2031.0,
+   "old_end": 2156.0,
+   "old_dur": 125.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 2003.292,
+    "lag": -27.708,
+    "snap_s": null,
+    "via": "asset-clip '015 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_00_022(4)(2)'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 2128.292,
+    "lag": -27.708,
+    "snap_s": null,
+    "via": "asset-clip '017 \u00b7 06-26 10:43:36 \u00b7 X5 \u00b7 VID_20260626_104336_00_023.mov'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 125.0,
+   "removed_in_segment_s": 0.0,
+   "lags_inside_segment": [
+    -27.708
+   ],
+   "caption_start": {
+    "status": "CORROBORATED",
+    "words_in_window": 37,
+    "words_matched": 34,
+    "caption_lag_median": -27.651,
+    "caption_lag_iqr": 0.036,
+    "picture_minus_caption_s": -0.057
+   },
+   "caption_end": {
+    "status": "CORROBORATED",
+    "words_in_window": 43,
+    "words_matched": 30,
+    "caption_lag_median": -27.667,
+    "caption_lag_iqr": 0.065,
+    "picture_minus_caption_s": -0.041
+   },
+   "new_start": 2003.292,
+   "new_end": 2128.292,
+   "new_dur": 125.0,
+   "d_start": -27.708,
+   "d_end": -27.708,
+   "d_dur": 0.0
+  },
+  {
+   "segment": "S09",
+   "label": "first_ride_moment",
+   "old_start": 2163.0,
+   "old_end": 2190.0,
+   "old_dur": 27.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 2135.292,
+    "lag": -27.708,
+    "snap_s": null,
+    "via": "clip 'Mark S. Tillman (GP)_CARAVAN'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 2162.292,
+    "lag": -27.708,
+    "snap_s": null,
+    "via": "clip 'Mark S. Tillman (GP)_CARAVAN'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 27.0,
+   "removed_in_segment_s": 0.0,
+   "lags_inside_segment": [
+    -27.708
+   ],
+   "caption_start": {
+    "status": "CORROBORATED",
+    "words_in_window": 30,
+    "words_matched": 20,
+    "caption_lag_median": -27.597,
+    "caption_lag_iqr": 0.34,
+    "picture_minus_caption_s": -0.112
+   },
+   "caption_end": {
+    "status": "CORROBORATED",
+    "words_in_window": 29,
+    "words_matched": 20,
+    "caption_lag_median": -27.66,
+    "caption_lag_iqr": 0.32,
+    "picture_minus_caption_s": -0.049
+   },
+   "new_start": 2135.292,
+   "new_end": 2162.292,
+   "new_dur": 27.0,
+   "d_start": -27.708,
+   "d_end": -27.708,
+   "d_dur": 0.0
+  },
+  {
+   "segment": "S10",
+   "label": "state_proclamation",
+   "old_start": 2219.0,
+   "old_end": 2332.0,
+   "old_dur": 113.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 2191.292,
+    "lag": -27.708,
+    "snap_s": null,
+    "via": "asset-clip '017 \u00b7 06-26 10:43:36 \u00b7 X5 \u00b7 VID_20260626_104336_00_023.mov'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 2304.292,
+    "lag": -27.708,
+    "snap_s": null,
+    "via": "asset-clip '017 \u00b7 06-26 10:43:36 \u00b7 X5 \u00b7 VID_20260626_104336_00_023.mov'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 113.0,
+   "removed_in_segment_s": 0.0,
+   "lags_inside_segment": [
+    -27.708
+   ],
+   "caption_start": {
+    "status": "INCOHERENT_CAPTION_MATCH",
+    "words_in_window": 38,
+    "words_matched": 8,
+    "caption_lag_median": -27.211,
+    "caption_lag_iqr": 943.522,
+    "picture_minus_caption_s": -0.497
+   },
+   "caption_end": {
+    "status": "CORROBORATED",
+    "words_in_window": 52,
+    "words_matched": 40,
+    "caption_lag_median": -27.751,
+    "caption_lag_iqr": 0.222,
+    "picture_minus_caption_s": 0.043
+   },
+   "new_start": 2191.292,
+   "new_end": 2304.292,
+   "new_dur": 113.0,
+   "d_start": -27.708,
+   "d_end": -27.708,
+   "d_dur": 0.0
+  },
+  {
+   "segment": "S11",
+   "label": "interview_gauntlet_2",
+   "old_start": 2335.0,
+   "old_end": 3120.0,
+   "old_dur": 785.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 2307.292,
+    "lag": -27.708,
+    "snap_s": null,
+    "via": "asset-clip '017 \u00b7 06-26 10:43:36 \u00b7 X5 \u00b7 VID_20260626_104336_00_023.mov'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 3091.042,
+    "lag": -28.958,
+    "snap_s": null,
+    "via": "asset-clip '026 \u00b7 06-26 10:47:40 \u00b7 X5 \u00b7 VID_20260626_104732_00_024(8).mo'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 761.042,
+   "removed_in_segment_s": 23.958,
+   "lags_inside_segment": [
+    -28.958,
+    -28.875,
+    -27.708
+   ],
+   "caption_start": {
+    "status": "CORROBORATED",
+    "words_in_window": 93,
+    "words_matched": 84,
+    "caption_lag_median": -27.573,
+    "caption_lag_iqr": 0.113,
+    "picture_minus_caption_s": -0.136
+   },
+   "caption_end": {
+    "status": "CORROBORATED",
+    "words_in_window": 61,
+    "words_matched": 43,
+    "caption_lag_median": -28.839,
+    "caption_lag_iqr": 0.083,
+    "picture_minus_caption_s": -0.119
+   },
+   "new_start": 2307.292,
+   "new_end": 3091.042,
+   "new_dur": 783.75,
+   "d_start": -27.708,
+   "d_end": -28.958,
+   "d_dur": -1.25
+  },
+  {
+   "segment": "S12",
+   "label": "organizer_honors_and_silence",
+   "old_start": 3124.0,
+   "old_end": 3236.0,
+   "old_dur": 112.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 3095.042,
+    "lag": -28.958,
+    "snap_s": null,
+    "via": "asset-clip '043 \u00b7 06-26 12:50:16 \u00b7 DJI \u00b7 DJI_20260626125016_0024_D.MP4'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "SNAPPED",
+    "t": 3193.167,
+    "lag": -36.511,
+    "snap_s": -6.322416666666666,
+    "via": "asset-clip '056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 98.125,
+   "removed_in_segment_s": 13.875,
+   "lags_inside_segment": [
+    -36.511,
+    -36.507,
+    -28.958
+   ],
+   "caption_start": {
+    "status": "CORROBORATED",
+    "words_in_window": 40,
+    "words_matched": 17,
+    "caption_lag_median": -28.503,
+    "caption_lag_iqr": 0.288,
+    "picture_minus_caption_s": -0.456
+   },
+   "caption_end": {
+    "status": "DIVERGENT",
+    "words_in_window": 40,
+    "words_matched": 10,
+    "caption_lag_median": -28.866,
+    "caption_lag_iqr": 0.047,
+    "picture_minus_caption_s": -7.645
+   },
+   "new_start": 3095.042,
+   "new_end": 3193.167,
+   "new_dur": 98.125,
+   "d_start": -28.958,
+   "d_end": -42.833,
+   "d_dur": -13.875
+  },
+  {
+   "segment": "S13",
+   "label": "group_photo",
+   "old_start": 3230.0,
+   "old_end": 3275.0,
+   "old_dur": 45.0,
+   "start": {
+    "status": "SNAPPED",
+    "t": 3193.167,
+    "lag": -70.298,
+    "snap_s": 33.465041666666664,
+    "via": "asset-clip '056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 3204.702,
+    "lag": -70.298,
+    "snap_s": null,
+    "via": "asset-clip '056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 11.535,
+   "removed_in_segment_s": 33.465,
+   "lags_inside_segment": [
+    -70.298
+   ],
+   "caption_start": {
+    "status": "INCOHERENT_CAPTION_MATCH",
+    "words_in_window": 81,
+    "words_matched": 17,
+    "caption_lag_median": -1594.381,
+    "caption_lag_iqr": 2243.643,
+    "picture_minus_caption_s": 1524.083
+   },
+   "caption_end": {
+    "status": "INSUFFICIENT_CAPTION_MATCH",
+    "words_in_window": 10,
+    "words_matched": 0
+   },
+   "new_start": 3193.167,
+   "new_end": 3204.702,
+   "new_dur": 11.535,
+   "d_start": -36.833,
+   "d_end": -70.298,
+   "d_dur": -33.465
+  },
+  {
+   "segment": "S14",
+   "label": "service_wrap_preview",
+   "old_start": 3276.0,
+   "old_end": 3324.0,
+   "old_dur": 48.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 3205.702,
+    "lag": -70.298,
+    "snap_s": null,
+    "via": "asset-clip '056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "SNAPPED",
+    "t": 3212.743,
+    "lag": -70.298,
+    "snap_s": -40.958333333333336,
+    "via": "asset-clip '056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 7.042,
+   "removed_in_segment_s": 40.958,
+   "lags_inside_segment": [
+    -70.298
+   ],
+   "caption_start": {
+    "status": "CORROBORATED",
+    "words_in_window": 35,
+    "words_matched": 33,
+    "caption_lag_median": -69.779,
+    "caption_lag_iqr": 0.258,
+    "picture_minus_caption_s": -0.519
+   },
+   "caption_end": {
+    "status": "CORROBORATED",
+    "words_in_window": 79,
+    "words_matched": 68,
+    "caption_lag_median": -69.741,
+    "caption_lag_iqr": 0.241,
+    "picture_minus_caption_s": -0.557
+   },
+   "new_start": 3205.702,
+   "new_end": 3212.743,
+   "new_dur": 7.042,
+   "d_start": -70.298,
+   "d_end": -111.257,
+   "d_dur": -40.958
+  },
+  {
+   "segment": "S15",
+   "label": "riding_music_passage",
+   "old_start": 3370.0,
+   "old_end": 3523.0,
+   "old_dur": 153.0,
+   "start": {
+    "status": "SNAPPED",
+    "t": 3290.667,
+    "lag": -119.542,
+    "snap_s": 40.208333333333336,
+    "via": "lane:asset-clip '044 \u00b7 06-26 13:31:07 \u00b7 X5 \u00b7 VID_20260626_133107_00_028.mov'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 3403.458,
+    "lag": -119.542,
+    "snap_s": null,
+    "via": "asset-clip '051 \u00b7 06-26 13:45:57 \u00b7 X5 \u00b7 VID_20260626_134556_00_029(1).mo'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 112.667,
+   "removed_in_segment_s": 40.333,
+   "lags_inside_segment": [
+    -119.542
+   ],
+   "caption_start": {
+    "status": "INSUFFICIENT_08-22_CAPTION_WORDS",
+    "words_in_window": 0
+   },
+   "caption_end": {
+    "status": "INSUFFICIENT_08-22_CAPTION_WORDS",
+    "words_in_window": 3
+   },
+   "new_start": 3290.667,
+   "new_end": 3403.458,
+   "new_dur": 112.792,
+   "d_start": -79.333,
+   "d_end": -119.542,
+   "d_dur": -40.208
+  },
+  {
+   "segment": "S16",
+   "label": "bike_night_arrivals",
+   "old_start": 3523.0,
+   "old_end": 3985.0,
+   "old_dur": 462.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 3403.458,
+    "lag": -119.542,
+    "snap_s": null,
+    "via": "asset-clip '051 \u00b7 06-26 13:45:57 \u00b7 X5 \u00b7 VID_20260626_134556_00_029(1).mo'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 3827.875,
+    "lag": -157.125,
+    "snap_s": null,
+    "via": "asset-clip '060 \u00b7 06-26 20:38:28 \u00b7 X5 \u00b7 VID_20260626_203828_00_030.mov'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 424.417,
+   "removed_in_segment_s": 37.583,
+   "lags_inside_segment": [
+    -157.125,
+    -119.542
+   ],
+   "caption_start": {
+    "status": "INCOHERENT_CAPTION_MATCH",
+    "words_in_window": 60,
+    "words_matched": 15,
+    "caption_lag_median": -1921.05,
+    "caption_lag_iqr": 1399.902,
+    "picture_minus_caption_s": 1801.508
+   },
+   "caption_end": {
+    "status": "INCOHERENT_CAPTION_MATCH",
+    "words_in_window": 71,
+    "words_matched": 24,
+    "caption_lag_median": -3071.758,
+    "caption_lag_iqr": 3390.896,
+    "picture_minus_caption_s": 2914.633
+   },
+   "new_start": 3403.458,
+   "new_end": 3827.875,
+   "new_dur": 424.417,
+   "d_start": -119.542,
+   "d_end": -157.125,
+   "d_dur": -37.583
+  },
+  {
+   "segment": "S17",
+   "label": "audience_cta",
+   "old_start": 3985.0,
+   "old_end": 4008.0,
+   "old_dur": 23.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 3827.875,
+    "lag": -157.125,
+    "snap_s": null,
+    "via": "asset-clip '060 \u00b7 06-26 20:38:28 \u00b7 X5 \u00b7 VID_20260626_203828_00_030.mov'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 3850.875,
+    "lag": -157.125,
+    "snap_s": null,
+    "via": "asset-clip '060 \u00b7 06-26 20:38:28 \u00b7 X5 \u00b7 VID_20260626_203828_00_030.mov'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 23.0,
+   "removed_in_segment_s": 0.0,
+   "lags_inside_segment": [
+    -157.125
+   ],
+   "caption_start": {
+    "status": "INCOHERENT_CAPTION_MATCH",
+    "words_in_window": 66,
+    "words_matched": 9,
+    "caption_lag_median": 681.458,
+    "caption_lag_iqr": 3565.347,
+    "picture_minus_caption_s": -838.583
+   },
+   "caption_end": {
+    "status": "INSUFFICIENT_CAPTION_MATCH",
+    "words_in_window": 67,
+    "words_matched": 5
+   },
+   "new_start": 3827.875,
+   "new_end": 3850.875,
+   "new_dur": 23.0,
+   "d_start": -157.125,
+   "d_end": -157.125,
+   "d_dur": 0.0
+  },
+  {
+   "segment": "S18",
+   "label": "bike_night_ambience",
+   "old_start": 4165.0,
+   "old_end": 4780.0,
+   "old_dur": 615.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 4007.875,
+    "lag": -157.125,
+    "snap_s": null,
+    "via": "asset-clip '062 \u00b7 06-26 20:38:30 \u00b7 X5 \u00b7 VID_20260626_203828_00_030(2).mo'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 4622.875,
+    "lag": -157.125,
+    "snap_s": null,
+    "via": "asset-clip '079 \u00b7 06-26 22:48:24 \u00b7 X5 \u00b7 VID_20260626_224824_00_032.mov'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 614.976,
+   "removed_in_segment_s": 0.024,
+   "lags_inside_segment": [
+    -157.149,
+    -157.146,
+    -157.125
+   ],
+   "caption_start": {
+    "status": "INSUFFICIENT_08-22_CAPTION_WORDS",
+    "words_in_window": 0
+   },
+   "caption_end": {
+    "status": "INSUFFICIENT_08-22_CAPTION_WORDS",
+    "words_in_window": 0
+   },
+   "new_start": 4007.875,
+   "new_end": 4622.875,
+   "new_dur": 615.0,
+   "d_start": -157.125,
+   "d_end": -157.125,
+   "d_dur": 0.0
+  },
+  {
+   "segment": "S19",
+   "label": "friday_wrap_part3_tease",
+   "old_start": 4784.0,
+   "old_end": 4846.0,
+   "old_dur": 62.0,
+   "start": {
+    "status": "MAPPED",
+    "t": 4626.875,
+    "lag": -157.125,
+    "snap_s": null,
+    "via": "asset-clip '079 \u00b7 06-26 22:48:24 \u00b7 X5 \u00b7 VID_20260626_224824_00_032.mov'",
+    "retime_differs": false
+   },
+   "end": {
+    "status": "MAPPED",
+    "t": 4688.875,
+    "lag": -157.125,
+    "snap_s": null,
+    "via": "asset-clip '080 \u00b7 06-26 22:48:25 \u00b7 X5 \u00b7 VID_20260626_224824_00_032(1).mo'",
+    "retime_differs": false
+   },
+   "retained_in_segment_s": 62.0,
+   "removed_in_segment_s": 0.0,
+   "lags_inside_segment": [
+    -157.125
+   ],
+   "caption_start": {
+    "status": "CORROBORATED",
+    "words_in_window": 55,
+    "words_matched": 26,
+    "caption_lag_median": -156.958,
+    "caption_lag_iqr": 0.141,
+    "picture_minus_caption_s": -0.167
+   },
+   "caption_end": {
+    "status": "CORROBORATED",
+    "words_in_window": 40,
+    "words_matched": 34,
+    "caption_lag_median": -156.912,
+    "caption_lag_iqr": 0.479,
+    "picture_minus_caption_s": -0.213
+   },
+   "new_start": 4626.875,
+   "new_end": 4688.875,
+   "new_dur": 62.0,
+   "d_start": -157.125,
+   "d_end": -157.125,
+   "d_dur": 0.0
+  }
+ ]
+}

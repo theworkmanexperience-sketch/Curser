@@ -1,0 +1,37 @@
+/Users/twork/Curser/we-cape/intelligence/p2/ess/decision_packet_b5_b14/AR2-0824_ETC.json  spine=201  connected=459  duration_s=4689.5  source_sha256=d82c2c3ec0f788cf…
+{"d22": 4846.625, "d24": 4689.5, "delta": -157.125, "tiles22": 191, "tiles24": 201, "lane_tiles22": 9, "lane_tiles24": 11, "caption_cues_0822": 2291, "caption_cues_0824": 2034}
+{
+ "retained_0822_s": 4628.078,
+ "retained_0824_s": 4628.078,
+ "removed_s": 218.547,
+ "added_s": 61.422,
+ "reused_0822_time_s": 0.0,
+ "gaps_0822_s": 292.333,
+ "gaps_0824_s": 212.042,
+ "identity_check": "4846.625 - 218.547 + 61.422 = 4689.500 vs 4689.5",
+ "closes": true,
+ "retime_differs_pieces": 0,
+ "pieces_total": 221,
+ "pieces_chained": 207,
+ "pieces_excluded": 14,
+ "excluded_len_s": 72.083
+}
+{
+ "delta_s": -157.125,
+ "removed_total_s": 218.545,
+ "added_total_s": 61.422,
+ "by_category": {
+  "removed": {
+   "MICRO_RETRIM": 0.377,
+   "GAP_REPOSITIONED": 22.708,
+   "REMOVED_MATERIAL": 195.46
+  },
+  "added": {
+   "MICRO_RETRIM": 0.412,
+   "GAP_REPOSITIONED": 22.708,
+   "ADDED_MATERIAL": 38.302
+  }
+ },
+ "closes": true,
+ "unexplained_segment_deltas": []
+}
