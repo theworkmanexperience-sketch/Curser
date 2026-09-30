@@ -51,3 +51,9 @@ is ordered.
 ## SCOPE
 Parent-first unchanged · episode-generator engineering outside this
 Order · only work with satisfied prerequisites proceeds.
+
+## B-7 — 08-24 PROXY DESIGNATED (Chairman, 2026-09-30)
+Designated Parent proxy: /Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/<your chosen path>/<file>.mp4
+SHA-256: 
+Designated for review-excerpt and observation use under the standing
+Orders. The B-15 look-alike is NOT this file unless this hash says so.
