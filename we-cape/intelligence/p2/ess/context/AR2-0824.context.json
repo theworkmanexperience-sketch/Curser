@@ -10,8 +10,8 @@
  "run_id": "auto",
  "regen_run_id": "AWAITING_INGESTION",
  "sha": {
-  "fcpxml": "1ab3d12f0dd150c63907a4b2e4bac4253baf8100910dfda74daa3a5378b6b4d2",
-  "srt": "2a16dd700148488fc4d103f91a93421e0d88b35cbce0463c3cbd915fbbc33869",
+  "fcpxml": "d82c2c3ec0f788cf47262194d6fbb8aefcd5fc9b7eee899b04bd3487f02e3a80",
+  "srt": "d93d86a1b7cd99c9baad2ce8e625f486056a5cb8b6229918d04b3bdcb304ef82",
   "mp4": "NOT_DESIGNATED",
   "etc": "NOT_PRODUCED"
  },
@@ -23,7 +23,7 @@
   "fps": null
  },
  "srt": {
-  "cues": 2036,
+  "cues": 2034,
   "first_s": 0.375,
   "last_s": 4688.958
  },
