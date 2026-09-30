@@ -38,6 +38,21 @@ only by explicit Chairman approval under §2.3.
 > SHA-256: `5bd4af486e9eb745660504b41290154fb5d8c0b511b6bc74cca5102dd4b0a28b`
 > Reason: mapping correction (C1–C3; v2/README_V2.md). It changes the S14 boundary only; every
 > other segment is unchanged. NOT ratified by this entry.
+>
+> **G8 RATIFICATION — v2** (Chairman, 2026-09-30; recorded verbatim in substance; the entries
+> above, including the v1 ratification and the v2 candidate record, are preserved unaltered)
+> RATIFIED: `intelligence/p2/ess/decision_packet_b5_b14/v2/rederivation_v2.json`
+> SHA-256: `5bd4af486e9eb745660504b41290154fb5d8c0b511b6bc74cca5102dd4b0a28b` (re-measured at recording)
+> as the governing structural mapping for this review.
+> Basis (Chairman): the original ratified v1 artifact remains preserved and reproducible; the
+> correction is bounded to the S14 identity/mapping defect; validation passes 19/19; a deterministic
+> re-run reproduces the v2 artifact byte-for-byte; R1-R5, R7 and R8 are unaffected; the R4 edge at
+> 3193.167s remains unchanged; the correction does not itself determine any editorial disposition.
+> Effect: supersedes the defective S14/A2 structural mapping for future use. v1
+> (`5d6994b3f36de5bc07d3987cdb3bd611f70493390a8f6a8ed50828a79d666117`) is retained as the historical
+> artifact, together with the correction record (v2/README_V2.md, v2/VALIDATION_V2.txt).
+> Scope: STRUCTURAL ONLY. No EPR or TIMELINE regeneration; no new R6 decision inferred (R6 remains
+> REOPENED pending Chairman editorial review); B-14 not reopened; R1-R5, R7, R8 unaltered.
 
 ## F-1 / F-3 — NARROW TEXT REPAIRS AUTHORIZED
 By correction notice, never by rewriting issued text: F-1 — the

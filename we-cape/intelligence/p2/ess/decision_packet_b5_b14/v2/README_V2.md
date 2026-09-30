@@ -1,5 +1,8 @@
 # B-5 re-derivation — VERSION 2 (correction)
 
+> **RATIFIED (G8) by the Chairman, 2026-09-30.** See Addendum B, G8 section. The candidate status
+> line below is preserved as written at issue.
+
 **Status: CANDIDATE — PENDING CHAIRMAN G8 RATIFICATION.** v1 (`../rederivation.json`,
 `5d6994b3f36de5bc07d3987cdb3bd611f70493390a8f6a8ed50828a79d666117`) remains the ratified G8
 artifact until the Chairman rules. v1 is unmodified and still reproduces byte-for-byte
