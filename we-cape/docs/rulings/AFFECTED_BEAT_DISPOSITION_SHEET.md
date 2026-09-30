@@ -77,7 +77,25 @@ same asset. S12-end divergence: caption −28.87 vs picture −36.51 =
 7.645s (carried B-14 fact).
 QUESTION: does CLIMACTIC "Legacy Through Service" hold over the
 shortened S12 whose closing 6s (and its speech) no longer exist?
-CHAIRMAN DECISION: ____________________
+CHAIRMAN DECISION: PRESERVE  (recorded 2026-09-30, verbatim)
+  Chairman review of the R3/R4/R5 review excerpt is complete for R3.
+  Findings:
+  - The shortened S12 still communicates "Legacy Through Service."
+  - CLIMACTIC remains the correct dramatic intensity after the 13.875-second reduction.
+  - The surviving silence instruction over the different asset-056 picture still functions as the same beat.
+  - The picture/speech relationship has not materially changed the beat's meaning or intensity.
+  Retain:
+  EPR: EPR-05 Deepening
+  segment_ref: S12
+  governing_theme: "Legacy Through Service"
+  dramatic_intensity: CLIMACTIC
+  Apply the accepted 08-24 temporal rebase only.
+  No editorial re-authoring is required for R3.
+  [Review source: B-7 e966f8a, ff34278fe1f47f678b36066780c3498633d27761655001ea97163099da9bbffe;
+   excerpt REVIEW_R3_R4_R5_00525500-00532500_ff34278f.mp4,
+   0b51cebc0450bb7b895d3464f8b2584a8b5e494e14537ca717edf887452271cf, source 3175.000-3205.000s.
+   R3 decides S12 membership/meaning/intensity only; the S12 END boundary is the R4 edge
+   and remains governed by ROW 4.]
 ### ROW 4 · EPR-05→EPR-06 transition (CLIMACTIC→ELEVATED)
 MEASURED: re-derived edge 3193.167s / 00:53:13:04 — an asset-056
 source cut (22927.443 → 22961.230). Contested 6.0s: nonexistent in
