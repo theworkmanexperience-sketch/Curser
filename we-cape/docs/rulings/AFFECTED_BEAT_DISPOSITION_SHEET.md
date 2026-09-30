@@ -177,7 +177,24 @@ CHAIRMAN DECISION: PRESERVE  (recorded 2026-09-30, verbatim)
    (source 3205.702-3212.743s). R6 decides S14 only; A2 remains ROW 9.]
 ### ROW 7 · EPR-06 — S15
 MEASURED: −40.208s (R6: gap + 044·X5); start SNAPPED +40.208.
-CHAIRMAN DECISION: ____________________
+CHAIRMAN DECISION: PRESERVE  (recorded 2026-09-30, verbatim)
+  Chairman visual/audio review of the re-derived S15 opening is complete.
+  Findings:
+  - The shortened S15 still clearly functions as a riding_music_passage.
+  - "Enduring Brotherhood" remains the correct governing theme.
+  - ELEVATED remains the correct dramatic intensity.
+  - Joy remains the correct audience state.
+  - The surviving opening establishes the beat cleanly despite the removal
+    of the first 40.208 seconds.
+  Retain the existing R7 editorial assignment exactly as currently recorded.
+  Apply the accepted 08-24 temporal rebase only.
+  No editorial re-authoring is required for R7.
+  ["As currently recorded" = EPR-001 v1.13.0 (1d54e674) EPR-06 Celebration, segment_refs incl.
+   S15, unchanged. Review source: B-7 e966f8a, ff34278fe1f47f678b36066780c3498633d27761655001ea97163099da9bbffe;
+   excerpt REVIEW_R7_S15_00544500-00550500_ff34278f.mp4,
+   0bfd038687d26618115d84ce6510849920d89db2eee7b27f74865c99aadf1318; S15 start at excerpt 5.667s /
+   frame 136 (source 3290.667s). The WE OUT music-path provenance (ESS-004 test gap) is
+   outside this disposition.]
 ### ROW 8 · EPR-06 — S16
 MEASURED: −37.583s (R7: 055·X5, gap, 048·DJI). Boundaries MAPPED.
 CHAIRMAN DECISION: ____________________
