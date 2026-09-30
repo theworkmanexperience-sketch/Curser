@@ -85,4 +85,33 @@ seconds as computed by the resolver.
 | new in 08-24 (all asset 056) | 5 |
 | **total** | **23** |
 
-*No value in the DECLARED EXPECTATION column has been authored, suggested or defaulted.*
+## DECLARED EXPECTATION — Chairman, 2026-09-30 (verbatim; applies to rows 1–23 as enumerated above)
+
+Declare rows 1–23, preserving their existing enumerated identifiers in
+the evidence sheet at `e79a2b3`, as `EXPECTED_STRUCTURAL_NESTING
+(ECR-GEN-002 §2.4)`, scoped to the designated lock and source bindings
+represented by that evidence.
+
+The declared census is 23 elements: 10 resolving before zero and 13
+resolving past the program end; 18 carried and 5 new. This declaration
+records expected structural nesting. It does not endorse those
+elements as program content, waive a binding error, or authorize their
+inclusion in an emitted artifact.
+
+Retain G-07's stated expectation of exactly these twenty-three
+enumerated elements—not merely any set totaling twenty-three. A
+mismatch requires the existing stop-and-review process; the
+expectation must not be silently updated to match a changed result.
+
+Preserve the asset-056 cross-reference for rows 16–23, including the
+connection to Tier-3 disposition rows 3–5 and 9. If those rulings
+change the relevant resolver inputs, boundaries, or nesting structure,
+re-enumerate the affected evidence and obtain a renewed declaration
+before relying on the prior expectation.
+
+This declaration does not decide the nine editorial disposition cells,
+ratify EPR-001 `v1.14.0-PROPOSED`, or authorize a regeneration run.
+
+*(The empty per-row column above is satisfied by this declaration for
+rows 1–23; G-07's machine-readable expectation is wired from this
+block, id-pinned, under a future generator-run order.)*
