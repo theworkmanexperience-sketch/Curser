@@ -234,6 +234,16 @@ Derived from the 08-22 ETC's actual schema (`P2_LOCK_timing.json`, 183 116 bytes
 Absolute path of the FCPXML the contract was exported from.
 
 ### `ETC-A2` — `source_sha256`
+
+> **CORRECTION NOTICE (F-1 · EO-2026-09-29 Addendum B · installed 2026-09-30):**
+> The required value below (`1ab3d12f…`, the PLR-001 candidate) is **STALE**. This review
+> predates `ED-003` (issued 2026-08-31), which designated
+> `d82c2c3ec0f788cf47262194d6fbb8aefcd5fc9b7eee899b04bd3487f02e3a80` as the 08-24 Picture Lock.
+> **The ED-003-designated `d82c2c3e…` governs ETC-A2.** The 08-24 ETC (`AR2-0824_ETC.json`,
+> `8c76a8cf…`, packet `aec3a27`) carries `d82c2c3e…`. The two FCPXMLs are identical in depth-0
+> structure (225 / 201), so ETC-A4's expected 201 is unaffected. The criterion text below is
+> preserved as issued.
+
 SHA-256 of that FCPXML. **Must equal exactly:**
 
 ```

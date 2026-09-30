@@ -39,6 +39,13 @@ Alpha RoudUp Part 2.mov                         ff34278fe1f47f67…
 Alpha RoudUp Part 2_SRT_English (US).srt        d93d86a1b7cd99c9…
 ```
 
+> **CORRECTION NOTICE (F-3 · EO-2026-09-29 Addendum B · installed 2026-09-30):**
+> The SRT filename above is an **abbreviation**. On disk (and in `CF-001` §1) the file is
+> `Alpha RoudUp Part 2_SRT_English (United States).srt`. **The hash resolves it:**
+> `d93d86a1b7cd99c9baad2ce8e625f486056a5cb8b6229918d04b3bdcb304ef82`, verified on the mounted
+> volume at 2026-09-30. The issued text above is preserved unaltered, and this notice modifies no
+> determination.
+
 ---
 
 # 2 · EXECUTIVE DETERMINATIONS
