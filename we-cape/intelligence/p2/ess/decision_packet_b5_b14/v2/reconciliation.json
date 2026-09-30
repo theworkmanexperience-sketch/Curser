@@ -1,0 +1,452 @@
+{
+ "lock_0822_s": 4846.625,
+ "lock_0824_s": 4689.5,
+ "delta_s": -157.125,
+ "removed_total_s": 161.076,
+ "added_total_s": 3.926,
+ "by_category": {
+  "removed": {
+   "MICRO_RETRIM": 0.407,
+   "GAP_REPOSITIONED": 0,
+   "REMOVED_MATERIAL": 160.669
+  },
+  "added": {
+   "MICRO_RETRIM": 0.464,
+   "GAP_REPOSITIONED": 0,
+   "ADDED_MATERIAL": 3.462
+  }
+ },
+ "closes": true,
+ "removed": [
+  {
+   "t22_in": 230.497,
+   "t22_out": 230.5,
+   "dur": 0.003,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S03",
+     0.003
+    ]
+   ]
+  },
+  {
+   "t22_in": 353.958,
+   "t22_out": 354.009,
+   "dur": 0.051,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S03",
+     0.051
+    ]
+   ]
+  },
+  {
+   "t22_in": 1232.125,
+   "t22_out": 1232.159,
+   "dur": 0.034,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S03",
+     0.034
+    ]
+   ]
+  },
+  {
+   "t22_in": 1239.201,
+   "t22_out": 1239.208,
+   "dur": 0.007,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S03",
+     0.007
+    ]
+   ]
+  },
+  {
+   "t22_in": 1618.375,
+   "t22_out": 1618.421,
+   "dur": 0.046,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S03",
+     0.046
+    ]
+   ]
+  },
+  {
+   "t22_in": 1820.667,
+   "t22_out": 1851.875,
+   "dur": 31.208,
+   "elements": [
+    "asset-clip:016 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_",
+    "asset-clip:016 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_"
+   ],
+   "category": "REMOVED_MATERIAL",
+   "segments": []
+  },
+  {
+   "t22_in": 2409.708,
+   "t22_out": 2410.875,
+   "dur": 1.167,
+   "elements": [
+    "asset-clip:018 \u00b7 06-26 10:47:32 \u00b7 X5 \u00b7 VID_20260626_104732_"
+   ],
+   "category": "REMOVED_MATERIAL",
+   "segments": [
+    [
+     "S11",
+     1.167
+    ]
+   ]
+  },
+  {
+   "t22_in": 2425.333,
+   "t22_out": 2425.417,
+   "dur": 0.083,
+   "elements": [
+    "asset-clip:018 \u00b7 06-26 10:47:32 \u00b7 X5 \u00b7 VID_20260626_104732_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S11",
+     0.084
+    ]
+   ]
+  },
+  {
+   "t22_in": 3214.75,
+   "t22_out": 3222.299,
+   "dur": 7.549,
+   "elements": [
+    "asset-clip:056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_",
+    "asset-clip:056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_"
+   ],
+   "category": "REMOVED_MATERIAL",
+   "segments": [
+    [
+     "S12",
+     7.549
+    ]
+   ]
+  },
+  {
+   "t22_in": 3225.966,
+   "t22_out": 3225.969,
+   "dur": 0.004,
+   "elements": [
+    "asset-clip:056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S12",
+     0.003
+    ]
+   ]
+  },
+  {
+   "t22_in": 3229.678,
+   "t22_out": 3263.465,
+   "dur": 33.787,
+   "elements": [
+    "asset-clip:056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_"
+   ],
+   "category": "REMOVED_MATERIAL",
+   "segments": [
+    [
+     "S12",
+     6.322
+    ],
+    [
+     "S13",
+     33.465
+    ]
+   ]
+  },
+  {
+   "t22_in": 3283.042,
+   "t22_out": 3283.072,
+   "dur": 0.03,
+   "elements": [
+    "gap",
+    "lane:asset-clip:056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_",
+    "lane:asset-clip:044 \u00b7 06-26 13:31:07 \u00b7 X5 \u00b7 VID_20260626_133107_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S14",
+     0.03
+    ]
+   ]
+  },
+  {
+   "t22_in": 3307.86,
+   "t22_out": 3315.152,
+   "dur": 7.292,
+   "elements": [
+    "gap",
+    "lane:asset-clip:044 \u00b7 06-26 13:31:07 \u00b7 X5 \u00b7 VID_20260626_133107_"
+   ],
+   "category": "REMOVED_MATERIAL",
+   "segments": [
+    [
+     "S14",
+     7.292
+    ]
+   ]
+  },
+  {
+   "t22_in": 3368.125,
+   "t22_out": 3410.208,
+   "dur": 42.083,
+   "elements": [
+    "gap",
+    "lane:asset-clip:044 \u00b7 06-26 13:31:07 \u00b7 X5 \u00b7 VID_20260626_133107_"
+   ],
+   "category": "REMOVED_MATERIAL",
+   "segments": [
+    [
+     "S15",
+     40.208
+    ]
+   ]
+  },
+  {
+   "t22_in": 3471.625,
+   "t22_out": 3471.75,
+   "dur": 0.125,
+   "elements": [
+    "gap"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S15",
+     0.125
+    ]
+   ]
+  },
+  {
+   "t22_in": 3947.208,
+   "t22_out": 3984.792,
+   "dur": 37.583,
+   "elements": [
+    "asset-clip:055 \u00b7 06-26 13:46:01 \u00b7 X5 \u00b7 VID_20260626_134556_",
+    "gap",
+    "asset-clip:048 \u00b7 06-26 13:35:09 \u00b7 DJI \u00b7 DJI_20260626133509_",
+    "lane:asset-clip:048 \u00b7 06-26 13:35:09 \u00b7 DJI \u00b7 DJI_20260626133509_",
+    "lane:asset-clip:048 \u00b7 06-26 13:35:09 \u00b7 DJI \u00b7 DJI_20260626133509_"
+   ],
+   "category": "REMOVED_MATERIAL",
+   "segments": [
+    [
+     "S16",
+     37.584
+    ]
+   ]
+  },
+  {
+   "t22_in": 4209.583,
+   "t22_out": 4209.604,
+   "dur": 0.021,
+   "elements": [
+    "asset-clip:065 \u00b7 06-26 21:05:23 \u00b7 DJI \u00b7 DJI_20260626210523_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S18",
+     0.021
+    ]
+   ]
+  },
+  {
+   "t22_in": 4212.562,
+   "t22_out": 4212.565,
+   "dur": 0.003,
+   "elements": [
+    "asset-clip:065 \u00b7 06-26 21:05:23 \u00b7 DJI \u00b7 DJI_20260626210523_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S18",
+     0.003
+    ]
+   ]
+  }
+ ],
+ "added": [
+  {
+   "t24_in": 136.792,
+   "t24_out": 136.833,
+   "dur": 0.042,
+   "elements": [
+    "asset-clip:HO11YWOOD_GP"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S03",
+     0.041
+    ]
+   ]
+  },
+  {
+   "t24_in": 216.917,
+   "t24_out": 220.378,
+   "dur": 3.462,
+   "elements": [
+    "asset-clip:HO11YWOOD_GP",
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ],
+   "category": "ADDED_MATERIAL",
+   "segments": [
+    [
+     "S03",
+     3.461
+    ]
+   ]
+  },
+  {
+   "t24_in": 431.616,
+   "t24_out": 431.667,
+   "dur": 0.051,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S03",
+     0.051
+    ]
+   ]
+  },
+  {
+   "t24_in": 1302.126,
+   "t24_out": 1302.167,
+   "dur": 0.041,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S03",
+     0.041
+    ]
+   ]
+  },
+  {
+   "t24_in": 1632.995,
+   "t24_out": 1633.042,
+   "dur": 0.046,
+   "elements": [
+    "asset-clip:028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S04",
+     0.047
+    ]
+   ]
+  },
+  {
+   "t24_in": 3212.743,
+   "t24_out": 3212.792,
+   "dur": 0.048,
+   "elements": [
+    "asset-clip:056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S14",
+     0.049
+    ]
+   ]
+  },
+  {
+   "t24_in": 3237.58,
+   "t24_out": 3237.583,
+   "dur": 0.004,
+   "elements": [
+    "gap"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S14",
+     0.003
+    ]
+   ]
+  },
+  {
+   "t24_in": 3290.583,
+   "t24_out": 3290.667,
+   "dur": 0.083,
+   "elements": [
+    "gap"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": []
+  },
+  {
+   "t24_in": 3352.083,
+   "t24_out": 3352.208,
+   "dur": 0.125,
+   "elements": [
+    "gap"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S15",
+     0.125
+    ]
+   ]
+  },
+  {
+   "t24_in": 4069.851,
+   "t24_out": 4069.875,
+   "dur": 0.024,
+   "elements": [
+    "asset-clip:065 \u00b7 06-26 21:05:23 \u00b7 DJI \u00b7 DJI_20260626210523_"
+   ],
+   "category": "MICRO_RETRIM",
+   "segments": [
+    [
+     "S18",
+     0.024
+    ]
+   ]
+  }
+ ],
+ "unexplained_segment_deltas": [],
+ "overlap_absorbed_s": 0.027,
+ "closes_tolerance_s": 0.014
+}

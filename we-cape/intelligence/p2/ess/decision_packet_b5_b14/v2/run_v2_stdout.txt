@@ -1,0 +1,37 @@
+{"d22": 4846.625, "d24": 4689.5, "delta": -157.125, "tiles22": 191, "tiles24": 201, "lane_tiles22": 15, "lane_tiles24": 14, "caption_cues_0822": 2291, "caption_cues_0824": 2034}
+{
+ "retained_0822_s": 4685.548,
+ "retained_0824_s": 4685.574,
+ "removed_s": 161.077,
+ "added_s": 3.925,
+ "reused_0822_time_s": 0.027,
+ "gaps_0822_s": 292.333,
+ "gaps_0824_s": 212.042,
+ "overlap_absorbed_s": 0.027,
+ "identity_check": "4846.625 - 161.077 + 3.925 + 0.027 = 4689.500 vs 4689.5",
+ "closes": true,
+ "retime_differs_pieces": 0,
+ "pieces_total": 225,
+ "pieces_chained": 211,
+ "pieces_excluded": 14,
+ "excluded_len_s": 72.083
+}
+{
+ "delta_s": -157.125,
+ "removed_total_s": 161.076,
+ "added_total_s": 3.926,
+ "by_category": {
+  "removed": {
+   "MICRO_RETRIM": 0.407,
+   "GAP_REPOSITIONED": 0,
+   "REMOVED_MATERIAL": 160.669
+  },
+  "added": {
+   "MICRO_RETRIM": 0.464,
+   "GAP_REPOSITIONED": 0,
+   "ADDED_MATERIAL": 3.462
+  }
+ },
+ "closes": true,
+ "unexplained_segment_deltas": []
+}

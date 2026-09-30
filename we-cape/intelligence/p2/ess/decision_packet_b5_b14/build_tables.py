@@ -10,7 +10,10 @@ CATEGORY RULES (mechanical, declared):
                       the retained block immediately before it (net 0)
   REMOVED_MATERIAL    any other 08-22 interval with no 08-24 counterpart
   ADDED_MATERIAL      any other 08-24 interval with no 08-22 counterpart
-Every interval is then located: inside a segment (by 08-22 span for removed,
+Closure tolerance: each interval duration is rounded to 1 ms, so the categorized sums
+carry at most 0.0005 s rounding per interval; closure is tested against that bound
+(never below the original 0.002 s). A v2 ledger's overlap_absorbed_s term (C3) is
+included in the identity. Every interval is then located: inside a segment (by 08-22 span for removed,
 by re-derived 08-24 span for added) or INTER_SEGMENT."""
 import csv, json, sys
 
@@ -91,8 +94,12 @@ recon = dict(
                      REMOVED_MATERIAL=tot(rem, 'REMOVED_MATERIAL')),
         added=dict(MICRO_RETRIM=tot(add, 'MICRO_RETRIM'), GAP_REPOSITIONED=tot(add, 'GAP_REPOSITIONED'),
                    ADDED_MATERIAL=tot(add, 'ADDED_MATERIAL'))),
-    closes=abs(d['timelines']['d22'] - tot(rem) + tot(add) - d['timelines']['d24']) <= 0.002,
+    closes=abs(d['timelines']['d22'] - tot(rem) + tot(add) + d['ledger'].get('overlap_absorbed_s', 0.0)
+               - d['timelines']['d24']) <= max(0.002, 0.0005 * (len(rem) + len(add))),
     removed=rem, added=add, unexplained_segment_deltas=unexplained)
+if 'overlap_absorbed_s' in d['ledger']:   # v2 ledgers only; v1 output stays byte-identical
+    recon['overlap_absorbed_s'] = d['ledger']['overlap_absorbed_s']
+    recon['closes_tolerance_s'] = round(0.0005 * (len(rem) + len(add)), 4)
 json.dump(recon, open(f'{out}/reconciliation.json', 'w'), indent=1)
 
 with open(f'{out}/mapping_table.csv', 'w', newline='') as fh:
