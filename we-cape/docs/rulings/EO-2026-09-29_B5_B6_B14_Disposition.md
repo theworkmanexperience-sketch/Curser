@@ -1,4 +1,10 @@
 # EXECUTIVE ORDER 2026-09-29 — Disposition of B-5, B-6, B-14
+> **CORRECTION NOTICE (F-6, accepted 2026-09-29):** D-2's attribution
+> of the 157.125s lock-to-lock delta to the 73.800s openings and
+> 15.0–19.6s tails is SUPERSEDED by measurement — see Addendum A and
+> DECISION_PACKET_B5_B14 §5.3 (those items belong to the separate
+> Part-vs-Parent 194.319s ledger; the lock-to-lock delta is itemized
+> by R1–R7/A1–A2). The Order's text below is preserved as issued.
 ## Governance Status
 Instrument: Executive Order · Authority: Chairman/EP · Date: 2026-09-29
 Custody: docs/rulings/ (standalone; EXECUTIVE_RULINGS.yaml register
