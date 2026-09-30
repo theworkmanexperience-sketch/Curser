@@ -27,7 +27,22 @@ INSUFFICIENT_OBSERVATION (§4.2), not S03 evidence.
 QUESTION: does 3.5s of added interview-area material alter the
 beat's meaning or MODERATE intensity? (Measurement suggests scale
 far below beat-level, but the call is reserved.)
-CHAIRMAN DECISION: ____________________
+CHAIRMAN DECISION: PRESERVE  (recorded 2026-09-30, verbatim)
+  Chairman review of A1 is complete against the B-7-designated review
+  source.
+  Findings:
+  - A1 remains conceptually inside the Interviews beat.
+  - "Shared Purpose" remains the correct governing theme.
+  - MODERATE remains the correct dramatic intensity.
+  Retain:
+  beat: Interviews
+  governing_theme: "Shared Purpose"
+  dramatic_intensity: MODERATE
+  Apply the accepted 08-24 temporal rebase only.
+  No editorial re-authoring is required for R1.
+  [Review source: B-7 designation e966f8a, ff34278fe1f47f678b36066780c3498633d27761655001ea97163099da9bbffe;
+   excerpt REVIEW_A1_R1_00033000-00034500_ff34278f.mp4,
+   efd4386be370d9ed066c5219dbd1dd08381f71777dad1d98f514dc645e9d0102, source 210.000-225.000s.]
 ### ROW 2 · EPR-05 Deepening — S11 component only
 MEASURED: S11 −1.250s (R2 removal 1.167 + re-trims; the 22.708s gap
 moved intact, nets zero). Boundaries MAPPED.
