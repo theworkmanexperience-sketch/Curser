@@ -81,3 +81,27 @@ CHAIRMAN DECISION: ____________________
 
 ## Not before you: EPR-07 [S19] remains RETIRED; its four fields stay
 AWAITING_EXECUTIVE_INPUT untouched by this sheet.
+
+## CORRECTION NOTICES (2026-09-30, Chairman-ordered; issued text and
+## all nine decision cells above are preserved unchanged)
+NOTICE 1 — SPEECH ATTRIBUTION (amends the evidence reading of ROW 6;
+relevant to ROWS 5 and 6). CF-001 cues #1659–#1664 (3196.166–
+3212.291s), cut against the RE-DERIVED boundaries (S13 3193.167–
+3204.702 · gap · S14 3205.702–3212.743): #1659–#1662 lie INSIDE S13 ·
+#1663 starts in the 1.0s inter-segment gap and ends in S14 · #1664
+lies inside S14. Therefore the S13 remnant (ROW 5, 11.535s) carries
+MOST of this audible speech; ROW 6's prior attribution of the full
+run to S14 is corrected. The caption evidence is as stated; whether
+the underlying audio differs from 08-22 remains
+INSUFFICIENT_OBSERVATION (unchanged). No beat meaning or intensity is
+inferred from this correction.
+NOTICE 2 — F-5 LINKAGE (moves the ◆ cross-reference from ROW 9 to
+ROWS 3/4/5). The five new asset-056 out-of-range elements (F-5 sheet
+rows 19–23) attach to two PICTURE intervals: 3185.792–3189.458 —
+inside re-derived S12, the clip carrying the surviving moment-of-
+silence speech (ROW 3); and 3193.167–3212.792 — beginning exactly at
+the R4 cut / EPR-05→06 edge (ROW 4) and running through S13 (ROW 5)
+and S14. That second clip overlaps A2 by 0.049s and no more: a
+boundary fact only, not an explanation of A2. ROW 9's prior ◆ note is
+withdrawn as mislocated; A2's size, position, and title evidence
+stand unchanged. The cross-reference attributes nothing to any row.
