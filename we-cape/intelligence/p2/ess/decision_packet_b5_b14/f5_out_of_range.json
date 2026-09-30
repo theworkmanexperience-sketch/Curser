@@ -1,0 +1,477 @@
+{
+ "fcpxml_0824": {
+  "path": "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Corrected Video Analysis Files/Alpha RoudUp Part 2.fcpxmld/Info.fcpxml",
+  "sha256": "d82c2c3ec0f788cf47262194d6fbb8aefcd5fc9b7eee899b04bd3487f02e3a80",
+  "duration_s": 4689.5,
+  "n": 23
+ },
+ "fcpxml_0822": {
+  "path": "/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/SPRINT3A_WORK/inputs/Info.fcpxml",
+  "sha256": "2bf0685373d6963bc151b982fd8b16b072d47ca88bb36f3c4dcd4cf5563858e7",
+  "duration_s": 4846.625,
+  "n": 18
+ },
+ "rows_0824": [
+  {
+   "id": "/sequence/spine/clip/video[43]",
+   "tag": "video",
+   "lane": null,
+   "depth": 1,
+   "abs_in_s": -51.815,
+   "abs_out_s": 162.232167,
+   "duration_s": 214.047167,
+   "name": "VID_20260626_104336_00_023 - v1",
+   "parent": "017 \u00b7 06-26 10:43:36 \u00b7 X5 \u00b7 VID_20260626_104336_00_023.mov",
+   "anchor": {
+    "tag": "clip",
+    "name": "017 \u00b7 06-26 10:43:36 \u00b7 X5 \u00b7 VID_20260626_104336_00_023.mov",
+    "abs_in_s": 21.458333,
+    "abs_out_s": 26.25
+   },
+   "media": "VID_20260626_104336_00_023.mov",
+   "side": "BEFORE_0",
+   "pair_0822": "/sequence/spine/clip/video[17]"
+  },
+  {
+   "id": "/sequence/spine/clip/clip/gap[45]",
+   "tag": "gap",
+   "lane": null,
+   "depth": 2,
+   "abs_in_s": -125.087917,
+   "abs_out_s": 88.95925,
+   "duration_s": 214.047167,
+   "name": "Gap",
+   "parent": "017 \u00b7 06-26 10:43:36 \u00b7 X5 \u00b7 VID_20260626_104336_00_023.mov",
+   "anchor": {
+    "tag": "clip",
+    "name": "017 \u00b7 06-26 10:43:36 \u00b7 X5 \u00b7 VID_20260626_104336_00_023.mov",
+    "abs_in_s": 21.458333,
+    "abs_out_s": 26.25
+   },
+   "media": null,
+   "side": "BEFORE_0",
+   "pair_0822": "/sequence/spine/clip/clip/gap[19]"
+  },
+  {
+   "id": "/sequence/spine/clip/clip/gap/audio[46]",
+   "tag": "audio",
+   "lane": "-1",
+   "depth": 3,
+   "abs_in_s": -125.087917,
+   "abs_out_s": 88.95925,
+   "duration_s": 214.047167,
+   "name": "VID_20260626_104336_00_023 - a1",
+   "parent": "Gap",
+   "anchor": {
+    "tag": "clip",
+    "name": "017 \u00b7 06-26 10:43:36 \u00b7 X5 \u00b7 VID_20260626_104336_00_023.mov",
+    "abs_in_s": 21.458333,
+    "abs_out_s": 26.25
+   },
+   "media": "VID_20260626_104336_00_023.mov",
+   "side": "BEFORE_0",
+   "pair_0822": "/sequence/spine/clip/clip/gap/audio[20]"
+  },
+  {
+   "id": "/sequence/spine/clip/video[55]",
+   "tag": "video",
+   "lane": null,
+   "depth": 1,
+   "abs_in_s": 25811.333542,
+   "abs_out_s": 25954.393125,
+   "duration_s": 143.059583,
+   "name": "DJI_20260626210523_0030_D - v1",
+   "parent": "065 \u00b7 06-26 21:05:23 \u00b7 DJI \u00b7 DJI_20260626210523_0030_D.MP4",
+   "anchor": {
+    "tag": "clip",
+    "name": "065 \u00b7 06-26 21:05:23 \u00b7 DJI \u00b7 DJI_20260626210523_0030_D.MP4",
+    "abs_in_s": 35.375,
+    "abs_out_s": 39.0
+   },
+   "media": "DJI_20260626210523_0030_D.MP4",
+   "side": "AFTER_END",
+   "pair_0822": "/sequence/spine/clip/video[28]"
+  },
+  {
+   "id": "/sequence/spine/clip/clip/gap[57]",
+   "tag": "gap",
+   "lane": null,
+   "depth": 2,
+   "abs_in_s": -37.656292,
+   "abs_out_s": 105.403292,
+   "duration_s": 143.059583,
+   "name": "Gap",
+   "parent": "065 \u00b7 06-26 21:05:23 \u00b7 DJI \u00b7 DJI_20260626210523_0030_D.MP4",
+   "anchor": {
+    "tag": "clip",
+    "name": "065 \u00b7 06-26 21:05:23 \u00b7 DJI \u00b7 DJI_20260626210523_0030_D.MP4",
+    "abs_in_s": 35.375,
+    "abs_out_s": 39.0
+   },
+   "media": null,
+   "side": "BEFORE_0",
+   "pair_0822": "/sequence/spine/clip/clip/gap[30]"
+  },
+  {
+   "id": "/sequence/spine/clip/clip/gap/audio[58]",
+   "tag": "audio",
+   "lane": "-1",
+   "depth": 3,
+   "abs_in_s": -37.656292,
+   "abs_out_s": 105.403292,
+   "duration_s": 143.059583,
+   "name": "DJI_20260626210523_0030_D - a1",
+   "parent": "Gap",
+   "anchor": {
+    "tag": "clip",
+    "name": "065 \u00b7 06-26 21:05:23 \u00b7 DJI \u00b7 DJI_20260626210523_0030_D.MP4",
+    "abs_in_s": 35.375,
+    "abs_out_s": 39.0
+   },
+   "media": "DJI_20260626210523_0030_D.MP4",
+   "side": "BEFORE_0",
+   "pair_0822": "/sequence/spine/clip/clip/gap/audio[31]"
+  },
+  {
+   "id": "/sequence/spine/clip/video[61]",
+   "tag": "video",
+   "lane": null,
+   "depth": 1,
+   "abs_in_s": -41.288542,
+   "abs_out_s": 101.771042,
+   "duration_s": 143.059583,
+   "name": "DJI_20260626210523_0030_D - v1",
+   "parent": "065 \u00b7 06-26 21:05:23 \u00b7 DJI \u00b7 DJI_20260626210523_0030_D.MP4",
+   "anchor": {
+    "tag": "clip",
+    "name": "065 \u00b7 06-26 21:05:23 \u00b7 DJI \u00b7 DJI_20260626210523_0030_D.MP4",
+    "abs_in_s": 39.0,
+    "abs_out_s": 39.333333
+   },
+   "media": "DJI_20260626210523_0030_D.MP4",
+   "side": "BEFORE_0",
+   "pair_0822": "/sequence/spine/clip/video[33]"
+  },
+  {
+   "id": "/sequence/spine/clip/video[78]",
+   "tag": "video",
+   "lane": null,
+   "depth": 1,
+   "abs_in_s": 4917.787303,
+   "abs_out_s": 4933.177678,
+   "duration_s": 15.390375,
+   "name": "DJI_20260626213650_0035_D - v1",
+   "parent": "073 \u00b7 06-26 21:36:50 \u00b7 DJI \u00b7 DJI_20260626213650_0035_D.MP4",
+   "anchor": {
+    "tag": "clip",
+    "name": "073 \u00b7 06-26 21:36:50 \u00b7 DJI \u00b7 DJI_20260626213650_0035_D.MP4",
+    "abs_in_s": 53.958333,
+    "abs_out_s": 58.75
+   },
+   "media": "DJI_20260626213650_0035_D.MP4",
+   "side": "AFTER_END",
+   "pair_0822": "/sequence/spine/clip/video[41]"
+  },
+  {
+   "id": "/sequence/spine/asset-clip/clip/gap[1537]",
+   "tag": "gap",
+   "lane": null,
+   "depth": 2,
+   "abs_in_s": -188.119208,
+   "abs_out_s": 2454.896167,
+   "duration_s": 2643.015375,
+   "name": "Gap",
+   "parent": "028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_0016_D.MP4",
+   "anchor": {
+    "tag": "asset-clip",
+    "name": "016 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_00_022(4).mov",
+    "abs_in_s": 1805.416667,
+    "abs_out_s": 1824.166667
+   },
+   "media": null,
+   "side": "BEFORE_0",
+   "pair_0822": "/sequence/spine/asset-clip/clip/gap[335]"
+  },
+  {
+   "id": "/sequence/spine/asset-clip/clip/gap/audio[1538]",
+   "tag": "audio",
+   "lane": "-1",
+   "depth": 3,
+   "abs_in_s": -188.119208,
+   "abs_out_s": 2454.896167,
+   "duration_s": 2643.015375,
+   "name": "DJI_20260626105930_0016_D - a1",
+   "parent": "Gap",
+   "anchor": {
+    "tag": "asset-clip",
+    "name": "016 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_00_022(4).mov",
+    "abs_in_s": 1805.416667,
+    "abs_out_s": 1824.166667
+   },
+   "media": "DJI_20260626105930_0016_D.MP4",
+   "side": "BEFORE_0",
+   "pair_0822": "/sequence/spine/asset-clip/clip/gap/audio[336]"
+  },
+  {
+   "id": "/sequence/spine/asset-clip/clip/video[1540]",
+   "tag": "video",
+   "lane": null,
+   "depth": 2,
+   "abs_in_s": -41218.0665,
+   "abs_out_s": -38575.051125,
+   "duration_s": 2643.015375,
+   "name": "DJI_20260626105930_0016_D - v1",
+   "parent": "028 \u00b7 06-26 10:59:30 \u00b7 DJI \u00b7 DJI_20260626105930_0016_D.MP4",
+   "anchor": {
+    "tag": "asset-clip",
+    "name": "016 \u00b7 06-26 10:27:19 \u00b7 X5 \u00b7 VID_20260626_102715_00_022(4).mov",
+    "abs_in_s": 1805.416667,
+    "abs_out_s": 1824.166667
+   },
+   "media": "DJI_20260626105930_0016_D.MP4",
+   "side": "BEFORE_0",
+   "pair_0822": "/sequence/spine/asset-clip/clip/video[338]"
+  },
+  {
+   "id": "/sequence/spine/clip/video[2857]",
+   "tag": "video",
+   "lane": null,
+   "depth": 1,
+   "abs_in_s": 9824.221375,
+   "abs_out_s": 10468.156333,
+   "duration_s": 643.934958,
+   "name": "DJI_20260626134039_0025_D - v1",
+   "parent": "049 \u00b7 06-26 13:40:39 \u00b7 DJI \u00b7 DJI_20260626134039_0025_D.MP4",
+   "anchor": {
+    "tag": "clip",
+    "name": "049 \u00b7 06-26 13:40:39 \u00b7 DJI \u00b7 DJI_20260626134039_0025_D.MP4",
+    "abs_in_s": 3096.125,
+    "abs_out_s": 3127.083333
+   },
+   "media": "DJI_20260626134039_0025_D.MP4",
+   "side": "AFTER_END",
+   "pair_0822": "/sequence/spine/clip/video[775]"
+  },
+  {
+   "id": "/sequence/spine/clip/clip/gap[2865]",
+   "tag": "gap",
+   "lane": null,
+   "depth": 2,
+   "abs_in_s": 11028.685052,
+   "abs_out_s": 12847.668885,
+   "duration_s": 1818.983833,
+   "name": "Gap",
+   "parent": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+   "anchor": {
+    "tag": "clip",
+    "name": "049 \u00b7 06-26 13:40:39 \u00b7 DJI \u00b7 DJI_20260626134039_0025_D.MP4",
+    "abs_in_s": 3096.125,
+    "abs_out_s": 3127.083333
+   },
+   "media": null,
+   "side": "AFTER_END",
+   "pair_0822": "/sequence/spine/clip/clip/gap[780]"
+  },
+  {
+   "id": "/sequence/spine/clip/clip/gap/audio[2866]",
+   "tag": "audio",
+   "lane": "-1",
+   "depth": 3,
+   "abs_in_s": 11028.685052,
+   "abs_out_s": 12847.668885,
+   "duration_s": 1818.983833,
+   "name": "DJI_20260626135655_0026_D - a1",
+   "parent": "Gap",
+   "anchor": {
+    "tag": "clip",
+    "name": "049 \u00b7 06-26 13:40:39 \u00b7 DJI \u00b7 DJI_20260626134039_0025_D.MP4",
+    "abs_in_s": 3096.125,
+    "abs_out_s": 3127.083333
+   },
+   "media": "DJI_20260626135655_0026_D.MP4",
+   "side": "AFTER_END",
+   "pair_0822": "/sequence/spine/clip/clip/gap/audio[781]"
+  },
+  {
+   "id": "/sequence/spine/clip/spine/clip/video[2873]",
+   "tag": "video",
+   "lane": null,
+   "depth": 3,
+   "abs_in_s": -7475.895209,
+   "abs_out_s": -5656.911375,
+   "duration_s": 1818.983833,
+   "name": "DJI_20260626135655_0026_D - v1",
+   "parent": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+   "anchor": {
+    "tag": "clip",
+    "name": "049 \u00b7 06-26 13:40:39 \u00b7 DJI \u00b7 DJI_20260626134039_0025_D.MP4",
+    "abs_in_s": 3096.125,
+    "abs_out_s": 3127.083333
+   },
+   "media": "DJI_20260626135655_0026_D.MP4",
+   "side": "BEFORE_0",
+   "pair_0822": "/sequence/spine/clip/clip/video[784]"
+  },
+  {
+   "id": "/sequence/spine/asset-clip/clip/gap[2945]",
+   "tag": "gap",
+   "lane": null,
+   "depth": 2,
+   "abs_in_s": 9963.816762,
+   "abs_out_s": 11782.800595,
+   "duration_s": 1818.983833,
+   "name": "Gap",
+   "parent": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+   "anchor": {
+    "tag": "asset-clip",
+    "name": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+    "abs_in_s": 3180.083333,
+    "abs_out_s": 3185.791667
+   },
+   "media": null,
+   "side": "AFTER_END",
+   "pair_0822": "/sequence/spine/asset-clip/clip/gap[819]"
+  },
+  {
+   "id": "/sequence/spine/asset-clip/clip/gap/audio[2946]",
+   "tag": "audio",
+   "lane": "-1",
+   "depth": 3,
+   "abs_in_s": 9963.816762,
+   "abs_out_s": 11782.800595,
+   "duration_s": 1818.983833,
+   "name": "DJI_20260626135655_0026_D - a1",
+   "parent": "Gap",
+   "anchor": {
+    "tag": "asset-clip",
+    "name": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+    "abs_in_s": 3180.083333,
+    "abs_out_s": 3185.791667
+   },
+   "media": "DJI_20260626135655_0026_D.MP4",
+   "side": "AFTER_END",
+   "pair_0822": "/sequence/spine/asset-clip/clip/gap/audio[820]"
+  },
+  {
+   "id": "/sequence/spine/asset-clip/spine/clip/video[2956]",
+   "tag": "video",
+   "lane": null,
+   "depth": 3,
+   "abs_in_s": 9956.398807,
+   "abs_out_s": 11775.38264,
+   "duration_s": 1818.983833,
+   "name": "DJI_20260626135655_0026_D - v1",
+   "parent": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+   "anchor": {
+    "tag": "asset-clip",
+    "name": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+    "abs_in_s": 3185.791667,
+    "abs_out_s": 3189.458333
+   },
+   "media": "DJI_20260626135655_0026_D.MP4",
+   "side": "AFTER_END",
+   "pair_0822": "/sequence/spine/asset-clip/spine/clip/video[823]"
+  },
+  {
+   "id": "/sequence/spine/asset-clip/clip/gap[2958]",
+   "tag": "gap",
+   "lane": null,
+   "depth": 2,
+   "abs_in_s": 9957.583474,
+   "abs_out_s": 11776.567307,
+   "duration_s": 1818.983833,
+   "name": "Gap",
+   "parent": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+   "anchor": {
+    "tag": "asset-clip",
+    "name": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+    "abs_in_s": 3185.791667,
+    "abs_out_s": 3189.458333
+   },
+   "media": null,
+   "side": "AFTER_END",
+   "pair_0822": null
+  },
+  {
+   "id": "/sequence/spine/asset-clip/clip/gap/audio[2959]",
+   "tag": "audio",
+   "lane": "-1",
+   "depth": 3,
+   "abs_in_s": 9957.583474,
+   "abs_out_s": 11776.567307,
+   "duration_s": 1818.983833,
+   "name": "DJI_20260626135655_0026_D - a1",
+   "parent": "Gap",
+   "anchor": {
+    "tag": "asset-clip",
+    "name": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+    "abs_in_s": 3185.791667,
+    "abs_out_s": 3189.458333
+   },
+   "media": "DJI_20260626135655_0026_D.MP4",
+   "side": "AFTER_END",
+   "pair_0822": null
+  },
+  {
+   "id": "/sequence/spine/asset-clip/clip/gap[2963]",
+   "tag": "gap",
+   "lane": null,
+   "depth": 2,
+   "abs_in_s": 9963.796353,
+   "abs_out_s": 11782.780186,
+   "duration_s": 1818.983833,
+   "name": "Gap",
+   "parent": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+   "anchor": {
+    "tag": "asset-clip",
+    "name": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+    "abs_in_s": 3185.791667,
+    "abs_out_s": 3189.458333
+   },
+   "media": null,
+   "side": "AFTER_END",
+   "pair_0822": null
+  },
+  {
+   "id": "/sequence/spine/asset-clip/clip/gap/audio[2964]",
+   "tag": "audio",
+   "lane": "-1",
+   "depth": 3,
+   "abs_in_s": 9963.796353,
+   "abs_out_s": 11782.780186,
+   "duration_s": 1818.983833,
+   "name": "DJI_20260626135655_0026_D - a1",
+   "parent": "Gap",
+   "anchor": {
+    "tag": "asset-clip",
+    "name": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+    "abs_in_s": 3185.791667,
+    "abs_out_s": 3189.458333
+   },
+   "media": "DJI_20260626135655_0026_D.MP4",
+   "side": "AFTER_END",
+   "pair_0822": null
+  },
+  {
+   "id": "/sequence/spine/asset-clip/spine/clip/video[2979]",
+   "tag": "video",
+   "lane": null,
+   "depth": 3,
+   "abs_in_s": 9956.39689,
+   "abs_out_s": 11775.380724,
+   "duration_s": 1818.983833,
+   "name": "DJI_20260626135655_0026_D - v1",
+   "parent": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+   "anchor": {
+    "tag": "asset-clip",
+    "name": "056 \u00b7 06-26 13:56:55 \u00b7 DJI \u00b7 DJI_20260626135655_0026_D.MP4",
+    "abs_in_s": 3193.166667,
+    "abs_out_s": 3212.791667
+   },
+   "media": "DJI_20260626135655_0026_D.MP4",
+   "side": "AFTER_END",
+   "pair_0822": null
+  }
+ ],
+ "unpaired_0822": []
+}
