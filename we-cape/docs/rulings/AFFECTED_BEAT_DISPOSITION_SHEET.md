@@ -197,7 +197,25 @@ CHAIRMAN DECISION: PRESERVE  (recorded 2026-09-30, verbatim)
    outside this disposition.]
 ### ROW 8 · EPR-06 — S16
 MEASURED: −37.583s (R7: 055·X5, gap, 048·DJI). Boundaries MAPPED.
-CHAIRMAN DECISION: ____________________
+CHAIRMAN DECISION: PRESERVE  (recorded 2026-09-30, verbatim)
+  Chairman visual/audio review of the re-derived S16 is complete.
+  Findings:
+  - S16 still clearly functions as bike_night_arrivals.
+  - "Enduring Brotherhood" remains the correct governing theme.
+  - ELEVATED remains the correct dramatic intensity.
+  - Joy remains the correct audience state.
+  - Removing the eighth/closing interview does not materially weaken the beat; the remaining seven interviews and visuals still carry the intended function.
+  Retain the existing R8 editorial assignment exactly as currently recorded.
+  Apply the accepted 08-24 temporal rebase only.
+  No editorial re-authoring is required for R8.
+  ["As currently recorded" = EPR-001 v1.13.0 (1d54e674) EPR-06 Celebration, segment_refs incl.
+   S16, unchanged. Review source: B-7 e966f8a, ff34278fe1f47f678b36066780c3498633d27761655001ea97163099da9bbffe;
+   excerpts REVIEW_R8_S16_OPEN_00564000-00570000_ff34278f.mp4
+   (752fbf86cfbdd9fd2ad35acd39c17ffe01d05186b047454003a0171aeb9934df; S16 start at 3.458s / frame 83)
+   and REVIEW_R8_S16_CLOSE_01033000-01035000_ff34278f.mp4
+   (a8a0baac66ff75b26fdb10e3da3998d847d9f98ad51dedb1c0d05158defe454e; S16/S17 at 17.875s / frame 429).
+   The CF-001 under-representation of S16 speech (13 SRT cues vs 415 native captions) is a
+   separate caption-stream finding, outside this disposition.]
 ### ROW 9 · STRUCTURAL FACT — added interval A2 (34.840s) is
 UNSEGMENTED: 3212.743–3247.583 lies between re-derived S14 and S15,
 inside EPR-06's beat span but in no segment. It opens with title
