@@ -1,0 +1,23 @@
+PASS  V1 artifact unmodified (== G8 ratified hash)  -  5d6994b3f36de5bc
+PASS  inputs identical to v1 (same 4 media hashes)
+PASS  v2 identity closes exactly  -  4846.625 - 161.077 + 3.925 + 0.027 = 4689.500 vs 4689.5
+PASS  v2 per-segment residuals: no unexplained deltas
+PASS  v2 categorized reconciliation closes (rounding bound)  -  tol 0.014
+PASS  BOUNDED DIFF: only S14 boundaries change  -  ['S14']
+PASS  decided row segment S03 boundaries identical  -  111.0-1625.454
+PASS  decided row segment S11 boundaries identical  -  2307.292-3091.042
+PASS  decided row segment S12 boundaries identical  -  3095.042-3193.167
+PASS  decided row segment S13 boundaries identical  -  3193.167-3204.702
+PASS  decided row segment S15 boundaries identical  -  3290.667-3403.458
+PASS  decided row segment S16 boundaries identical  -  3403.458-3827.875
+PASS  R4 edge 3193.167 unchanged (S12 end == S13 start)
+PASS  Tier-1 (TIMELINE proposal c5a72dc inputs) identical
+PASS  S14 v2 = 3205.702 -> 3246.432, both MAPPED
+PASS  A2 residue = boundary slivers only (< 0.1 s each)  -  [(3212.743, 0.048), (3237.58, 0.004)]
+PASS  excluded cross-match set identical to v1
+PASS  v2 deterministic (fresh re-run byte-identical)
+PASS  v1 still reproduces byte-for-byte
+
+v1 5d6994b3f36de5bc07d3987cdb3bd611f70493390a8f6a8ed50828a79d666117
+v2 5bd4af486e9eb745660504b41290154fb5d8c0b511b6bc74cca5102dd4b0a28b
+RESULT: ALL PASS
