@@ -48,7 +48,25 @@ MEASURED: S11 −1.250s (R2 removal 1.167 + re-trims; the 22.708s gap
 moved intact, nets zero). Boundaries MAPPED.
 QUESTION: any consequence to "Legacy Through Service" from a 1.25s
 trim in a 785s segment?
-CHAIRMAN DECISION: ____________________
+CHAIRMAN DECISION: PRESERVE  (recorded 2026-09-30, verbatim)
+  The measured S11 changes do not alter the governing meaning or
+  dramatic intensity of the beat.
+  Retain:
+  EPR: EPR-05 Deepening
+  segment_ref: S11
+  governing_theme: "Legacy Through Service"
+  dramatic_intensity: CLIMACTIC
+  Basis:
+  - no speech lost;
+  - neighboring dialogue survives and is caption-corroborated;
+  - principal change is approximately 1.167s of inter-line pause/picture tightening;
+  - remaining change is a two-frame retrim;
+  - sequence order is preserved;
+  - mapping residual is 0.000.
+  Apply the accepted 08-24 temporal rebase only.
+  No editorial re-authoring is required for R2.
+  [Evidence: rederivation.json 5d6994b3f36de5bc07d3987cdb3bd611f70493390a8f6a8ed50828a79d666117;
+   GT-2 89d61f96 / CF-001 d93d86a1 caption comparison, cues #1284-#1285 / #1251-#1252.]
 
 ## Tier 3 — localized editorial reconsideration (S12–S16 + EPR-05→06)
 ### ROW 3 · EPR-05 Deepening — S12 component · CLIMACTIC
