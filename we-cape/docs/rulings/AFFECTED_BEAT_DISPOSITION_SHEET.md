@@ -101,7 +101,29 @@ MEASURED: re-derived edge 3193.167s / 00:53:13:04 — an asset-056
 source cut (22927.443 → 22961.230). Contested 6.0s: nonexistent in
 08-24 (carried B-14 fact). Both snapped boundaries land on this cut.
 QUESTION: is this cut the ratified beat transition?
-CHAIRMAN DECISION: ____________________
+CHAIRMAN DECISION: PRESERVE  (recorded 2026-09-30, verbatim)
+  The 08-24 cut at 00:53:13:04 / 3193.167s is the ratified
+  EPR-05 → EPR-06 transition.
+  Basis:
+  - it is the only material source discontinuity between the surrounding
+    speech in the designated lock;
+  - S12 end and S13 start independently resolve to this same cut;
+  - the edge is a hard picture cut within asset 056;
+  - no separate transition element is present;
+  - the prior 08-22 six-second overlap is not carried into the designated
+    08-24 lock and remains CLOSED-MOOT under B-14;
+  - selecting a different transition point would move both the R3 end and
+    R5 start away from the evidence-supported cut.
+  Retain the existing EPR-05 → EPR-06 transition meaning:
+  CLIMACTIC "Legacy Through Service"
+  →
+  ELEVATED "Enduring Brotherhood"
+  No editorial re-authoring is required for R4.
+  [Evidence: ED-003 lock d82c2c3e (resolver, read-only): hard cut, 056 src 22923.734 → 22961.230;
+   S12 end SNAPPED −6.322s and S13 start SNAPPED +33.465s under the declared rule
+   (rederivation.json 5d6994b3); review excerpt 0b51cebc…, edge at 18.167s / frame 436.
+   The FLOWERS II provenance / MANDATORY_SILENCE finding is unresolved and outside
+   this disposition.]
 ### ROW 5 · EPR-06 Celebration — S13 · ELEVATED · "Enduring Brotherhood"
 MEASURED: remnant 11.535 of 45.0s (R4 removed 33.465); start SNAPPED
 +33.465. GT-2's S13 cues (#1855–#1867) have NO coherent CF-001
