@@ -22,6 +22,16 @@ remain PROVISIONAL per Addendum A. SEMANTIC EPR APPROVAL IS NOT
 INFERRED from this structural ratification; reserved EPR values move
 only by explicit Chairman approval under §2.3.
 
+> **G8 RATIFICATION RECORD** (appended at execution, 2026-09-30T01:36:28Z;
+> the ruling text above is unaltered)
+> Artifact: `intelligence/p2/ess/decision_packet_b5_b14/rederivation.json`
+> SHA-256 (measured at execution): `5d6994b3f36de5bc07d3987cdb3bd611f70493390a8f6a8ed50828a79d666117`
+> Verification: working tree == committed blob at `aec3a27` (the only
+> commit touching the file) == the value published in DECISION_PACKET §9.
+> Scope: STRUCTURAL ONLY. Tier 1/2 boundaries ratified per Addendum A;
+> Tier 3 (S12–S16, EPR-05→EPR-06 edge 3193.167s) PROVISIONAL. No
+> semantic EPR approval inferred; EPR-001 v1.13.0 unmodified.
+
 ## F-1 / F-3 — NARROW TEXT REPAIRS AUTHORIZED
 By correction notice, never by rewriting issued text: F-1 — the
 Readiness Review §3 ETC-A2 source-hash criterion is noted stale;
