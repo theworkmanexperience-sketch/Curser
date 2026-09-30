@@ -130,7 +130,31 @@ MEASURED: remnant 11.535 of 45.0s (R4 removed 33.465); start SNAPPED
 counterpart (carried B-14 fact).
 QUESTION: does an 11.5s remnant still constitute the group_photo
 segment as an EPR-06 member?
-CHAIRMAN DECISION: ____________________
+CHAIRMAN DECISION: PRESERVE  (recorded 2026-09-30, verbatim)
+  Chairman visual review of the surviving S13 remnant is complete.
+  Findings:
+  - The surviving 11.535s still functions visually as the group_photo segment.
+  - "Enduring Brotherhood" remains the correct governing theme.
+  - ELEVATED remains the correct dramatic intensity.
+  - Joy remains the correct audience state.
+  - The absence of the former group-photo staging instructions does not
+    materially change the function of the surviving visual beat.
+  - The surviving gratitude/community-service speech remains compatible
+    with the existing EPR-06 assignment.
+  Retain:
+  EPR: EPR-06 Celebration
+  segment_ref: S13
+  segment type: group_photo
+  governing_theme: "Enduring Brotherhood"
+  dramatic_intensity: ELEVATED
+  audience_state: Joy
+  Apply the accepted 08-24 temporal rebase only.
+  No editorial re-authoring is required for R5.
+  [Review source: B-7 e966f8a, ff34278fe1f47f678b36066780c3498633d27761655001ea97163099da9bbffe;
+   excerpt REVIEW_R3_R4_R5_00525500-00532500_ff34278f.mp4,
+   0b51cebc0450bb7b895d3464f8b2584a8b5e494e14537ca717edf887452271cf; S13 = excerpt 18.167-29.702s
+   (source 3193.167-3204.702s). Speech attribution per Notice 1, measured: #1659-#1661 in S13,
+   #1662 0.661 of 0.709s in S13, #1663 none.]
 ### ROW 6 · EPR-06 — S14
 MEASURED: remnant 7.041 of 48.0s (R5: 40.958s spine gap removed);
 end SNAPPED −40.958. CF-001 #1659–#1664 speech sits over retained
