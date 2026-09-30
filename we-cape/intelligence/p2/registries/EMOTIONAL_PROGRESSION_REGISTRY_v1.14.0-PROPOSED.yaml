@@ -1,0 +1,962 @@
+# ============================================================================
+# STATUS: PROPOSED — AWAITING CHAIRMAN RATIFICATION
+# EPR-001 v1.14.0-PROPOSED. v1.13.0 (EMOTIONAL_PROGRESSION_REGISTRY.yaml) is
+# unchanged and remains the RATIFIED registry until the Chairman rules.
+# ============================================================================
+# ============================================================================
+# EMOTIONAL_PROGRESSION_REGISTRY (EPR-001)
+# Governed upstream artifact of DOCUMENTARY INTENT.
+#
+# Ratified: EXECUTIVE RATIFICATION ORDER & INGESTION PROMPT - EPR-001
+#           Authority: Executive Producer / Chairman   Date: 2026-08-26
+#           Reference: PR-001 Architectural Review & Triad Alignment
+#
+# CUSTODY (order 2.1-2.3):
+#   Every entry is source_class EXECUTIVE.
+#   The platform MAY read, cite and validate STRUCTURE.
+#   The platform SHALL NOT author, populate, infer, extend, suggest or default
+#   ANY value. An empty field remains empty.
+#
+# WHAT THE PLATFORM DID IN PRODUCING THIS FILE:
+#   TRANSCRIBED the Executive-custody values already declared in
+#   EMOTIONAL_ARC.yaml v1.0.0, which order 1.1 names as the provenance of
+#   EPR-001's initial content. beat, segment_refs and audience_state are
+#   carried forward verbatim (audience_emotion -> audience_state is a rename
+#   ruled by the order's schema, not a change of value).
+#   Fields with NO existing Executive declaration are left
+#   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
+# ============================================================================
+registry_id: EMOTIONAL_PROGRESSION_REGISTRY
+registry_version: "1.14.0-PROPOSED"
+proposal_status: "PROPOSED — AWAITING CHAIRMAN RATIFICATION"
+registry_ratification:
+  status: RATIFIED
+  ratified: '2026-08-28'
+  ratified_by: "Executive Producer / Chairman"
+  authority: "EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE, section 2"
+  scope_verbatim:
+    - "EPR-01 through EPR-06"
+    - "Segment coverage S01 through S18"
+    - "Ordered categorical dramatic intensity"
+    - "Non-Interpolation Invariant"
+    - "Executive field definitions"
+    - "Executive semantic conventions"
+  co_ratified: "EPR_EXECUTIVE_AUTHORING_WORKBOOK.md"
+  supersedes: "all prior draft authoring states"
+registry_version_note_1_14_0_PROPOSED: >-
+  1.13.0 -> 1.14.0-PROPOSED, 2026-09-30. EO-2026-09-29 ADDENDUM A, TIER 1 - PRESERVE +
+  REBASE (S01, S02, S04-S10, S17, S18), under Addendum B G8 (structural ratification only).
+  NO BEAT, MEANING, governing_theme, dramatic_intensity, audience_state OR segment_refs
+  VALUE CHANGED. EPR-07 untouched. This registry carries no temporal values - beats bind to
+  segment IDs and segment_authority_note bars resolving a segment_ref to a timecode - so the
+  Tier-1 temporal rebase is carried by the segment authority proposal
+  TIMELINE_REGISTRY_v1.1.0-PROPOSED.yaml (sha256 9fa62d7bbaf01f84e1e5412361c47c3f729dbd49081dc1b0cf07cd5b310118d2),
+  per the Chairman answer of 2026-09-30. Mapping: decision_packet_b5_b14/rederivation.json
+  sha256 5d6994b3f36de5bc07d3987cdb3bd611f70493390a8f6a8ed50828a79d666117; 08-24 lock
+  d82c2c3ec0f788cf47262194d6fbb8aefcd5fc9b7eee899b04bd3487f02e3a80. Tier-2 (S03, S11) and
+  Tier-3 (S12-S16) remain in 08-22 seconds, pending row-level decisions. segment_authority,
+  segment_authority_status and path_b_consequences are UNCHANGED: under the rebase S18
+  maps to 4007.875-4622.875 s, inside the 4689.5 s lock, which bears on PBC-2 - recorded
+  here, NOT applied; PBC-2 disposition stays the Chairman's.
+registry_version_note_1_13_0: >-
+  1.12.0 -> 1.13.0, 2026-08-28. EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE.
+  SECTIONS 1 AND 2 APPLIED. SECTION 3 NOT EXECUTED - see GER-001.
+  Section 1: Q10 ADJUDICATED, disposition RETIRE. EPR-07 retired, NOT deleted; beat,
+  audience_state and segment_refs untouched; no migration; no replacement content inferred.
+  EPR-06 terminal_beat_status CONTINGENT -> TERMINAL.
+  Section 2: EPR-001 RATIFIED, recorded under registry_ratification.
+  Section 3: THE ATOMIC REGENERATION WAS NOT RUN. Six governance exceptions were found on
+  pre-execution inspection and are reported under section 4 rather than resolved. In summary the
+  committed generator is hard-coded to the SUPERSEDED 08-22 assembly - LOCK=4846.625, the four
+  08-22 input hashes, and a nineteen-segment table in 08-22 seconds including the S19 the
+  Executive has just retired - it cannot emit a new RUN_ID because RUN_ID is a string constant,
+  and it cannot run at all because its five intermediate inputs live at cloud paths from the
+  2026-08-22 session that do not exist. Executing it would have stamped seven artifacts
+  describing a superseded edit as the governed record. See GER-001.
+registry_version_note_1_12_0: >-
+  1.11.0 -> 1.12.0, 2026-08-29. EXECUTIVE SEGMENT CLASSIFICATION ORDER (Q7, Q8).
+  ONLY TWO VALUES CHANGED, BOTH segment_refs:
+    EPR-03 Brotherhood   [S05]                        -> [S04, S05]
+    EPR-06 Celebration   [S13,S14,S15,S16,S18]        -> [S13,S14,S15,S16,S17,S18]
+  NO authored Executive field was inferred, modified or regenerated. NO new EPR entry was
+  created. The entry count is unchanged at seven. Both Executive reasons are recorded verbatim
+  against their entries.
+  undeclared_segments: both S04 and S17 marked RESOLVED with the beat each was incorporated
+  into. The list was NOT emptied and the original notes were NOT deleted - status was updated so
+  the block does not contradict the new segment_refs, and the record still shows what was
+  resolved rather than only that nothing remains.
+  EVERY IN-SCOPE SEGMENT S01-S18 NOW CARRIES AN INTENTIONAL EXECUTIVE DISPOSITION.
+  ONE FACT RECORDED AGAINST BOTH EXPANDED ENTRIES, NO ACTION TAKEN: their four authored fields
+  were declared before the expansion and now govern one segment more than they did when
+  written. The Order forbade modifying them, so none was modified. Whether the declared text
+  should be revisited against the expanded scope is an EXECUTIVE determination, not a defect.
+  Q10 (EPR-07) REMAINS UNDECLARED. Four fields still AWAITING_EXECUTIVE_INPUT.
+registry_version_note_1_11_0: >-
+  1.10.0 -> 1.11.0. EXECUTIVE AUTHORING DECLARATION - EPR-06. Transcribed VERBATIM.
+  EPR-06 Celebration COMPLETE: dramatic_intensity ELEVATED, governing_theme "Enduring
+  Brotherhood", editorial_transition and executive_notes as declared, plus the Executive
+  Rationale. AWAITING_EXECUTIVE_INPUT 8 -> 4. ALL SIX IN-SCOPE BEATS ARE NOW AUTHORED.
+  The four fields still empty all belong to EPR-07, which is OUT OF AUTHORING SCOPE.
+  Declared progression: MODERATE, MODERATE, HIGH, ELEVATED, CLIMACTIC, ELEVATED.
+  Q10 NOT ANSWERED. The Executive expressed an INCLINATION toward RETIRE, phrased as a
+  recommendation and as "if you choose". IT WAS NOT APPLIED. An inclination is not a
+  disposition, and the platform does not convert one into a ruling on the Executive's behalf.
+  Recorded verbatim on the EPR-07 entry under executive_inclination_recorded_not_applied so it
+  is not lost. EPR-07 remains UNRESOLVED_PENDING_EXECUTIVE with all four fields
+  AWAITING_EXECUTIVE_INPUT.
+  EPR-06's terminal_beat_status is recorded as CONTINGENT_ON_EPR-07_DISPOSITION. The platform
+  has NOT classified EPR-06 as terminal and has not re-read its editorial_transition against
+  either outcome.
+  "Enduring Brotherhood" is a NEW theme. Two convention illustrations remain unassigned.
+registry_version_note_1_10_0: >-
+  1.9.0 -> 1.10.0, 2026-08-28. EXECUTIVE AUTHORING DECLARATION - EPR-05. Transcribed VERBATIM.
+  EPR-05 Deepening COMPLETE: dramatic_intensity CLIMACTIC, governing_theme "Legacy Through
+  Service", editorial_transition and executive_notes as declared, plus the Executive
+  Clarification. AWAITING_EXECUTIVE_INPUT 12 -> 8.
+  WORKBOOK Q9 RESOLVED: audience_state disposition KEEP. "Empathy -> Reverence" stands exactly
+  as written; EPR-05 was NOT split into two entries and the value was NOT altered,
+  re-punctuated or normalised. NO ACTION WAS TAKEN because the ruling was to take none.
+  "Legacy Through Service" is a NEW theme, not one of the six convention illustrations. Two
+  illustrations remain unassigned and appear in no field.
+  Declared progression: MODERATE, MODERATE, HIGH, ELEVATED, CLIMACTIC.
+  ONE STRUCTURAL FACT RECORDED, NO ACTION TAKEN: CLIMACTIC is the top of the ratified scale and
+  is now declared at EPR-05. Under an ordered scale no later beat can exceed it; a later beat
+  may equal it or sit below it. Stated because the ordered scale makes it visible.
+registry_version_note_1_9_0: >-
+  1.8.0 -> 1.9.0, 2026-08-28. EXECUTIVE AUTHORING DECLARATION - EPR-04. Transcribed VERBATIM.
+  EPR-04 Service COMPLETE: dramatic_intensity ELEVATED, governing_theme "Service Through
+  Action", editorial_transition and executive_notes as declared, plus the Executive
+  Clarification. AWAITING_EXECUTIVE_INPUT 16 -> 12.
+  Declared progression to date: MODERATE, MODERATE, HIGH, ELEVATED - every step declared by the
+  Executive, none derived by the platform.
+  "Service Through Action" was an unassigned convention illustration from EPR-02, assigned HERE
+  by the Executive. Two illustrations remain unassigned and appear in no field.
+  ONE STRUCTURAL FACT RECORDED, NO ACTION TAKEN: with ELEVATED declared at EPR-04, one step of
+  the ratified scale remains above it. Two in-scope beats are unauthored. Repetition of a token
+  is already established practice (EPR-01 and EPR-02 both MODERATE), so this constrains nothing
+  - it is stated because the ordered scale makes it visible and it was not visible before.
+registry_version_note_1_8_0: >-
+  1.7.0 -> 1.8.0, 2026-08-28. EXECUTIVE AUTHORING DECLARATION - EPR-03. Transcribed VERBATIM.
+  EPR-03 Brotherhood COMPLETE: dramatic_intensity HIGH, governing_theme "Collective Identity",
+  editorial_transition and executive_notes as declared, plus the Executive Clarification.
+  AWAITING_EXECUTIVE_INPUT 20 -> 16. FIRST ESCALATION ON THE ORDERED SCALE: MODERATE, MODERATE,
+  HIGH - declared by the Executive, not derived by the platform.
+  "Collective Identity" was one of the four unassigned convention illustrations from EPR-02. It
+  is assigned HERE BY THE EXECUTIVE. The platform did not apply it at EPR-02 and did not apply
+  it now. Three illustrations remain unassigned.
+  ONE SCOPE CLARIFICATION ADDED to the OQ-1 record: Invariant B and OQ-1 bind downstream
+  CONSUMERS, not the Executive. An Executive declaration that reasons about the arc is
+  authorship, not interpolation. Recorded so a later audit does not misread the Executive's own
+  rationale as a breach of the Executive's own invariant.
+registry_version_note_1_7_0: >-
+  1.6.0 -> 1.7.0, 2026-08-28. EXECUTIVE AUTHORING DECLARATION - EPR-02. Transcribed VERBATIM.
+  EPR-02 Interviews COMPLETE: dramatic_intensity MODERATE, governing_theme "Shared Purpose",
+  editorial_transition and executive_notes as declared. AWAITING_EXECUTIVE_INPUT 24 -> 20.
+  TWO EXECUTIVE PRECEDENTS ALSO ESTABLISHED and recorded as their own blocks:
+  governing_theme_convention (compound themes authorized where they express one unified
+  narrative idea; the theme is a narrative anchor, not a keyword collection) and
+  field_separation (the four authored fields carry distinct responsibilities, binding for the
+  remainder of Executive authoring).
+  FOUR OF THE SIX CONVENTION EXAMPLES ARE UNASSIGNED AND WERE NOT APPLIED - "Quiet Leadership",
+  "Service Through Action", "Collective Identity" and "Leadership by Example" are illustrations
+  of form, not declarations, and shall not be drawn on to populate any later beat.
+  beat: Interviews UNCHANGED - the declaration's heading reads "Interview Gauntlet" but its
+  Executive Declaration block carries no `beat:` field. Raised in the entry, not acted on.
+registry_version_note_1_6_0: >-
+  1.5.0 -> 1.6.0, 2026-08-28. EPR-01 Arrival COMPLETE. executive_notes supplied by the Executive
+  and transcribed VERBATIM. All four authored fields of EPR-01 are now declared; entry_status
+  COMPLETE. AWAITING_EXECUTIVE_INPUT in entries: 25 -> 24.
+  STRUCTURAL QUESTION ANSWERED BY DEMONSTRATION: the Executive supplied executive_notes as
+  content distinct from the per-field rationale, which confirms the rationale does NOT belong in
+  executive_notes. The `rationale` key placement stands. Still open to correction.
+registry_version_note_1_5_0: >-
+  1.4.0 -> 1.5.0, 2026-08-28. FIRST AUTHORED BEAT. EPR-01 Arrival received
+  dramatic_intensity, governing_theme and editorial_transition from the Executive, transcribed
+  VERBATIM and not normalised, tidied, reworded or condensed. executive_notes was NOT supplied
+  and remains AWAITING_EXECUTIVE_INPUT - it was not backfilled from the rationale.
+  The Executive supplied a rationale per field; those are recorded under a `rationale` key so
+  each stays attached to its own field. THE PLACEMENT IS A PLATFORM STRUCTURAL CHOICE, flagged
+  for confirmation; THE WORDS ARE THE EXECUTIVE'S.
+  AWAITING_EXECUTIVE_INPUT in entries: 28 -> 25.
+registry_version_note_1_4_0: >-
+  1.3.0 -> 1.4.0, 2026-08-28. Four Executive determinations transcribed, entering the authoring
+  session: OQ-1 RESOLVED (pairwise step comparison permitted for transition checks; algorithmic
+  trend-fitting and curve-smoothing remain barred by Invariant B); OQ-2 RESOLVED (the terminal
+  beat's editorial_transition carries a concluding resolution statement rather than staying
+  empty); the four-question mapping CONFIRMED; and an authoring directive for the three
+  music-bed segments S01, S15, S18.
+  TWO ILLUSTRATIVE EXAMPLES WERE GIVEN AND NEITHER WAS APPLIED TO ANY ENTRY - the concluding
+  resolution wording and the music-bed focus phrases were both offered with "e.g." as forms,
+  not values. Writing either into a field would be the platform authoring Executive content.
+  ONE NEW DEFERRED CONSEQUENCE RAISED, NOT ANSWERED: OQ-2a, whether "the final beat in the
+  episodic cut" means one terminal beat for the film or three, one per episode. Blocked by
+  PBC-3, not blocking authoring.
+  THE 24 BEAT FIELDS REMAIN EMPTY. AWAITING_EXECUTIVE_INPUT unchanged at 28 in entries.
+registry_version_note_1_3_0: >-
+  1.2.0 -> 1.3.0, 2026-08-28. EXECUTIVE AUTHORING FOUNDATION transcribed: Executive Ruling Q11
+  (Ordered Categorical Dramatic Intensity Standard), the Executive definitions of
+  governing_theme and editorial_transition, and the authoring principle "Author the story
+  first. The music follows."
+  ALL THREE ARE EXECUTIVE DECLARATIONS, TRANSCRIBED VERBATIM. The platform authored no value,
+  proposed none, paraphrased none, and extended none. Two open questions the declarations
+  raise (OQ-1 comparison-versus-trend, OQ-2 the terminal beat) are RAISED AND LEFT UNANSWERED.
+  This increment fills intensity_scale.ordered - one of the 29 empty fields. THE 24 BEAT
+  FIELDS REMAIN EMPTY. The regeneration trigger remains held, as below.
+registry_version_note: >-
+  1.1.0 -> 1.2.0 under EXECUTIVE ORDER - CUSTODY_ALERT_001 FINAL DISPOSITION & WORKBOOK
+  GENERATION, 2026-08-28, section 2.4. NO EXECUTIVE VALUE WAS ADDED, ALTERED OR REMOVED by
+  this increment. It records the ratified production identity and processes one segment
+  reference that the ratification renders unresolvable.
+  REGENERATION TRIGGER HELD: the ratification order section 4.5 makes a registry_version
+  increment the regeneration trigger. Section 4 of the 2026-08-28 Order suspends downstream
+  regeneration until the Executive Authoring Workbook is complete and EPR-001 is ratified.
+  This increment therefore ARMS a trigger that MUST NOT FIRE yet. Recorded rather than
+  worked around. See IR-002 Q3.
+registry_schema_version: "1.0"
+source_class: EXECUTIVE
+supersedes: "EMOTIONAL_ARC.yaml v1.0.0"
+
+production_identity:
+  # Transcribed verbatim from the Executive Order of 2026-08-28 section 1. Not interpreted.
+  ratified: '2026-08-28'
+  path_selected: "Path B (Episodic Production Architecture)"
+  governed_production: "Alpha RoundUp 2026 - Day 2 Episodic Trilogy (08-24 Lineage)"
+  '08_24_lineage_status': "PRODUCTION"
+  '08_22_assembly_lock_status': "SUPERSEDED_ASSEMBLY"
+  three_parts_status: "DISTRIBUTION_DELIVERABLES"
+
+segment_authority: "TIMELINE_REGISTRY v1.0.0 (S01-S19)"
+segment_authority_status: SUPERSEDED_PENDING_REDERIVATION
+segment_authority_note: >-
+  TIMELINE_REGISTRY v1.0.0 is pinned to the 08-22 assembly, which the 2026-08-28 Order
+  declares SUPERSEDED_ASSEMBLY. Its nineteen segment SPANS are therefore no longer positions
+  in the governed production. Its segment IDENTIFIERS (S01-S19) remain the keys this registry
+  is written against and are unchanged. Re-derivation of the spans against the 08-24 lineage
+  is REGENERATION and is suspended by section 4 of the same Order. Until that happens, no
+  consumer may resolve an EPR segment_ref to a timecode.
+missing_data_policy: propagate_unknown
+
+governing_invariants:
+  invariant_a: >-
+    Documentary intent shall never prescribe musical implementation;
+    observational measurement shall never prescribe documentary intent.
+  invariant_b_non_interpolation: >-
+    Executive declarations are intentionally non-interpolable. The platform shall not
+    infer intermediate states, trends, averages, smoothing, interpolation, or derived
+    dramatic states between declared segment levels.
+
+precondition_contract:
+  clause: >-
+    Every cue decision cites its beat; a cue that cannot name its emotion and
+    responsibility does not generate.
+  carried_forward_verbatim_from: "EMOTIONAL_ARC.yaml v1.0.0"
+  operational_interpretation: >-
+    A cue cannot generate until both the Executive documentary intent (EPR-001) and the
+    downstream musical responsibility (Behavior layer / Conductor Score) are available.
+  engineering_note_IR002_I1: >-
+    RAISED, NOT RESOLVED. The musical responsibility vocabulary is DEFERRED to
+    WET-SPEC-RSB-001 by order 1.3, and the Behavior Registry does not yet exist (order
+    4.3). As written the precondition therefore cannot be satisfied by any cue until
+    WET-SPEC-RSB-001 exists. Nothing is blocked today because
+    GATE-2026-08-22-MIE-DOWNSTREAM is CLOSED, but this becomes live at gate-open.
+    See IR-002 section 1.
+
+intensity_scale:
+  # RESOLVED 2026-08-28 by Executive Ruling Q11 - "Ordered Categorical Dramatic Intensity
+  # Standard". Transcribed verbatim; the platform proposed nothing and chose nothing.
+  ordered: true
+  scale_class: ORDERED_CATEGORICAL
+  measures: "narrative significance within the documentary"
+  order: [LOW, MODERATE, HIGH, ELEVATED, CLIMACTIC]   # lowest to highest, as declared
+  ordinal_constraints:
+    - "The categories are ordinal."
+    - "They are not numerical."
+    - "They shall never be averaged, interpolated, scored, normalized, or smoothed."
+    - "Advancement between categories is by explicit Executive declaration only."
+  ruling_ref: "Executive Ruling Q11, 2026-08-28"
+  ruling_rationale_verbatim: >-
+    This preserves the Non-Interpolation Invariant while allowing the documentary to express a
+    coherent dramatic progression.
+  resolved_question:
+    id: OQ-1
+    subject: "comparison versus trend derivation"
+    status: RESOLVED
+    resolved: '2026-08-28'
+    resolved_by: "Executive Producer / Chairman"
+    ruling_verbatim: >-
+      Comparing discrete steps (e.g., checking if the next beat is higher or lower for a
+      handoff) is a legitimate transition check, but algorithmic trend-fitting or
+      curve-smoothing remains barred by Invariant B.
+    original_question: >-
+      Ordinality newly permits a consumer to COMPARE two declared levels. Invariant B prohibits
+      inferring "trends" between declared segment levels. The four ordinal_constraints bar
+      averaging, interpolation, scoring, normalization and smoothing - they did not say whether
+      observing that one declared beat outranks another, and naming that relation, is a
+      permitted comparison or a prohibited derived state.
+    platform_reading_pending_confirmation: >-
+      When a consumer is eventually built against this ruling, the platform will read it as:
+      PERMITTED - a pairwise comparison of two ADJACENT declared levels, yielding higher /
+      lower / equal, for the purpose of a transition or handoff check.
+      BARRED - any operation spanning three or more declared levels to produce a shape, curve,
+      slope, arc or direction-of-travel, and any function that emits a value not itself
+      declared by the Executive.
+      This reading is the platform's, NOT the Executive's words. It is recorded so that the
+      first implementation cannot quietly widen the ruling. If it is wrong, correcting it here
+      is cheaper than correcting a Behavior Registry built on it.
+    first_affected_consumer: "Behavior Registry (does not yet exist)"
+    scope_clarification_2026_08_28: >-
+      RECORDED SO A LATER AUDIT DOES NOT MISREAD THE RECORD. OQ-1 and Invariant B bind
+      DOWNSTREAM CONSUMERS of this registry. They do not bind the EXECUTIVE, who is the author.
+      The ordinal_constraints state that "advancement between categories is by explicit
+      Executive declaration only" - reasoning about the shape of the progression is therefore
+      exactly how a declaration is arrived at, and is the Executive's prerogative. Where an
+      Executive authoring declaration describes an arc across declared beats, that is authorship,
+      not interpolation. The prohibition is on the PLATFORM deriving a shape nobody declared.
+  naming_note: >-
+    The field is called dramatic_intensity and the ruling defines the scale as measuring
+    narrative SIGNIFICANCE. Those are not the same word. Under this ruling ELEVATED
+    ("Commanding, Emotionally Significant") outranks HIGH ("Purposeful, Energetic") - coherent
+    for significance, counterintuitive for energy. Recorded so a future reader who sees only the
+    field name does not infer an energy scale. The field is NOT renamed: renaming an
+    Executive-ratified field is not a platform act.
+  categories:
+    LOW:       [Reflective, Observational]
+    MODERATE:  [Engaged, Conversational]
+    HIGH:      [Purposeful, Energetic]
+    ELEVATED:  [Commanding, "Emotionally Significant"]
+    CLIMACTIC: [Defining, Irreversible]
+
+prohibited_fields: [palette, instrumentation, stems, BPM, harmony, genre, prompts,
+                    dynamics, cue_behaviour, timecodes]
+
+# ----------------------------------------------------------------------------
+# FIELD DEFINITIONS
+# Declared by the Executive 2026-08-28 in answer to the Authoring Workbook section 0.2,
+# which recorded that these two fields had been named by the ratification order and never
+# given a meaning. TRANSCRIBED VERBATIM. The platform supplied no definition and did not
+# paraphrase, condense or extend either one.
+# ----------------------------------------------------------------------------
+field_definitions:
+  governing_theme:
+    title: "Narrative Anchor"
+    definition: >-
+      The enduring human, institutional, or societal truth that justifies the segment's place
+      within the documentary.
+    answers: "Why does this scene belong in the film?"
+    characteristics: [timeless, narrative, documentary,
+                      "independent of music", "independent of editing"]
+    examples_given_by_executive: [Service, Brotherhood, Leadership, Legacy,
+                                  Sacrifice, Purpose, Discipline, Community]
+    examples_note: >-
+      These are the Executive's own examples, transcribed. They are ILLUSTRATIVE, not a closed
+      vocabulary, and the platform shall not treat them as an enumeration to validate against.
+    is_not: [a mood, a summary, "a soundtrack instruction", an emotion]
+
+  editorial_transition:
+    title: "Contextual Shift"
+    definition: >-
+      The fundamental change in audience understanding that occurs between the current
+      narrative segment and the next.
+    answers: "What changes in the viewer's journey?"
+    characteristics: [narrative only, documentary only, "independent of music",
+                      "independent of editing mechanics", "independent of NLE transitions"]
+    examples_given_by_executive:
+      - "Anticipation becomes disciplined action."
+      - "Individual reflection broadens into collective purpose."
+      - "Ceremonial recognition resolves into enduring fellowship."
+    excludes: ["cross dissolves", cuts, fades, "cue transitions",
+               instrumentation, tempo, harmony]
+    resolved_question:
+      id: OQ-2
+      subject: "the terminal beat has no successor"
+      status: RESOLVED
+      resolved: '2026-08-28'
+      resolved_by: "Executive Producer / Chairman"
+      ruling_verbatim: >-
+        The final beat in the episodic cut has no successor; its editorial_transition cleanly
+        resolves to a concluding resolution statement, so no field is left syntactically
+        dangling.
+      rule: >-
+        The terminal beat's editorial_transition is NOT left empty. It carries a concluding
+        resolution statement.
+      example_of_form_given_by_executive: "Concludes the episodic narrative in lasting communal resolution."
+      example_handling: >-
+        THE EXAMPLE ABOVE WAS NOT APPLIED TO ANY ENTRY. It was offered with "e.g." as an
+        illustration of the FORM a concluding resolution statement takes, not as the value of
+        any beat's field. Writing it into an entry would be the platform authoring Executive
+        content. Every editorial_transition remains AWAITING_EXECUTIVE_INPUT.
+      dependency_note: >-
+        WHICH beat is terminal is still open: it depends on the EPR-07 disposition (PBC-1),
+        unanswered in the Authoring Workbook at Q10. The RULE is settled; its SUBJECT is not.
+      deferred_consequence:
+        id: OQ-2a
+        statement: >-
+          The ruling says "the final beat in the episodic cut". The ratified deliverable is
+          THREE episodes. If editorial_transition is scoped to the film, there is one terminal
+          beat; if scoped to each episode, there are three, and a beat spanning an episode
+          boundary would end mid-beat. This cannot be settled before segment-to-episode
+          assignment exists (PBC-3), which requires the Editorial Timing Contract that has not
+          been produced. RAISED, NOT ANSWERED, and not blocking: authoring proceeds at beat
+          level, where the question does not arise.
+        owner: EXECUTIVE
+        blocked_by: PBC-3
+
+# ----------------------------------------------------------------------------
+# AUTHORING PRINCIPLE
+# Declared by the Executive 2026-08-28. Transcribed verbatim.
+# ----------------------------------------------------------------------------
+authoring_principle:
+  statement: "Author the story first. The music follows."
+  test: >-
+    Every answer in EPR_EXECUTIVE_AUTHORING_WORKBOOK.md should be one that remains true even if
+    the documentary were shown in complete silence.
+  boundary: >-
+    If a statement depends on music to be meaningful, it belongs downstream in the Behavior
+    Registry or Conductor Score - not in EPR-001.
+  relationship_to_invariant_a: >-
+    This principle is the authoring-side expression of Invariant A. Invariant A binds the
+    platform not to let documentary intent prescribe musical implementation; this principle
+    binds the AUTHOR not to write musical implementation into documentary intent. Same boundary,
+    approached from opposite sides.
+  music_bed_segments_directive:
+    # Executive ruling, 2026-08-28, in answer to the workbook section 0.3 flag.
+    applies_to: [S01, S15, S18]
+    applies_to_note: >-
+      The three segments whose registry identity is musical - S01 cold_open ("music-bed ASR
+      fragments"), S15 riding_music_passage and S18 bike_night_ambience, the latter two carrying
+      music_present true with zero interviews.
+    ruling_verbatim: >-
+      When scoring riding passages or ambient scenes, the narrative intent focuses entirely on
+      visual story and dramatic purpose, completely stripped of musical prompts.
+    examples_of_focus_given_by_executive: ["the visual discipline of the pack", "the physical journey"]
+    example_handling: >-
+      Offered with "e.g." as illustrations of WHERE the narrative intent should focus. NOT
+      APPLIED to any entry. No governing_theme, editorial_transition or dramatic_intensity was
+      authored, drafted or seeded from them.
+
+governing_theme_convention:
+  # Executive precedent established with the EPR-02 authoring declaration, 2026-08-28.
+  # Transcribed verbatim. Answers the vocabulary question raised after EPR-01.
+  established: '2026-08-28'
+  established_by: "EXECUTIVE AUTHORING DECLARATION - EPR-02"
+  rule_verbatim: >-
+    Compound themes are authorized when they express one unified narrative idea rather than a
+    list of concepts.
+  function_verbatim: >-
+    The governing theme shall function as a narrative anchor, not a keyword collection.
+  examples_given_by_executive: ["Brotherhood Gathering", "Shared Purpose", "Quiet Leadership",
+                                "Service Through Action", "Collective Identity",
+                                "Leadership by Example"]
+  example_handling: >-
+    ILLUSTRATIONS OF THE CONVENTION, NOT DECLARATIONS. Two of the six - "Brotherhood Gathering"
+    and "Shared Purpose" - are already declared, at EPR-01 and EPR-02 respectively. The other
+    four are NOT assigned to any beat, were NOT applied, and shall NOT be drawn on to populate
+    EPR-03 through EPR-07 or either undeclared segment. They are a demonstration of form. The
+    list is NOT a closed vocabulary and shall not be used as an enumeration to validate against.
+
+field_separation:
+  # Executive interpretation, established with the EPR-02 authoring declaration, 2026-08-28.
+  # Transcribed verbatim. These responsibilities shall remain distinct throughout the
+  # remainder of Executive authoring.
+  established: '2026-08-28'
+  established_by: "EXECUTIVE AUTHORING DECLARATION - EPR-02"
+  binding_scope: "the remainder of Executive authoring"
+  fields:
+    dramatic_intensity: "The ordered categorical weight of the narrative beat."
+    governing_theme: >-
+      The enduring truth that justifies the beat's place within the documentary.
+    editorial_transition: "The change in audience understanding between narrative beats."
+    executive_notes: >-
+      Directorial guidance describing how the beat should be handled while preserving
+      documentary intent.
+  relationship_to_field_definitions: >-
+    This block is the Executive's compact statement of each field's RESPONSIBILITY. The fuller
+    definitions under `field_definitions` - Narrative Anchor and Contextual Shift - stand
+    unchanged and are not superseded by it. Where the two are read together, field_definitions
+    describes what a field IS and field_separation describes what it is FOR.
+
+four_question_mapping:
+  # Proposed by the platform in the Authoring Workbook section 0.4 and CONFIRMED by the
+  # Executive 2026-08-28. Recorded because it governs how eighteen segments are answered.
+  status: CONFIRMED
+  confirmed: '2026-08-28'
+  mapping:
+    - {question: "What is happening?",                              maps_to: "context - orientation only, not a field"}
+    - {question: "Why does it matter?",                             maps_to: dramatic_intensity}
+    - {question: "What is the governing theme?",                    maps_to: governing_theme}
+    - {question: "What fundamentally changes for the audience?",    maps_to: editorial_transition}
+    - {question: "anything the four cannot carry",                  maps_to: executive_notes}
+
+# ----------------------------------------------------------------------------
+# ENTRIES
+#   beat / segment_refs / audience_state  -> TRANSCRIBED from EMOTIONAL_ARC v1.0.0
+#   dramatic_intensity / governing_theme / editorial_transition / executive_notes
+#                                         -> AWAITING_EXECUTIVE_INPUT (never defaulted)
+# ----------------------------------------------------------------------------
+entries:
+  - id: EPR-01
+    beat: Arrival
+    segment_refs: [S01, S02]
+    # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim, not normalised.
+    dramatic_intensity: MODERATE
+    audience_state: Curiosity
+    governing_theme: "Brotherhood Gathering"
+    editorial_transition: >-
+      The audience moves from observing the gathering to understanding the people whose shared
+      purpose gives the gathering meaning.
+    executive_notes: >-
+      Preserve an observational point of view that welcomes the audience into the experience
+      without rushing toward spectacle. Allow viewers to become oriented to the environment, the
+      hosts, and the community before introducing individual voices. The opening should create
+      anticipation through authenticity, inviting the audience to stay because they want to know
+      the people behind the event.
+    authored: '2026-08-28'
+    authored_by: "Executive Producer / Chairman"
+    entry_status: COMPLETE
+    rationale:
+      # The Executive supplied a rationale attached to each field. Placing them here, rather
+      # than in executive_notes, is a PLATFORM STRUCTURAL CHOICE - it preserves the attachment
+      # of each rationale to its own field. The words are the Executive's, verbatim.
+      # executive_notes was left AWAITING_EXECUTIVE_INPUT because it was not supplied.
+      dramatic_intensity: >-
+        The opening should invite the audience into the experience rather than overwhelm them.
+        The story has begun, but the emotional stakes have not yet been earned. This is an
+        orientation beat - viewers are discovering where they are, who they're with, and why this
+        gathering matters. The energy is active and engaging without suggesting that the
+        documentary has reached a defining or transformative moment.
+      governing_theme: >-
+        The opening is not fundamentally about motorcycles. It is not fundamentally about Alpha.
+        It is not fundamentally about Kansas City. It is about people intentionally coming
+        together. Everything that follows - rides, interviews, service, celebration - only has
+        meaning because this community has first gathered. "Brotherhood Gathering" is broad
+        enough to encompass the weekend while remaining true to what this opening actually
+        accomplishes.
+      editorial_transition: >-
+        The shift is not from one location to another. It is from place to people. Arrival
+        establishes context. The interview sequence establishes connection. That is the
+        documentary transformation.
+    provenance: "EMOTIONAL_ARC v1.0.0 beat Arrival (audience_emotion: Curiosity)"
+
+  - id: EPR-02
+    beat: Interviews
+    # beat UNCHANGED. The authoring declaration of 2026-08-28 is headed "EPR-02 · Interview
+    # Gauntlet", but its Executive Declaration block carries no `beat:` field. The heading was
+    # read as a section title, not as a rename. Renaming an EXECUTIVE-custody value on the
+    # strength of a heading would be the platform inferring a declaration. RAISED, NOT ACTED ON.
+    segment_refs: [S03]
+    # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim.
+    dramatic_intensity: MODERATE
+    audience_state: Listening
+    governing_theme: "Shared Purpose"
+    editorial_transition: >
+      Personal convictions become collective action as
+      individual voices unite in a common mission.
+    executive_notes: >
+      Preserve the individuality of every speaker while allowing the
+      audience to recognize the common values emerging across the
+      interviews. Do not rush responses for pace alone. Authenticity
+      comes from the accumulation of honest voices rather than any
+      single statement. The audience should leave this beat
+      understanding not only who these riders are, but why they have
+      chosen to ride together.
+    authored: '2026-08-28'
+    authored_by: "Executive Producer / Chairman"
+    authority: "EXECUTIVE AUTHORING DECLARATION - EPR-02, 2026-08-28"
+    entry_status: COMPLETE
+    provenance: "EMOTIONAL_ARC v1.0.0 beat Interviews (audience_emotion: Listening)"
+
+  - id: EPR-03
+    beat: Brotherhood
+    # segment_refs EXPANDED 2026-08-29 by EXECUTIVE SEGMENT CLASSIFICATION ORDER, Q7.
+    # S04 ride_brief carries documentary intent and is incorporated into this beat.
+    # Executive reason, verbatim: "The ride brief marks the transformation from individual
+    # preparation to coordinated collective action and therefore belongs to the Brotherhood
+    # narrative beat rather than the interview beat."
+    # ONLY segment_refs was changed. No authored field was touched.
+    segment_refs: [S04, S05]
+    segment_refs_prior: [S05]
+    authored_fields_predate_expansion_note: >-
+      RECORDED AS FACT, NO ACTION TAKEN. dramatic_intensity, governing_theme,
+      editorial_transition and executive_notes were declared on 2026-08-28 when this beat
+      covered S05 alone. They now govern S04 and S05. The Order states "No other
+      Executive-authored fields are modified", so none was. Whether the declared text should be
+      revisited against the expanded scope is an EXECUTIVE determination and is not raised as a
+      defect.
+    # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim.
+    dramatic_intensity: HIGH
+    audience_state: Unity
+    governing_theme: "Collective Identity"
+    editorial_transition: >
+      Visible unity on the road evolves into visible service to the
+      community as the riders move from demonstrating brotherhood
+      to engaging civic leadership and public purpose.
+    executive_notes: >
+      This sequence should communicate disciplined unity, mutual respect,
+      and shared purpose through observation rather than spectacle.
+      The escort ride is not presented as performance or entertainment,
+      but as a visible expression of organizational discipline and
+      collective responsibility. Allow the scale, formation, and quiet
+      confidence of the riders to speak for themselves while preparing
+      the audience for the community-centered recognitions that follow.
+    authored: '2026-08-28'
+    authored_by: "Executive Producer / Chairman"
+    authority: "EXECUTIVE AUTHORING DECLARATION - EPR-03, 2026-08-28"
+    entry_status: COMPLETE
+    executive_clarification: >-
+      This beat establishes that the documentary's first major rise in dramatic significance is
+      earned through collective action, not heightened emotion. The governing theme "Collective
+      Identity" reflects the transformation of many individual riders into one unified
+      organization operating with shared discipline and purpose. The transition intentionally
+      shifts the audience's understanding from WHO THESE MEN ARE to WHAT THEY REPRESENT
+      TOGETHER. This is a documentary transition only and shall not be interpreted as a musical,
+      editorial, or production directive.
+    theme_provenance_note: >-
+      "Collective Identity" was one of the four UNASSIGNED illustrations in the
+      governing_theme_convention established at EPR-02. It was not applied by the platform then
+      and was not applied now - it is assigned here by explicit Executive declaration. The
+      remaining three unassigned illustrations stay unassigned.
+    provenance: "EMOTIONAL_ARC v1.0.0 beat Brotherhood (audience_emotion: Unity)"
+
+  - id: EPR-04
+    beat: Service
+    segment_refs: [S06, S07, S08, S09, S10]
+    # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim.
+    dramatic_intensity: ELEVATED
+    audience_state: Respect
+    governing_theme: "Service Through Action"
+    editorial_transition: >
+      Public recognition of the organization's service transforms
+      respect into personal connection, preparing the audience to
+      experience the individual stories that deepen the documentary's
+      emotional impact.
+    executive_notes: >
+      This beat should emphasize authentic civic recognition rather than
+      celebration for its own sake. The proclamations, acknowledgements,
+      and community interactions validate the organization's purpose
+      through the voices of others. Preserve sincerity, humility, and
+      gratitude while allowing moments of quiet reflection to reinforce
+      that service—not recognition—is the enduring message.
+    authored: '2026-08-28'
+    authored_by: "Executive Producer / Chairman"
+    authority: "EXECUTIVE AUTHORING DECLARATION - EPR-04, 2026-08-28"
+    entry_status: COMPLETE
+    executive_clarification: >-
+      This beat represents the documentary's first major institutional validation. The
+      significance does not arise because officials speak. It arises because independent civic
+      voices affirm what the audience has already begun to observe. Brotherhood becomes
+      recognized public service. That movement elevates the documentary from an internal
+      motorcycle-club story into a broader story about community impact. This declaration
+      concerns documentary intent only and shall not be interpreted as musical, editorial, or
+      production instruction.
+    theme_provenance_note: >-
+      "Service Through Action" was one of the unassigned illustrations in the
+      governing_theme_convention established at EPR-02. Assigned HERE by explicit Executive
+      declaration, not applied by the platform. Two illustrations remain unassigned.
+    single_token_note: >-
+      One dramatic_intensity token covers five segments (S06-S10), as the entry's structure
+      requires. The Executive was asked to use executive_notes if the five did not share one
+      weight; no such statement was made, so ELEVATED stands for the beat as a whole. Nothing
+      was apportioned, split or inferred per segment.
+    provenance: >-
+      EMOTIONAL_ARC v1.0.0 beat Service (audience_emotion: Respect). Its
+      music_responsibility read "Support (here: silence IS support)" - DEFERRED to
+      WET-SPEC-RSB-001 per order 1.3 and NOT carried into this registry.
+
+  - id: EPR-05
+    beat: Deepening
+    segment_refs: [S11, S12]
+    # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim.
+    dramatic_intensity: CLIMACTIC
+    audience_state: "Empathy -> Reverence"
+    governing_theme: "Legacy Through Service"
+    editorial_transition: >
+      Personal testimony and organizational recognition resolve into
+      lasting appreciation, preparing the audience to celebrate the
+      fellowship that continues beyond the formal ceremony.
+    executive_notes: >
+      Preserve authenticity above ceremony. The interviews reveal the
+      personal reasons behind the organization's mission, while the
+      organizer recognition acknowledges those whose quiet leadership
+      sustains that mission. The mandatory silence surrounding these
+      moments is respected because the documentary allows genuine human
+      reflection to carry the emotional weight rather than manufactured
+      spectacle.
+    authored: '2026-08-28'
+    authored_by: "Executive Producer / Chairman"
+    authority: "EXECUTIVE AUTHORING DECLARATION - EPR-05, 2026-08-28"
+    entry_status: COMPLETE
+    executive_clarification: >-
+      This beat is the emotional summit of the documentary. The audience has already witnessed
+      brotherhood, public service and civic recognition. Now they understand the people. The
+      documentary reaches its highest narrative significance because the audience finally
+      understands why these riders commit themselves to something larger than riding. The
+      organizer recognition and protected silence are not separate stories - they are the
+      culmination of the stories already told. This declaration concerns documentary intent only
+      and shall not be interpreted as musical, editorial, or production instruction.
+    audience_state_disposition:
+      # Workbook Q9, RESOLVED by the Executive 2026-08-28.
+      ruling: KEEP
+      ruling_verbatim: >-
+        KEEP exactly as written. The progression itself is the narrative intent. No split. No
+        replacement. No inferred intermediate state. The existing declaration already expresses
+        the audience's journey.
+      action_taken: >-
+        NONE. The value was already "Empathy -> Reverence" and was not altered, re-punctuated or
+        normalised. EPR-05 was NOT split into two entries. The arrow glyph as stored is the
+        ASCII form carried through from EMOTIONAL_ARC v1.0.0.
+      consumer_note: >-
+        RECORDED FOR DOWNSTREAM CONSUMERS, NOT A QUESTION. EPR-05 is the only entry whose
+        audience_state names two states. A consumer reading the field gets the literal compound
+        string; under Invariant B it may NOT infer an intermediate state between Empathy and
+        Reverence, and under this ruling it may not split the value either. The string is opaque
+        by design.
+    theme_provenance_note: >-
+      "Legacy Through Service" is a NEW theme, not drawn from the six illustrations recorded in
+      governing_theme_convention. It conforms to the convention - a compound expressing one
+      unified narrative idea. "Quiet Leadership" and "Leadership by Example" remain unassigned.
+    provenance: >-
+      EMOTIONAL_ARC v1.0.0 beat Deepening (audience_emotion: "Empathy -> Reverence").
+      Transcribed verbatim including the arrow; the Executive may wish to review whether
+      a two-state value is intended under the new schema. NOT altered here.
+
+  - id: EPR-06
+    beat: Celebration
+    # segment_refs EXPANDED 2026-08-29 by EXECUTIVE SEGMENT CLASSIFICATION ORDER, Q8.
+    # S17 audience_cta carries documentary intent and is incorporated into this beat, closing
+    # the discontinuity that previously sat between S16 and S18.
+    # Executive reason, verbatim: "The audience call-to-action extends the documentary's
+    # invitation into the continuing community and forms part of the concluding celebration
+    # rather than a distinct narrative beat."
+    # ONLY segment_refs was changed. No authored field was touched.
+    segment_refs: [S13, S14, S15, S16, S17, S18]
+    segment_refs_prior: [S13, S14, S15, S16, S18]
+    authored_fields_predate_expansion_note: >-
+      RECORDED AS FACT, NO ACTION TAKEN. The four authored fields were declared when this beat
+      covered five segments; they now govern six. The Order states "No other Executive-authored
+      fields are modified", so none was.
+    # AUTHORED BY THE EXECUTIVE 2026-08-28. Transcribed verbatim.
+    dramatic_intensity: ELEVATED
+    audience_state: Joy
+    governing_theme: "Enduring Brotherhood"
+    editorial_transition: >
+      The audience leaves the formal acts of service and remembrance with
+      confidence that the relationships, values, and shared purpose continue
+      beyond the event itself. Celebration becomes the visible expression of
+      an enduring community rather than the conclusion of a single gathering.
+    executive_notes: >
+      Preserve authenticity over spectacle. The closing movement should
+      emphasize genuine fellowship, shared experiences, and the continuity
+      of brotherhood. Riding sequences, group moments, and Bike Night
+      imagery should reinforce that the organization's identity extends
+      beyond ceremonies into everyday relationships. Narrative intent
+      remains grounded entirely in the visual documentary record,
+      independent of musical treatment.
+    authored: '2026-08-28'
+    authored_by: "Executive Producer / Chairman"
+    authority: "EXECUTIVE AUTHORING DECLARATION - EPR-06, 2026-08-28"
+    entry_status: COMPLETE
+    executive_rationale: >-
+      This beat is intentionally not the emotional climax. That summit has already been reached
+      in EPR-05. Instead, this beat provides emotional resolution. The audience has already
+      discovered who these men are, what unites them, how they serve, and why that service
+      matters. Now they simply experience the joy of seeing that brotherhood continue naturally.
+      The ending should feel earned - not manufactured. Celebration becomes evidence that the
+      documentary's themes continue beyond the closing frame.
+    theme_provenance_note: >-
+      "Enduring Brotherhood" is a NEW theme, not drawn from the six illustrations in
+      governing_theme_convention. It conforms to the convention. "Quiet Leadership" and
+      "Leadership by Example" remain unassigned.
+    terminal_beat_status:
+      status: TERMINAL
+      resolved: '2026-08-28'
+      resolved_by: >-
+        EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE, section 1 consequences:
+        "EPR-06 becomes the terminal narrative beat of the governed production."
+      oq2_application_note: >-
+        REPORTED, NOT ACTED ON. Under the OQ-2 ruling the terminal beat's editorial_transition
+        carries a concluding resolution statement. EPR-06's editorial_transition was declared on
+        2026-08-28 BEFORE this entry was terminal. The platform has NOT re-read, re-labelled,
+        re-scoped or rewritten it, and the Order forbids inferring replacement content. Whether
+        the declared text satisfies the OQ-2 form is an EXECUTIVE determination.
+      prior_status: CONTINGENT_ON_EPR-07_DISPOSITION
+      note: >-
+        Whether EPR-06 is the documentary's terminal beat depends on the EPR-07 disposition
+        (workbook Q10 / PBC-1), WHICH REMAINS UNDECLARED. If EPR-07 is retired, EPR-06 becomes
+        terminal and the OQ-2 ruling applies to it - its editorial_transition carries a
+        concluding resolution statement rather than pointing at a successor. If EPR-07 survives
+        or migrates, EPR-06 transitions into it normally.
+        THE PLATFORM HAS NOT CLASSIFIED THIS ENTRY AS TERMINAL. The declared
+        editorial_transition is stored exactly as written and has not been re-read, re-labelled
+        or re-scoped against either outcome.
+    provenance: "EMOTIONAL_ARC v1.0.0 beat Celebration (audience_emotion: Joy)"
+
+  - id: EPR-07
+    beat: Ride_Home
+    segment_refs: [S19]
+    dramatic_intensity: AWAITING_EXECUTIVE_INPUT
+    audience_state: Completion
+    governing_theme: AWAITING_EXECUTIVE_INPUT
+    editorial_transition: AWAITING_EXECUTIVE_INPUT
+    executive_notes: AWAITING_EXECUTIVE_INPUT
+    provenance: "EMOTIONAL_ARC v1.0.0 beat Ride_Home (audience_emotion: Completion)"
+    segment_reference_status: RESOLVED_BY_RETIREMENT
+    retirement:
+      # EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE, section 1.
+      # Q10 ADJUDICATED. Transcribed verbatim. The entry is RETIRED, NOT DELETED.
+      disposition: RETIRE
+      adjudicated: '2026-08-28'
+      adjudicated_by: "Executive Producer / Chairman"
+      rationale_verbatim: >-
+        Under the ratified Path B (Episodic Production Architecture), S19 (Ride_Home) exists
+        entirely outside the governed 08-24 production runtime. EPR-07 is therefore retired from
+        the active narrative progression registry. Its historical existence shall remain
+        preserved through repository history and governance records.
+      consequences_verbatim:
+        - "EPR-06 becomes the terminal narrative beat of the governed production."
+        - "No replacement narrative content shall be inferred."
+        - "No migration shall occur."
+        - "Historical provenance remains intact."
+      what_was_done: >-
+        The entry was NOT deleted, NOT merged, NOT re-keyed. beat Ride_Home and audience_state
+        Completion - both EXECUTIVE custody - stand untouched. segment_refs still reads [S19].
+      four_fields_note: >-
+        dramatic_intensity, governing_theme, editorial_transition and executive_notes remain
+        literally AWAITING_EXECUTIVE_INPUT because they were never declared and, under this
+        retirement, never will be. THE PLATFORM DID NOT OVERWRITE THEM WITH A "RETIRED" SENTINEL:
+        writing into an Executive field to tidy a count would be authoring. CONSEQUENCE, REPORTED
+        NOT RESOLVED: V-6 will continue to report AWAITING_EXECUTIVE_INPUT=4 for this retired
+        entry. That count is now a property of a retired entry, not outstanding Executive work.
+        Whether the validator should distinguish the two is an ENGINEERING question and a code
+        change; none is authorized.
+    executive_inclination_recorded_not_applied:
+      # RECORDED SO IT IS NOT LOST. THIS IS NOT A DISPOSITION AND HAS NOT BEEN APPLIED.
+      date: '2026-08-28'
+      wording_verbatim: >-
+        Before Claude finalizes EPR-06, I recommend addressing EPR-07 immediately afterward
+        rather than leaving it open. Given the governance state you've established, my
+        inclination would be: disposition: RETIRE - not because "Ride Home" lacks value, but
+        because the governed production has already been ratified as the episodic trilogy, and
+        S19 currently sits entirely outside that runtime until a future segment re-derivation
+        says otherwise. The workbook itself treats Q10 as a separate disposition question rather
+        than an authoring question.
+      why_not_applied: >-
+        The wording is an INCLINATION offered for consideration ("my inclination would be",
+        "if you choose to retire EPR-07"), not a declaration. Q10 is an EXECUTIVE disposition.
+        Under order 2.3 the platform shall not author, populate, infer, extend, suggest or
+        default any value, and under DOC-CAND-001 the platform prepares decisions and does not
+        make them. An inclination is not a ruling, and the platform will not convert one into a
+        ruling on the Executive's behalf - least of all when the Executive's own phrasing
+        invites the platform to choose.
+      what_would_be_needed: >-
+        An explicit Executive declaration of disposition - RETIRE, MIGRATE (naming the target
+        segments), SURVIVE UNCHANGED, or HOLD. Until then EPR-07's four authored fields remain
+        AWAITING_EXECUTIVE_INPUT and its segment_reference_status remains
+        UNRESOLVED_PENDING_EXECUTIVE.
+      consequence_if_declared_RETIRE: >-
+        STATED AS A CONSEQUENCE, NOT AS ADVOCACY. EPR-06 would become the terminal beat and the
+        OQ-2 ruling would apply to it. EPR-07's four fields would close as retired rather than
+        as unfilled. NOTHING HAS BEEN PRE-STAGED AGAINST THIS OUTCOME.
+    segment_reference_note: >-
+      PROCESSED under the 2026-08-28 Order section 2.4, NOT repaired. S19's span as declared
+      in TIMELINE_REGISTRY v1.0.0 lies ENTIRELY beyond the governed 08-24 production's
+      runtime, and the Order's own workbook directive scopes Executive authoring to S01-S18.
+      Measurements are held in EPR-001_VALIDATION_REPORT_PATH_B.md and are deliberately not
+      restated here: `timecodes` is a prohibited field of this registry.
+      Under missing_data_policy: propagate_unknown, the unknown is propagated and NOT
+      resolved. This entry is NOT deleted, NOT re-keyed to another segment, and NOT merged
+      into EPR-06. Its beat and audience_state are EXECUTIVE-custody declarations and stand
+      untouched. Whether the Ride_Home beat survives into the episodic trilogy, migrates to
+      another segment, or is retired is an EXECUTIVE determination. Order section 2.4:
+      "Do not infer replacement narrative content." None was inferred.
+      NOTE FOR VALIDATORS: V-2 resolves S19 successfully against TIMELINE_REGISTRY v1.0.0
+      and therefore CANNOT detect this condition. See EPR-001_VALIDATION_REPORT_PATH_B.md.
+
+# ----------------------------------------------------------------------------
+# SEGMENTS CARRYING NO DECLARED DOCUMENTARY INTENT
+# Reported, never filled. No entry was created for them, because creating one
+# would require authoring a beat - which order 2.3 forbids.
+# ----------------------------------------------------------------------------
+# RESOLVED 2026-08-29 by EXECUTIVE SEGMENT CLASSIFICATION ORDER (Q7, Q8). Both segments are
+# now classified and neither is undeclared any longer. The list is retained rather than emptied
+# so the record shows WHAT WAS RESOLVED, not merely that nothing remains. Leaving these entries
+# unchanged would have contradicted the segment_refs above; deleting them would have erased the
+# fact that the condition existed. Status is updated; original text preserved verbatim.
+undeclared_segments:
+  - {segment: S04, activity: ride_brief, note: "no EMOTIONAL_ARC provenance; no EPR entry",
+     status: RESOLVED, resolved: '2026-08-29', resolution: "incorporated into EPR-03 Brotherhood",
+     resolved_by: "EXECUTIVE SEGMENT CLASSIFICATION ORDER, Q7"}
+  - {segment: S17, activity: audience_cta, note: "no EMOTIONAL_ARC provenance; no EPR entry",
+     status: RESOLVED, resolved: '2026-08-29', resolution: "incorporated into EPR-06 Celebration",
+     resolved_by: "EXECUTIVE SEGMENT CLASSIFICATION ORDER, Q8"}
+undeclared_segments_status: NONE_OUTSTANDING
+undeclared_segments_status_note: >-
+  Every in-scope segment S01-S18 now carries an intentional Executive disposition. No entry was
+  created for either segment - the Order directed incorporation into existing beats and
+  explicitly forbade new entries. The entry count is unchanged at seven.
+undeclared_segments_note: >-
+  These two segments were absent from EMOTIONAL_ARC v1.0.0 and remain absent here.
+  Whether they should carry documentary intent is an Executive question. Under
+  Invariant B nothing may be interpolated across them from the entries either side.
+  2026-08-28: both fall inside the S01-S18 authoring scope of the Executive Authoring
+  Workbook and are put to the Executive there. No entry has been created for either.
+
+# ----------------------------------------------------------------------------
+# PATH B CONSEQUENCES - REPORTED, NOT PROCESSED FURTHER
+# Recorded under the 2026-08-28 Order section 2.4. Each is a condition the ratified
+# production identity creates. NONE is repaired here; repair is regeneration, re-keying
+# or Executive authoring, all of which that Order withholds.
+# ----------------------------------------------------------------------------
+path_b_consequences:
+  - id: PBC-1
+    condition: EPR-07 segment reference unresolvable
+    detail: >-
+      S19's declared span in the superseded assembly lies wholly beyond the governed
+      production's runtime. Figures in EPR-001_VALIDATION_REPORT_PATH_B.md.
+    disposition: UNRESOLVED_PENDING_EXECUTIVE
+    owner: EXECUTIVE
+
+  - id: PBC-2
+    condition: S18 declared boundary extends beyond the governed runtime
+    detail: >-
+      S18's declared START falls inside the governed production's runtime and its declared END
+      falls outside it. S18 is IN SCOPE for Executive authoring per the Order's S01-S18
+      directive, and EPR-06 already references it. The segment is not re-derived here.
+      Figures in EPR-001_VALIDATION_REPORT_PATH_B.md.
+    disposition: BOUNDARY_OUT_OF_RANGE_PENDING_REDERIVATION
+    owner: platform, after regeneration is authorized
+
+  - id: PBC-3
+    condition: no segment-to-episode assignment exists
+    detail: >-
+      The Order describes S01-S18 as "active episodic segments" and the three Parts as the
+      distribution deliverables. DAY2_PARENT_FORENSIC_AUDIT establishes which contiguous region
+      of the Parent each Part body is drawn from. Assigning segments to those episodes requires
+      segment positions in the 08-24 Parent, which do not exist: the only positions on record
+      are spans in the superseded assembly, related to the governed timeline by five distinct
+      piecewise lags. ANY assignment made today would be inference. NONE WAS MADE.
+      Figures in EPR-001_VALIDATION_REPORT_PATH_B.md.
+    disposition: NOT_DERIVABLE_WITHOUT_REGENERATION
+    owner: platform, after regeneration is authorized
+
+  - id: PBC-4
+    condition: intensity scale ordinality still undeclared
+    detail: >-
+      intensity_scale.ordered remains AWAITING_EXECUTIVE_INPUT. The five ratified tokens are
+      reaffirmed by the 2026-08-28 Order but their ordinality is not. Until declared, no
+      consumer may sort, compare or reason about relative intensity. Put to the Executive in
+      the Authoring Workbook.
+    disposition: AWAITING_EXECUTIVE_DECLARATION
+    disposition_token_note: >-
+      Deliberately NOT the string AWAITING_EXECUTIVE_INPUT. That token is the census marker for
+      unfilled Executive FIELDS, and V-6 counts it; using it on a consequence record would
+      inflate that census by one without an actual field being empty.
+    owner: EXECUTIVE
+
+  - id: PBC-5
+    condition: precondition contract still unsatisfiable (IR-002 I1, carried forward)
+    detail: >-
+      Unchanged by this ratification. The musical-responsibility half of the precondition is
+      deferred to WET-SPEC-RSB-001, which does not exist. Not blocking while regeneration is
+      suspended; live at gate-open.
+    disposition: RAISED_NOT_RESOLVED
+    owner: EXECUTIVE
