@@ -160,7 +160,21 @@ MEASURED: remnant 7.041 of 48.0s (R5: 40.958s spine gap removed);
 end SNAPPED −40.958. CF-001 #1659–#1664 speech sits over retained
 picture with NO 08-22 caption counterpart (INSUFFICIENT_OBSERVATION
 whether audio changed or GT-2 missed it).
-CHAIRMAN DECISION: ____________________
+CHAIRMAN DECISION: PRESERVE  (recorded 2026-09-30, verbatim)
+  Chairman visual review of the complete S14 remnant is complete.
+  Findings:
+  - The surviving 7.041s still performs the same narrative function as S14.
+  - The existing governing meaning still fits.
+  - The existing dramatic intensity still fits.
+  - The S14 boundary at 3212.743s remains correct before A2 begins.
+  Retain the existing R6 editorial assignment exactly as currently recorded.
+  Apply the accepted 08-24 temporal rebase only.
+  No editorial re-authoring is required for R6.
+  ["As currently recorded" = EPR-001 v1.13.0 (1d54e674) EPR-06 Celebration, segment_refs incl.
+   S14, unchanged. Review source: B-7 e966f8a, ff34278fe1f47f678b36066780c3498633d27761655001ea97163099da9bbffe;
+   excerpt REVIEW_R6_00532000-00534000_ff34278f.mp4,
+   39db40fd4de216de8b5224951e826ca7b6908298b4fd827c9d3d06cbd6c68e75; S14 = excerpt 5.702-12.743s
+   (source 3205.702-3212.743s). R6 decides S14 only; A2 remains ROW 9.]
 ### ROW 7 · EPR-06 — S15
 MEASURED: −40.208s (R6: gap + 044·X5); start SNAPPED +40.208.
 CHAIRMAN DECISION: ____________________
