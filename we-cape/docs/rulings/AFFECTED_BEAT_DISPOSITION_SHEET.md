@@ -175,6 +175,13 @@ CHAIRMAN DECISION: PRESERVE  (recorded 2026-09-30, verbatim)
    excerpt REVIEW_R6_00532000-00534000_ff34278f.mp4,
    39db40fd4de216de8b5224951e826ca7b6908298b4fd827c9d3d06cbd6c68e75; S14 = excerpt 5.702-12.743s
    (source 3205.702-3212.743s). R6 decides S14 only; A2 remains ROW 9.]
+PROCEDURAL STATUS: REOPENED — EVIDENCE BASIS CORRECTED  (marked 2026-09-30, Chairman-authorized)
+  The PRESERVE entry above is preserved verbatim as the decision made on the evidence then
+  presented. Subsequent source-identity analysis found that the mapping instrument (v1)
+  truncated S14 (to 7.041s ending 3212.743) and misclassified relocated S14 material as A2.
+  Corrected basis (v2 candidate, rederivation_v2.json 5bd4af486e9eb745660504b41290154fb5d8c0b511b6bc74cca5102dd4b0a28b):
+  S14 = 3205.702 → 3246.432 (40.730s). No new R6 disposition is inferred; R6 awaits re-ruling.
+  The mapping defect and its correction are recorded separately (packet v2/README_V2.md, Notice 3).
 ### ROW 7 · EPR-06 — S15
 MEASURED: −40.208s (R6: gap + 044·X5); start SNAPPED +40.208.
 CHAIRMAN DECISION: PRESERVE  (recorded 2026-09-30, verbatim)
