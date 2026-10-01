@@ -264,7 +264,17 @@ MEASURED FINDING (recorded 2026-10-01, after the R6 re-ruling; evidence only, NO
   at 3212.743 (the established 056 boundary fact) and 0.004s at 3237.58, both inside S14, and a
   0.083s re-trim at 3290.583 on the S15 start edge. The SEGMENT-IT / INTER-SEGMENT choice
   therefore has no genuine interval to apply to. R9's cell is left for the Chairman.
-CHAIRMAN DECISION: ____________________
+CHAIRMAN DECISION: MOOT  (recorded 2026-10-01, verbatim; under the B-14 CLOSED-MOOT procedure,
+  EO-2026-09-29 Addendum A)
+  Based on the recorded measured finding following the finalized R6 re-ruling:
+  - the former A2 span now lies entirely inside the corrected S14;
+  - the material between corrected S14 and S15 is identity-matched retained material;
+  - no genuine residual A2 interval remains;
+  - no SEGMENT-IT / INTER-SEGMENT decision remains to be made.
+  R9: MOOT
+  [Evidence: G8-ratified v2 mapping 5bd4af486e9eb745660504b41290154fb5d8c0b511b6bc74cca5102dd4b0a28b;
+   R6 re-ruling end boundary 3247.583333s / frame 77942. No segment created; no beat membership
+   assigned; nothing inferred.]
 
 ## Not before you: EPR-07 [S19] remains RETIRED; its four fields stay
 AWAITING_EXECUTIVE_INPUT untouched by this sheet.
