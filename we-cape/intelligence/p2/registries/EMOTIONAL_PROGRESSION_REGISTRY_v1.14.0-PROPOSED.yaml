@@ -44,20 +44,22 @@ registry_ratification:
   co_ratified: "EPR_EXECUTIVE_AUTHORING_WORKBOOK.md"
   supersedes: "all prior draft authoring states"
 registry_version_note_1_14_0_PROPOSED: >-
-  1.13.0 -> 1.14.0-PROPOSED, 2026-09-30. EO-2026-09-29 ADDENDUM A, TIER 1 - PRESERVE +
-  REBASE (S01, S02, S04-S10, S17, S18), under Addendum B G8 (structural ratification only).
-  NO BEAT, MEANING, governing_theme, dramatic_intensity, audience_state OR segment_refs
-  VALUE CHANGED. EPR-07 untouched. This registry carries no temporal values - beats bind to
-  segment IDs and segment_authority_note bars resolving a segment_ref to a timecode - so the
-  Tier-1 temporal rebase is carried by the segment authority proposal
-  TIMELINE_REGISTRY_v1.1.0-PROPOSED.yaml (sha256 9fa62d7bbaf01f84e1e5412361c47c3f729dbd49081dc1b0cf07cd5b310118d2),
-  per the Chairman answer of 2026-09-30. Mapping: decision_packet_b5_b14/rederivation.json
-  sha256 5d6994b3f36de5bc07d3987cdb3bd611f70493390a8f6a8ed50828a79d666117; 08-24 lock
-  d82c2c3ec0f788cf47262194d6fbb8aefcd5fc9b7eee899b04bd3487f02e3a80. Tier-2 (S03, S11) and
-  Tier-3 (S12-S16) remain in 08-22 seconds, pending row-level decisions. segment_authority,
-  segment_authority_status and path_b_consequences are UNCHANGED: under the rebase S18
-  maps to 4007.875-4622.875 s, inside the 4689.5 s lock, which bears on PBC-2 - recorded
-  here, NOT applied; PBC-2 disposition stays the Chairman's.
+  1.13.0 -> 1.14.0-PROPOSED, 2026-10-01. Completed B-5 rebase under EO-2026-09-29 ADDENDUM A
+  (Tiers 1-3) and ADDENDUM B G8. NO BEAT, MEANING, governing_theme, dramatic_intensity,
+  audience_state OR segment_refs VALUE CHANGED; EPR-07 untouched. Chairman dispositions:
+  R1 S03 PRESERVE (2b3416f); R2 S11 PRESERVE (e563b17); R3 S12 PRESERVE (2b45e11); R4 EPR-05->06
+  transition at 3193.167s PRESERVE (a857377); R5 S13 PRESERVE (36623ee); R6 S14 REVISE-BOUNDARY
+  (2f814a1; end 38971/12s - frame and timecode provenance in the TIMELINE proposal changelog;
+  original PRESERVE cb548f4 retained as history); R7 S15 PRESERVE (3176446); R8 S16 PRESERVE
+  (1a80d2a); R9 A2 MOOT (ee515d1); B-14
+  CLOSED-MOOT (Addendum A). This registry carries no temporal values, so the rebase is carried
+  by the segment authority proposal TIMELINE_REGISTRY_v1.1.0-PROPOSED.yaml (sha256
+  d89ca46159e6850cfbc842e75c623de041c43e3455583dc99e3610192c9496cd). Mapping: G8-ratified v2
+  rederivation_v2.json 5bd4af486e9eb745660504b41290154fb5d8c0b511b6bc74cca5102dd4b0a28b
+  (historical v1 5d6994b3f36de5bc07d3987cdb3bd611f70493390a8f6a8ed50828a79d666117). 08-24 lock
+  d82c2c3ec0f788cf47262194d6fbb8aefcd5fc9b7eee899b04bd3487f02e3a80. segment_authority,
+  segment_authority_status and path_b_consequences (PBC-2 included) are UNCHANGED; under the
+  rebase S18 lies at 4007.875-4622.875s, inside the 4689.5s lock - recorded, NOT applied.
 registry_version_note_1_13_0: >-
   1.12.0 -> 1.13.0, 2026-08-28. EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE.
   SECTIONS 1 AND 2 APPLIED. SECTION 3 NOT EXECUTED - see GER-001.

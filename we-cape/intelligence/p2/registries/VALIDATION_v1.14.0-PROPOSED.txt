@@ -1,69 +1,98 @@
-PASS  V0 input hash EMOTIONAL_PROGRESSION_REGISTRY.yaml  -  1d54e674190eef81
-PASS  V0 input hash TIMELINE_REGISTRY.yaml  -  34bd0f9ef7f1507c
-PASS  V0 input hash rederivation.json  -  5d6994b3f36de5bc
-PASS  V2 byte-identical EMOTIONAL_PROGRESSION_REGISTRY.yaml  -  disk 1d54e674190eef81 · pinned 1d54e674190eef81 · HEAD 1d54e674190eef81
-PASS  V2 byte-identical TIMELINE_REGISTRY.yaml  -  disk 34bd0f9ef7f1507c · pinned 34bd0f9ef7f1507c · HEAD 34bd0f9ef7f1507c
+PASS  V0 input hash epr  -  1d54e674190eef81
+PASS  V0 input hash timeline  -  34bd0f9ef7f1507c
+PASS  V0 input hash v2  -  5bd4af486e9eb745
+PASS  V0 input hash sheet  -  53f7f39940c134f6
+PASS  V2 ratified original byte-identical: EMOTIONAL_PROGRESSION_REGISTRY.yaml
+PASS  V2 ratified original byte-identical: TIMELINE_REGISTRY.yaml
 PASS  V1 parses EMOTIONAL_PROGRESSION_REGISTRY.yaml
 PASS  V1 parses EMOTIONAL_PROGRESSION_REGISTRY_v1.14.0-PROPOSED.yaml
 PASS  V1 parses TIMELINE_REGISTRY.yaml
 PASS  V1 parses TIMELINE_REGISTRY_v1.1.0-PROPOSED.yaml
-PASS  V3 EPR field diff == allowed set exactly  -  3 changes: .proposal_status, .registry_version, .registry_version_note_1_14_0_PROPOSED
-PASS  V3 registry_version 1.13.0 -> 1.14.0-PROPOSED
-PASS  V3 proposal_status
+PASS  V3 EPR field diff == allowed set exactly  -  .proposal_status, .registry_version, .registry_version_note_1_14_0_PROPOSED
+PASS  V3 EPR version 1.14.0-PROPOSED
 PASS  V5 EPR entries deep-equal (all 7, incl. EPR-07)
-PASS  V5 unchanged: segment_authority
-PASS  V5 unchanged: segment_authority_status
-PASS  V5 unchanged: segment_authority_note
-PASS  V5 unchanged: path_b_consequences
-PASS  V5 unchanged: registry_ratification
-PASS  V5 unchanged: undeclared_segments
-PASS  V5 unchanged: intensity_scale
-PASS  V5 unchanged: governing_invariants
-PASS  V7 changelog cites TIMELINE proposal hash  -  9fa62d7bbaf01f84
-PASS  V7 changelog cites mapping hash
-PASS  V7 changelog cites Addendum A Tier 1
-PASS  V4 TIMELINE field diff == allowed set exactly  -  30 changes
-PASS  V6 S01 span == mapping 0.0-73.0  -  00:00-01:13
-PASS  V6 S02 span == mapping 73.0-111.0  -  01:13-01:51
-PASS  V6 S04 span == mapping 1625.454-1646.5  -  27:05.454-27:26.500
-PASS  V6 S05 span == mapping 1663.5-1753.5  -  27:43.500-29:13.500
-PASS  V6 S06 span == mapping 1875.292-1925.292  -  31:15.292-32:05.292
-PASS  V6 S07 span == mapping 1937.292-2002.292  -  32:17.292-33:22.292
-PASS  V6 S08 span == mapping 2003.292-2128.292  -  33:23.292-35:28.292
-PASS  V6 S09 span == mapping 2135.292-2162.292  -  35:35.292-36:02.292
-PASS  V6 S10 span == mapping 2191.292-2304.292  -  36:31.292-38:24.292
-PASS  V6 S17 span == mapping 3827.875-3850.875  -  63:47.875-64:10.875
-PASS  V6 S18 span == mapping 4007.875-4622.875  -  66:47.875-77:02.875
-PASS  V6 S03 span unchanged (08-22)  -  01:51-27:02
-PASS  V6 S11 span unchanged (08-22)  -  38:55-52:00
-PASS  V6 S12 span unchanged (08-22)  -  52:04-53:56
-PASS  V6 S13 span unchanged (08-22)  -  53:50-54:35
-PASS  V6 S14 span unchanged (08-22)  -  54:36-55:24
-PASS  V6 S15 span unchanged (08-22)  -  56:10-58:43
-PASS  V6 S16 span unchanged (08-22)  -  58:43-66:25
-PASS  V6 S19 span unchanged (08-22)  -  79:44-80:46
+PASS  V5 untouched: segment_authority
+PASS  V5 untouched: segment_authority_status
+PASS  V5 untouched: segment_authority_note
+PASS  V5 untouched: path_b_consequences
+PASS  V5 untouched: registry_ratification
+PASS  V5 untouched: undeclared_segments
+PASS  V5 untouched: intensity_scale
+PASS  V5 untouched: governing_invariants
+PASS  V5 PBC-2 record identical  -  BOUNDARY_OUT_OF_RANGE_PENDING_REDERIVATION
+PASS  V7 EPR changelog cites TIMELINE proposal hash
+PASS  V7 EPR changelog cites v2 hash
+PASS  V7 EPR changelog cites R9
+PASS  V7 EPR changelog cites B-14
+PASS  V7 EPR changelog cites R6
+PASS  V7 EPR changelog cites S14 exact end
+PASS  V9 R9: segment set unchanged (S01..S19, no A2 row, no new segment)
+PASS  V4 TIMELINE field diff ⊆ {version, status, changelog, span, span_basis on S01-S18}  -  39 changes
+PASS  V4b S16 interview_count 8 -> 7 (Chairman ruling)
+PASS  V4b S16 participants [R68-R75] -> [R68-R74] (Chairman ruling)
+PASS  V4b changelog records the S16 participants ruling
+PASS  V4b changelog records the S16 ruling
+PASS  V4 S01 non-span fields identical
+PASS  V4 S02 non-span fields identical
+PASS  V4 S03 non-span fields identical
+PASS  V4 S04 non-span fields identical
+PASS  V4 S05 non-span fields identical
+PASS  V4 S06 non-span fields identical
+PASS  V4 S07 non-span fields identical
+PASS  V4 S08 non-span fields identical
+PASS  V4 S09 non-span fields identical
+PASS  V4 S10 non-span fields identical
+PASS  V4 S11 non-span fields identical
+PASS  V4 S12 non-span fields identical
+PASS  V4 S13 non-span fields identical
+PASS  V4 S14 non-span fields identical
+PASS  V4 S15 non-span fields identical
+PASS  V4 S16 non-span fields identical (except ruled interview_count, participants)
+PASS  V4 S17 non-span fields identical
+PASS  V4 S18 non-span fields identical
+PASS  V4 S19 non-span fields identical
+PASS  V6 Tier-1 S01 row byte-identical to c5a72dc
+PASS  V6 Tier-1 S02 row byte-identical to c5a72dc
+PASS  V6 Tier-1 S04 row byte-identical to c5a72dc
+PASS  V6 Tier-1 S05 row byte-identical to c5a72dc
+PASS  V6 Tier-1 S06 row byte-identical to c5a72dc
+PASS  V6 Tier-1 S07 row byte-identical to c5a72dc
+PASS  V6 Tier-1 S08 row byte-identical to c5a72dc
+PASS  V6 Tier-1 S09 row byte-identical to c5a72dc
+PASS  V6 Tier-1 S10 row byte-identical to c5a72dc
+PASS  V6 Tier-1 S17 row byte-identical to c5a72dc
+PASS  V6 Tier-1 S18 row byte-identical to c5a72dc
+PASS  V6 S03 span == v2 mapping 111.0-1625.454  -  01:51-27:05.454
+PASS  V6 S11 span == v2 mapping 2307.292-3091.042  -  38:27.292-51:31.042
+PASS  V6 S12 span == v2 mapping 3095.042-3193.167  -  51:35.042-53:13.167
+PASS  V6 S13 span == v2 mapping 3193.167-3204.702  -  53:13.167-53:24.702
+PASS  V6 S15 span == v2 mapping 3290.667-3403.458  -  54:50.667-56:43.458
+PASS  V6 S16 span == v2 mapping 3403.458-3827.875  -  56:43.458-63:47.875
+PASS  V6 S01 span == v2 mapping 0.0-73.0  -  00:00-01:13
+PASS  V6 S02 span == v2 mapping 73.0-111.0  -  01:13-01:51
+PASS  V6 S04 span == v2 mapping 1625.454-1646.5  -  27:05.454-27:26.500
+PASS  V6 S05 span == v2 mapping 1663.5-1753.5  -  27:43.500-29:13.500
+PASS  V6 S06 span == v2 mapping 1875.292-1925.292  -  31:15.292-32:05.292
+PASS  V6 S07 span == v2 mapping 1937.292-2002.292  -  32:17.292-33:22.292
+PASS  V6 S08 span == v2 mapping 2003.292-2128.292  -  33:23.292-35:28.292
+PASS  V6 S09 span == v2 mapping 2135.292-2162.292  -  35:35.292-36:02.292
+PASS  V6 S10 span == v2 mapping 2191.292-2304.292  -  36:31.292-38:24.292
+PASS  V6 S17 span == v2 mapping 3827.875-3850.875  -  63:47.875-64:10.875
+PASS  V6 S18 span == v2 mapping 4007.875-4622.875  -  66:47.875-77:02.875
+PASS  V8 S14 start = v2-mapped 3205.701625 (ms repr, not frame-aligned)  -  53:25.702
+PASS  V8 S14 end = R6 38971/12 (ms repr 3247.583)  -  54:07.583
+PASS  V8 S14 span_basis carries exact rational, frame 77942, 00:54:07:14
+PASS  V8 S14 end is NOT the superseded mapped 3246.432
 PASS  V6 S19 row entirely unchanged
-PASS  V8 build deterministic (rebuild identical)
+PASS  V6 S01-S18 spans ordered, positive, non-overlapping, within 4689.5s
+PASS  V10 both outputs PROPOSED
+PASS  V11 build deterministic (rebuild identical)
 
-EPR-001 v1.14.0-PROPOSED  sha256 51a69d90892ac1615ddad53f6336bb35638a4ca5cc04bd4d5a40ecccdbc7397a
-TIMELINE v1.1.0-PROPOSED  sha256 9fa62d7bbaf01f84e1e5412361c47c3f729dbd49081dc1b0cf07cd5b310118d2
+EPR-001 v1.14.0-PROPOSED  sha256 3a04b5e60d8c133d5533cdfc47d12b722d9d454f1dd2d370b08f1ec7d558d2ac
+TIMELINE v1.1.0-PROPOSED  sha256 d89ca46159e6850cfbc842e75c623de041c43e3455583dc99e3610192c9496cd
 RESULT: ALL PASS
 
-=== scripts/epr_validate.py (existing structural validator) — v1.13.0 + TIMELINE v1.0.0 baseline
-EPR-001 STRUCTURAL VALIDATION - EMOTIONAL_PROGRESSION_REGISTRY v1.13.0
-criterion status  measurement
---------------------------------------------------------------------------------------------------------
-V-1       PASS    7/7 conforming
-V-2       PASS    19/19 resolve
-V-3       PASS    0 prohibited keys; timecode-shaped scalars outside prose: 0
-V-4       PASS    file source_class=EXECUTIVE; non-conforming entries: none (entries inherit the file-le
-V-5       PASS    observed=19 expected=19 percentage=100.0%; undeclared: []; missing_data_policy=propaga
-V-6       PASS    declared field-values=31; AWAITING_EXECUTIVE_INPUT=4; out-of-vocabulary intensity: non
-
-No counts, totals, percentages or aggregate compliance values are emitted
-beyond V-5's coverage, which the order requires. (ER-001, Clarification 1.)
-
-=== scripts/epr_validate.py — v1.14.0-PROPOSED + TIMELINE v1.1.0-PROPOSED
+=== scripts/epr_validate.py (existing structural validator) — v1.14.0-PROPOSED + TIMELINE v1.1.0-PROPOSED
 EPR-001 STRUCTURAL VALIDATION - EMOTIONAL_PROGRESSION_REGISTRY v1.14.0-PROPOSED
 criterion status  measurement
 --------------------------------------------------------------------------------------------------------
