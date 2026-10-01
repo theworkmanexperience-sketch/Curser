@@ -62,3 +62,15 @@ Downstream MIE Pass 4 (CELEBRATION family) — CUE-08 is a Pass 4 cue.
 **Rationale:** ______
 **Registry version after decision:** ______
 **Dispositioned by / date:** ______
+
+---
+
+> **NOTICE (2026-10-01, Chairman ruling 4; issued text above preserved unaltered; this PDR is NOT resolved).**
+> - **v1.1.0 is not reserved by this PDR.** Option B's "TIMELINE_REGISTRY 1.0.0 → 1.1.0" describes the
+>   minor bump a relabel would require, counted from the version then in force.
+> - **TIMELINE_REGISTRY v1.1.0 has been ratified (2026-10-01) as the B-5 08-24 rebase.** That ratification
+>   does not resolve this PDR; `activity: bike_night_arrivals` is unchanged.
+> - **If Option B is later selected,** the applicable minor-version transition is from the then-current
+>   **v1.1.0 to v1.2.0**.
+> - **This PDR's substantive evidence and decision remain open.** (Its spans and measurements were taken on
+>   the 08-22 assembly; under the 08-24 rebase S16 is a different span - recorded as fact, not as disposition.)

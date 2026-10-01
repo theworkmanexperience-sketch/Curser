@@ -1,0 +1,21 @@
+# Preserved superseded canonical registries. Byte-identical copies; NEVER edit these files.
+# Chairman ruling 3 (CHAIRMAN GOVERNANCE RULING - PRE-RATIFICATION, 2026-10-01).
+manifest_id: REGISTRY_SUPERSEDED_MANIFEST
+entries:
+  - file: TIMELINE_REGISTRY_v1.0.0.yaml
+    original_path: intelligence/p2/registries/TIMELINE_REGISTRY.yaml
+    version: "1.0.0"
+    sha256: "34bd0f9ef7f1507cd8fa0f0745abadd675060b313d98d06ea2dd35c98bc8de76"
+    source_commit: "c9fa34327de289905bc9cbfb2f1001a58a28c94f"
+    introduced_at: "67fcd91"
+    status: SUPERSEDED
+    superseded_by: {version: "1.1.0", sha256: "510697b9bbd1ed01c6c61ab6c6063dd511cfc71abad0ad11629fbeb807db0da3", date: "2026-10-01"}
+  - file: EMOTIONAL_PROGRESSION_REGISTRY_v1.13.0.yaml
+    original_path: intelligence/p2/registries/EMOTIONAL_PROGRESSION_REGISTRY.yaml
+    version: "1.13.0"
+    sha256: "1d54e674190eef8122f7ddd22af66ae07abcb13dead7f5077ed868c37dbe21a4"
+    source_commit: "c9fa34327de289905bc9cbfb2f1001a58a28c94f"
+    ratified_at: "c7b5d3a"
+    status: SUPERSEDED
+    superseded_by: {version: "1.14.0", sha256: "4aeb1496bb836aab4fd9153cb750fd671b4f326871b7d4d98362054a566047b9", date: "2026-10-01"}
+authority: "CHAIRMAN GOVERNANCE RULING - PRE-RATIFICATION and CHAIRMAN AUTHORIZATION - RATIFICATION WORKING-TREE EXECUTION, 2026-10-01"

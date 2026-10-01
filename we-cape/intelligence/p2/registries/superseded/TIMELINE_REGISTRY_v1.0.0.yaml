@@ -1,0 +1,27 @@
+registry_id: TIMELINE_REGISTRY
+registry_version: 1.0.0
+registry_schema_version: 1.0
+sources: {srt: "canonical GT-2 (founding extraction)", etc: "P2_LOCK_timing.json SHA 2bf06853...58e7", runtime_lock_s: 4846.625}
+delta_note: "SRT timebase (pre-lock, 01:20:40) vs lock (01:20:46.625) = +6.025s; segment boundaries carry +/-6s tolerance until Sprint lock-SRT reconciliation (CATEGORIZED, not unexplained)"
+enrichment_namespaces: {nie: reserved, mie: reserved, pie: reserved}  # DIE never writes these
+segments:
+  - {id: S01, span: "00:00-01:13", activity: cold_open, music_present: true, interview_count: 0, note: music-bed ASR fragments}
+  - {id: S02, span: "01:13-01:51", activity: host_day_brief, participants: [host], interview_count: 0}
+  - {id: S03, span: "01:51-27:02", activity: interview_gauntlet_1, location_ref: L03-staging, interview_count: 45, participants: [R01-R45]}
+  - {id: S04, span: "27:02-27:23", activity: ride_brief, location_ref: L03}
+  - {id: S05, span: "27:40-29:10", activity: escort_ride, vehicles: [motorcycles-mass], music_present: true, note: police tribute}
+  - {id: S06, span: "31:43-32:33", activity: librarian_speech, participants: [C01], location_ref: L04}
+  - {id: S07, span: "32:45-33:50", activity: council_profile, participants: [C02]}
+  - {id: S08, span: "33:51-35:56", activity: town_proclamation, participants: [C03-mayor]}
+  - {id: S09, span: "36:03-36:30", activity: first_ride_moment}
+  - {id: S10, span: "36:59-38:52", activity: state_proclamation, participants: [C04, C05]}
+  - {id: S11, span: "38:55-52:00", activity: interview_gauntlet_2, location_ref: L04, interview_count: 22, participants: [R46-R67]}
+  - {id: S12, span: "52:04-53:56", activity: organizer_honors_and_silence, sensitivity: SILENCE-ZONE}
+  - {id: S13, span: "53:50-54:35", activity: group_photo}
+  - {id: S14, span: "54:36-55:24", activity: service_wrap_preview}
+  - {id: S15, span: "56:10-58:43", activity: riding_music_passage, music_present: true, interview_count: 0}
+  - {id: S16, span: "58:43-66:25", activity: bike_night_arrivals, interview_count: 8, participants: [R68-R75]}
+  - {id: S17, span: "66:25-66:48", activity: audience_cta}
+  - {id: S18, span: "69:25-79:40", activity: bike_night_ambience, music_present: true, interview_count: 0}
+  - {id: S19, span: "79:44-80:46", activity: friday_wrap_part3_tease, note: "closes on triple-080 X5 run (ETC last 62s)"}
+etc_anchors: {spine_elements: 191, connected: 404, audio_lane: 16, opens: "005 OM1 Jun-25 huddle @0.0s", closes: "080 X5 22:48 x3 ending 4846.625s"}

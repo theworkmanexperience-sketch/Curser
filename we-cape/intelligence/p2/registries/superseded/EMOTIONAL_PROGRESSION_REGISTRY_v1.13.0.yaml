@@ -22,68 +22,21 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.14.0"
+registry_version: "1.13.0"
 registry_ratification:
   status: RATIFIED
-  ratified: '2026-10-01'
+  ratified: '2026-08-28'
   ratified_by: "Executive Producer / Chairman"
-  authority: "CHAIRMAN GOVERNANCE RULING - PRE-RATIFICATION and CHAIRMAN AUTHORIZATION - RATIFICATION WORKING-TREE EXECUTION, 2026-10-01"
-  version: "1.14.0"
-  ratified_artifact: {file: "EMOTIONAL_PROGRESSION_REGISTRY_v1.14.0-PROPOSED.yaml", sha256: "3a04b5e60d8c133d5533cdfc47d12b722d9d454f1dd2d370b08f1ec7d558d2ac", commit: "c9fa34327de289905bc9cbfb2f1001a58a28c94f"}
-  ratified_change: >-
-    PROPOSED banner, proposal_status and version suffix removed; version note key de-suffixed;
-    this block updated (v1.13.0 record kept verbatim below); segment_authority,
-    segment_authority_status and segment_authority_note set by Chairman ruling 1. No entry,
-    no path_b_consequences record (PBC-2 byte-identical) and no other field changed.
+  authority: "EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE, section 2"
   scope_verbatim:
-    - "Accept the regenerated v2-mapped spans and finalized Chairman rulings R1-R9."
-    - "Accept the finalized S14 R6 replacement endpoint."
-    - "Accept S16 interview_count: 7."
-    - "Accept S16 participants: [R68-R74]."
-    - "Accept R9 as MOOT, with no A2 segment and no beat membership created."
-  not_adjudicated:
-    - "PBC-2 (byte-identical)"
-    - "historical/extraction references to R75 or R68-R75 outside the proposal set"
-    - "PDR-2026-08-22-ESS-001 (open; notice only)"
-  regeneration_trigger:
-    rule: "ratification order section 4.5 - a registry_version increment is the regeneration trigger"
-    increment: "1.13.0 -> 1.14.0"
-    disposition: HELD
-    authority: "Chairman, CHAIRMAN GOVERNANCE RULING - PRE-RATIFICATION, 2026-10-01"
-    reason_verbatim: "this ratification is itself the completion of the authorized rebase/regeneration cycle, and immediately firing another regeneration solely because the ratified version increments would create a recursive second cycle without new source evidence."
-    executed: "NO - no regeneration was run"
-  supersedes: {version: "1.13.0", sha256: "1d54e674190eef8122f7ddd22af66ae07abcb13dead7f5077ed868c37dbe21a4", preserved_at: "intelligence/p2/registries/superseded/EMOTIONAL_PROGRESSION_REGISTRY_v1.13.0.yaml", source_commit: "c9fa34327de289905bc9cbfb2f1001a58a28c94f"}
-  prior_ratification_1_13_0:
-    status: RATIFIED
-    ratified: '2026-08-28'
-    ratified_by: "Executive Producer / Chairman"
-    authority: "EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE, section 2"
-    scope_verbatim:
-      - "EPR-01 through EPR-06"
-      - "Segment coverage S01 through S18"
-      - "Ordered categorical dramatic intensity"
-      - "Non-Interpolation Invariant"
-      - "Executive field definitions"
-      - "Executive semantic conventions"
-    co_ratified: "EPR_EXECUTIVE_AUTHORING_WORKBOOK.md"
-    supersedes: "all prior draft authoring states"
-registry_version_note_1_14_0: >-
-  RATIFIED 2026-10-01 by the Chairman (proposal sha256 3a04b5e60d8c133d..., commit c9fa343); proposal text follows unaltered. 1.13.0 -> 1.14.0-PROPOSED, 2026-10-01. Completed B-5 rebase under EO-2026-09-29 ADDENDUM A
-  (Tiers 1-3) and ADDENDUM B G8. NO BEAT, MEANING, governing_theme, dramatic_intensity,
-  audience_state OR segment_refs VALUE CHANGED; EPR-07 untouched. Chairman dispositions:
-  R1 S03 PRESERVE (2b3416f); R2 S11 PRESERVE (e563b17); R3 S12 PRESERVE (2b45e11); R4 EPR-05->06
-  transition at 3193.167s PRESERVE (a857377); R5 S13 PRESERVE (36623ee); R6 S14 REVISE-BOUNDARY
-  (2f814a1; end 38971/12s - frame and timecode provenance in the TIMELINE proposal changelog;
-  original PRESERVE cb548f4 retained as history); R7 S15 PRESERVE (3176446); R8 S16 PRESERVE
-  (1a80d2a); R9 A2 MOOT (ee515d1); B-14
-  CLOSED-MOOT (Addendum A). This registry carries no temporal values, so the rebase is carried
-  by the segment authority proposal TIMELINE_REGISTRY_v1.1.0-PROPOSED.yaml (sha256
-  d89ca46159e6850cfbc842e75c623de041c43e3455583dc99e3610192c9496cd). Mapping: G8-ratified v2
-  rederivation_v2.json 5bd4af486e9eb745660504b41290154fb5d8c0b511b6bc74cca5102dd4b0a28b
-  (historical v1 5d6994b3f36de5bc07d3987cdb3bd611f70493390a8f6a8ed50828a79d666117). 08-24 lock
-  d82c2c3ec0f788cf47262194d6fbb8aefcd5fc9b7eee899b04bd3487f02e3a80. segment_authority,
-  segment_authority_status and path_b_consequences (PBC-2 included) are UNCHANGED; under the
-  rebase S18 lies at 4007.875-4622.875s, inside the 4689.5s lock - recorded, NOT applied.
+    - "EPR-01 through EPR-06"
+    - "Segment coverage S01 through S18"
+    - "Ordered categorical dramatic intensity"
+    - "Non-Interpolation Invariant"
+    - "Executive field definitions"
+    - "Executive semantic conventions"
+  co_ratified: "EPR_EXECUTIVE_AUTHORING_WORKBOOK.md"
+  supersedes: "all prior draft authoring states"
 registry_version_note_1_13_0: >-
   1.12.0 -> 1.13.0, 2026-08-28. EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE.
   SECTIONS 1 AND 2 APPLIED. SECTION 3 NOT EXECUTED - see GER-001.
@@ -251,19 +204,15 @@ production_identity:
   '08_22_assembly_lock_status': "SUPERSEDED_ASSEMBLY"
   three_parts_status: "DISTRIBUTION_DELIVERABLES"
 
-segment_authority: "TIMELINE_REGISTRY v1.1.0 (S01-S19)"
-segment_authority_status: RATIFIED
+segment_authority: "TIMELINE_REGISTRY v1.0.0 (S01-S19)"
+segment_authority_status: SUPERSEDED_PENDING_REDERIVATION
 segment_authority_note: >-
-  TIMELINE_REGISTRY v1.1.0, ratified by the Chairman 2026-10-01, is the segment authority. Its
-  S01-S18 spans are positions in the governed 08-24 production, re-derived mechanically from the
-  ED-003 picture lock under EO-2026-09-29 (D-2, Addenda A and B) through the G8-ratified v2
-  mapping and the Chairman's dispositions R1-R9; S19 is unchanged. Its segment IDENTIFIERS
-  (S01-S19) remain the keys this registry is written against and are unchanged.
-  TIMELINE_REGISTRY v1.0.0, pinned to the 08-22 assembly, is SUPERSEDED and preserved
-  byte-identical at intelligence/p2/registries/superseded/TIMELINE_REGISTRY_v1.0.0.yaml.
-  No consumer may resolve an EPR segment_ref to a timecode until the Chairman rules otherwise;
-  this ratification establishes the governing segment authority and does not authorize
-  EPR-to-timecode resolution.
+  TIMELINE_REGISTRY v1.0.0 is pinned to the 08-22 assembly, which the 2026-08-28 Order
+  declares SUPERSEDED_ASSEMBLY. Its nineteen segment SPANS are therefore no longer positions
+  in the governed production. Its segment IDENTIFIERS (S01-S19) remain the keys this registry
+  is written against and are unchanged. Re-derivation of the spans against the 08-24 lineage
+  is REGENERATION and is suspended by section 4 of the same Order. Until that happens, no
+  consumer may resolve an EPR segment_ref to a timecode.
 missing_data_policy: propagate_unknown
 
 governing_invariants:

@@ -1,0 +1,56 @@
+PASS  R1 ratified proposal TIMELINE bytes unchanged
+PASS  R1 ratified proposal EPR bytes unchanged
+PASS  R1 proposals == committed c9fa343 bytes
+PASS  R2 superseded TIMELINE v1.0.0 copy byte-identical to incumbent  -  34bd0f9ef7f1507c
+PASS  R2 superseded EPR v1.13.0 copy byte-identical to incumbent  -  1d54e674190eef81
+PASS  R2 manifest hashes/provenance
+PASS  R3 canonical files parse
+PASS  R4 TIMELINE canonical vs ratified proposal: only ratification fields  -  [('ADDED', '.registry_ratification'), ('CHANGED', '.registry_version'), ('REMOVED', '.proposal_status')]
+PASS  R4 TIMELINE segments + changelog identical to ratified proposal
+PASS  R4 TIMELINE version 1.1.0, RATIFIED
+PASS  R5 EPR canonical vs ratified proposal: only authorized fields  -  ['.proposal_status', '.registry_ratification.authority', '.registry_ratification.co_ratified', '.registry_ratification.not_adjudicated', '.registry_ratification.prior_ratification_1_13_0', '.registry_ratification.ratified', '.registry_ratification.ratified_artifact', '.registry_ratification.ratified_change', '.registry_ratification.regeneration_trigger', '.registry_ratification.scope_verbatim', '.registry_ratification.supersedes', '.registry_ratification.version', '.registry_version', '.registry_version_note_1_14_0', '.registry_version_note_1_14_0_PROPOSED', '.segment_authority', '.segment_authority_note', '.segment_authority_status']
+PASS  R5 EPR entries deep-equal (proposal and v1.13.0)
+PASS  R5 EPR path_b_consequences deep-equal
+PASS  R5 PBC-2 BYTE-identical to v1.13.0
+PASS  R5 EPR untouched: production_identity
+PASS  R5 EPR untouched: governing_invariants
+PASS  R5 EPR untouched: intensity_scale
+PASS  R5 EPR untouched: undeclared_segments
+PASS  R5 EPR untouched: prohibited_fields
+PASS  R5 EPR untouched: field_definitions
+PASS  R5 EPR header identical to v1.13.0 header
+PASS  R5 prior v1.13.0 ratification preserved verbatim
+PASS  R6 segment_authority = "TIMELINE_REGISTRY v1.1.0 (S01-S19)"
+PASS  R6 segment_authority_status = RATIFIED
+PASS  R6 note: no longer states re-derivation pending
+PASS  R6 SAFETY RULE retained
+PASS  R6 note: no timecode-shaped strings (EPR prohibited field)
+PASS  R7 regeneration trigger HELD, not executed
+PASS  R8 segment IDs S01..S19 in canonical TIMELINE (EPR refs resolve)
+PASS  R9 PDR notice additive only (issued text preserved as prefix)
+PASS  R9 PDR remains OPEN (status line unchanged)
+PASS  R9 PDR notice states: v1.1.0 is not reserved by this PDR
+PASS  R9 PDR notice states: ratification of TIMELINE v1.1.0 does not resolve this PDR
+PASS  R9 PDR notice states: Option B transition is v1.1.0 to v1.2.0
+PASS  R9 PDR notice states: evidence and decision remain open
+PASS  R10 no change outside the authorized file set (we-cape-relative)  -  9 changes, all authorized
+PASS  R10 every authorized ratification change present  -  []
+PASS  R11 ratification deterministic / idempotent (re-run identical)
+
+TIMELINE v1.1.0  510697b9bbd1ed01c6c61ab6c6063dd511cfc71abad0ad11629fbeb807db0da3
+EPR-001 v1.14.0  4aeb1496bb836aab4fd9153cb750fd671b4f326871b7d4d98362054a566047b9
+RESULT: ALL PASS
+
+=== scripts/epr_validate.py (structural) — canonical EPR-001 v1.14.0 + canonical TIMELINE v1.1.0
+EPR-001 STRUCTURAL VALIDATION - EMOTIONAL_PROGRESSION_REGISTRY v1.14.0
+criterion status  measurement
+--------------------------------------------------------------------------------------------------------
+V-1       PASS    7/7 conforming
+V-2       PASS    19/19 resolve
+V-3       PASS    0 prohibited keys; timecode-shaped scalars outside prose: 0
+V-4       PASS    file source_class=EXECUTIVE; non-conforming entries: none (entries inherit the file-le
+V-5       PASS    observed=19 expected=19 percentage=100.0%; undeclared: []; missing_data_policy=propaga
+V-6       PASS    declared field-values=31; AWAITING_EXECUTIVE_INPUT=4; out-of-vocabulary intensity: non
+
+No counts, totals, percentages or aggregate compliance values are emitted
+beyond V-5's coverage, which the order requires. (ER-001, Clarification 1.)
