@@ -1,0 +1,67 @@
+PASS  V0 proposal bytes == ratified proposal (f0650a04) == committed
+PASS  V0 incumbent at f8f74eb is EPR v1.14.0 (4aeb1496)
+PASS  V1 preserved v1.14.0 byte-identical to incumbent  -  4aeb1496bb836aab
+PASS  V1 earlier preserved copy unchanged: superseded/TIMELINE_REGISTRY_v1.0.0.yaml
+PASS  V1 earlier preserved copy unchanged: superseded/EMOTIONAL_PROGRESSION_REGISTRY_v1.13.0.yaml
+PASS  V1 manifest: existing entries and authority unchanged
+PASS  V1 manifest: one new v1.14.0 entry, hashes linked
+PASS  V1 manifest text: append-only
+PASS  V2 canonical parses; version 1.15.0
+PASS  V2 canonical vs ratified proposal: only ratification-procedure fields  -  ['.proposal_status', '.regeneration_trigger', '.registry_version', '.registry_version_note_1_15_0', '.registry_version_note_1_15_0_PROPOSED']
+PASS  V2 header identical to v1.14.0 header
+PASS  V2 no PROPOSED marker left
+PASS  V3 ratification: RATIFIED 2026-10-01, version 1.15.0
+PASS  V3 linkage: proposal hash -> ratification -> canonical
+PASS  V3 supersedes v1.14.0 (4aeb1496) preserved path
+PASS  V3 prior v1.14.0 ratification record preserved verbatim
+PASS  V3 no unauthorized governing_provenance key (Chairman strike ruling)
+PASS  V3 Addendum C cited via the approved PBC-1 note
+PASS  V3 ratification record keys == authorized set  -  ['authority', 'prior_ratification_1_14_0', 'ratified', 'ratified_artifact', 'ratified_by', 'ratified_change', 'regeneration_trigger', 'scope_verbatim', 'status', 'supersedes', 'version']
+PASS  V3 scope_verbatim == Chairman scope (13 items)
+PASS  V4 v1.15.0 HOLD carried: content == proposal hold block
+PASS  V4 hold is the v1.15.0 ruling (not the inherited v1.14.0 hold)
+PASS  V4 not executed
+PASS  V5 path_b_consequences deep-equal to proposal
+PASS  V5 path_b_consequences TEXT byte-identical to proposal
+PASS  V5 PBC-1 RESOLVED_BY_RETIREMENT 2026-08-28, caveat + Addendum C
+PASS  V5 PBC-2 RESOLVED; PBC-4 RESOLVED
+PASS  V5 PBC-3 unresolved: no status, no assignment
+PASS  V5 PBC-5 unchanged from v1.14.0
+PASS  V6 entries deep-equal to v1.14.0 and proposal
+PASS  V6 EPR-07 RETIRED, original text unchanged
+PASS  V6 unchanged from v1.14.0: segment_authority
+PASS  V6 unchanged from v1.14.0: segment_authority_status
+PASS  V6 unchanged from v1.14.0: segment_authority_note
+PASS  V6 unchanged from v1.14.0: intensity_scale
+PASS  V6 unchanged from v1.14.0: production_identity
+PASS  V6 unchanged from v1.14.0: governing_invariants
+PASS  V6 unchanged from v1.14.0: prohibited_fields
+PASS  V6 unchanged from v1.14.0: field_definitions
+PASS  V6 unchanged from v1.14.0: undeclared_segments
+PASS  V6 unchanged from v1.14.0: precondition_contract
+PASS  V6 safety rule in force
+PASS  V7 no timecode-shaped text in the new ratification record
+PASS  V8 Addendum C unchanged
+PASS  V8 TIMELINE v1.1.0 unchanged
+PASS  V8 every segment_ref resolves in TIMELINE v1.1.0
+PASS  V8 proposal evidence unchanged: FIELD_DIFF_v1.14_to_v1.15.md
+PASS  V8 proposal evidence unchanged: VALIDATION_v1.15.0-PROPOSED.txt
+PASS  V9 no change outside the authorized ratification set  -  6 changes
+PASS  V10 ratification deterministic (scratch rebuild byte-identical; nothing rewritten)
+
+EPR-001 v1.15.0 canonical  sha256 add0d88ff52b5c65a5f1eff9d4e0fcbe47393a8abca35967a71395eaed71087c
+RESULT: ALL PASS
+
+=== scripts/epr_validate.py (structural) — canonical EPR-001 v1.15.0 + canonical TIMELINE v1.1.0
+EPR-001 STRUCTURAL VALIDATION - EMOTIONAL_PROGRESSION_REGISTRY v1.15.0
+criterion status  measurement
+--------------------------------------------------------------------------------------------------------
+V-1       PASS    7/7 conforming
+V-2       PASS    19/19 resolve
+V-3       PASS    0 prohibited keys; timecode-shaped scalars outside prose: 0
+V-4       PASS    file source_class=EXECUTIVE; non-conforming entries: none (entries inherit the file-le
+V-5       PASS    observed=19 expected=19 percentage=100.0%; undeclared: []; missing_data_policy=propaga
+V-6       PASS    declared field-values=31; AWAITING_EXECUTIVE_INPUT=4; out-of-vocabulary intensity: non
+
+No counts, totals, percentages or aggregate compliance values are emitted
+beyond V-5's coverage, which the order requires. (ER-001, Clarification 1.)

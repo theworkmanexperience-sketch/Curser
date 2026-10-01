@@ -18,4 +18,12 @@ entries:
     ratified_at: "c7b5d3a"
     status: SUPERSEDED
     superseded_by: {version: "1.14.0", sha256: "4aeb1496bb836aab4fd9153cb750fd671b4f326871b7d4d98362054a566047b9", date: "2026-10-01"}
+  - file: EMOTIONAL_PROGRESSION_REGISTRY_v1.14.0.yaml
+    original_path: intelligence/p2/registries/EMOTIONAL_PROGRESSION_REGISTRY.yaml
+    version: "1.14.0"
+    sha256: "4aeb1496bb836aab4fd9153cb750fd671b4f326871b7d4d98362054a566047b9"
+    source_commit: "f8f74eb55041e24198844d51582f5f06c16dd027"
+    ratified_at: "096d127"
+    status: SUPERSEDED
+    superseded_by: {version: "1.15.0", sha256: "add0d88ff52b5c65a5f1eff9d4e0fcbe47393a8abca35967a71395eaed71087c", date: "2026-10-01", authority: "CHAIRMAN RATIFICATION - EPR-001 v1.15.0, 2026-10-01"}
 authority: "CHAIRMAN GOVERNANCE RULING - PRE-RATIFICATION and CHAIRMAN AUTHORIZATION - RATIFICATION WORKING-TREE EXECUTION, 2026-10-01"

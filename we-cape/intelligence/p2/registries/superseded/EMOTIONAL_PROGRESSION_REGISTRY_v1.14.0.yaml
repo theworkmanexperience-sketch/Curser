@@ -22,96 +22,51 @@
 #   AWAITING_EXECUTIVE_INPUT. They were not defaulted, inferred or suggested.
 # ============================================================================
 registry_id: EMOTIONAL_PROGRESSION_REGISTRY
-registry_version: "1.15.0"
+registry_version: "1.14.0"
 registry_ratification:
   status: RATIFIED
   ratified: '2026-10-01'
   ratified_by: "Executive Producer / Chairman"
-  authority: "CHAIRMAN RATIFICATION - EPR-001 v1.15.0, 2026-10-01"
-  version: "1.15.0"
-  ratified_artifact: {file: "EMOTIONAL_PROGRESSION_REGISTRY_v1.15.0-PROPOSED.yaml", sha256: "f0650a04ebac81db993c105847aa6cf7bb137080a181d2d0d54fb6da2c260eb7", commit: "f8f74eb55041e24198844d51582f5f06c16dd027"}
+  authority: "CHAIRMAN GOVERNANCE RULING - PRE-RATIFICATION and CHAIRMAN AUTHORIZATION - RATIFICATION WORKING-TREE EXECUTION, 2026-10-01"
+  version: "1.14.0"
+  ratified_artifact: {file: "EMOTIONAL_PROGRESSION_REGISTRY_v1.14.0-PROPOSED.yaml", sha256: "3a04b5e60d8c133d5533cdfc47d12b722d9d454f1dd2d370b08f1ec7d558d2ac", commit: "c9fa34327de289905bc9cbfb2f1001a58a28c94f"}
   ratified_change: >-
     PROPOSED banner, proposal_status and version suffix removed; version note key de-suffixed;
-    the proposal's top-level regeneration_trigger (v1.15.0 HOLD) carried into this record; this
-    block updated (v1.14.0 record kept verbatim below). No entry, path_b_consequences record or
-    other field changed from the ratified proposal.
+    this block updated (v1.13.0 record kept verbatim below); segment_authority,
+    segment_authority_status and segment_authority_note set by Chairman ruling 1. No entry,
+    no path_b_consequences record (PBC-2 byte-identical) and no other field changed.
   scope_verbatim:
-    - "PBC-1 = RESOLVED_BY_RETIREMENT, resolved 2026-08-28;"
-    - "PBC-1 retains the caveat that the original support question was not substantively answered;"
-    - "PBC-1 cites the EPR-07 Retirement Rationale Correction / Addendum C;"
-    - "EPR-07 remains RETIRED;"
-    - "EPR-07's original historical text remains unchanged;"
-    - "the obsolete outside-runtime rationale is corrected by Addendum C rather than overwritten;"
-    - "PBC-2 = RESOLVED;"
-    - "PBC-3 remains unresolved, with no episode/segment assignment made;"
-    - "PBC-4 = RESOLVED;"
-    - "PBC-5 remains unchanged;"
-    - "all seven beat entries remain substantively identical to ratified v1.14.0;"
-    - "segment_authority, segment_authority_status, and the segment-authority note remain unchanged;"
-    - "the EPR segment_ref → timecode prohibition remains in force."
+    - "Accept the regenerated v2-mapped spans and finalized Chairman rulings R1-R9."
+    - "Accept the finalized S14 R6 replacement endpoint."
+    - "Accept S16 interview_count: 7."
+    - "Accept S16 participants: [R68-R74]."
+    - "Accept R9 as MOOT, with no A2 segment and no beat membership created."
+  not_adjudicated:
+    - "PBC-2 (byte-identical)"
+    - "historical/extraction references to R75 or R68-R75 outside the proposal set"
+    - "PDR-2026-08-22-ESS-001 (open; notice only)"
   regeneration_trigger:
     rule: "ratification order section 4.5 - a registry_version increment is the regeneration trigger"
-    increment: "1.14.0 -> 1.15.0"
+    increment: "1.13.0 -> 1.14.0"
     disposition: HELD
-    authority: "Chairman, CHAIRMAN GOVERNANCE RULING - PBC LIFECYCLE RECONCILIATION, 2026-10-01, ruling 8"
-    reason_verbatim: "PBC lifecycle reconciliation is being completed before downstream regeneration, and independent regeneration-readiness blockers remain."
+    authority: "Chairman, CHAIRMAN GOVERNANCE RULING - PRE-RATIFICATION, 2026-10-01"
+    reason_verbatim: "this ratification is itself the completion of the authorized rebase/regeneration cycle, and immediately firing another regeneration solely because the ratified version increments would create a recursive second cycle without new source evidence."
     executed: "NO - no regeneration was run"
-  supersedes: {version: "1.14.0", sha256: "4aeb1496bb836aab4fd9153cb750fd671b4f326871b7d4d98362054a566047b9", preserved_at: "intelligence/p2/registries/superseded/EMOTIONAL_PROGRESSION_REGISTRY_v1.14.0.yaml", source_commit: "f8f74eb55041e24198844d51582f5f06c16dd027"}
-  prior_ratification_1_14_0:
+  supersedes: {version: "1.13.0", sha256: "1d54e674190eef8122f7ddd22af66ae07abcb13dead7f5077ed868c37dbe21a4", preserved_at: "intelligence/p2/registries/superseded/EMOTIONAL_PROGRESSION_REGISTRY_v1.13.0.yaml", source_commit: "c9fa34327de289905bc9cbfb2f1001a58a28c94f"}
+  prior_ratification_1_13_0:
     status: RATIFIED
-    ratified: '2026-10-01'
+    ratified: '2026-08-28'
     ratified_by: "Executive Producer / Chairman"
-    authority: "CHAIRMAN GOVERNANCE RULING - PRE-RATIFICATION and CHAIRMAN AUTHORIZATION - RATIFICATION WORKING-TREE EXECUTION, 2026-10-01"
-    version: "1.14.0"
-    ratified_artifact: {file: "EMOTIONAL_PROGRESSION_REGISTRY_v1.14.0-PROPOSED.yaml", sha256: "3a04b5e60d8c133d5533cdfc47d12b722d9d454f1dd2d370b08f1ec7d558d2ac", commit: "c9fa34327de289905bc9cbfb2f1001a58a28c94f"}
-    ratified_change: >-
-      PROPOSED banner, proposal_status and version suffix removed; version note key de-suffixed;
-      this block updated (v1.13.0 record kept verbatim below); segment_authority,
-      segment_authority_status and segment_authority_note set by Chairman ruling 1. No entry,
-      no path_b_consequences record (PBC-2 byte-identical) and no other field changed.
+    authority: "EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE, section 2"
     scope_verbatim:
-      - "Accept the regenerated v2-mapped spans and finalized Chairman rulings R1-R9."
-      - "Accept the finalized S14 R6 replacement endpoint."
-      - "Accept S16 interview_count: 7."
-      - "Accept S16 participants: [R68-R74]."
-      - "Accept R9 as MOOT, with no A2 segment and no beat membership created."
-    not_adjudicated:
-      - "PBC-2 (byte-identical)"
-      - "historical/extraction references to R75 or R68-R75 outside the proposal set"
-      - "PDR-2026-08-22-ESS-001 (open; notice only)"
-    regeneration_trigger:
-      rule: "ratification order section 4.5 - a registry_version increment is the regeneration trigger"
-      increment: "1.13.0 -> 1.14.0"
-      disposition: HELD
-      authority: "Chairman, CHAIRMAN GOVERNANCE RULING - PRE-RATIFICATION, 2026-10-01"
-      reason_verbatim: "this ratification is itself the completion of the authorized rebase/regeneration cycle, and immediately firing another regeneration solely because the ratified version increments would create a recursive second cycle without new source evidence."
-      executed: "NO - no regeneration was run"
-    supersedes: {version: "1.13.0", sha256: "1d54e674190eef8122f7ddd22af66ae07abcb13dead7f5077ed868c37dbe21a4", preserved_at: "intelligence/p2/registries/superseded/EMOTIONAL_PROGRESSION_REGISTRY_v1.13.0.yaml", source_commit: "c9fa34327de289905bc9cbfb2f1001a58a28c94f"}
-    prior_ratification_1_13_0:
-      status: RATIFIED
-      ratified: '2026-08-28'
-      ratified_by: "Executive Producer / Chairman"
-      authority: "EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE, section 2"
-      scope_verbatim:
-        - "EPR-01 through EPR-06"
-        - "Segment coverage S01 through S18"
-        - "Ordered categorical dramatic intensity"
-        - "Non-Interpolation Invariant"
-        - "Executive field definitions"
-        - "Executive semantic conventions"
-      co_ratified: "EPR_EXECUTIVE_AUTHORING_WORKBOOK.md"
-      supersedes: "all prior draft authoring states"
-registry_version_note_1_15_0: >-
-  RATIFIED 2026-10-01 by the Chairman (proposal sha256 f0650a04ebac81db..., commit f8f74eb); proposal text follows unaltered. 1.14.0 -> 1.15.0-PROPOSED, 2026-10-01. CHAIRMAN GOVERNANCE RULING - PBC LIFECYCLE RECONCILIATION, 2026-10-01. PBC LIFECYCLE RECONCILIATION ONLY,
-  ADDITIVE: every existing path_b_consequences line is carried byte-identically and lifecycle
-  fields are appended using field names and tokens already present in this registry. PBC-1
-  status RESOLVED_BY_RETIREMENT (Q10); PBC-2 status RESOLVED (TIMELINE_REGISTRY v1.1.0 S18);
-  PBC-3 note only - REMAINS UNRESOLVED, no assignment made, status not set because no
-  precedent selects between existing unresolved tokens; PBC-4 status RESOLVED (Executive Ruling
-  Q11); PBC-5 unchanged. NO beat entry, segment_authority field, intensity value or other
-  record is changed. Regeneration trigger for this increment HELD by Chairman ruling 8 (see
-  regeneration_trigger). Derived from ratified v1.14.0 (sha256 4aeb1496bb836aab..., commit
-  096d127). No TIMELINE successor.
+      - "EPR-01 through EPR-06"
+      - "Segment coverage S01 through S18"
+      - "Ordered categorical dramatic intensity"
+      - "Non-Interpolation Invariant"
+      - "Executive field definitions"
+      - "Executive semantic conventions"
+    co_ratified: "EPR_EXECUTIVE_AUTHORING_WORKBOOK.md"
+    supersedes: "all prior draft authoring states"
 registry_version_note_1_14_0: >-
   RATIFIED 2026-10-01 by the Chairman (proposal sha256 3a04b5e60d8c133d..., commit c9fa343); proposal text follows unaltered. 1.13.0 -> 1.14.0-PROPOSED, 2026-10-01. Completed B-5 rebase under EO-2026-09-29 ADDENDUM A
   (Tiers 1-3) and ADDENDUM B G8. NO BEAT, MEANING, governing_theme, dramatic_intensity,
@@ -989,26 +944,6 @@ path_b_consequences:
       production's runtime. Figures in EPR-001_VALIDATION_REPORT_PATH_B.md.
     disposition: UNRESOLVED_PENDING_EXECUTIVE
     owner: EXECUTIVE
-    status: RESOLVED_BY_RETIREMENT
-    resolved: '2026-08-28'
-    resolution: >-
-      EPR-07 was retired by governing authority and its segment reference is recorded as
-      RESOLVED_BY_RETIREMENT on the entry. This record therefore no longer requires resolution
-      because the governed item was retired. This does NOT assert that the original underlying
-      support question was substantively answered. TIMELINE_REGISTRY v1.1.0 retains S19
-      unchanged.
-    resolved_by: >-
-      EXECUTIVE ORDER - EPR-001 RATIFICATION & RUN_ID LOCK RELEASE, section 1 (Q10 RETIRE);
-      lifecycle recorded under CHAIRMAN GOVERNANCE RULING - PBC LIFECYCLE RECONCILIATION, 2026-10-01, ruling 2.
-    note: >-
-      EPR-07 REMAINS RETIRED; its operative disposition is unchanged. Its retirement-era
-      rationale - that S19 exists entirely outside the governed 08-24 production runtime - is
-      CORRECTED by the G8-ratified re-derivation, which places the measured S19 material inside
-      the governed runtime, ending before its boundary. The correction does NOT reinstate EPR-07.
-      Correction record: docs/rulings/EO-2026-09-29_ADDENDUM_C_EPR07_Retirement_Rationale_Correction.md
-      (CHAIRMAN / EXECUTIVE RULING - EPR-07 RETIREMENT INTEGRITY, Option B, 2026-10-01).
-      Evidence: DECISION_PACKET_B5_B14 section 4, S19 row; v2/rederivation_v2.json segment S19
-      (5bd4af48..., G8-ratified). Figures are carried there, not here (timecodes prohibited).
 
   - id: PBC-2
     condition: S18 declared boundary extends beyond the governed runtime
@@ -1019,17 +954,6 @@ path_b_consequences:
       Figures in EPR-001_VALIDATION_REPORT_PATH_B.md.
     disposition: BOUNDARY_OUT_OF_RANGE_PENDING_REDERIVATION
     owner: platform, after regeneration is authorized
-    status: RESOLVED
-    resolved: '2026-10-01'
-    resolution: >-
-      S18 has been re-derived. Its span in the ratified TIMELINE_REGISTRY v1.1.0 lies wholly
-      inside the governed runtime; the out-of-range and not-re-derived statements above are
-      historical, not current. Figures are carried by TIMELINE_REGISTRY v1.1.0 S18, not here
-      (timecodes are a prohibited field of this registry).
-    resolved_by: >-
-      Chairman ratification of TIMELINE_REGISTRY v1.1.0 (sha256 510697b9bbd1ed01c6c61ab6c6063dd511cfc71abad0ad11629fbeb807db0da3,
-      commit 096d127); EO-2026-09-29 Addendum A Tier 1 (S18 PRESERVE + REBASE); G8-ratified v2
-      mapping (rederivation_v2.json 5bd4af48...); lifecycle recorded under CHAIRMAN GOVERNANCE RULING - PBC LIFECYCLE RECONCILIATION, 2026-10-01, ruling 3.
 
   - id: PBC-3
     condition: no segment-to-episode assignment exists
@@ -1043,15 +967,6 @@ path_b_consequences:
       Figures in EPR-001_VALIDATION_REPORT_PATH_B.md.
     disposition: NOT_DERIVABLE_WITHOUT_REGENERATION
     owner: platform, after regeneration is authorized
-    note: >-
-      Recorded under CHAIRMAN GOVERNANCE RULING - PBC LIFECYCLE RECONCILIATION, 2026-10-01, ruling 4. Two propositions,
-      kept separate. (1) HISTORICAL PREMISE, NO LONGER TRUE: segment positions in the 08-24
-      Parent now exist, in the ratified TIMELINE_REGISTRY v1.1.0. (2) CURRENT CONDITION,
-      UNCHANGED: no segment-to-episode assignment has been authorized or made; EO-2026-09-29
-      D-1 charters episode work as a follow-on order. TIMELINE_REGISTRY v1.1.0 establishes
-      positions but does not authorize the assignment decision. The disposition and owner above
-      are retained unchanged; this record remains UNRESOLVED. No assignment, straddle, head or
-      Part-boundary question is decided here.
 
   - id: PBC-4
     condition: intensity scale ordinality still undeclared
@@ -1066,15 +981,6 @@ path_b_consequences:
       unfilled Executive FIELDS, and V-6 counts it; using it on a consequence record would
       inflate that census by one without an actual field being empty.
     owner: EXECUTIVE
-    status: RESOLVED
-    resolved: '2026-08-28'
-    resolution: >-
-      The ordinality was declared: intensity_scale.ordered is true and scale_class is
-      ORDERED_CATEGORICAL, transcribed at v1.3.0. The statement above is historical. No
-      intensity value is changed by this record.
-    resolved_by: >-
-      Executive Ruling Q11 - Ordered Categorical Dramatic Intensity Standard (2026-08-28);
-      lifecycle recorded under CHAIRMAN GOVERNANCE RULING - PBC LIFECYCLE RECONCILIATION, 2026-10-01, ruling 5.
 
   - id: PBC-5
     condition: precondition contract still unsatisfiable (IR-002 I1, carried forward)
