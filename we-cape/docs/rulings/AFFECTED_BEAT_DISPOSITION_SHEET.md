@@ -182,6 +182,31 @@ PROCEDURAL STATUS: REOPENED — EVIDENCE BASIS CORRECTED  (marked 2026-09-30, Ch
   Corrected basis (v2 candidate, rederivation_v2.json 5bd4af486e9eb745660504b41290154fb5d8c0b511b6bc74cca5102dd4b0a28b):
   S14 = 3205.702 → 3246.432 (40.730s). No new R6 disposition is inferred; R6 awaits re-ruling.
   The mapping defect and its correction are recorded separately (packet v2/README_V2.md, Notice 3).
+CHAIRMAN RE-RULING (corrected evidence basis): REVISE-BOUNDARY  (recorded 2026-10-01)
+  Basis: G8-ratified v2 mapping (rederivation_v2.json
+  5bd4af486e9eb745660504b41290154fb5d8c0b511b6bc74cca5102dd4b0a28b); review excerpt
+  REVIEW_R6v2_S14_00532500-00541500_ff34278f.mp4
+  (e5b615111d17a1bba83c92be41b2e4a2ce6292e3a118e16a5fe71c06c8f8bf10, source 3205.000-3255.000s).
+  Chairman findings: corrected S14 still performs the same narrative function; "Enduring
+  Brotherhood" remains the correct governing theme; ELEVATED remains the correct dramatic
+  intensity; Joy remains the correct audience state; the editorial endpoint should NOT remain at
+  the mapped 3246.432s boundary; S14 should end at the exact point where the reviewed picture ends.
+  Retained (unchanged): EPR-06 Celebration · segment_ref S14 · governing_theme "Enduring
+  Brotherhood" · dramatic_intensity ELEVATED · audience_state Joy · S14 start as mapped
+  (3205.701625s; first full frame 76937, 00:53:25:17).
+  REPLACEMENT END BOUNDARY (Chairman-confirmed measurement):
+    exact source seconds 3247.583333...s (38971/12 s) · 24fps NDF 00:54:07:14 ·
+    boundary frame 77942 · last included S14 frame 77941.
+    Defined by a hard cut (no transition element) between X5 044 storyline clips, source
+    96.750 -> 131.125 (lock d82c2c3e, exact rational); pixel scene-change maximum in
+    3245-3249s at frame 77942 (B-7 source ff34278f...bbffe).
+  Superseded: the mapped v2 end 3246.432s (as an editorial boundary only; the v2 mapping
+  artifact itself is unchanged).
+  Resulting S14: 41.8817s exact (3205.701625 -> 3247.583333); 1005 frames frame-aligned
+  (76937-77941) = 41.875s.
+  Apply the accepted 08-24 temporal rebase with this end boundary; no editorial re-authoring.
+  The original R6 PRESERVE entry above is preserved as the decision made on the v1 evidence.
+PROCEDURAL STATUS: RE-RULED ON CORRECTED EVIDENCE (2026-10-01). No longer reopened.
 ### ROW 7 · EPR-06 — S15
 MEASURED: −40.208s (R6: gap + 044·X5); start SNAPPED +40.208.
 CHAIRMAN DECISION: PRESERVE  (recorded 2026-09-30, verbatim)
@@ -230,6 +255,15 @@ inside EPR-06's beat span but in no segment. It opens with title
 with forensic F.3's Part-3 body start; no intent attributed).
 QUESTION: does A2 receive a segment (and beat membership), or remain
 inter-segment material?
+MEASURED FINDING (recorded 2026-10-01, after the R6 re-ruling; evidence only, NOT a decision):
+  Under the G8-ratified v2 mapping (5bd4af48...0a28b) and the R6 end boundary 3247.583333s
+  (frame 77942), NO GENUINE RESIDUAL A2 INTERVAL REMAINS. The former A2 span
+  (3212.743-3247.583) is relocated S14 material and now lies entirely inside S14. Between the S14
+  end and the S15 start (3247.583-3290.667, 43.083s) all picture is identity-matched retained
+  material (08-22 inter-segment, lag -77.542). The only v2 added slivers in the region are 0.048s
+  at 3212.743 (the established 056 boundary fact) and 0.004s at 3237.58, both inside S14, and a
+  0.083s re-trim at 3290.583 on the S15 start edge. The SEGMENT-IT / INTER-SEGMENT choice
+  therefore has no genuine interval to apply to. R9's cell is left for the Chairman.
 CHAIRMAN DECISION: ____________________
 
 ## Not before you: EPR-07 [S19] remains RETIRED; its four fields stay
