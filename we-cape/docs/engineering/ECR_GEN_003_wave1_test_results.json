@@ -1,0 +1,49 @@
+{
+ "suite": "ECR-GEN-003 B-3 qualification Wave 1 (fcpx_resolve.py, derive_camera_runs.py) @ e0a346a16abf77db4a6abe5d59a2b31dadcf4464",
+ "results": [
+  {
+   "id": "W1-E1",
+   "name": "fcpx_resolve.py ETC binding validates on the 08-22 fixture (VALIDATED 191 / 191)",
+   "status": "PASS",
+   "evidence": "oracle 5fd6373d29dd2e8c (pre-ECR 795a847) vs current faacec8bd67b9be7: primary output, stdout and exit identical=True; current 3 runs byte-identical, stdout ffd35e9e6a630fb99dd98e9de7e914115a0cbe1998254c6ddebc4eb2aa1ad788: run1 ebf99f84ceb9dcf487b4703f1e377dd55296ff90d10aaac6a1c6bd3eacc791f8 sidecar de70e5b95e782facc0262c7f3a97bdd51f8be069567c0e07f76d556144e0f417 undeclared=0; run2 ebf99f84ceb9dcf487b4703f1e377dd55296ff90d10aaac6a1c6bd3eacc791f8 sidecar de70e5b95e782facc0262c7f3a97bdd51f8be069567c0e07f76d556144e0f417 undeclared=0; run3 ebf99f84ceb9dcf487b4703f1e377dd55296ff90d10aaac6a1c6bd3eacc791f8 sidecar de70e5b95e782facc0262c7f3a97bdd51f8be069567c0e07f76d556144e0f417 undeclared=0"
+  },
+  {
+   "id": "W1-E2",
+   "name": "fcpx_resolve.py short ETC stops on cardinality (FAILED_CARDINALITY, exit 2)",
+   "status": "PASS",
+   "evidence": "oracle 5fd6373d29dd2e8c (pre-ECR 795a847) vs current faacec8bd67b9be7: primary output, stdout and exit identical=True; current 3 runs byte-identical, stdout 3c80324a75c87a5edd8a3287df39cc99081a32dd1ce6d8f573432394038dc3e1: run1 121e8970eb4872ddf1b894b36a98e3846a4ce3458a4645fa62787ee4532ae59f sidecar 84e83b9d075783645f8c31fe2e49ad43ab3cdd9f7cbbd582a4fde97c78409eff undeclared=0; run2 121e8970eb4872ddf1b894b36a98e3846a4ce3458a4645fa62787ee4532ae59f sidecar 84e83b9d075783645f8c31fe2e49ad43ab3cdd9f7cbbd582a4fde97c78409eff undeclared=0; run3 121e8970eb4872ddf1b894b36a98e3846a4ce3458a4645fa62787ee4532ae59f sidecar 84e83b9d075783645f8c31fe2e49ad43ab3cdd9f7cbbd582a4fde97c78409eff undeclared=0"
+  },
+  {
+   "id": "W1-E3",
+   "name": "fcpx_resolve.py ETC naming another export stops on identity (FAILED_SOURCE_IDENTITY, exit 2) - adapted fixture, see report",
+   "status": "PASS",
+   "evidence": "oracle 5fd6373d29dd2e8c (pre-ECR 795a847) vs current faacec8bd67b9be7: primary output, stdout and exit identical=True; current 3 runs byte-identical, stdout ae289217f40d4cdca886ce235716648cccb48c762fcd3b05872c4ccddbaeff5c: run1 d69c849b4f5ff9d35048352b800391de3d489e7f02261e18e77db377bd098898 sidecar d3086de0b5aad080fad833d0a8881ce6e1004b13103d246dcc1ade82c971a97e undeclared=0; run2 d69c849b4f5ff9d35048352b800391de3d489e7f02261e18e77db377bd098898 sidecar d3086de0b5aad080fad833d0a8881ce6e1004b13103d246dcc1ade82c971a97e undeclared=0; run3 d69c849b4f5ff9d35048352b800391de3d489e7f02261e18e77db377bd098898 sidecar d3086de0b5aad080fad833d0a8881ce6e1004b13103d246dcc1ade82c971a97e undeclared=0; oracle first report FAIL on one transient metadata change of the macOS-managed temp dir .../T/TemporaryItems (oracle run 2 only, not touched by the resolver); oracle rerun PASS with identical bytes"
+  },
+  {
+   "id": "W1-E4",
+   "name": "fcpx_resolve.py 2 ms drift at one element stops the binding (FAILED_COMPARISON 190 / 191, exit 2)",
+   "status": "PASS",
+   "evidence": "oracle 5fd6373d29dd2e8c (pre-ECR 795a847) vs current faacec8bd67b9be7: primary output, stdout and exit identical=True; current 3 runs byte-identical, stdout 42e772b8f62b4cee10f39b7964404030d9cde75bd71fda99bd3fee559dace44d: run1 cdf1bcfca3c69bc929c7454969489dcec2767c127f4c0368771a87f493251de7 sidecar 95c3487e518d74b1f196508a8aaa8109c5b3554f03751e404028584771140373 undeclared=0; run2 cdf1bcfca3c69bc929c7454969489dcec2767c127f4c0368771a87f493251de7 sidecar 95c3487e518d74b1f196508a8aaa8109c5b3554f03751e404028584771140373 undeclared=0; run3 cdf1bcfca3c69bc929c7454969489dcec2767c127f4c0368771a87f493251de7 sidecar 95c3487e518d74b1f196508a8aaa8109c5b3554f03751e404028584771140373 undeclared=0"
+  },
+  {
+   "id": "W1-D1",
+   "name": "derive_camera_runs.py output byte-identical to the pre-ECR oracle on the 08-22 resolver output",
+   "status": "PASS",
+   "evidence": "oracle 15115bdabcd65080 vs current 178ca2b0c8841cd7 identical=True; 191 runs (X5 120, DJI 57, OM1 5, COMPOUND 9); current 3 runs: run1 d3c9fed249d06f07e9690be56acbb79d4cbe20e28c4aedf6880afda624688915 sidecar 9249ff3a256feb07d53f212ab7436796fce77d6a7d0e03f2db7b1a0e90203906 undeclared=0; run2 d3c9fed249d06f07e9690be56acbb79d4cbe20e28c4aedf6880afda624688915 sidecar 9249ff3a256feb07d53f212ab7436796fce77d6a7d0e03f2db7b1a0e90203906 undeclared=0; run3 d3c9fed249d06f07e9690be56acbb79d4cbe20e28c4aedf6880afda624688915 sidecar 9249ff3a256feb07d53f212ab7436796fce77d6a7d0e03f2db7b1a0e90203906 undeclared=0"
+  },
+  {
+   "id": "W1-W1",
+   "name": "no undeclared writes; declared outputs only (current producers)",
+   "status": "PASS",
+   "evidence": "15 current-producer runs across 5 cases; watch roots: workspace, fixture dirs, oracle dir, repository scripts dir, user temp dir, Python bytecode cache"
+  },
+  {
+   "id": "W1-T1",
+   "name": "interpreter identity (standard library only)",
+   "status": "PASS",
+   "evidence": "cpython 3.9.6 /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/bin/python3.9 sha256 bdea59019a38eb6600cc9e71e984a97fedadc406448431281e7657030f54987e; env PATH=/usr/bin:/bin LANG=C TZ=UTC PYTHONHASHSEED=0 PYTHONDONTWRITEBYTECODE=1; no numpy, no ffmpeg"
+  }
+ ],
+ "passed": 7,
+ "failed": 0
+}
