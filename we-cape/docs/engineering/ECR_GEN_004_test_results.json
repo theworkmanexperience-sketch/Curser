@@ -1,0 +1,37 @@
+{
+ "suite": "ECR-GEN-004 derive_camera_runs_v2.py ec253c0595f8b325fecd5bd0a2e86299ede9e1c5f34610ace13419b7dddd6873 qualification",
+ "results": [
+  {
+   "id": "S1",
+   "name": "successor differs from the predecessor only in the fallback constant (ecr_gen_004_static_check.py)",
+   "status": "PASS",
+   "evidence": "4/4: other statements AST-identical; family() COMPOUND->UNCERTAIN only; no COMPOUND constant in successor code; predecessor unchanged"
+  },
+  {
+   "id": "Q1",
+   "name": "08-22 historical fixture: only former COMPOUND rows change, to UNCERTAIN",
+   "status": "PASS",
+   "evidence": "timeline ebf99f84ceb9dcf4; expected = Wave-1 predecessor output d3c9fed249d06f07 with \"camera\": \"COMPOUND\" -> \"UNCERTAIN\" (a51029006b36cafb); rows 25,26,67,86,87,88,125,138,150 differ in camera only; X5 120, DJI 57, OM1 5 unchanged; order and segmentation identical; run1 output a51029006b36cafb7dd49ed308ded418df2fc5ca86b4bfd4e1849bad830ff7fc sidecar e4f03286d8c5023a49882cce90d3715f5666be04f6fe9e525dc80d746758b38e undeclared=0; run2 output a51029006b36cafb7dd49ed308ded418df2fc5ca86b4bfd4e1849bad830ff7fc sidecar e4f03286d8c5023a49882cce90d3715f5666be04f6fe9e525dc80d746758b38e undeclared=0; run3 output a51029006b36cafb7dd49ed308ded418df2fc5ca86b4bfd4e1849bad830ff7fc sidecar e4f03286d8c5023a49882cce90d3715f5666be04f6fe9e525dc80d746758b38e undeclared=0"
+  },
+  {
+   "id": "Q2",
+   "name": "synthetic fixture: recognized X5 kept; unknown family, contributed and gap -> UNCERTAIN",
+   "status": "PASS",
+   "evidence": "synthetic_timeline b9893a43786bf5a0; expected b5f122c48539bff3 = [X5, UNCERTAIN, UNCERTAIN, UNCERTAIN]; run1 output b5f122c48539bff365750c32b93d92d7906423fd25b7798c971aa1fbda31d62c sidecar d00326ba0c84fb889db718a0563001f7b0290f14392c9e7259b2e1064182ca29 undeclared=0; run2 output b5f122c48539bff365750c32b93d92d7906423fd25b7798c971aa1fbda31d62c sidecar d00326ba0c84fb889db718a0563001f7b0290f14392c9e7259b2e1064182ca29 undeclared=0; run3 output b5f122c48539bff365750c32b93d92d7906423fd25b7798c971aa1fbda31d62c sidecar d00326ba0c84fb889db718a0563001f7b0290f14392c9e7259b2e1064182ca29 undeclared=0"
+  },
+  {
+   "id": "W1",
+   "name": "no undeclared writes; declared outputs only",
+   "status": "PASS",
+   "evidence": "6 runs across 2 fixtures; watch roots: fixture dirs, repository scripts dir, user temp dir, Python bytecode cache, workspace"
+  },
+  {
+   "id": "T1",
+   "name": "interpreter identity",
+   "status": "PASS",
+   "evidence": "cpython 3.9.6 /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/bin/python3.9 sha256 bdea59019a38eb6600cc9e71e984a97fedadc406448431281e7657030f54987e; env PATH=/usr/bin:/bin LANG=C TZ=UTC PYTHONHASHSEED=0 PYTHONDONTWRITEBYTECODE=1"
+  }
+ ],
+ "passed": 5,
+ "failed": 0
+}
