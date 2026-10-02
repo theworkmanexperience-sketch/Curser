@@ -4,10 +4,40 @@ Method A: SRT speech-mask x audio-envelope cross-correlation, with a
           circular-shift null distribution, edge rejection and sign gating.
 Method B: SRT cue-start x picture-cut coincidence (SRT x FCPXML, no audio).
 A segment is only assigned an offset if the peak beats its own null at p<0.05.
-Otherwise it is INDETERMINATE with a categorized reason. Never inferred."""
+Otherwise it is INDETERMINATE with a categorized reason. Never inferred.
+
+usage: step0_offset.py --srt <lock.srt> --rms <audio_rms.npy> --rms-window-s 0.25
+                       --timeline <timeline_resolved.json> --segments <segments.json>
+                       --out <step0_offset.json>
+
+ECR-GEN-003 (path parameterization only; method, constants, RNG seed and status
+vocabulary unchanged): every input and the output are explicit arguments, replacing
+the machine-specific Sprint 3A paths. The segment table is an input: a JSON list of
+[segment_id, "mm:ss" start, "mm:ss" end, activity] rows, read exactly as the former
+literal was. The RMS array must be on this script's 0.25 s grid: --rms-window-s is
+asserted equal to it, and so is the array's own provenance sidecar when one exists.
+A deterministic provenance sidecar `<out>.provenance.json` is written."""
 import re, json, numpy as np
-U="/mnt/user-data/uploads/WE_CAPE_OUTPUT/AlphaRoundUp_2026/SPRINT3A_WORK/"
+import argparse, hashlib, os, platform, sys
 H=0.25; RNG=np.random.default_rng(20260822)
+
+_AP=argparse.ArgumentParser(description='Step 0 offset model (Method A and Method B).')
+_AP.add_argument('--srt',required=True)
+_AP.add_argument('--rms',required=True)
+_AP.add_argument('--rms-window-s',type=float,required=True)
+_AP.add_argument('--timeline',required=True)
+_AP.add_argument('--segments',required=True)
+_AP.add_argument('--out',required=True)
+A=_AP.parse_args()
+
+def _stop(msg):
+    print('STOP: %s' % msg, file=sys.stderr); sys.exit(2)
+
+if A.rms_window_s != H:
+    _stop('--rms-window-s %r is not this script\'s %r s grid' % (A.rms_window_s, H))
+if os.path.exists(A.rms + '.provenance.json'):
+    _w=json.load(open(A.rms + '.provenance.json')).get('arguments',{}).get('window_s')
+    if _w != H: _stop('RMS provenance window_s %r is not this script\'s %r s grid' % (_w, H))
 
 def parse_srt(p):
     out=[]
@@ -21,8 +51,8 @@ def parse_srt(p):
                         end=g[4]*3600+g[5]*60+g[6]+g[7]/1000,text=' '.join(L[2:])))
     return out
 
-cues=parse_srt(U+"inputs/lock_srt2.srt")
-rms=np.load(U+"audio_rms_0p25.npy").astype(np.float64); N=len(rms)
+cues=parse_srt(A.srt)
+rms=np.load(A.rms).astype(np.float64); N=len(rms)
 mask=np.zeros(N)
 for c in cues:
     mask[max(0,int(round(c['start']/H))):min(N,int(round(c['end']/H)))]=1.0
@@ -73,7 +103,7 @@ res['inputs']=dict(n_cues=len(cues),srt_first_start=cues[0]['start'],
 res['global_A']=method_a(env,mask,40.0,300)
 
 # ---------------- Method B : SRT cue starts vs picture cuts ----------------
-tl=json.load(open('/home/claude/work/out/timeline_resolved.json'))
+tl=json.load(open(A.timeline))
 cuts=np.array(sorted({round(x['abs_in_s'],3) for x in tl['elements']
                       if x['depth']==0 and x['tag']!='transition'}))
 starts=np.array([c['start'] for c in cues])
@@ -95,16 +125,9 @@ res['global_B']=dict(n_picture_cuts=len(cuts),n_cue_starts=len(starts),
     curve_top5=[[round(float(offs[k]),3),round(float(scores[k]),4)]
                 for k in np.argsort(scores)[::-1][:5]])
 
-segs=[("S01","00:00","01:13","cold_open"),("S02","01:13","01:51","host_day_brief"),
-      ("S03","01:51","27:02","interview_gauntlet_1"),("S04","27:02","27:23","ride_brief"),
-      ("S05","27:40","29:10","escort_ride"),("S06","31:43","32:33","librarian_speech"),
-      ("S07","32:45","33:50","council_profile"),("S08","33:51","35:56","town_proclamation"),
-      ("S09","36:03","36:30","first_ride_moment"),("S10","36:59","38:52","state_proclamation"),
-      ("S11","38:55","52:00","interview_gauntlet_2"),("S12","52:04","53:56","honors_and_silence"),
-      ("S13","53:50","54:35","group_photo"),("S14","54:36","55:24","service_wrap_preview"),
-      ("S15","56:10","58:43","riding_music_passage"),("S16","58:43","66:25","bike_night_arrivals"),
-      ("S17","66:25","66:48","audience_cta"),("S18","69:25","79:40","bike_night_ambience"),
-      ("S19","79:44","80:46","friday_wrap_part3_tease")]
+segs=[tuple(s) for s in json.load(open(A.segments))]
+if not segs or any(len(s)!=4 or not all(isinstance(v,str) for v in s) for s in segs):
+    _stop('--segments must be a non-empty JSON list of [id, "mm:ss", "mm:ss", activity] rows')
 def ms(x): m,s=x.split(':'); return int(m)*60+int(s)
 per=[]
 for sid,a,b,act in segs:
@@ -126,7 +149,23 @@ res['summary']=dict(
     indeterminate=sum(1 for r in per if r['status']=='INDETERMINATE'),
     aligned_seconds=sum(r['dur_s'] for r in per if r['status']=='ALIGNED_ZERO_OFFSET'),
     indeterminate_seconds=sum(r['dur_s'] for r in per if r['status']=='INDETERMINATE'))
-json.dump(res,open('/home/claude/work/out/step0_offset.json','w'),indent=1)
+with open(A.out,'w') as _fh: json.dump(res,_fh,indent=1)
+
+def _sha256(p): return hashlib.sha256(open(p,'rb').read()).hexdigest()
+def _blas():
+    try: return np.show_config(mode='dicts')['Build Dependencies']['blas'].get('name')
+    except Exception: return None
+with open(A.out+'.provenance.json','w') as _fh:
+    _fh.write(json.dumps(dict(schema='b3-provenance/1',
+        producer=os.path.basename(__file__),producer_sha256=_sha256(__file__),
+        arguments=dict(rms_window_s=A.rms_window_s),
+        inputs=[dict(role=r,path=p,sha256=_sha256(p),bytes=os.path.getsize(p)) for r,p in
+                (('srt',A.srt),('rms',A.rms),('timeline',A.timeline),('segments',A.segments))],
+        outputs=[dict(path=os.path.basename(A.out),sha256=_sha256(A.out),bytes=os.path.getsize(A.out))],
+        toolchain=dict(python=platform.python_version(),implementation=sys.implementation.name,
+                       interpreter=os.path.realpath(sys.executable),machine=platform.machine(),
+                       numpy=dict(version=np.__version__,blas=_blas()))),
+        indent=1,sort_keys=True)+'\n')
 print(json.dumps({k:v for k,v in res.items() if k!='per_segment'},indent=1))
 print("--- per segment ---")
 for r in per:

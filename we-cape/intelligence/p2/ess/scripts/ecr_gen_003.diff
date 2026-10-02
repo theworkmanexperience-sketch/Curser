@@ -1,0 +1,592 @@
+diff --git a/we-cape/intelligence/p2/ess/scripts/derive_camera_runs.py b/we-cape/intelligence/p2/ess/scripts/derive_camera_runs.py
+index 42f09d5..a00a5f2 100644
+--- a/we-cape/intelligence/p2/ess/scripts/derive_camera_runs.py
++++ b/we-cape/intelligence/p2/ess/scripts/derive_camera_runs.py
+@@ -9,8 +9,14 @@ Camera family is read from the FCPXML clip NAME - an editorial fact, not a visua
+ observation. Device family does NOT establish capture mode.
+ 
+ usage: derive_camera_runs.py <timeline_resolved.json> <out.json> [--families X5,DJI,OM1]
++
++ECR-GEN-003: a deterministic provenance sidecar `<out.json>.provenance.json` (script
++SHA-256, input SHA-256, the families argument, interpreter identity; no wall-clock
++value) is written beside the output. The clip-name pattern, camera-family rule,
++defaults and COMPOUND fallback are unchanged.
+ """
+ import json, re, sys
++import hashlib, os, platform
+ 
+ NAME_RE = re.compile(r'^\s*\d+\s*[··]\s*[\d-]+\s+[\d:]+\s*[··]\s*([A-Za-z0-9]+)\s*[··]')
+ 
+@@ -35,9 +41,29 @@ def derive(timeline_path, families):
+                          name=e.get('name'), tag=e.get('tag')))
+     return runs
+ 
++def _sha256(path):
++    return hashlib.sha256(open(path, 'rb').read()).hexdigest()
++
++def write_provenance(out_path, timeline_path, fam):
++    rec = dict(schema='b3-provenance/1',
++               producer=os.path.basename(__file__), producer_sha256=_sha256(__file__),
++               arguments=dict(families=fam),
++               inputs=[dict(role='timeline', path=timeline_path, sha256=_sha256(timeline_path),
++                            bytes=os.path.getsize(timeline_path))],
++               outputs=[dict(path=os.path.basename(out_path), sha256=_sha256(out_path),
++                             bytes=os.path.getsize(out_path))],
++               toolchain=dict(python=platform.python_version(),
++                              implementation=sys.implementation.name,
++                              interpreter=os.path.realpath(sys.executable),
++                              machine=platform.machine()))
++    with open(out_path + '.provenance.json', 'w') as fh:
++        fh.write(json.dumps(rec, indent=1, sort_keys=True) + '\n')
++
+ def main(timeline_path, out_path, fam='X5,DJI,OM1'):
+     runs = derive(timeline_path, fam.split(','))
+-    json.dump(runs, open(out_path, 'w'), indent=1)
++    with open(out_path, 'w') as fh:
++        json.dump(runs, fh, indent=1)
++    write_provenance(out_path, timeline_path, fam)
+     tot = {}
+     for r in runs:
+         tot[r['camera']] = tot.get(r['camera'], 0.0) + r['end_s'] - r['start_s']
+diff --git a/we-cape/intelligence/p2/ess/scripts/fcpx_resolve.py b/we-cape/intelligence/p2/ess/scripts/fcpx_resolve.py
+index ea04bc6..ec2b41a 100644
+--- a/we-cape/intelligence/p2/ess/scripts/fcpx_resolve.py
++++ b/we-cape/intelligence/p2/ess/scripts/fcpx_resolve.py
+@@ -4,11 +4,23 @@ Resolves every story element to an absolute sequence-time in/out.
+ Validates against an Editorial Timing Contract when one is supplied:
+ source identity, sequence duration, strict spine cardinality, then
+ element-wise offset and duration agreement at TOL seconds.
+-Any failed gate is a STOP with a recorded stop_reason and exit 2."""
++Any failed gate is a STOP with a recorded stop_reason and exit 2.
++
++usage: fcpx_resolve.py <fcpxml> <etc.json | NONE> <out.json>
++
++ECR-GEN-003 (path parameterization and reproducibility; resolver logic unchanged):
++the same three positional inputs are now parsed by argparse, and a deterministic
++provenance sidecar `<out.json>.provenance.json` (script SHA-256, input SHA-256 -
++the ETC's included - and interpreter identity; no wall-clock value) is written on
++every exit path, STOP included. Resolver stdout and the output JSON are unchanged:
++for the same invocation they are byte-identical to the pre-ECR resolver, including
++`etc_file`, which echoes the ETC path exactly as invoked. A path-normalized output
++would require a versioned successor resolver, not an in-place format change."""
+ import xml.etree.ElementTree as ET
+ import collections
+ from fractions import Fraction
+ import json, sys, hashlib
++import argparse, os, platform
+ 
+ STORY = {'asset-clip','clip','title','video','audio','gap','spine','ref-clip',
+          'mc-clip','sync-clip','audition','transition','caption'}
+@@ -30,10 +42,36 @@ def f2(x):
+ # Stated once so no caller and no report can assert a different one.
+ TOL = 0.0005
+ 
++# ECR-GEN-003: inputs of the current run, recorded in the provenance sidecar.
++_PROV = {}
++
++def _sha256(path):
++    return hashlib.sha256(open(path, 'rb').read()).hexdigest()
++
++def _write_provenance(outjson):
++    rec = dict(schema='b3-provenance/1',
++               producer=os.path.basename(__file__), producer_sha256=_sha256(__file__),
++               arguments=dict(etc=('NONE' if _PROV.get('etc') is None
++                                   else os.path.basename(_PROV['etc']))),
++               inputs=[dict(role=r, path=p, sha256=_sha256(p), bytes=os.path.getsize(p))
++                       for r, p in (('fcpxml', _PROV.get('fcpxml')), ('etc', _PROV.get('etc')))
++                       if p is not None],
++               outputs=[dict(path=os.path.basename(outjson), sha256=_sha256(outjson),
++                             bytes=os.path.getsize(outjson))],
++               toolchain=dict(python=platform.python_version(),
++                              implementation=sys.implementation.name,
++                              interpreter=os.path.realpath(sys.executable),
++                              machine=platform.machine()))
++    with open(outjson + '.provenance.json', 'w') as fh:
++        fh.write(json.dumps(rec, indent=1, sort_keys=True) + '\n')
++
+ def _emit(out, outjson, census):
+     """Write the resolve output and print the validation block and census.
+     Called on every exit path so a STOP is as fully recorded as a pass."""
+-    json.dump(out, open(outjson, "w"), indent=1)
++    with open(outjson, "w") as fh:
++        json.dump(out, fh, indent=1)
++    if _PROV:
++        _write_provenance(outjson)
+     print(json.dumps(out["validation"], indent=1))
+     print("census:", json.dumps(census))
+ 
+@@ -89,6 +127,7 @@ class Resolver:
+ def main(fcpxml, etc_json, outjson):
+     # etc_json may be the literal string NONE: the resolver then runs without
+     # ETC validation and reports etc_validation: NOT_VALIDATED (DOC-001).
++    _PROV.update(fcpxml=fcpxml, etc=None if etc_json in ('NONE', 'none', None) else etc_json)
+     tree = ET.parse(fcpxml); root = tree.getroot()
+     seq = root.find('.//sequence')
+     seq_dur = rt(seq.get('duration')); tc0 = rt(seq.get('tcStart') or '0s')
+@@ -243,4 +282,9 @@ def main(fcpxml, etc_json, outjson):
+     return out
+ 
+ if __name__ == '__main__':
+-    main(*sys.argv[1:])
++    _ap = argparse.ArgumentParser(description='Resolve an FCPXML timeline; validate against an ETC.')
++    _ap.add_argument('fcpxml')
++    _ap.add_argument('etc_json', help='Editorial Timing Contract JSON, or the literal NONE')
++    _ap.add_argument('outjson')
++    _a = _ap.parse_args()
++    main(_a.fcpxml, _a.etc_json, _a.outjson)
+diff --git a/we-cape/intelligence/p2/ess/scripts/produce_audio_rms.py b/we-cape/intelligence/p2/ess/scripts/produce_audio_rms.py
+index 2b7efc6..3d5ca59 100644
+--- a/we-cape/intelligence/p2/ess/scripts/produce_audio_rms.py
++++ b/we-cape/intelligence/p2/ess/scripts/produce_audio_rms.py
+@@ -30,8 +30,21 @@ USAGE
+ Exit codes
+     0  produced (and, if --verify was given, matched)
+     2  STOP - ffmpeg failed, no audio stream, or verification failed
++
++ECR-GEN-003 (path parameterization and reproducibility; no algorithm change):
++  - <out> is normalised to end in `.npy` before writing, so the file written is
++    exactly the file reported (np.save would otherwise append the suffix silently);
++  - a deterministic provenance sidecar `<out>.provenance.json` is written beside the
++    array: script SHA-256, input SHA-256, arguments, toolchain identity. No
++    wall-clock value is recorded. The ffmpeg used is whichever `ffmpeg` resolves on
++    PATH, and its resolved binary path and SHA-256 are recorded.
+ """
+ import argparse
++import hashlib
++import json
++import os
++import platform
++import shutil
+ import subprocess
+ import sys
+ 
+@@ -69,6 +82,53 @@ def rms_windows(pcm_i16, rate_hz=RATE_HZ, window_s=WINDOW_S):
+     return np.sqrt((block ** 2).mean(axis=1)).astype(DTYPE)
+ 
+ 
++def _sha256(path):
++    h = hashlib.sha256()
++    with open(path, 'rb') as fh:
++        for chunk in iter(lambda: fh.read(1 << 22), b''):
++            h.update(chunk)
++    return h.hexdigest()
++
++
++def _tool_identity(name):
++    """Resolved path, SHA-256 and first version line of an external executable."""
++    exe = shutil.which(name)
++    if not exe:
++        return dict(name=name, resolved=None)
++    real = os.path.realpath(exe)
++    ver = subprocess.run([exe, '-hide_banner', '-version'], capture_output=True)
++    first = ver.stdout.decode('utf-8', 'replace').splitlines()[:1]
++    return dict(name=name, resolved=real, sha256=_sha256(real), version=first[0] if first else None)
++
++
++def _numpy_identity():
++    ident = dict(version=np.__version__)
++    try:
++        ident['blas'] = np.show_config(mode='dicts')['Build Dependencies']['blas'].get('name')
++    except Exception:                              # noqa: BLE001 - older numpy: not recorded
++        ident['blas'] = None
++    return ident
++
++
++def write_provenance(out, arguments, inputs, tools):
++    """Deterministic sidecar: sorted keys, no wall-clock value, output named by basename."""
++    rec = dict(schema='b3-provenance/1',
++               producer=os.path.basename(__file__), producer_sha256=_sha256(__file__),
++               arguments=arguments,
++               inputs=[dict(role=r, path=p, sha256=_sha256(p), bytes=os.path.getsize(p))
++                       for r, p in inputs],
++               outputs=[dict(path=os.path.basename(out), sha256=_sha256(out),
++                             bytes=os.path.getsize(out))],
++               toolchain=dict(python=platform.python_version(),
++                              implementation=sys.implementation.name,
++                              interpreter=os.path.realpath(sys.executable),
++                              machine=platform.machine(),
++                              numpy=_numpy_identity(),
++                              tools=[_tool_identity(t) for t in tools]))
++    with open(out + '.provenance.json', 'w') as fh:
++        fh.write(json.dumps(rec, indent=1, sort_keys=True) + '\n')
++
++
+ def main():
+     ap = argparse.ArgumentParser(description='Produce the audio RMS observation array.')
+     ap.add_argument('media')
+@@ -86,9 +146,15 @@ def main():
+         print('STOP: %s' % exc, file=sys.stderr)
+         return 2
+ 
+-    np.save(a.out, arr)
++    out = a.out if a.out.endswith('.npy') else a.out + '.npy'
++    np.save(out, arr)
++    write_provenance(out,
++                     dict(rate=a.rate, window_s=a.window_s,
++                          verify=os.path.basename(a.verify) if a.verify else None),
++                     [('media', a.media)] + ([('verify_reference', a.verify)] if a.verify else []),
++                     ['ffmpeg'])
+     print('produced %s  shape=%s dtype=%s covered_s=%.3f'
+-          % (a.out, arr.shape, arr.dtype, len(arr) * a.window_s))
++          % (out, arr.shape, arr.dtype, len(arr) * a.window_s))
+ 
+     if a.verify:
+         ref = np.load(a.verify)
+diff --git a/we-cape/intelligence/p2/ess/scripts/produce_video_obs.py b/we-cape/intelligence/p2/ess/scripts/produce_video_obs.py
+index 88606a8..b0b0b21 100644
+--- a/we-cape/intelligence/p2/ess/scripts/produce_video_obs.py
++++ b/we-cape/intelligence/p2/ess/scripts/produce_video_obs.py
+@@ -76,11 +76,27 @@ Exit codes
+     0  produced
+     2  STOP - ffprobe/ffmpeg failed, or the decoded byte count is not a whole
+        number of frames
++
++ECR-GEN-003 (operability and reproducibility; no measurement change):
++  - frames are consumed from the ffmpeg pipe one at a time instead of buffering the
++    whole decode in memory (a 4K source at 2 fps for 78 min is ~233 GB of RGB). The
++    per-frame measurement statements are textually identical to the previous
++    `observe()` loop body; byte-equivalence must still be proven on an authorized
++    SDR fixture before this producer is qualified;
++  - a deterministic provenance sidecar `<array>.provenance.json` is written.
++  Colour interpretation, transfer handling, the YUV->RGB conversion, luma and the
++  meaning of every column are UNCHANGED. Use on the governed 08-24 HDR (BT.2020/PQ)
++  source is NOT AUTHORIZED pending a separate semantic ruling.
+ """
+ import argparse
++import hashlib
+ import json
++import os
++import platform
++import shutil
+ import subprocess
+ import sys
++import threading
+ 
+ import numpy as np
+ 
+@@ -117,30 +133,60 @@ def probe_geometry(media):
+     return w, h
+ 
+ 
+-def decode_frames(media, grid_fps, width, height):
+-    proc = subprocess.run(
++def stream_frames(media, grid_fps, width, height):
++    """Yield decoded frames one at a time from the same ffmpeg command as before.
++
++    The checks of the buffered implementation are kept, in the same order, and are
++    applied once the stream has ended: ffmpeg exit status, then no frames, then a
++    trailing partial frame. stderr is drained concurrently so the pipe cannot stall."""
++    proc = subprocess.Popen(
+         ['ffmpeg', '-v', 'error', '-i', media,
+          '-vf', 'fps=%s' % grid_fps, '-pix_fmt', 'rgb24', '-f', 'rawvideo', '-'],
+-        capture_output=True)
+-    if proc.returncode != 0:
+-        raise RuntimeError('ffmpeg failed (%d): %s'
+-                           % (proc.returncode, proc.stderr.decode('utf-8', 'replace')[:400]))
++        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
++    err = []
++    drain = threading.Thread(target=lambda: err.append(proc.stderr.read()))
++    drain.start()
+     per_frame = width * height * 3
+-    if not proc.stdout:
++    total = 0
++    tail = b''
++    try:
++        while True:
++            buf = proc.stdout.read(per_frame)
++            if not buf:
++                break
++            total += len(buf)
++            if len(buf) < per_frame:
++                tail = buf
++                break
++            yield np.frombuffer(buf, dtype=np.uint8).reshape(height, width, 3)
++        rest = proc.stdout.read()
++        total += len(rest)
++        tail += rest
++    finally:
++        proc.stdout.close()
++        returncode = proc.wait()
++        drain.join()
++    if returncode != 0:
++        raise RuntimeError('ffmpeg failed (%d): %s'
++                           % (returncode, (err[0] if err else b'').decode('utf-8', 'replace')[:400]))
++    if total == 0:
+         raise RuntimeError('ffmpeg produced no frames')
+-    if len(proc.stdout) % per_frame:
++    if tail:
+         raise RuntimeError('decoded %d bytes, not a whole number of %dx%d RGB frames'
+-                           % (len(proc.stdout), width, height))
+-    return (np.frombuffer(proc.stdout, dtype=np.uint8)
+-              .reshape(-1, height, width, 3))
++                           % (total, width, height))
+ 
+ 
+-def observe(frames):
+-    n, h, _w, _c = frames.shape
+-    out = np.zeros((n, len(COLUMNS)), dtype=DTYPE)
++def observe_stream(frame_iter, h):
++    """Per-frame measurement. The statements from `f = ...` to `prev = luma` are the
++    previous observe() loop body verbatim; each frame is presented as a one-frame
++    array indexed at i = 0 so the arithmetic, dtype and casting are unchanged."""
++    rows = []
+     a, b = h // 3, (2 * h) // 3
+     prev = None
+-    for i in range(n):
++    for frame in frame_iter:
++        frames = frame[np.newaxis]
++        out = np.zeros((1, len(COLUMNS)), dtype=DTYPE)
++        i = 0
+         f = frames[i].astype(np.float32)
+         luma = 0.299 * f[..., 0] + 0.587 * f[..., 1] + 0.114 * f[..., 2]
+         out[i, 0] = f[..., 0].mean()
+@@ -153,7 +199,55 @@ def observe(frames):
+         out[i, 7] = luma[:a].mean()
+         out[i, 8] = luma[b:].mean()
+         prev = luma
+-    return out
++        rows.append(out)
++    return np.concatenate(rows, axis=0) if rows else np.zeros((0, len(COLUMNS)), dtype=DTYPE)
++
++
++def _sha256(path):
++    h = hashlib.sha256()
++    with open(path, 'rb') as fh:
++        for chunk in iter(lambda: fh.read(1 << 22), b''):
++            h.update(chunk)
++    return h.hexdigest()
++
++
++def _tool_identity(name):
++    """Resolved path, SHA-256 and first version line of an external executable."""
++    exe = shutil.which(name)
++    if not exe:
++        return dict(name=name, resolved=None)
++    real = os.path.realpath(exe)
++    ver = subprocess.run([exe, '-hide_banner', '-version'], capture_output=True)
++    first = ver.stdout.decode('utf-8', 'replace').splitlines()[:1]
++    return dict(name=name, resolved=real, sha256=_sha256(real), version=first[0] if first else None)
++
++
++def _numpy_identity():
++    ident = dict(version=np.__version__)
++    try:
++        ident['blas'] = np.show_config(mode='dicts')['Build Dependencies']['blas'].get('name')
++    except Exception:                              # noqa: BLE001 - older numpy: not recorded
++        ident['blas'] = None
++    return ident
++
++
++def write_provenance(out, arguments, inputs, outputs, tools):
++    """Deterministic sidecar: sorted keys, no wall-clock value, outputs named by basename."""
++    rec = dict(schema='b3-provenance/1',
++               producer=os.path.basename(__file__), producer_sha256=_sha256(__file__),
++               arguments=arguments,
++               inputs=[dict(role=r, path=p, sha256=_sha256(p), bytes=os.path.getsize(p))
++                       for r, p in inputs],
++               outputs=[dict(path=os.path.basename(o), sha256=_sha256(o), bytes=os.path.getsize(o))
++                        for o in outputs],
++               toolchain=dict(python=platform.python_version(),
++                              implementation=sys.implementation.name,
++                              interpreter=os.path.realpath(sys.executable),
++                              machine=platform.machine(),
++                              numpy=_numpy_identity(),
++                              tools=[_tool_identity(t) for t in tools]))
++    with open(out + '.provenance.json', 'w') as fh:
++        fh.write(json.dumps(rec, indent=1, sort_keys=True) + '\n')
+ 
+ 
+ def main():
+@@ -168,8 +262,7 @@ def main():
+ 
+     try:
+         w, h = probe_geometry(a.media)
+-        frames = decode_frames(a.media, a.grid_fps, w, h)
+-        arr = observe(frames)
++        arr = observe_stream(stream_frames(a.media, a.grid_fps, w, h), h)
+     except Exception as exc:                       # noqa: BLE001 - reported, not absorbed
+         print('STOP: %s' % exc, file=sys.stderr)
+         return 2
+@@ -185,6 +278,11 @@ def main():
+         note=('Columns 4, 5 and 6 are declared by engineering. The legacy 08-22 array '
+               'has no recorded specification and is not reproduced by this script.'))
+     open(a.out + '.schema.json', 'w').write(json.dumps(schema, indent=1) + '\n')
++    npy = a.out if a.out.endswith('.npy') else a.out + '.npy'   # where np.save wrote
++    write_provenance(npy, dict(grid_fps=a.grid_fps,
++                               compare=os.path.basename(a.compare) if a.compare else None),
++                     [('media', a.media)] + ([('compare_reference', a.compare)] if a.compare else []),
++                     [npy, a.out + '.schema.json'], ['ffmpeg', 'ffprobe'])
+     print('produced %s  shape=%s dtype=%s covered_s=%.3f  geometry=%dx%d'
+           % (a.out, arr.shape, arr.dtype, len(arr) / float(a.grid_fps), w, h))
+     print('schema written to %s.schema.json' % a.out)
+diff --git a/we-cape/intelligence/p2/ess/scripts/step0_anchors.py b/we-cape/intelligence/p2/ess/scripts/step0_anchors.py
+index 8d40dd3..b3822ab 100644
+--- a/we-cape/intelligence/p2/ess/scripts/step0_anchors.py
++++ b/we-cape/intelligence/p2/ess/scripts/step0_anchors.py
+@@ -1,9 +1,21 @@
+ #!/usr/bin/env python3
+ """Independent semantic anchor test: ETC title text <-> lock-SRT cue text.
+ Measures delta(title_in - matched_cue_start) at points spread across the film.
+-A constant, small delta across the runtime == zero timebase offset."""
++A constant, small delta across the runtime == zero timebase offset.
++
++usage: step0_anchors.py --srt <lock.srt> --timeline <timeline_resolved.json>
++                        --out <step0_anchors.json>
++
++ECR-GEN-003 (path parameterization only; matching rule and statistics unchanged):
++inputs and output are explicit arguments, replacing the machine-specific Sprint 3A
++paths. A deterministic provenance sidecar `<out>.provenance.json` is written."""
+ import re,json,numpy as np
+-U="/mnt/user-data/uploads/WE_CAPE_OUTPUT/AlphaRoundUp_2026/SPRINT3A_WORK/"
++import argparse,hashlib,os,platform,sys
++_AP=argparse.ArgumentParser(description='Step 0 semantic anchors: ETC title text vs lock-SRT cue text.')
++_AP.add_argument('--srt',required=True)
++_AP.add_argument('--timeline',required=True)
++_AP.add_argument('--out',required=True)
++A=_AP.parse_args()
+ def parse(p):
+     out=[]
+     for b in re.split(r'\n\s*\n', open(p,encoding='utf-8-sig').read().strip()):
+@@ -15,8 +27,8 @@ def parse(p):
+         out.append(dict(i=int(L[0]),s=g[0]*3600+g[1]*60+g[2]+g[3]/1000,
+                         e=g[4]*3600+g[5]*60+g[6]+g[7]/1000,t=' '.join(L[2:])))
+     return out
+-cues=parse(U+"inputs/lock_srt2.srt")
+-tl=json.load(open('/home/claude/work/out/timeline_resolved.json'))
++cues=parse(A.srt)
++tl=json.load(open(A.timeline))
+ titles=sorted([x for x in tl['elements'] if x['tag']=='title'],key=lambda y:y['abs_in_s'])
+ def norm(s): return re.sub(r'[^a-z ]',' ',s.lower()).split()
+ def score(a,b):
+@@ -45,4 +57,17 @@ if len(d):
+     print(f"\ndelta: n={len(d)} median={np.median(d):+.3f}s mean={d.mean():+.3f}s "
+           f"sd={d.std():.3f}s min={d.min():+.3f} max={d.max():+.3f}")
+     print(f"span of anchors: {min(r['title_in'] for r in rows):.1f}s .. {max(r['title_in'] for r in rows):.1f}s")
+-json.dump(rows,open('/home/claude/work/out/step0_anchors.json','w'),indent=1)
++with open(A.out,'w') as _fh: json.dump(rows,_fh,indent=1)
++
++def _sha256(p): return hashlib.sha256(open(p,'rb').read()).hexdigest()
++with open(A.out+'.provenance.json','w') as _fh:
++    _fh.write(json.dumps(dict(schema='b3-provenance/1',
++        producer=os.path.basename(__file__),producer_sha256=_sha256(__file__),
++        arguments=dict(),
++        inputs=[dict(role=r,path=p,sha256=_sha256(p),bytes=os.path.getsize(p)) for r,p in
++                (('srt',A.srt),('timeline',A.timeline))],
++        outputs=[dict(path=os.path.basename(A.out),sha256=_sha256(A.out),bytes=os.path.getsize(A.out))],
++        toolchain=dict(python=platform.python_version(),implementation=sys.implementation.name,
++                       interpreter=os.path.realpath(sys.executable),machine=platform.machine(),
++                       numpy=dict(version=np.__version__))),
++        indent=1,sort_keys=True)+'\n')
+diff --git a/we-cape/intelligence/p2/ess/scripts/step0_offset.py b/we-cape/intelligence/p2/ess/scripts/step0_offset.py
+index 0c14bb6..166c803 100644
+--- a/we-cape/intelligence/p2/ess/scripts/step0_offset.py
++++ b/we-cape/intelligence/p2/ess/scripts/step0_offset.py
+@@ -4,11 +4,41 @@ Method A: SRT speech-mask x audio-envelope cross-correlation, with a
+           circular-shift null distribution, edge rejection and sign gating.
+ Method B: SRT cue-start x picture-cut coincidence (SRT x FCPXML, no audio).
+ A segment is only assigned an offset if the peak beats its own null at p<0.05.
+-Otherwise it is INDETERMINATE with a categorized reason. Never inferred."""
++Otherwise it is INDETERMINATE with a categorized reason. Never inferred.
++
++usage: step0_offset.py --srt <lock.srt> --rms <audio_rms.npy> --rms-window-s 0.25
++                       --timeline <timeline_resolved.json> --segments <segments.json>
++                       --out <step0_offset.json>
++
++ECR-GEN-003 (path parameterization only; method, constants, RNG seed and status
++vocabulary unchanged): every input and the output are explicit arguments, replacing
++the machine-specific Sprint 3A paths. The segment table is an input: a JSON list of
++[segment_id, "mm:ss" start, "mm:ss" end, activity] rows, read exactly as the former
++literal was. The RMS array must be on this script's 0.25 s grid: --rms-window-s is
++asserted equal to it, and so is the array's own provenance sidecar when one exists.
++A deterministic provenance sidecar `<out>.provenance.json` is written."""
+ import re, json, numpy as np
+-U="/mnt/user-data/uploads/WE_CAPE_OUTPUT/AlphaRoundUp_2026/SPRINT3A_WORK/"
++import argparse, hashlib, os, platform, sys
+ H=0.25; RNG=np.random.default_rng(20260822)
+ 
++_AP=argparse.ArgumentParser(description='Step 0 offset model (Method A and Method B).')
++_AP.add_argument('--srt',required=True)
++_AP.add_argument('--rms',required=True)
++_AP.add_argument('--rms-window-s',type=float,required=True)
++_AP.add_argument('--timeline',required=True)
++_AP.add_argument('--segments',required=True)
++_AP.add_argument('--out',required=True)
++A=_AP.parse_args()
++
++def _stop(msg):
++    print('STOP: %s' % msg, file=sys.stderr); sys.exit(2)
++
++if A.rms_window_s != H:
++    _stop('--rms-window-s %r is not this script\'s %r s grid' % (A.rms_window_s, H))
++if os.path.exists(A.rms + '.provenance.json'):
++    _w=json.load(open(A.rms + '.provenance.json')).get('arguments',{}).get('window_s')
++    if _w != H: _stop('RMS provenance window_s %r is not this script\'s %r s grid' % (_w, H))
++
+ def parse_srt(p):
+     out=[]
+     for b in re.split(r'\n\s*\n', open(p,encoding='utf-8-sig').read().strip()):
+@@ -21,8 +51,8 @@ def parse_srt(p):
+                         end=g[4]*3600+g[5]*60+g[6]+g[7]/1000,text=' '.join(L[2:])))
+     return out
+ 
+-cues=parse_srt(U+"inputs/lock_srt2.srt")
+-rms=np.load(U+"audio_rms_0p25.npy").astype(np.float64); N=len(rms)
++cues=parse_srt(A.srt)
++rms=np.load(A.rms).astype(np.float64); N=len(rms)
+ mask=np.zeros(N)
+ for c in cues:
+     mask[max(0,int(round(c['start']/H))):min(N,int(round(c['end']/H)))]=1.0
+@@ -73,7 +103,7 @@ res['inputs']=dict(n_cues=len(cues),srt_first_start=cues[0]['start'],
+ res['global_A']=method_a(env,mask,40.0,300)
+ 
+ # ---------------- Method B : SRT cue starts vs picture cuts ----------------
+-tl=json.load(open('/home/claude/work/out/timeline_resolved.json'))
++tl=json.load(open(A.timeline))
+ cuts=np.array(sorted({round(x['abs_in_s'],3) for x in tl['elements']
+                       if x['depth']==0 and x['tag']!='transition'}))
+ starts=np.array([c['start'] for c in cues])
+@@ -95,16 +125,9 @@ res['global_B']=dict(n_picture_cuts=len(cuts),n_cue_starts=len(starts),
+     curve_top5=[[round(float(offs[k]),3),round(float(scores[k]),4)]
+                 for k in np.argsort(scores)[::-1][:5]])
+ 
+-segs=[("S01","00:00","01:13","cold_open"),("S02","01:13","01:51","host_day_brief"),
+-      ("S03","01:51","27:02","interview_gauntlet_1"),("S04","27:02","27:23","ride_brief"),
+-      ("S05","27:40","29:10","escort_ride"),("S06","31:43","32:33","librarian_speech"),
+-      ("S07","32:45","33:50","council_profile"),("S08","33:51","35:56","town_proclamation"),
+-      ("S09","36:03","36:30","first_ride_moment"),("S10","36:59","38:52","state_proclamation"),
+-      ("S11","38:55","52:00","interview_gauntlet_2"),("S12","52:04","53:56","honors_and_silence"),
+-      ("S13","53:50","54:35","group_photo"),("S14","54:36","55:24","service_wrap_preview"),
+-      ("S15","56:10","58:43","riding_music_passage"),("S16","58:43","66:25","bike_night_arrivals"),
+-      ("S17","66:25","66:48","audience_cta"),("S18","69:25","79:40","bike_night_ambience"),
+-      ("S19","79:44","80:46","friday_wrap_part3_tease")]
++segs=[tuple(s) for s in json.load(open(A.segments))]
++if not segs or any(len(s)!=4 or not all(isinstance(v,str) for v in s) for s in segs):
++    _stop('--segments must be a non-empty JSON list of [id, "mm:ss", "mm:ss", activity] rows')
+ def ms(x): m,s=x.split(':'); return int(m)*60+int(s)
+ per=[]
+ for sid,a,b,act in segs:
+@@ -126,7 +149,23 @@ res['summary']=dict(
+     indeterminate=sum(1 for r in per if r['status']=='INDETERMINATE'),
+     aligned_seconds=sum(r['dur_s'] for r in per if r['status']=='ALIGNED_ZERO_OFFSET'),
+     indeterminate_seconds=sum(r['dur_s'] for r in per if r['status']=='INDETERMINATE'))
+-json.dump(res,open('/home/claude/work/out/step0_offset.json','w'),indent=1)
++with open(A.out,'w') as _fh: json.dump(res,_fh,indent=1)
++
++def _sha256(p): return hashlib.sha256(open(p,'rb').read()).hexdigest()
++def _blas():
++    try: return np.show_config(mode='dicts')['Build Dependencies']['blas'].get('name')
++    except Exception: return None
++with open(A.out+'.provenance.json','w') as _fh:
++    _fh.write(json.dumps(dict(schema='b3-provenance/1',
++        producer=os.path.basename(__file__),producer_sha256=_sha256(__file__),
++        arguments=dict(rms_window_s=A.rms_window_s),
++        inputs=[dict(role=r,path=p,sha256=_sha256(p),bytes=os.path.getsize(p)) for r,p in
++                (('srt',A.srt),('rms',A.rms),('timeline',A.timeline),('segments',A.segments))],
++        outputs=[dict(path=os.path.basename(A.out),sha256=_sha256(A.out),bytes=os.path.getsize(A.out))],
++        toolchain=dict(python=platform.python_version(),implementation=sys.implementation.name,
++                       interpreter=os.path.realpath(sys.executable),machine=platform.machine(),
++                       numpy=dict(version=np.__version__,blas=_blas()))),
++        indent=1,sort_keys=True)+'\n')
+ print(json.dumps({k:v for k,v in res.items() if k!='per_segment'},indent=1))
+ print("--- per segment ---")
+ for r in per:

@@ -4,11 +4,23 @@ Resolves every story element to an absolute sequence-time in/out.
 Validates against an Editorial Timing Contract when one is supplied:
 source identity, sequence duration, strict spine cardinality, then
 element-wise offset and duration agreement at TOL seconds.
-Any failed gate is a STOP with a recorded stop_reason and exit 2."""
+Any failed gate is a STOP with a recorded stop_reason and exit 2.
+
+usage: fcpx_resolve.py <fcpxml> <etc.json | NONE> <out.json>
+
+ECR-GEN-003 (path parameterization and reproducibility; resolver logic unchanged):
+the same three positional inputs are now parsed by argparse, and a deterministic
+provenance sidecar `<out.json>.provenance.json` (script SHA-256, input SHA-256 -
+the ETC's included - and interpreter identity; no wall-clock value) is written on
+every exit path, STOP included. Resolver stdout and the output JSON are unchanged:
+for the same invocation they are byte-identical to the pre-ECR resolver, including
+`etc_file`, which echoes the ETC path exactly as invoked. A path-normalized output
+would require a versioned successor resolver, not an in-place format change."""
 import xml.etree.ElementTree as ET
 import collections
 from fractions import Fraction
 import json, sys, hashlib
+import argparse, os, platform
 
 STORY = {'asset-clip','clip','title','video','audio','gap','spine','ref-clip',
          'mc-clip','sync-clip','audition','transition','caption'}
@@ -30,10 +42,36 @@ def f2(x):
 # Stated once so no caller and no report can assert a different one.
 TOL = 0.0005
 
+# ECR-GEN-003: inputs of the current run, recorded in the provenance sidecar.
+_PROV = {}
+
+def _sha256(path):
+    return hashlib.sha256(open(path, 'rb').read()).hexdigest()
+
+def _write_provenance(outjson):
+    rec = dict(schema='b3-provenance/1',
+               producer=os.path.basename(__file__), producer_sha256=_sha256(__file__),
+               arguments=dict(etc=('NONE' if _PROV.get('etc') is None
+                                   else os.path.basename(_PROV['etc']))),
+               inputs=[dict(role=r, path=p, sha256=_sha256(p), bytes=os.path.getsize(p))
+                       for r, p in (('fcpxml', _PROV.get('fcpxml')), ('etc', _PROV.get('etc')))
+                       if p is not None],
+               outputs=[dict(path=os.path.basename(outjson), sha256=_sha256(outjson),
+                             bytes=os.path.getsize(outjson))],
+               toolchain=dict(python=platform.python_version(),
+                              implementation=sys.implementation.name,
+                              interpreter=os.path.realpath(sys.executable),
+                              machine=platform.machine()))
+    with open(outjson + '.provenance.json', 'w') as fh:
+        fh.write(json.dumps(rec, indent=1, sort_keys=True) + '\n')
+
 def _emit(out, outjson, census):
     """Write the resolve output and print the validation block and census.
     Called on every exit path so a STOP is as fully recorded as a pass."""
-    json.dump(out, open(outjson, "w"), indent=1)
+    with open(outjson, "w") as fh:
+        json.dump(out, fh, indent=1)
+    if _PROV:
+        _write_provenance(outjson)
     print(json.dumps(out["validation"], indent=1))
     print("census:", json.dumps(census))
 
@@ -89,6 +127,7 @@ class Resolver:
 def main(fcpxml, etc_json, outjson):
     # etc_json may be the literal string NONE: the resolver then runs without
     # ETC validation and reports etc_validation: NOT_VALIDATED (DOC-001).
+    _PROV.update(fcpxml=fcpxml, etc=None if etc_json in ('NONE', 'none', None) else etc_json)
     tree = ET.parse(fcpxml); root = tree.getroot()
     seq = root.find('.//sequence')
     seq_dur = rt(seq.get('duration')); tc0 = rt(seq.get('tcStart') or '0s')
@@ -243,4 +282,9 @@ def main(fcpxml, etc_json, outjson):
     return out
 
 if __name__ == '__main__':
-    main(*sys.argv[1:])
+    _ap = argparse.ArgumentParser(description='Resolve an FCPXML timeline; validate against an ETC.')
+    _ap.add_argument('fcpxml')
+    _ap.add_argument('etc_json', help='Editorial Timing Contract JSON, or the literal NONE')
+    _ap.add_argument('outjson')
+    _a = _ap.parse_args()
+    main(_a.fcpxml, _a.etc_json, _a.outjson)

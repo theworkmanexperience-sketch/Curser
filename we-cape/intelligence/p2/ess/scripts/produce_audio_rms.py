@@ -30,8 +30,21 @@ USAGE
 Exit codes
     0  produced (and, if --verify was given, matched)
     2  STOP - ffmpeg failed, no audio stream, or verification failed
+
+ECR-GEN-003 (path parameterization and reproducibility; no algorithm change):
+  - <out> is normalised to end in `.npy` before writing, so the file written is
+    exactly the file reported (np.save would otherwise append the suffix silently);
+  - a deterministic provenance sidecar `<out>.provenance.json` is written beside the
+    array: script SHA-256, input SHA-256, arguments, toolchain identity. No
+    wall-clock value is recorded. The ffmpeg used is whichever `ffmpeg` resolves on
+    PATH, and its resolved binary path and SHA-256 are recorded.
 """
 import argparse
+import hashlib
+import json
+import os
+import platform
+import shutil
 import subprocess
 import sys
 
@@ -69,6 +82,53 @@ def rms_windows(pcm_i16, rate_hz=RATE_HZ, window_s=WINDOW_S):
     return np.sqrt((block ** 2).mean(axis=1)).astype(DTYPE)
 
 
+def _sha256(path):
+    h = hashlib.sha256()
+    with open(path, 'rb') as fh:
+        for chunk in iter(lambda: fh.read(1 << 22), b''):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _tool_identity(name):
+    """Resolved path, SHA-256 and first version line of an external executable."""
+    exe = shutil.which(name)
+    if not exe:
+        return dict(name=name, resolved=None)
+    real = os.path.realpath(exe)
+    ver = subprocess.run([exe, '-hide_banner', '-version'], capture_output=True)
+    first = ver.stdout.decode('utf-8', 'replace').splitlines()[:1]
+    return dict(name=name, resolved=real, sha256=_sha256(real), version=first[0] if first else None)
+
+
+def _numpy_identity():
+    ident = dict(version=np.__version__)
+    try:
+        ident['blas'] = np.show_config(mode='dicts')['Build Dependencies']['blas'].get('name')
+    except Exception:                              # noqa: BLE001 - older numpy: not recorded
+        ident['blas'] = None
+    return ident
+
+
+def write_provenance(out, arguments, inputs, tools):
+    """Deterministic sidecar: sorted keys, no wall-clock value, output named by basename."""
+    rec = dict(schema='b3-provenance/1',
+               producer=os.path.basename(__file__), producer_sha256=_sha256(__file__),
+               arguments=arguments,
+               inputs=[dict(role=r, path=p, sha256=_sha256(p), bytes=os.path.getsize(p))
+                       for r, p in inputs],
+               outputs=[dict(path=os.path.basename(out), sha256=_sha256(out),
+                             bytes=os.path.getsize(out))],
+               toolchain=dict(python=platform.python_version(),
+                              implementation=sys.implementation.name,
+                              interpreter=os.path.realpath(sys.executable),
+                              machine=platform.machine(),
+                              numpy=_numpy_identity(),
+                              tools=[_tool_identity(t) for t in tools]))
+    with open(out + '.provenance.json', 'w') as fh:
+        fh.write(json.dumps(rec, indent=1, sort_keys=True) + '\n')
+
+
 def main():
     ap = argparse.ArgumentParser(description='Produce the audio RMS observation array.')
     ap.add_argument('media')
@@ -86,9 +146,15 @@ def main():
         print('STOP: %s' % exc, file=sys.stderr)
         return 2
 
-    np.save(a.out, arr)
+    out = a.out if a.out.endswith('.npy') else a.out + '.npy'
+    np.save(out, arr)
+    write_provenance(out,
+                     dict(rate=a.rate, window_s=a.window_s,
+                          verify=os.path.basename(a.verify) if a.verify else None),
+                     [('media', a.media)] + ([('verify_reference', a.verify)] if a.verify else []),
+                     ['ffmpeg'])
     print('produced %s  shape=%s dtype=%s covered_s=%.3f'
-          % (a.out, arr.shape, arr.dtype, len(arr) * a.window_s))
+          % (out, arr.shape, arr.dtype, len(arr) * a.window_s))
 
     if a.verify:
         ref = np.load(a.verify)

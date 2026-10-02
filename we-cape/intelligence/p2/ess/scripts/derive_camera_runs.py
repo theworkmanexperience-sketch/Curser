@@ -9,8 +9,14 @@ Camera family is read from the FCPXML clip NAME - an editorial fact, not a visua
 observation. Device family does NOT establish capture mode.
 
 usage: derive_camera_runs.py <timeline_resolved.json> <out.json> [--families X5,DJI,OM1]
+
+ECR-GEN-003: a deterministic provenance sidecar `<out.json>.provenance.json` (script
+SHA-256, input SHA-256, the families argument, interpreter identity; no wall-clock
+value) is written beside the output. The clip-name pattern, camera-family rule,
+defaults and COMPOUND fallback are unchanged.
 """
 import json, re, sys
+import hashlib, os, platform
 
 NAME_RE = re.compile(r'^\s*\d+\s*[··]\s*[\d-]+\s+[\d:]+\s*[··]\s*([A-Za-z0-9]+)\s*[··]')
 
@@ -35,9 +41,29 @@ def derive(timeline_path, families):
                          name=e.get('name'), tag=e.get('tag')))
     return runs
 
+def _sha256(path):
+    return hashlib.sha256(open(path, 'rb').read()).hexdigest()
+
+def write_provenance(out_path, timeline_path, fam):
+    rec = dict(schema='b3-provenance/1',
+               producer=os.path.basename(__file__), producer_sha256=_sha256(__file__),
+               arguments=dict(families=fam),
+               inputs=[dict(role='timeline', path=timeline_path, sha256=_sha256(timeline_path),
+                            bytes=os.path.getsize(timeline_path))],
+               outputs=[dict(path=os.path.basename(out_path), sha256=_sha256(out_path),
+                             bytes=os.path.getsize(out_path))],
+               toolchain=dict(python=platform.python_version(),
+                              implementation=sys.implementation.name,
+                              interpreter=os.path.realpath(sys.executable),
+                              machine=platform.machine()))
+    with open(out_path + '.provenance.json', 'w') as fh:
+        fh.write(json.dumps(rec, indent=1, sort_keys=True) + '\n')
+
 def main(timeline_path, out_path, fam='X5,DJI,OM1'):
     runs = derive(timeline_path, fam.split(','))
-    json.dump(runs, open(out_path, 'w'), indent=1)
+    with open(out_path, 'w') as fh:
+        json.dump(runs, fh, indent=1)
+    write_provenance(out_path, timeline_path, fam)
     tot = {}
     for r in runs:
         tot[r['camera']] = tot.get(r['camera'], 0.0) + r['end_s'] - r['start_s']

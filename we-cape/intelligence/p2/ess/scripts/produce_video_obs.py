@@ -76,11 +76,27 @@ Exit codes
     0  produced
     2  STOP - ffprobe/ffmpeg failed, or the decoded byte count is not a whole
        number of frames
+
+ECR-GEN-003 (operability and reproducibility; no measurement change):
+  - frames are consumed from the ffmpeg pipe one at a time instead of buffering the
+    whole decode in memory (a 4K source at 2 fps for 78 min is ~233 GB of RGB). The
+    per-frame measurement statements are textually identical to the previous
+    `observe()` loop body; byte-equivalence must still be proven on an authorized
+    SDR fixture before this producer is qualified;
+  - a deterministic provenance sidecar `<array>.provenance.json` is written.
+  Colour interpretation, transfer handling, the YUV->RGB conversion, luma and the
+  meaning of every column are UNCHANGED. Use on the governed 08-24 HDR (BT.2020/PQ)
+  source is NOT AUTHORIZED pending a separate semantic ruling.
 """
 import argparse
+import hashlib
 import json
+import os
+import platform
+import shutil
 import subprocess
 import sys
+import threading
 
 import numpy as np
 
@@ -117,30 +133,60 @@ def probe_geometry(media):
     return w, h
 
 
-def decode_frames(media, grid_fps, width, height):
-    proc = subprocess.run(
+def stream_frames(media, grid_fps, width, height):
+    """Yield decoded frames one at a time from the same ffmpeg command as before.
+
+    The checks of the buffered implementation are kept, in the same order, and are
+    applied once the stream has ended: ffmpeg exit status, then no frames, then a
+    trailing partial frame. stderr is drained concurrently so the pipe cannot stall."""
+    proc = subprocess.Popen(
         ['ffmpeg', '-v', 'error', '-i', media,
          '-vf', 'fps=%s' % grid_fps, '-pix_fmt', 'rgb24', '-f', 'rawvideo', '-'],
-        capture_output=True)
-    if proc.returncode != 0:
-        raise RuntimeError('ffmpeg failed (%d): %s'
-                           % (proc.returncode, proc.stderr.decode('utf-8', 'replace')[:400]))
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    err = []
+    drain = threading.Thread(target=lambda: err.append(proc.stderr.read()))
+    drain.start()
     per_frame = width * height * 3
-    if not proc.stdout:
+    total = 0
+    tail = b''
+    try:
+        while True:
+            buf = proc.stdout.read(per_frame)
+            if not buf:
+                break
+            total += len(buf)
+            if len(buf) < per_frame:
+                tail = buf
+                break
+            yield np.frombuffer(buf, dtype=np.uint8).reshape(height, width, 3)
+        rest = proc.stdout.read()
+        total += len(rest)
+        tail += rest
+    finally:
+        proc.stdout.close()
+        returncode = proc.wait()
+        drain.join()
+    if returncode != 0:
+        raise RuntimeError('ffmpeg failed (%d): %s'
+                           % (returncode, (err[0] if err else b'').decode('utf-8', 'replace')[:400]))
+    if total == 0:
         raise RuntimeError('ffmpeg produced no frames')
-    if len(proc.stdout) % per_frame:
+    if tail:
         raise RuntimeError('decoded %d bytes, not a whole number of %dx%d RGB frames'
-                           % (len(proc.stdout), width, height))
-    return (np.frombuffer(proc.stdout, dtype=np.uint8)
-              .reshape(-1, height, width, 3))
+                           % (total, width, height))
 
 
-def observe(frames):
-    n, h, _w, _c = frames.shape
-    out = np.zeros((n, len(COLUMNS)), dtype=DTYPE)
+def observe_stream(frame_iter, h):
+    """Per-frame measurement. The statements from `f = ...` to `prev = luma` are the
+    previous observe() loop body verbatim; each frame is presented as a one-frame
+    array indexed at i = 0 so the arithmetic, dtype and casting are unchanged."""
+    rows = []
     a, b = h // 3, (2 * h) // 3
     prev = None
-    for i in range(n):
+    for frame in frame_iter:
+        frames = frame[np.newaxis]
+        out = np.zeros((1, len(COLUMNS)), dtype=DTYPE)
+        i = 0
         f = frames[i].astype(np.float32)
         luma = 0.299 * f[..., 0] + 0.587 * f[..., 1] + 0.114 * f[..., 2]
         out[i, 0] = f[..., 0].mean()
@@ -153,7 +199,55 @@ def observe(frames):
         out[i, 7] = luma[:a].mean()
         out[i, 8] = luma[b:].mean()
         prev = luma
-    return out
+        rows.append(out)
+    return np.concatenate(rows, axis=0) if rows else np.zeros((0, len(COLUMNS)), dtype=DTYPE)
+
+
+def _sha256(path):
+    h = hashlib.sha256()
+    with open(path, 'rb') as fh:
+        for chunk in iter(lambda: fh.read(1 << 22), b''):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _tool_identity(name):
+    """Resolved path, SHA-256 and first version line of an external executable."""
+    exe = shutil.which(name)
+    if not exe:
+        return dict(name=name, resolved=None)
+    real = os.path.realpath(exe)
+    ver = subprocess.run([exe, '-hide_banner', '-version'], capture_output=True)
+    first = ver.stdout.decode('utf-8', 'replace').splitlines()[:1]
+    return dict(name=name, resolved=real, sha256=_sha256(real), version=first[0] if first else None)
+
+
+def _numpy_identity():
+    ident = dict(version=np.__version__)
+    try:
+        ident['blas'] = np.show_config(mode='dicts')['Build Dependencies']['blas'].get('name')
+    except Exception:                              # noqa: BLE001 - older numpy: not recorded
+        ident['blas'] = None
+    return ident
+
+
+def write_provenance(out, arguments, inputs, outputs, tools):
+    """Deterministic sidecar: sorted keys, no wall-clock value, outputs named by basename."""
+    rec = dict(schema='b3-provenance/1',
+               producer=os.path.basename(__file__), producer_sha256=_sha256(__file__),
+               arguments=arguments,
+               inputs=[dict(role=r, path=p, sha256=_sha256(p), bytes=os.path.getsize(p))
+                       for r, p in inputs],
+               outputs=[dict(path=os.path.basename(o), sha256=_sha256(o), bytes=os.path.getsize(o))
+                        for o in outputs],
+               toolchain=dict(python=platform.python_version(),
+                              implementation=sys.implementation.name,
+                              interpreter=os.path.realpath(sys.executable),
+                              machine=platform.machine(),
+                              numpy=_numpy_identity(),
+                              tools=[_tool_identity(t) for t in tools]))
+    with open(out + '.provenance.json', 'w') as fh:
+        fh.write(json.dumps(rec, indent=1, sort_keys=True) + '\n')
 
 
 def main():
@@ -168,8 +262,7 @@ def main():
 
     try:
         w, h = probe_geometry(a.media)
-        frames = decode_frames(a.media, a.grid_fps, w, h)
-        arr = observe(frames)
+        arr = observe_stream(stream_frames(a.media, a.grid_fps, w, h), h)
     except Exception as exc:                       # noqa: BLE001 - reported, not absorbed
         print('STOP: %s' % exc, file=sys.stderr)
         return 2
@@ -185,6 +278,11 @@ def main():
         note=('Columns 4, 5 and 6 are declared by engineering. The legacy 08-22 array '
               'has no recorded specification and is not reproduced by this script.'))
     open(a.out + '.schema.json', 'w').write(json.dumps(schema, indent=1) + '\n')
+    npy = a.out if a.out.endswith('.npy') else a.out + '.npy'   # where np.save wrote
+    write_provenance(npy, dict(grid_fps=a.grid_fps,
+                               compare=os.path.basename(a.compare) if a.compare else None),
+                     [('media', a.media)] + ([('compare_reference', a.compare)] if a.compare else []),
+                     [npy, a.out + '.schema.json'], ['ffmpeg', 'ffprobe'])
     print('produced %s  shape=%s dtype=%s covered_s=%.3f  geometry=%dx%d'
           % (a.out, arr.shape, arr.dtype, len(arr) / float(a.grid_fps), w, h))
     print('schema written to %s.schema.json' % a.out)
