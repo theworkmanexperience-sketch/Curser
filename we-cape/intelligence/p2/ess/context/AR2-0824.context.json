@@ -6,7 +6,7 @@
  "frame_rate": "24/1",
  "ndf": true,
  "resolution": "3840x2160",
- "git_commit": "AWAITING_INGESTION",
+ "git_commit": "41d0ea169bb136d9184b12e2c6cc29e7f49a4dc8",
  "run_id": "auto",
  "sha": {
   "fcpxml": "d82c2c3ec0f788cf47262194d6fbb8aefcd5fc9b7eee899b04bd3487f02e3a80",

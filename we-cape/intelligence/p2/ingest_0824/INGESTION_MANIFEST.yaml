@@ -107,7 +107,7 @@ designated_sources:
 # git_commit = the 08-24 ingestion commit (Addendum D section 4.1). AWAITING_INGESTION here means
 # Commit A (ingestion custody); the provenance-closure commit (Commit B) that follows Commit A
 # writes Commit A's full hash. basis_commit = the repository state the ingestion was built from.
-  - {role: context, authority: "Addendum D, Decision C", path: "intelligence/p2/ess/context/AR2-0824.context.json", sha256: 54086babc3dce48f186af4f4d37884cd9955397803ca518d7c45890ef53fa9bc, built_by: build_context.py, git_commit: "AWAITING_INGESTION", basis_commit: "de0c902c681fcd42a5ea85712484994eb4b41844"}
+  - {role: context, authority: "Addendum D, Decision C", path: "intelligence/p2/ess/context/AR2-0824.context.json", sha256: 9508b3b142e3d08ad9ec8d43b357e93c41f84776914ae7ebd2f8b69c11d5f910, built_by: build_context.py, git_commit: "41d0ea169bb136d9184b12e2c6cc29e7f49a4dc8", basis_commit: "de0c902c681fcd42a5ea85712484994eb4b41844"}
 
 # ---------------------------------------------------------------------------
 # PUBLIC DISTRIBUTION ASSETS (released deliverables)
