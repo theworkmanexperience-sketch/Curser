@@ -1,0 +1,77 @@
+{
+ "validation": {
+  "etc_validation": "VALIDATED",
+  "etc_file": "/Users/twork/Curser/we-cape/intelligence/p2/ess/decision_packet_b5_b14/AR2-0824_ETC.json",
+  "tolerance_s": 0.0005,
+  "etc_spine_n": 201,
+  "etc_connected_n": 459,
+  "resolved_spine_n": 201,
+  "depth0_including_transitions": 225,
+  "fcpxml_sha256_computed": "d82c2c3ec0f788cf47262194d6fbb8aefcd5fc9b7eee899b04bd3487f02e3a80",
+  "fcpxml_sha256_declared_by_etc": "d82c2c3ec0f788cf47262194d6fbb8aefcd5fc9b7eee899b04bd3487f02e3a80",
+  "source_sha256_match": true,
+  "etc_sequence_duration_s": 4689.5,
+  "sequence_duration_s": 4689.5,
+  "sequence_duration_match": true,
+  "spine_offset_matches": 201,
+  "spine_comparison": "201 / 201",
+  "spine_mismatches": [],
+  "spine_end_s": 4689.5,
+  "spine_end_equals_lock": true,
+  "out_of_range": [
+   "/sequence/spine/clip/video[43]",
+   "/sequence/spine/clip/clip/gap[45]",
+   "/sequence/spine/clip/clip/gap/audio[46]",
+   "/sequence/spine/clip/video[55]",
+   "/sequence/spine/clip/clip/gap[57]",
+   "/sequence/spine/clip/clip/gap/audio[58]",
+   "/sequence/spine/clip/video[61]",
+   "/sequence/spine/clip/video[78]",
+   "/sequence/spine/asset-clip/clip/gap[1537]",
+   "/sequence/spine/asset-clip/clip/gap/audio[1538]",
+   "/sequence/spine/asset-clip/clip/video[1540]",
+   "/sequence/spine/clip/video[2857]",
+   "/sequence/spine/clip/clip/gap[2865]",
+   "/sequence/spine/clip/clip/gap/audio[2866]",
+   "/sequence/spine/clip/spine/clip/video[2873]",
+   "/sequence/spine/asset-clip/clip/gap[2945]",
+   "/sequence/spine/asset-clip/clip/gap/audio[2946]",
+   "/sequence/spine/asset-clip/spine/clip/video[2956]",
+   "/sequence/spine/asset-clip/clip/gap[2958]",
+   "/sequence/spine/asset-clip/clip/gap/audio[2959]"
+  ],
+  "n_out_of_range": 23,
+  "out_of_range_status": "PRESENT_REQUIRES_DECLARED_DISPOSITION"
+ },
+ "census": {
+  "total_resolved_elements": 4103,
+  "depth0_all": 225,
+  "depth0_transitions": 24,
+  "resolved_spine_n": 201,
+  "connected_lane_n": 3529,
+  "by_tag": {
+   "asset-clip": 537,
+   "audio": 31,
+   "caption": 3003,
+   "clip": 62,
+   "gap": 36,
+   "spine": 114,
+   "title": 65,
+   "transition": 178,
+   "video": 77
+  },
+  "by_depth": {
+   "0": 225,
+   "1": 1840,
+   "2": 1784,
+   "3": 254
+  },
+  "out_of_range_n": 23
+ },
+ "provenance": {
+  "source": "intelligence/p2/ess/decision_packet_b5_b14/etc_validation_stdout.txt",
+  "source_sha256": "2edf791613a154c3f2a06d1f45c1dd67e18eb850dd731d020929354d0e372b42",
+  "source_commit": "de0c902c681fcd42a5ea85712484994eb4b41844",
+  "note": "fcpx_resolve.py output as committed with the B-5 decision packet, validating the incumbent ETC 8c76a8cf460a450e... whose spine and connected_elements are identical to the successor ETC. The resolver was NOT re-run (B-3 producer authority not effective; Chairman correction, resume step 4)."
+ }
+}

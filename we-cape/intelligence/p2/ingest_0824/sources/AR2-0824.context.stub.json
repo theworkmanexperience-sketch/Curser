@@ -1,0 +1,62 @@
+{
+ "production_id": "AR2-0824",
+ "lineage": "2026-08-24 episodic trilogy lineage",
+ "lineage_status": "PRODUCTION",
+ "runtime_s": 4689.5,
+ "frame_rate": "24/1",
+ "ndf": true,
+ "resolution": "3840x2160",
+ "git_commit": "AWAITING_INGESTION",
+ "run_id": "auto",
+ "sha": {
+  "fcpxml": "d82c2c3ec0f788cf47262194d6fbb8aefcd5fc9b7eee899b04bd3487f02e3a80",
+  "srt": "d93d86a1b7cd99c9baad2ce8e625f486056a5cb8b6229918d04b3bdcb304ef82",
+  "mp4": "ff34278fe1f47f678b36066780c3498633d27761655001ea97163099da9bbffe",
+  "etc": "211b594c362689e0ecf081e7a6a0ff125f60a51bf4344f9e27b6eaf55c103dbf"
+ },
+ "proxy": {
+  "name": "Alpha RoudUp Part 2.mov",
+  "video_duration_s": 4689.5,
+  "container_duration_s": 4689.5,
+  "resolution": "3840x2160",
+  "fps": 24
+ },
+ "srt": {
+  "cues": 2034,
+  "first_s": 0.375,
+  "last_s": 4688.958
+ },
+ "etc": {
+  "spine": 201,
+  "connected": 459
+ },
+ "source_files": {
+  "fcpxml": "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Corrected Video Analysis Files/Alpha RoudUp Part 2.fcpxmld/Info.fcpxml",
+  "srt": "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Corrected Video Analysis Files/Alpha RoudUp Part 2_SRT_English (United States).srt",
+  "etc": "intelligence/p2/ingest_0824/sources/AR2-0824_ETC.json",
+  "mp4": "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Corrected Video Analysis Files/Alpha RoudUp Part 2.mov"
+ },
+ "ruling": {
+  "id": "ESS-004-RULING",
+  "date": "2026-08-22",
+  "authority": "Executive Producer",
+  "session": "ELS-001",
+  "definition": "MANDATORY_SILENCE prohibits WE CAPE-ADDED NON-DIEGETIC SCORE only. Existing production audio - speech, ambience, engine noise, wind, and any source audio captured as part of the documentary record - remains permissible unless otherwise directed by an Executive PDR.",
+  "test": "PROVENANCE, not acoustics. An element breaches a silence zone if and only if WE CAPE added it as score. Read from the FCPXML asset media-rep path: /Soundtrack/ = WE CAPE-added score; Original Media or CONTRIBUTED = documentary record. No listening judgement is required, and none is permitted as the basis of a compliance verdict.",
+  "finding": "ELS-001: the span is a composite production soundscape - music/vocals, engine rumble, wind, speech. The proxy does not conclusively distinguish the provenance of the musical content, and that distinction is NOT required under this ruling."
+ },
+ "display_names": {
+  "mp4": "Alpha RoudUp Part 2.mov",
+  "fcpxml": "Info.fcpxml",
+  "fcpxml_header": "Alpha RoudUp Part 2.fcpxmld/Info.fcpxml",
+  "srt": "CF-001 caption stream",
+  "srt_manifest": "Alpha RoudUp Part 2_SRT_English (United States).srt",
+  "etc": "AR2-0824_ETC.json"
+ },
+ "regeneration_scope": {
+  "mode": "CANONICAL_EDITORIAL_TIMELINE",
+  "authority": "EO-2026-09-29 Addendum D (CHAIRMAN RULING - 08-24 OBSERVATION / INGESTION AUTHORITY, as corrected 2026-10-01), correction item 2"
+ },
+ "declared_segment_overlaps": [],
+ "governed_narrative_boundaries": []
+}

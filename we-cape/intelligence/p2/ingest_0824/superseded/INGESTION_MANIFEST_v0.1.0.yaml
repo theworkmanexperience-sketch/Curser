@@ -3,12 +3,6 @@
 #
 # STATE: PREPARED_NOT_EXECUTED
 #
-# v0.2.0 (2026-10-01): records the Decision C CONTEXT INGESTION only - the designated sources
-# hashed and pinned into intelligence/p2/ess/context/AR2-0824.context.json (designated_sources
-# below). Registry population, parsing and regeneration have NOT been performed. Every 0.1.0
-# entry below is carried unedited as historical record (CF-001 section 2.4, ED-003); v0.1.0 is
-# preserved byte-identical at ingest_0824/superseded/INGESTION_MANIFEST_v0.1.0.yaml.
-#
 # Prepared 2026-08-28 under EXECUTIVE ORDER - CUSTODY_ALERT_001 FINAL DISPOSITION
 # & WORKBOOK GENERATION, section 2.5: "Prepare (but do not execute) the ingestion
 # workspace for the 08-24 production lineage."
@@ -24,8 +18,7 @@
 # EPR-001 is reviewed and formally ratified.
 # ============================================================================
 manifest_id: INGEST-0824
-manifest_version: 0.2.0
-supersedes: {version: "0.1.0", sha256: "a76ea18cb6a495e020b353f6b2d83d4ee5df738a4646908b34a3ec7cd612cf70", preserved_at: "intelligence/p2/ingest_0824/superseded/INGESTION_MANIFEST_v0.1.0.yaml", source_commit: "de0c902c681fcd42a5ea85712484994eb4b41844"}
+manifest_version: 0.1.0
 schema_version: 1.0
 state: PREPARED_NOT_EXECUTED
 prepared: '2026-08-28'
@@ -95,21 +88,6 @@ assembly_assets:
       production's viewing master is an EXECUTIVE determination. NOT ASSERTED HERE.
 
 # ---------------------------------------------------------------------------
-# DESIGNATED 08-24 SOURCES - Decision C context ingestion (EO-2026-09-29 Addendum D (CHAIRMAN RULING - 08-24 OBSERVATION / INGESTION AUTHORITY, as corrected 2026-10-01))
-# Status token MEASURED is build_context.py source_manifest's own token. The assembly_assets
-# entries above are retained as historical record and are not the governed sources.
-# ---------------------------------------------------------------------------
-designated_sources:
-  - {role: fcpxml, authority: "ED-003", path: "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Corrected Video Analysis Files/Alpha RoudUp Part 2.fcpxmld/Info.fcpxml", volume: "WE_CAPE_OUTPUT/AlphaRoundUp_2026", sha256: d82c2c3ec0f788cf47262194d6fbb8aefcd5fc9b7eee899b04bd3487f02e3a80, ingestion_status: MEASURED}
-  - {role: srt, authority: "CF-001", path: "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Corrected Video Analysis Files/Alpha RoudUp Part 2_SRT_English (United States).srt", volume: "WE_CAPE_OUTPUT/AlphaRoundUp_2026", sha256: d93d86a1b7cd99c9baad2ce8e625f486056a5cb8b6229918d04b3bdcb304ef82, ingestion_status: MEASURED}
-  - {role: mp4, authority: "Addendum D, Decision A (observed directly; no proxy)", path: "Alpha RoundUp Part 2 /ALPHA ROUNDUP DAY 2 ANALYSIS/Corrected Video Analysis Files/Alpha RoudUp Part 2.mov", volume: "WE_CAPE_OUTPUT/AlphaRoundUp_2026", sha256: ff34278fe1f47f678b36066780c3498633d27761655001ea97163099da9bbffe, ingestion_status: MEASURED}
-  - {role: etc, authority: "Addendum D, Decision C as corrected (successor ETC, declared_lock 01:18:09:11)", path: "intelligence/p2/ingest_0824/sources/AR2-0824_ETC.json", sha256: 211b594c362689e0ecf081e7a6a0ff125f60a51bf4344f9e27b6eaf55c103dbf, supersedes: {sha256: 8c76a8cf460a450ea0dcbcd7802cae7fb3245cb1c8b4576a3a9f55ab185b0aaa, preserved_at: "intelligence/p2/ess/decision_packet_b5_b14/AR2-0824_ETC.json"}, ingestion_status: MEASURED}
-# git_commit = the 08-24 ingestion commit (Addendum D section 4.1). AWAITING_INGESTION here means
-# Commit A (ingestion custody); the provenance-closure commit (Commit B) that follows Commit A
-# writes Commit A's full hash. basis_commit = the repository state the ingestion was built from.
-  - {role: context, authority: "Addendum D, Decision C", path: "intelligence/p2/ess/context/AR2-0824.context.json", sha256: 54086babc3dce48f186af4f4d37884cd9955397803ca518d7c45890ef53fa9bc, built_by: build_context.py, git_commit: "AWAITING_INGESTION", basis_commit: "de0c902c681fcd42a5ea85712484994eb4b41844"}
-
-# ---------------------------------------------------------------------------
 # PUBLIC DISTRIBUTION ASSETS (released deliverables)
 # ---------------------------------------------------------------------------
 distribution_assets:
@@ -177,11 +155,10 @@ observed_unclassified:
   - {asset: "Day 2 Part 1/2/3-Cover.jpg", note: "per-episode cover art"}
   - {asset: "Final Data Source Files/Sunday August 23/*_segment_1.mov, *_segment_2.mov",
      note: "source media that entered the 08-22 lock's own source folder after that lock"}
-  - asset: "Final Data Source Files/Music/"
-    note: >-
+  - {asset: "Final Data Source Files/Music/", note: >-
       a directory named Music inside the governed source folder. Contents NOT inspected. Bears on
       the copyright-exposure question that CUSTODY_ALERT_001 section 6 declined to answer without
-      a validated instrument.
+      a validated instrument.}
 observed_unclassified_note: >-
   Classification of these assets is an EXECUTIVE determination. None has been assigned a class,
   ingested, or opened.
