@@ -1,0 +1,67 @@
+{
+ "suite": "ECR-GEN-003 B-3 qualification Wave 2A (step0_anchors.py, Candidate A) @ e0a346a16abf77db4a6abe5d59a2b31dadcf4464",
+ "results": [
+  {
+   "id": "W2A-ID",
+   "name": "step0_anchors.py identity: disk == HEAD == ECR-GEN-003 commit",
+   "status": "PASS",
+   "evidence": "sha256 66079f2ada0f60c186edc43cf82fe3f02e9e22568b986695445c5e89535d474e at HEAD bc32e85e2339d886c7864470cf8b9a484b6b0821 and ECR-GEN-003 e0a346a16abf77db4a6abe5d59a2b31dadcf4464"
+  },
+  {
+   "id": "W2A-TC",
+   "name": "Candidate A toolchain identity matches the provisioned records",
+   "status": "PASS",
+   "evidence": "cpython 3.10.12 /Volumes/WE_CAPE_OUTPUT/_b3_toolchains/d2_cp31012_np226/python/bin/python3.10 sha256 3a855bd1956b302372f02be42ea2ada298306fd57717f8eee1d0c86c9db003a3 (archive cpython-3.10.12+20230726-aarch64-apple-darwin-install_only.tar.gz sha256 bc66c706ea8c5fc891635fda8f9da971a1a901d41342f6798c20ad0b2a25d1d6); numpy 2.2.6 wheel numpy-2.2.6-cp310-cp310-macosx_11_0_arm64.whl sha256 8e41fd67c52b86603a91c1a505ebaef50b3314de0213461c7a6e99c9a3beff90, installed manifest 36fa915dcd44185fd9361d187e20994281713df429c9c6f77bc7d26578f61f4a; BLAS/LAPACK OpenBLAS 0.3.29  USE64BITINT DYNAMIC_ARCH NO_AFFINITY neoversen1 MAX_THREADS=64; identity record candidate_a_toolchain.json sha256 e9d9ae7d02479d062d7b230092bdb940b9a4635acbb15f1c3bd5753feab7f9f3"
+  },
+  {
+   "id": "W2A-PX",
+   "name": "Candidate A prefix byte-identical to its provisioned manifest (before, after, at packaging)",
+   "status": "PASS",
+   "evidence": "prefix manifest 07f2ce264213cd8c0a4d48c0f5787aa7ec5b76327db1a8eb62d9559f4b537702 (3139 files: {\"archive\": 2129, \"pip-install\": 5, \"wheel\": 1005}), recomputed 07f2ce264213cd8c0a4d48c0f5787aa7ec5b76327db1a8eb62d9559f4b537702, interpreter identical=True; prefix was a harness watch root"
+  },
+  {
+   "id": "W2A-FX",
+   "name": "fixtures are the authorized 08-22 inputs, identities from committed evidence",
+   "status": "PASS",
+   "evidence": "srt /Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/SPRINT3A_WORK/inputs/lock_srt2.srt sha256 89d61f965aa17e4d3dade14173869b34efb0c09d689b1c347d3c9c8f6eca1c6b (EXECUTION_LOG input 3); timeline /Volumes/WE_CAPE_OUTPUT/_b3_qualification/wave1_20261002/fixtures_derived/timeline_resolved_0822.json sha256 ebf99f84ceb9dcf487b4703f1e377dd55296ff90d10aaac6a1c6bd3eacc791f8 (Wave 1 report: 08-22 resolved timeline); no 08-24 material"
+  },
+  {
+   "id": "W2A-SE",
+   "name": "current producer statically equivalent to the pre-ECR oracle (oracle not run: hard-coded machine paths)",
+   "status": "PASS",
+   "evidence": "oracle f3825ca3d878fe1f96320aa45157c9bcd198047877993eecd8c7c543d5cf66d0 == 795a847 == 8f70dee; ecr_gen_003_static_check.py --base 795a847: PASS S1 | PASS S2 | PASS S3 | PASS S4 | PASS S5; fcpx_resolve Resolver/rt/f2 AST identical 8f70dee vs HEAD"
+  },
+  {
+   "id": "W2A-DET",
+   "name": "three Candidate A reruns byte-identical (output, sidecar, stdout); exit 0; stderr empty",
+   "status": "PASS",
+   "evidence": "harness b3_qualify.py 8019565de14775c215efddccbfeda7381003f453c0523eb55db99875f48e0ded verdict PASS; stdout 574f4f7adb9f13448b7defcdb149517be0fe0957ad02bbfbc4544775dd04fbb9; run1 b3e6a204a0d39f922648891782f813b04714abae14a78836e41a0a75bd481a27 sidecar fe3f0480c9b8fbfe5cbee4df23a01b4f40f322af2abd59bc9d4a0f7a52bec31d undeclared=0; run2 b3e6a204a0d39f922648891782f813b04714abae14a78836e41a0a75bd481a27 sidecar fe3f0480c9b8fbfe5cbee4df23a01b4f40f322af2abd59bc9d4a0f7a52bec31d undeclared=0; run3 b3e6a204a0d39f922648891782f813b04714abae14a78836e41a0a75bd481a27 sidecar fe3f0480c9b8fbfe5cbee4df23a01b4f40f322af2abd59bc9d4a0f7a52bec31d undeclared=0"
+  },
+  {
+   "id": "W2A-WA",
+   "name": "filesystem-write audit: zero undeclared writes, exactly the declared outputs",
+   "status": "PASS",
+   "evidence": "declared ['step0_anchors.json', 'step0_anchors.json.provenance.json']; undeclared writes per run [0, 0, 0]; tools []; watch roots ['/Users/twork/Curser/we-cape/intelligence/p2/ess/scripts', '/Volumes/WE_CAPE_OUTPUT/AlphaRoundUp_2026/SPRINT3A_WORK/inputs', '/Volumes/WE_CAPE_OUTPUT/_b3_qualification/wave1_20261002/fixtures_derived', '.', '/Volumes/WE_CAPE_OUTPUT/_b3_toolchains/d2_cp31012_np226/python', '/var/folders/l3/524stj3d4b17xg9vbm3gvwbw0000gn/T']"
+  },
+  {
+   "id": "W2A-OR",
+   "name": "producer rows reproduce the committed historical anchors under the committed consumer filter",
+   "status": "PASS",
+   "evidence": "19 producer rows (keys ['cue', 'cue_s', 'cue_text', 'delta_title_minus_cue', 'match', 'title', 'title_in']); gen_artifacts.py filter abs(delta)<=2.5 -> 11 rows == AR2-0822.observations.json anchors and STEP0_TIMING_CLOSURE.md table (title_in, delta, title, order); excluded deltas [-22.916, -17.333, -5.75, -4.291, 4.167, 9.029, 23.167, 24.75]"
+  },
+  {
+   "id": "W2A-ST",
+   "name": "committed anchor statistics reproduce from the producer rows",
+   "status": "PASS",
+   "evidence": "median +0.708 (11 rows) / +0.708 (19 rows) vs documented +0.708; span 119.3..4840.7 s, coverage 97.4% vs documented 119.3..4840.7 s, 97.4%; drift +0.684 s, 95% CI [-0.541, +1.909] (OLS, z=1.96) vs documented +0.684, [-0.541, +1.909]"
+  },
+  {
+   "id": "W2A-784",
+   "name": "0.784 is not a producer-output value (provenance clarification)",
+   "status": "PASS",
+   "evidence": "A calculation capable of reproducing 0.784 was identified in scratch, but no committed evidence establishes that calculation as the historical source of the literal. The value is not part of step0_anchors.py's output contract and is outside this producer qualification. Diagnostic only, not adopted: 19 rows population sd (producer stdout diagnostic) 10.564456; 19 rows sample sd 10.853946; 11 rows population sd 0.795432; 11 rows sample sd 0.834256; 11-row regression residual sd, ddof 0 0.747239; 11-row regression residual sd, ddof 1 0.783711; 11-row regression residual sd, ddof 2 0.826104."
+  }
+ ],
+ "passed": 10,
+ "failed": 0
+}
